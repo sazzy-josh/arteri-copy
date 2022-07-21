@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import PrimaryButton from "../components/buttons/PrimaryButton";
 
 const AccountType = () => {
   const [accountType, setAccountType] = useState("consumer");
   return (
-    <section className="px-7 pt-5 pb-10 ">
+    <section className="px-7 py-5 ">
       {accountType === "consumer" && (
         <h1 className="text-black text-2xl font-bold text-left mb-12 w-11/12">
           Easier access to <span className="text-secondary "> financing</span>{" "}
@@ -58,7 +59,10 @@ const AccountType = () => {
           onChange={(e) => setAccountType(e.target.value)}
         />
       </label>
-      {/* <p>account type is {accountType}</p> */}
+      {/* <p>account type is {accountType}</p> */}{" "}
+      <div className="mt-10">
+        <PrimaryButton>Next</PrimaryButton>
+      </div>
     </section>
   );
 };

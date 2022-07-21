@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "../styles/registration.css";
+import PrimaryButton from "../components/buttons/PrimaryButton";
+
 const Details = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   return (
-    <section className="px-7 pt-5 pb-10 ">
+    <section className="px-7 pt-5 ">
       <label className="my-3 inline-block">
         <p className="registration-input-label">First Name</p>
 
@@ -36,12 +38,15 @@ const Details = () => {
         <input
           type="text"
           className="registration-input"
-          name="name"
+          name="email"
           value={email}
           placeholder="yourmail@mail.com"
           onChange={(e) => setEmail(e.target.value)}
         />
-      </label>
+      </label>{" "}
+      <div className="mt-10">
+        <PrimaryButton>Next</PrimaryButton>
+      </div>
     </section>
   );
 };
