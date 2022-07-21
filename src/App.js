@@ -1,4 +1,7 @@
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -7,12 +10,9 @@ function App() {
         Welcome to Arteri
       </h1>
 
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est officiis,
-        assumenda perspiciatis nihil necessitatibus veritatis, sint possimus,
-        dolore ab velit quasi nobis aliquid dolor beatae a eos totam! Iure,
-        dolores.
-      </p>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </div>
   );
 }
