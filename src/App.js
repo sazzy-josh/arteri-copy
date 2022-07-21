@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className="text-center bg-blue-700 py-10 px-5 rounded-md text-white text-4xl font-semibold">
+        Welcome to Arteri
+      </h1>
+
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est officiis,
+        assumenda perspiciatis nihil necessitatibus veritatis, sint possimus,
+        dolore ab velit quasi nobis aliquid dolor beatae a eos totam! Iure,
+        dolores.
+      </p>
     </div>
   );
 }
