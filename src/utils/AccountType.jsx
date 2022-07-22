@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import PrimaryButton from "../components/buttons/PrimaryButton";
+import { useNavigate } from "react-router-dom";
 
 const AccountType = () => {
   const [accountType, setAccountType] = useState("consumer");
+  let navigate = useNavigate();
   return (
     <section className="px-7 py-5 ">
       {accountType === "consumer" && (
@@ -61,7 +63,12 @@ const AccountType = () => {
       </label>
       {/* <p>account type is {accountType}</p> */}{" "}
       <div className="mt-10">
-        <PrimaryButton>Next</PrimaryButton>
+        {/* import { useNavigate } from "react-router-dom"; */}
+        <PrimaryButton
+          handle={() => navigate("/register/details", { replace: true })}
+        >
+          Next
+        </PrimaryButton>
       </div>
     </section>
   );

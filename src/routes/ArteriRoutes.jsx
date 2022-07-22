@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "../pages/Home";
 import Registration from "../pages/registration/Registration";
@@ -10,7 +10,10 @@ const ArteriRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={<Navigate to="/register/type" replace={true} />}
+        />
         <Route path="register" element={<Registration />}>
           <Route path="type" element={<AccountType />} />
           <Route path="details" element={<Details />} />
