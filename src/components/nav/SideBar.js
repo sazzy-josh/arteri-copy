@@ -6,7 +6,7 @@ import Logo from "../Logo";
 const SideMenu = () => {
   return (
     <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-10">
-      <div className="w-full my-20">
+      <div className="w-full mt-20 mb-10">
         <Logo />
       </div>
       <div className="flex flex-col justify-between items-center h-screen">
@@ -17,37 +17,37 @@ const SideMenu = () => {
             </span>
             <span>Dashboard</span>
           </div>
-          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-4">
+          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
             <span className="mr-4 pl-3">
               <Icon.BsWallet />
             </span>
             <span>Apply for loan</span>
           </div>
-          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-4">
+          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
             <span className="mr-4 pl-3">
               <Icon.BsFillPersonFill />
             </span>
             <span>My Account</span>
           </div>
-          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-4">
+          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
             <span className="mr-4 pl-3">
               <Icon.BsFileEarmarkFontFill />
             </span>
             <span>History</span>
           </div>
-          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-4">
+          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
             <span className="mr-4 pl-3">
               <Icon.BsFillBellFill />
             </span>
             <span>Notifications</span>
           </div>
-          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-4">
+          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
             <span className="mr-4 pl-3">
               <Icon.BsGearFill />
             </span>
             <span>Settings</span>
           </div>
-          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-4">
+          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
             <span className="mr-4 pl-3">
               <Icon.BsFillQuestionSquareFill />
             </span>
