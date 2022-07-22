@@ -8,7 +8,7 @@ const AccountType = () => {
   return (
     <section className="px-7 py-5 ">
       {accountType === "consumer" && (
-        <h1 className="text-black text-2xl font-bold text-left mb-12 w-11/12">
+        <h1 className="text-black text-2xl font-bold text-left mb-10 w-full">
           Easier access to <span className="text-secondary "> financing</span>{" "}
           and tools for your personal{" "}
           <span className="text-secondary "> healthcare</span> and health
@@ -16,7 +16,7 @@ const AccountType = () => {
         </h1>
       )}
       {accountType === "provider" && (
-        <h1 className="text-black text-2xl font-bold text-left mb-12 w-11/12">
+        <h1 className="text-black text-2xl font-bold text-left mb-10 w-full">
           Create an account to access the tools and financing that your{" "}
           <span className="text-secondary "> healthcare</span> or{" "}
           <span className="text-secondary "> business</span> needs.
@@ -25,7 +25,7 @@ const AccountType = () => {
       <p className="font-medium text-base text-black text-left mb-3">
         Select Account Type
       </p>
-      <label className=" inline-block">
+      <label>
         <input
           type="radio"
           name="account-type"
@@ -34,7 +34,7 @@ const AccountType = () => {
           onChange={(e) => setAccountType(e.target.value)}
         />
         <p
-          className={`w-80 h-14 leading-[50px]  font-semibold bg-transparent text-lg border-2 text-center rounded-xl my-4 block mx-auto ${
+          className={`w-full h-14 leading-[50px]  font-medium bg-transparent text-lg border-2 text-center rounded-xl my-4 block mx-auto ${
             accountType === "consumer"
               ? "border-primary text-primary"
               : "border-gray-400 text-gray-400"
@@ -45,7 +45,7 @@ const AccountType = () => {
       </label>
       <label>
         <p
-          className={`w-80 h-14 leading-[50px] font-semibold bg-transparent text-lg border-2  text-center rounded-xl my-4 block mx-auto ${
+          className={`w-full h-14 leading-[50px] font-medium bg-transparent text-lg border-2  text-center rounded-xl my-4 block mx-auto ${
             accountType === "provider"
               ? "border-primary text-primary"
               : "border-gray-400 text-gray-400"
@@ -61,9 +61,7 @@ const AccountType = () => {
           onChange={(e) => setAccountType(e.target.value)}
         />
       </label>
-      {/* <p>account type is {accountType}</p> */}{" "}
       <div className="mt-10">
-        {/* import { useNavigate } from "react-router-dom"; */}
         <PrimaryButton
           handle={() => navigate("/register/details", { replace: true })}
         >

@@ -4,7 +4,7 @@ import "../../styles/number-navigation.css";
 
 const NumberPagination = () => {
   return (
-    <div className="my-7">
+    <div className="my-6">
       <NavLink to="/register/type" className="number-navigation">
         1
       </NavLink>

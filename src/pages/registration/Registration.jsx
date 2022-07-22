@@ -9,8 +9,12 @@ const Registration = () => {
       <MobileNavbar />
       <NumberPagination />
       <Outlet />
-      <p className="text-black font-bold mt-7 mb-2">Already have an account?</p>
-      <p className="text-secondary font-semibold">Login into account</p>
+      <div className="mb-6">
+        <p className="text-black font-bold mt-2 mb-2">
+          Already have an account?
+        </p>
+        <p className="text-secondary font-semibold">Login into account</p>
+      </div>
     </>
   );
 };

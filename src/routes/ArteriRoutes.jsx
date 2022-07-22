@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import Home from "../pages/Home";
+// import Home from "../pages/Home";
 import Registration from "../pages/registration/Registration";
 import AccountType from "../utils/AccountType";
 import Details from "../utils/Details";
