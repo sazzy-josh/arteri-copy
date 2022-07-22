@@ -1,6 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
+import Dashboard from "../pages/dashboard/Dashboard";
+
 import Home from "../pages/Home";
 import Registration from "../pages/registration/Registration";
 import AccountType from "../utils/AccountType";
@@ -11,6 +13,7 @@ const ArteriRoutes = () => {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="register" element={<Registration />}>
           <Route path="type" element={<AccountType />} />
           <Route path="details" element={<Details />} />
