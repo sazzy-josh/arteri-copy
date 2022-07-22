@@ -7,8 +7,8 @@ const Details = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   return (
-    <section className="px-7 pt-5 ">
-      <label className="my-3 inline-block">
+    <section className="px-7 py-3">
+      <label className="mb-5  block ">
         <p className="registration-input-label">First Name</p>
 
         <input
@@ -20,7 +20,7 @@ const Details = () => {
           onChange={(e) => setFirstName(e.target.value)}
         />
       </label>
-      <label className="my-3 inline-block">
+      <label className="mb-5 block">
         <p className="registration-input-label">Last Name</p>
 
         <input
@@ -32,7 +32,7 @@ const Details = () => {
           onChange={(e) => setLastName(e.target.value)}
         />
       </label>
-      <label className="my-3 inline-block">
+      <label className="mb-5 block">
         <p className="registration-input-label">Email </p>
 
         <input
@@ -44,7 +44,7 @@ const Details = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>{" "}
-      <div className="mt-10">
+      <div className="mt-10 mb-5">
         <PrimaryButton>Next</PrimaryButton>
       </div>
     </section>

@@ -2,5 +2,5 @@
   @apply font-semibold capitalize mb-[6px] text-left;
 }
 .registration-input {
-  @apply w-80 h-14  text-base border rounded-xl my-3 block mx-auto px-4 font-normal  border-gray-400 outline-none;
+  @apply w-full h-14  text-base border rounded-xl my-3 block mx-auto px-4 font-normal  border-gray-400 outline-none;
 }
