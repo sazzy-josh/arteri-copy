@@ -34,7 +34,7 @@ const AccountType = () => {
           onChange={(e) => setAccountType(e.target.value)}
         />
         <p
-          className={`w-full h-14 leading-[50px]  font-medium bg-transparent text-lg border-2 text-center rounded-xl my-4 block mx-auto ${
+          className={` cursor-pointer w-full h-14 leading-[50px]  font-medium bg-transparent text-lg border-2 text-center rounded-xl my-4 block mx-auto ${
             accountType === "consumer"
               ? "border-primary text-primary"
               : "border-gray-400 text-gray-400"
@@ -45,7 +45,7 @@ const AccountType = () => {
       </label>
       <label>
         <p
-          className={`w-full h-14 leading-[50px] font-medium bg-transparent text-lg border-2  text-center rounded-xl my-4 block mx-auto ${
+          className={`cursor-pointer w-full h-14 leading-[50px] font-medium bg-transparent text-lg border-2  text-center rounded-xl my-4 block mx-auto ${
             accountType === "provider"
               ? "border-primary text-primary"
               : "border-gray-400 text-gray-400"
