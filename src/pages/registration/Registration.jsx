@@ -8,7 +8,6 @@ import { RegistrationContext } from "../../contexts/authContext/RegistrationCont
 
 const Registration = () => {
   const [accountType, setAccountType] = useState("consumer");
-  console.log(accountType + "checking");
   return (
     <>
       <RegistrationContext.Provider value={{ accountType, setAccountType }}>

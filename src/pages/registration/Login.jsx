@@ -36,7 +36,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <p className="text-right text-secondary font-medium my-4">
+        <p className="text-right text-secondary font-medium my-5">
           Forgot password?
         </p>
         <PrimaryButton>Login into account</PrimaryButton>
