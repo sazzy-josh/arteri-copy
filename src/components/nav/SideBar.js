@@ -3,7 +3,7 @@ import * as Icon from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import Logo from "../Logo";
 
-const SideMenu = () => {
+const SideMenu = ({ selectDash }) => {
   return (
     <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-10">
       <div className="w-full mt-20 mb-10">
@@ -11,7 +11,13 @@ const SideMenu = () => {
       </div>
       <div className="flex flex-col justify-between items-center h-screen">
         <div className="mb-auto w-full">
-          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md">
+          <div
+            className={
+              selectDash
+                ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md`
+                : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md`
+            }
+          >
             <span className="mr-4 pl-3">
               <Icon.BsFillGridFill />
             </span>
