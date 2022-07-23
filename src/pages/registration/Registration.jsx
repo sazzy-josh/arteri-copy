@@ -1,23 +1,21 @@
-import React from "react";
-import { Outlet, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
 import MobileNavbar from "../../components/MobileNavbar";
 import NumberPagination from "../../components/registration/NumberPagination";
 
+// context
+import { RegistrationContext } from "../../contexts/authContext/RegistrationContext";
+
 const Registration = () => {
+  const [accountType, setAccountType] = useState("consumer");
+  console.log(accountType + "checking");
   return (
     <>
-      <MobileNavbar />
-      <NumberPagination />
-      <Outlet />
-      <div className="mb-6">
-        <p className="text-black font-bold mt-2 mb-2">
-          Already have an account?
-        </p>
-        <p className="text-secondary font-semibold">Login into account</p>
-      </div>
-      <NavLink to="/dashboard" className="text-blue-500 underline">
-        Go to dashboard
-      </NavLink>
+      <RegistrationContext.Provider value={{ accountType, setAccountType }}>
+        <MobileNavbar />
+        <NumberPagination />
+        <Outlet />
+      </RegistrationContext.Provider>
     </>
   );
 };
