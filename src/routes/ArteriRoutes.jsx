@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 // import Home from "../pages/Home";
 import Dashboard from "../pages/dashboard/Dashboard";
+import ForgotPassword from "../pages/registration/ForgotPassword";
 import Login from "../pages/registration/Login";
 
 // import Home from "../pages/Home";
@@ -27,6 +28,7 @@ const ArteriRoutes = () => {
           <Route path="details" element={<Details />} />
           <Route path="details-2" element={<OtherDetails />} />
         </Route>
+        <Route path="forgot-password" element={<ForgotPassword />} />
         <Route
           path="*"
           element={<h1 className="my-5">This page does not exist</h1>}

@@ -48,7 +48,7 @@ const Details = () => {
           />
         </label>
         <label className="mb-5 block">
-          <p className="registration-input-label">Email </p>
+          <p className="registration-input-label">Email Address</p>
 
           <input
             type="text"
