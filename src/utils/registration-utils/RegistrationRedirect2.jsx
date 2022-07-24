@@ -6,9 +6,11 @@ const RegistrationRedirect2 = () => {
   return (
     <>
       <div className="mb-6">
-        <p className="text-black font-bold mt-2 mb-2">Don't have an account?</p>
+        <p className="text-black font-medium mt-2 mb-2">
+          Don't have an account?
+        </p>
         <p
-          className="text-secondary font-semibold cursor-pointer"
+          className="text-secondary font-medium cursor-pointer"
           onClick={() => {
             navigate("/register/type", { replace: true });
           }}

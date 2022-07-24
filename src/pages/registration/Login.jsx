@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import MobileNavbar from "../../components/MobileNavbar";
 import "../../styles/registration.css";
@@ -6,6 +7,7 @@ import RegistrationRedirect2 from "../../utils/registration-utils/RegistrationRe
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  let navigate = useNavigate();
   return (
     <>
       <MobileNavbar />
@@ -36,7 +38,12 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <p className="text-right text-secondary font-medium my-5">
+        <p
+          className="text-right text-secondary font-medium my-5"
+          onClick={() => {
+            navigate("/forgot-password", { replace: true });
+          }}
+        >
           Forgot password?
         </p>
         <PrimaryButton>Login into account</PrimaryButton>
