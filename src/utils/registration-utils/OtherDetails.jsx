@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import { RegistrationContext } from "../../contexts/authContext/RegistrationContext";
 import "../../styles/registration.css";
@@ -8,7 +8,10 @@ const OtherDetails = () => {
   const [gender, setGender] = useState("male");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const { accountType } = useContext(RegistrationContext);
+  const { accountType, setSidebarImage } = useContext(RegistrationContext);
+  useEffect(() => {
+    setSidebarImage("image2");
+  }, [setSidebarImage]);
   return (
     <>
       <section className="px-7 py-3">
