@@ -66,7 +66,7 @@ const Details = () => {
         </label>
         <label className="mb-5 block">
           <p className="registration-input-label">Phone Number </p>
-          <div className="w-full h-14 border rounded-xl my-3 block mx-auto  border-gray-400 outline-none">
+          <div className="w-full h-14 border rounded-xl my-3 block mx-auto  border-gray-400 outline-none sm:w-[400px] lg:mx-0">
             <select
               name="country-code"
               className=" bg-transparent w-1/4 h-full p-[2px] text-sm font-medium text-black border-r border-gray-400 outline-none "
@@ -98,10 +98,12 @@ const Details = () => {
         </div>
       </section>
       <RegistrationRedirect />
-      <p className="py-2 px-3 mb-3 inline-block rounded-xl bg-blue-100 text-gray-400 font-medium">
-        Account Type:{" "}
-        <span className="text-primary capitalize ml-1">{accountType} </span>
-      </p>
+      <div className="sm:w-[400px] sm:mx-auto lg:mx-0 ">
+        <p className="py-2 px-3 mb-3 inline-block rounded-xl bg-blue-100 text-gray-400 font-medium">
+          Account Type:{" "}
+          <span className="text-primary capitalize ml-1">{accountType} </span>
+        </p>
+      </div>
     </>
   );
 };
