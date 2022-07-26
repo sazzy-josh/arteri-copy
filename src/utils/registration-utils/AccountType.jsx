@@ -18,20 +18,20 @@ const AccountType = () => {
       <section className="px-7 py-5 ">
         {accountType === "consumer" && (
           <>
-            <h1 className="text-black text-2xl font-bold text-left mb-10 w-full md:hidden">
+            <h1 className="text-black text-2xl font-bold text-left mb-10 w-full sm:text-center md:hidden md:text-left">
               Easier access to{" "}
               <span className="text-secondary "> financing</span> and tools for
               your personal <span className="text-secondary "> healthcare</span>{" "}
               and health business needs.
             </h1>
-            <h1 className="text-black text-2xl font-semibold text-left mb-10 hidden w-full  md:block md:text-center md:text-3xl lg:text-left">
+            <h1 className="text-black text-2xl font-semibold text-left mb-12 hidden w-full  md:block md:text-center md:text-3xl lg:text-left ">
               Join us today, by creating an account.
             </h1>
           </>
         )}
         {accountType === "provider" && (
           <>
-            <h1 className="text-black text-2xl font-bold text-left mb-10 w-full md:hidden">
+            <h1 className="text-black text-2xl font-bold text-left mb-10 w-full sm:text-center md:hidden md:text-left">
               Create an account to access the tools and financing that your{" "}
               <span className="text-secondary "> healthcare</span> or{" "}
               <span className="text-secondary "> business</span> needs.
@@ -41,7 +41,7 @@ const AccountType = () => {
             </h1>
           </>
         )}
-        <p className="font-medium text-base text-black text-left mb-3 md:text-center lg:text-left">
+        <p className="font-medium text-base text-black text-left mb-3 sm:text-center lg:text-left">
           Select Account Type
         </p>
         <div className="text-left md:text-center lg:text-left">
