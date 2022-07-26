@@ -11,7 +11,12 @@ const Details = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [countries, setCountries] = useState("");
-  const { accountType } = useContext(RegistrationContext);
+
+  // contexts
+  const { accountType, setSidebarImage } = useContext(RegistrationContext);
+  useEffect(() => {
+    setSidebarImage("image2");
+  }, [setSidebarImage]);
   useEffect(() => {
     fetch("https://restcountries.com/v2/all")
       .then((res) => res.json())
