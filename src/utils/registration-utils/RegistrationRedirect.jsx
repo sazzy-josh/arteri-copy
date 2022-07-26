@@ -5,7 +5,7 @@ const RegistrationRedirect = () => {
   let navigate = useNavigate();
   return (
     <>
-      <div className="mb-6 md:flex md:items-center md:gap-3 md:px-8">
+      <div className="mb-6 md:flex md:items-center md:gap-3 md:px-8 md:justify-center lg:justify-start">
         <p className="text-black font-medium mt-2 mb-2">
           Already have an account?
         </p>
@@ -20,7 +20,7 @@ const RegistrationRedirect = () => {
       </div>
       <NavLink
         to="/dashboard"
-        className="text-blue-500 underline mb-2 inline-block md:text-left md:mx-0"
+        className="text-blue-500 underline mb-2 text-center block md:text-center md:ml-8 lg:text-left"
       >
         Go to dashboard
       </NavLink>

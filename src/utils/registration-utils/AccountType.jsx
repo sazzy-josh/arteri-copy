@@ -24,7 +24,7 @@ const AccountType = () => {
               your personal <span className="text-secondary "> healthcare</span>{" "}
               and health business needs.
             </h1>
-            <h1 className="text-black text-2xl font-semibold text-left mb-10 hidden w-full  md:block md:text-3xl">
+            <h1 className="text-black text-2xl font-semibold text-left mb-10 hidden w-full  md:block md:text-center md:text-3xl lg:text-left">
               Join us today, by creating an account.
             </h1>
           </>
@@ -41,10 +41,10 @@ const AccountType = () => {
             </h1>
           </>
         )}
-        <p className="font-medium text-base text-black text-left mb-3 ">
+        <p className="font-medium text-base text-black text-left mb-3 md:text-center lg:text-left">
           Select Account Type
         </p>
-        <div className="text-left">
+        <div className="text-left md:text-center lg:text-left">
           <label>
             <input
               type="radio"
@@ -54,18 +54,19 @@ const AccountType = () => {
               onChange={(e) => setAccountType(e.target.value)}
             />
             <p
-              className={` cursor-pointer w-full h-14 leading-[50px]  font-medium bg-transparent text-lg border-2 text-center rounded-xl my-4 block mx-auto sm:w-4/6 md:w-36 md:inline-block md:mr-5 ${
-                accountType === "consumer"
-                  ? "border-primary text-primary"
-                  : "border-gray-400 text-gray-400"
-              }`}
+              className={` cursor-pointer w-full h-14 leading-[50px]  font-medium bg-transparent text-lg border-2 text-center rounded-xl my-4 block mx-auto sm:w-4/6 md:w-40
+               md:inline-block md:mr-7 ${
+                 accountType === "consumer"
+                   ? "border-primary text-primary"
+                   : "border-gray-400 text-gray-400"
+               }`}
             >
               Consumer
             </p>
           </label>
           <label>
             <p
-              className={`cursor-pointer w-full h-14 leading-[50px] font-medium bg-transparent text-lg border-2  text-center rounded-xl my-4 block mx-auto sm:w-4/6 md:w-36  md:inline-block md:mr-5 ${
+              className={`cursor-pointer w-full h-14 leading-[50px] font-medium bg-transparent text-lg border-2  text-center rounded-xl my-4 block mx-auto sm:w-4/6 md:w-40  md:inline-block md:mr-5 ${
                 accountType === "provider"
                   ? "border-primary text-primary"
                   : "border-gray-400 text-gray-400"
