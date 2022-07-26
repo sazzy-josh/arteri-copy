@@ -10,7 +10,7 @@ const COLORS = ["#9C2BD4", "#F8F0FC", "#FFBB28", "#FF8042"];
 const Chart = () => {
   return (
     <div>
-      <PieChart width={200} height={200}>
+      <PieChart width={250} height={200}>
         <Pie
           data={data}
           cx={120}

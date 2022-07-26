@@ -60,7 +60,7 @@ const SideMenu = ({ selectDash }) => {
             <span>Help</span>
           </div>
         </div>
-        <div className="mt-auto text-white">
+        <div className="mt-auto mb-20 text-white">
           <div className="border rounded-md border-white bg-transparent px-5 py-2 cursor-pointer">
             <span>Switch Account</span>
           </div>
