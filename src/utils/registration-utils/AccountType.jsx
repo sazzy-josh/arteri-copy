@@ -36,7 +36,7 @@ const AccountType = () => {
               <span className="text-secondary "> healthcare</span> or{" "}
               <span className="text-secondary "> business</span> needs.
             </h1>
-            <h1 className="text-black text-2xl font-semibold text-left mb-10 w-full hidden md:block md:text-3xl">
+            <h1 className="text-black text-2xl font-semibold text-left mb-12 w-full hidden md:block md:text-3xl">
               Join us today, by creating an account.
             </h1>
           </>

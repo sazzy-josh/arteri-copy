@@ -21,7 +21,7 @@ const RegistrationRedirect = () => {
       <div className="sm:w-[400px] sm:mx-auto lg:mx-0 ">
         <NavLink
           to="/dashboard"
-          className="text-blue-500 underline mb-2 text-center block md:text-center "
+          className="text-blue-500 underline mb-2 text-center block  "
         >
           Go to dashboard
         </NavLink>
