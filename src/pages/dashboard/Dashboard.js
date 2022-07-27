@@ -12,10 +12,10 @@ const Dashboard = () => {
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
-        <div className="w-1/5 hidden lg:flex md:flex">
+        <div className="lg:w-1/5 md:w-2/5 hidden lg:flex md:flex">
           <SideMenu selectDash={true} />
         </div>
-        <div className="lg:w-4/5 w-full">
+        <div className="lg:w-4/5 md:w-3/5 w-full">
           <Container>
             <div className="w-full my-5 lg:flex md:flex hidden">
               <Header />
@@ -29,7 +29,7 @@ const Dashboard = () => {
             </div>
             {!isOpen && (
               <div className="w-full px-5 lg:px-0 md:px-0 flex flex-col justify-start items-start">
-                <div className="w-full flex flex-row justify-start items-start">
+                <div className="w-full flex lg:flex-row md:flex-col flex-col justify-start items-start">
                   <div className="my-5 block lg:hidden md:hidden">
                     <p className="font-bold text-left text-2xl text-black my-2">
                       Consumer Financing Summary
@@ -98,7 +98,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="hidden lg:block md:block w-3/4">
+                  <div className="hidden lg:block md:block lg:w-3/4">
                     <LargeCard>
                       <div className="w-full">
                         <div className="w-full flex flex-row justify-start items-start">
@@ -183,10 +183,10 @@ const Dashboard = () => {
                       </LargeCard>
                     </div>
                   </div>
-                  <div className="hidden lg:block md:block w-1/4">
+                  <div className="hidden lg:block md:block lg:w-1/4 md:w-full">
                     <div className="w-full">
                       <LargeCard classNames="w-full">
-                        <div className="my-5">
+                        <div className="my-3">
                           <p className="text-xl text-left font-bold">
                             Financing History
                           </p>
