@@ -23,7 +23,7 @@ const Registration = () => {
         value={{ accountType, setAccountType, setSidebarImage }}
       >
         <div className=" md:flex">
-          <div className=" w-[350px]  h-auto relative hidden md:block lg:w-[440px] md:h-screen">
+          <div className=" w-[350px]  h-auto fixed hidden md:block lg:w-[440px] md:h-screen">
             {sidebarImage === "image1" && (
               <>
                 <div className="w-full h-full absolute z-10 bg-primary opacity-75 "></div>
@@ -58,7 +58,7 @@ const Registration = () => {
               <img src={image3} alt="" className="object-cover  h-full" />
             )}
           </div>
-          <section className="flex-1 lg:pl-10 md:py-10">
+          <section className="flex-1 lg:pl-10 md:py-10 md:ml-[350px] lg:ml-[440px]">
             <MobileNavbar />
             <div className="lg:flex md:justify-between md:items-start md:px-5 md:mb-4">
               <NumberPagination />
