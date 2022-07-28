@@ -4,11 +4,11 @@ import Application from "../pages/dashboard/Application";
 
 // import Home from "../pages/Home";
 import Dashboard from "../pages/dashboard/Dashboard";
-import ForgotPassword from "../pages/registration/ForgotPassword";
-import Login from "../pages/registration/Login";
-
-// import Home from "../pages/Home";
 import Registration from "../pages/registration/Registration";
+import Login from "../pages/registration/Login";
+import ForgotPassword from "../pages/registration/ForgotPassword";
+import ErrorPage from "../pages/ErrorPage";
+
 import AccountType from "../utils/registration-utils/AccountType";
 import Details from "../utils/registration-utils/Details";
 import OtherDetails from "../utils/registration-utils/OtherDetails";
@@ -31,10 +31,7 @@ const ArteriRoutes = () => {
           <Route path="details-2" element={<OtherDetails />} />
         </Route>
         <Route path="forgot-password" element={<ForgotPassword />} />
-        <Route
-          path="*"
-          element={<h1 className="my-5">This page does not exist</h1>}
-        />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );
