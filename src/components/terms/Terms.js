@@ -12,7 +12,7 @@ const Terms = () => {
                 Terms of Service
               </h2>
             </div>
-            <div className=" pr-32 my-10">
+            <div className="pr-0 lg:pr-32 my-10">
                 <p className="my-10">Accepting the Terms</p>
               <p>
                 There are many variations of passages of Lorem Ipsum available,
