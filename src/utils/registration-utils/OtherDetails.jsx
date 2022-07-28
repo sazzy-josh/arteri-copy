@@ -27,7 +27,7 @@ const OtherDetails = () => {
                 onChange={(e) => setGender(e.target.value)}
               />
               <span
-                className={` cursor-pointer w-7 h-7 border-2 border-primary   rounded-full  inline-block relative before:absolute before:w-2/5 before:h-2/5 before:bg-primary before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full ${
+                className={` cursor-pointer w-7 h-7 border-2    rounded-full  inline-block relative before:absolute before:w-2/5 before:h-2/5 before:bg-primary before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full ${
                   gender === "male"
                     ? "before:inline-block border-primary"
                     : "before:hidden border-gray-400"
