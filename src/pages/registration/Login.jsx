@@ -20,7 +20,7 @@ const Login = () => {
           <div className="w-full h-full absolute z-10 bg-primary opacity-75 "></div>
           <div className="w-full h-full absolute z-30 pl-6 pr-3 py-10 md:flex md:flex-col md:items-start md:justify-between lg:pl-10">
             <img src={LogoWhite} alt="" className="relative z-20" />
-            <h1 className="text-white text-4xl font-bold text-left mb-10 w-full relative z-20 lg:text-5xl">
+            <h1 className="text-white text-4xl font-bold text-left mb-10 w-full relative z-20 lg:text-5xl lg:leading-tight">
               Welcome <br /> Back To Arteri
             </h1>
           </div>

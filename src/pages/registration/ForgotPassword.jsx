@@ -19,9 +19,9 @@ const ForgotPassword = () => {
     <div className=" md:flex">
       <div className=" w-[350px]  h-auto fixed hidden md:block lg:w-[440px] md:h-screen">
         <div className="w-full h-full absolute z-10 bg-primary opacity-75 "></div>
-        <div className="w-full h-full absolute z-30 pl-6 pr-3 py-10 md:flex md:flex-col md:items-start md:justify-between">
+        <div className="w-full h-full absolute z-30 pl-6 pr-3 py-10 md:flex md:flex-col md:items-start md:justify-between lg:pl-10">
           <img src={LogoWhite} alt="" className="relative z-20" />
-          <h1 className="text-white text-4xl font-bold text-left mb-10 w-full relative z-20 lg:text-5xl">
+          <h1 className="text-white text-4xl font-bold text-left mb-10 w-full relative z-20 lg:text-5xl lg:leading-tight">
             Welcome <br /> Back To Arteri
           </h1>
         </div>
@@ -73,35 +73,39 @@ const ForgotPassword = () => {
           ) : (
             <>
               <h1
-                className="font-semibold text-3xl text-left text-gray-900 mb-6"
+                className="font-semibold text-3xl text-left text-gray-900 mb-6 sm:text-center  lg:text-left"
                 //   onClick={() => Linking.openURL("email@gmail.com")}
               >
                 Check your mail
               </h1>
-              <h3 className="text-left mb-16">
+              <h3 className="text-left mb-16 sm:text-center  lg:text-left md:w-[400px] md:mx-auto lg:mx-0">
                 We have sent password recovery instructions to your mail
               </h3>
 
               <div className="my-8">
                 <PrimaryButton>Open Mail</PrimaryButton>
               </div>
-              <div className="mb-6">
-                <p className="text-black font-medium mt-2 mb-2">
-                  Didn't receive any email?
-                </p>
-                <p
-                  className="text-secondary font-medium cursor-pointer"
-                  onClick={() => {
-                    setIsResetEmail("");
-                    setEmail("");
-                  }}
-                >
-                  Try another email address
-                </p>
-                <p className="text-black font-medium mt-2 mb-2">Or</p>
-                <p className="text-secondary font-medium cursor-pointer">
-                  Resend Instructions
-                </p>
+              <div className="mb-6 lg:w-[450px]">
+                <div className="lg:flex lg:items-center lg:gap-3">
+                  <p className="text-black font-medium mt-2 mb-2">
+                    Didn't receive any email?
+                  </p>
+                  <p
+                    className="text-secondary font-medium cursor-pointer"
+                    onClick={() => {
+                      setIsResetEmail("");
+                      setEmail("");
+                    }}
+                  >
+                    Try another email address
+                  </p>
+                </div>
+                <div className="lg:flex lg:items-center lg:justify-center lg:gap-3 ">
+                  <p className="text-black font-medium mt-2 mb-2">Or</p>
+                  <p className="text-secondary font-medium cursor-pointer">
+                    Resend Instructions
+                  </p>
+                </div>
               </div>
             </>
           )}
