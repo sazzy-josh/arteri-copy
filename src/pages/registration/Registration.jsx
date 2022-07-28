@@ -42,7 +42,8 @@ const Registration = () => {
             )}
             {sidebarImage === "image2" && (
               <>
-                <div className="w-full h-full absolute  bg-primary opacity-75 pl-6 pr-3 py-10 md:flex md:flex-col md:items-start md:justify-between">
+                <div className="w-full h-full absolute z-10 bg-primary opacity-75 "></div>
+                <div className="w-full h-full absolute z-30 pl-6 pr-3 py-10 md:flex md:flex-col md:items-start md:justify-between">
                   <img src={LogoWhite} alt="" />
                   <h1 className="text-white text-2xl font-bold text-left mb-10 w-full">
                     Create an account to access the tools and financing that

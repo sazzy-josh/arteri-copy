@@ -26,7 +26,7 @@ const Login = () => {
           </div>
           {<img src={image1} alt="" className="object-cover  h-full" />}
         </div>
-        <div className="flex-1 lg:pl-10 md:py-10 md:ml-[350px] lg:ml-[440px]">
+        <div className="flex-1 lg:pl-10 md:pr-10 md:py-10 md:ml-[350px] lg:ml-[440px]">
           <p
             className="text-right mb-10 hidden font-semibold cursor-pointer text-secondary md:mt-2 md:block "
             onClick={() => {
@@ -65,7 +65,7 @@ const Login = () => {
               />
             </label>
             <p
-              className="text-right text-secondary font-medium my-5 sm:w-[400px]  sm:mx-auto lg:mx-0"
+              className="text-right cursor-pointer text-secondary font-medium my-5 sm:w-[400px]  sm:mx-auto lg:mx-0"
               onClick={() => {
                 navigate("/forgot-password", { replace: true });
               }}
