@@ -10,7 +10,7 @@ const     Header = () => {
           <div className="w-full">
             <div className="w-full border rounded-md bg-white flex flex-row flex-1 justify-start items-center h-12 px-5">
               <input
-                className="w-full h-full outline-none px-2"
+                className="form-input focus:appearance-none w-full h-full border-0 focus:outline-0 outline-none px-2"
                 type="text"
                 placeholder="Search for anything"
               />

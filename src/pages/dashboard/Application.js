@@ -4,10 +4,15 @@ import Container from "../../components/container/Container";
 import Header from "../../components/head/Header";
 import MobileHeader from "../../components/head/MobileHeader";
 import SideMenu from "../../components/nav/SideBar";
+import Cost from "../../components/terms/Cost";
+import Details from "../../components/terms/Details";
 import Terms from "../../components/terms/Terms";
 
 const Application = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showTerms, setShowTerms] = useState(true);
+  const [showDetails, setShowDetails] = useState(false);
+  const [showCosts, setShowCosts] = useState(false);
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
@@ -38,7 +43,31 @@ const Application = () => {
                     </p>
                   </div>
                   <div className="">
-                    <Terms />
+                    {showDetails && (
+                      <Details
+                        handleDecline={() => {
+                          setShowTerms(!showTerms);
+                          setShowDetails(!showDetails);
+                        }}
+                        handleAccept={() => {
+                          setShowCosts(!showCosts);
+                          setShowDetails(!showDetails);
+                        }}
+                      />
+                    )}
+                    {showTerms && (
+                      <Terms
+                        handleAccept={() => {
+                          setShowTerms(!showTerms);
+                          setShowDetails(!showDetails);
+                        }}
+                        handleDecline={() => {
+                          setShowTerms(!showTerms);
+                          setShowDetails(!showDetails);
+                        }}
+                      />
+                    )}
+                    {showCosts && <Cost />}
                   </div>
                 </div>
               </div>
