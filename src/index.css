@@ -10,3 +10,26 @@
     font-family: "Montserrat", sans-serif;
   }
 }
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Choose';
+  color: white;
+  display: inline-block;
+  background: #3385D7;
+  border: 1px solid #3385D7;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.custom-file-input:hover::before {
+  border-color: #3385D7;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #7e7d7d, #f9f9f9);
+}
