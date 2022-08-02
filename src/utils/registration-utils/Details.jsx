@@ -31,7 +31,7 @@ const Details = () => {
     phone: "",
     // countries: "",
   });
-  const [isSubmit, setIsSubmit] = useState(false);
+  // const [isSubmit, setIsSubmit] = useState(false);
 
   // const [inputErrors, setInputErrors] = useState();
 
@@ -82,18 +82,14 @@ const Details = () => {
     const { name, value } = e.target;
     // Regex for email validation
     console.log(isValid);
-    // setIsSubmit(false);
 
     // handle error onChange
     if (name === "email") {
       if (!e.target.value.match(pattern) && e.target.value.length !== 0) {
-        // setIsSubmit(false);
         setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
       } else if (value.length === 0) {
         setIsValid((prev) => ({ ...prev, [name]: "" }));
       } else {
-        // setIsSubmit(true);
-
         setIsValid((prev) => ({ ...prev, [name]: "valid" }));
       }
     } else if (name === "phone") {
@@ -106,16 +102,11 @@ const Details = () => {
       }
     } else {
       if (value.length !== 0 && value.length < 3) {
-        // setIsSubmit(false);
         setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
         console.log("short");
       } else if (value.length === 0) {
-        // setIsSubmit(false);
-
         setIsValid((prev) => ({ ...prev, [name]: "" }));
       } else {
-        // setIsSubmit(true);
-
         console.log("ok");
         setIsValid((prev) => ({ ...prev, [name]: "valid" }));
       }
@@ -168,13 +159,10 @@ const Details = () => {
   return (
     <>
       <section className="px-7 py-3">
-        {/* {JSON.stringify(inputField)} */}
-        {JSON.stringify(isSubmit)}
-        {/* {isSubmit} */}
         <form>
           <label className="mb-5  block ">
             <p className="registration-input-label">First Name</p>
-            <div className="relative">
+            <div className="relative sm:w-[400px]">
               <input
                 type="text"
                 className={`registration-input ${
@@ -210,7 +198,7 @@ const Details = () => {
           <label className="mb-5 block">
             <p className="registration-input-label">Last Name</p>
 
-            <div className="relative">
+            <div className="relative sm:w-[400px]">
               <input
                 type="text"
                 className={`registration-input ${
@@ -246,7 +234,7 @@ const Details = () => {
           <label className="mb-5 block">
             <p className="registration-input-label">Email Address</p>
 
-            <div className="relative">
+            <div className="relative sm:w-[400px]">
               <input
                 type="text"
                 className={`registration-input ${
