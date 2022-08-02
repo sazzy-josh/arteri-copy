@@ -1,7 +1,10 @@
 import React from "react";
+import PrimaryButton from "../buttons/PrimaryButton";
+import SecondaryButton from "../buttons/SecondaryButton";
 import LargeCard from "../cards/LargeCard";
+import PrimaryButton2 from "../forms/buttons/PrimaryButton";
 
-const Terms = () => {
+const Terms = ({handleAccept, handleDecline}) => {
   return (
     <div className="w-full">
       <div className="w-full">
@@ -13,7 +16,7 @@ const Terms = () => {
               </h2>
             </div>
             <div className="pr-0 lg:pr-32 my-10">
-                <p className="my-10">Accepting the Terms</p>
+              <p className="my-10">Accepting the Terms</p>
               <p>
                 There are many variations of passages of Lorem Ipsum available,
                 but the majority have suffered alteration in some form, by
@@ -31,6 +34,24 @@ const Terms = () => {
                 from repetition, injected humour, or non-characteristic words
                 etc.
               </p>
+            </div>
+            <div className="w-full flex lg:flex-row flex-col justify-between items-center mt-20">
+              <div className="flex flex-row justify-start items-center lg:w-2/3 w-full">
+                <input className="focus:bg-secondary border-green-200 text-secondary mr-2" type="checkbox" />{" "}
+                <p>I agree to Arteri Terms of Service and Privacy Policy</p>
+              </div>
+              <div className="flex lg:flex-row md:flex-row flex-col justify-start items-center lg:w-1/3 w-full">
+                <div className="lg:w-1/2 w-full lg:mr-2 md:mr-1">
+                  <SecondaryButton handle={handleDecline}>
+                    <span>Decline</span>
+                  </SecondaryButton>
+                </div>
+                <div className="lg:w-1/2 w-full">
+                  <PrimaryButton2 handle={handleAccept}>
+                    <span>Accept</span>
+                  </PrimaryButton2>
+                </div>
+              </div>
             </div>
           </div>
         </LargeCard>

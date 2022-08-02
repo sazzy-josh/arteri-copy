@@ -5,7 +5,7 @@ const SecondaryButton = ({ handle, children, color }) => {
     <button
       onClick={handle}
       //   style={{ backgroundColor: theme("colors.primary") }}
-      className="w-full h-14 font-medium bg-transparent text-lg border-2 border-secondary text-center rounded-xl my-3 block mx-auto "
+      className="w-full h-14 font-medium bg-transparent text-lg border-2 border-secondary hover:bg-secondary hover:text-white text-center rounded-xl my-3 block mx-auto "
     >
       {children}
     </button>
