@@ -206,7 +206,7 @@ const OtherDetails = () => {
         <label className="mb-5 block">
           <p className="registration-input-label">Password</p>
 
-          <div className="relative sm:w-[400px]">
+          <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
             <input
               type="password"
               className={`registration-input ${
@@ -243,7 +243,7 @@ const OtherDetails = () => {
         <label className="mb-5 block">
           <p className="registration-input-label">Repeat Password</p>
 
-          <div className="relative sm:w-[400px]">
+          <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
             <input
               type="password"
               className={`registration-input ${
