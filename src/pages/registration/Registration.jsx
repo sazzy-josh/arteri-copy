@@ -15,12 +15,38 @@ import { RegistrationContext } from "../../contexts/authContext/RegistrationCont
 const Registration = () => {
   const [accountType, setAccountType] = useState("consumer");
   const [sidebarImage, setSidebarImage] = useState("");
+  const [isValid, setIsValid] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    gender: "",
+    password: "",
+    repeatPassword: "",
+  });
+  const [inputField, setInputField] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    gender: "male",
+    password: "",
+    repeatPassword: "",
+  });
   let navigate = useNavigate();
 
   return (
     <>
       <RegistrationContext.Provider
-        value={{ accountType, setAccountType, setSidebarImage }}
+        value={{
+          accountType,
+          setAccountType,
+          setSidebarImage,
+          isValid,
+          setIsValid,
+          inputField,
+          setInputField,
+        }}
       >
         <div className=" md:flex">
           <div className=" w-[350px]  h-auto fixed hidden md:block lg:w-[440px] md:h-screen">

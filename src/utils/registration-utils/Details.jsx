@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import "../../styles/registration.css";
 import { useNavigate } from "react-router-dom";
+import "../../styles/registration.css";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import RegistrationRedirect from "./RegistrationRedirect";
 import { RegistrationContext } from "../../contexts/authContext/RegistrationContext";
@@ -17,26 +17,33 @@ const Details = () => {
   // const [phone, setPhone] = useState("");
   const [countries, setCountries] = useState("");
 
-  const [inputField, setInputField] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phone: "",
-    // countries: "",
-  });
-  const [isValid, setIsValid] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phone: "",
-    // countries: "",
-  });
+  // const [inputField, setInputField] = useState({
+  //   firstname: "",
+  //   lastname: "",
+  //   email: "",
+  //   phone: "",
+  //   // countries: "",
+  // });
+  // const [isValid, setIsValid] = useState({
+  //   firstname: "",
+  //   lastname: "",
+  //   email: "",
+  //   phone: "",
+  //   // countries: "",
+  // });
   // const [isSubmit, setIsSubmit] = useState(false);
 
   // const [inputErrors, setInputErrors] = useState();
 
   // contexts
-  const { accountType, setSidebarImage } = useContext(RegistrationContext);
+  const {
+    accountType,
+    setSidebarImage,
+    isValid,
+    setIsValid,
+    inputField,
+    setInputField,
+  } = useContext(RegistrationContext);
 
   // set sidebar images from context
   useEffect(() => {
@@ -59,21 +66,26 @@ const Details = () => {
     validateInputChange(e, inputField);
   };
 
-  // control input fields
+  // control input fields on submit
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const newIsValid = {
+      firstname: isValid.firstname,
+      lastname: isValid.lastname,
+      email: isValid.email,
+      phone: isValid.phone,
+    };
     if (
-      Object.values(isValid).includes("") ||
-      Object.values(isValid).includes("invalid")
+      Object.values(newIsValid).includes("") ||
+      Object.values(newIsValid).includes("invalid")
     ) {
       // console.log("don't submit");
       validateInputSubmit();
       return;
     } else {
       navigate("/register/details-2", { replace: true });
-      // console.log("submit");
     }
-    console.log(Object.values(isValid));
   };
 
   let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -94,6 +106,8 @@ const Details = () => {
       }
     } else if (name === "phone") {
       if (value.length !== 0 && value.length < 10) {
+        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+      } else if (value.length > 15) {
         setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
       } else if (value.length === 0) {
         setIsValid((prev) => ({ ...prev, [name]: "" }));
@@ -134,7 +148,6 @@ const Details = () => {
   // ----- handle error on submit -----
   const validateInputSubmit = () => {
     const { firstname, lastname, email, phone } = inputField;
-    console.log(isValid);
     if (firstname.length < 3 || firstname.length === 0) {
       setIsValid((prev) => ({ ...prev, firstname: "invalid" }));
     } else {
@@ -270,7 +283,7 @@ const Details = () => {
           <label className="mb-5 block">
             <p className="registration-input-label">Phone Number </p>
             <div
-              className={`registration-input-2 relative  w-[95%] ml-0 h-14 border rounded-xl my-3 block mx-auto  border-gray-400 outline-none sm:w-[400px] lg:mx-0 ${
+              className={`registration-input-2 relative  w-[95%] ml-0 h-14 rounded-xl my-3 block mx-auto border-2 border-gray-400 outline-none sm:w-[400px] lg:mx-0 ${
                 isValid.phone === "invalid" && "invalid"
               } ${isValid.phone === "valid" && "valid"}`}
             >
