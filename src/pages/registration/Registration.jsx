@@ -24,6 +24,15 @@ const Registration = () => {
     password: "",
     repeatPassword: "",
   });
+  const [inputField, setInputField] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    gender: "male",
+    password: "",
+    repeatPassword: "",
+  });
   let navigate = useNavigate();
 
   return (
@@ -35,6 +44,8 @@ const Registration = () => {
           setSidebarImage,
           isValid,
           setIsValid,
+          inputField,
+          setInputField,
         }}
       >
         <div className=" md:flex">
