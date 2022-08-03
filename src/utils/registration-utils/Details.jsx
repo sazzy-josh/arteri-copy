@@ -24,19 +24,20 @@ const Details = () => {
     phone: "",
     // countries: "",
   });
-  const [isValid, setIsValid] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phone: "",
-    // countries: "",
-  });
+  // const [isValid, setIsValid] = useState({
+  //   firstname: "",
+  //   lastname: "",
+  //   email: "",
+  //   phone: "",
+  //   // countries: "",
+  // });
   // const [isSubmit, setIsSubmit] = useState(false);
 
   // const [inputErrors, setInputErrors] = useState();
 
   // contexts
-  const { accountType, setSidebarImage } = useContext(RegistrationContext);
+  const { accountType, setSidebarImage, isValid, setIsValid } =
+    useContext(RegistrationContext);
 
   // set sidebar images from context
   useEffect(() => {
@@ -62,18 +63,29 @@ const Details = () => {
   // control input fields
   const handleSubmit = (e) => {
     e.preventDefault();
+    // const isValidArray = Object.values(isValid);
+    // const currentIsValidArray =[]
+    // currentIsValidArray.push
+
+    const newIsValid = {
+      firstname: isValid.firstname,
+      lastname: isValid.lastname,
+      email: isValid.email,
+      phone: isValid.phone,
+    };
+    // console.log("new", newIsValid);
+    // console.log("old", isValid);
+    // console.log("object.values is", Object.values(isValidArray));
     if (
-      Object.values(isValid).includes("") ||
-      Object.values(isValid).includes("invalid")
+      Object.values(newIsValid).includes("") ||
+      Object.values(newIsValid).includes("invalid")
     ) {
       // console.log("don't submit");
       validateInputSubmit();
       return;
     } else {
       navigate("/register/details-2", { replace: true });
-      // console.log("submit");
     }
-    console.log(Object.values(isValid));
   };
 
   let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -134,7 +146,6 @@ const Details = () => {
   // ----- handle error on submit -----
   const validateInputSubmit = () => {
     const { firstname, lastname, email, phone } = inputField;
-    console.log(isValid);
     if (firstname.length < 3 || firstname.length === 0) {
       setIsValid((prev) => ({ ...prev, firstname: "invalid" }));
     } else {
