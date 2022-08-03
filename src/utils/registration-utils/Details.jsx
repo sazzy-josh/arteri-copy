@@ -175,7 +175,7 @@ const Details = () => {
         <form>
           <label className="mb-5  block ">
             <p className="registration-input-label">First Name</p>
-            <div className="relative sm:w-[400px]">
+            <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
               <input
                 type="text"
                 className={`registration-input ${
@@ -211,7 +211,7 @@ const Details = () => {
           <label className="mb-5 block">
             <p className="registration-input-label">Last Name</p>
 
-            <div className="relative sm:w-[400px]">
+            <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
               <input
                 type="text"
                 className={`registration-input ${
@@ -247,7 +247,7 @@ const Details = () => {
           <label className="mb-5 block">
             <p className="registration-input-label">Email Address</p>
 
-            <div className="relative sm:w-[400px]">
+            <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
               <input
                 type="text"
                 className={`registration-input ${
@@ -283,13 +283,13 @@ const Details = () => {
           <label className="mb-5 block">
             <p className="registration-input-label">Phone Number </p>
             <div
-              className={`registration-input-2 relative  w-[95%] ml-0 h-14 rounded-xl my-3 block mx-auto border-2 border-gray-400 outline-none sm:w-[400px] lg:mx-0 ${
+              className={`registration-input-2 relative  w-[95%] ml-0 h-14 rounded-xl my-3 block mx-auto border-2 border-gray-300 outline-none sm:w-[400px] sm:mx-auto lg:mx-0 ${
                 isValid.phone === "invalid" && "invalid"
               } ${isValid.phone === "valid" && "valid"}`}
             >
               <select
                 name="country-code"
-                className=" bg-transparent w-1/4 h-full p-[2px] text-sm font-medium text-black border-r border-gray-400 outline-none "
+                className=" bg-transparent w-1/4 h-full p-[2px] text-sm font-medium text-black border-r border-gray-300 outline-none "
               >
                 <option value="Nigeria">+234</option>
                 {countries &&
