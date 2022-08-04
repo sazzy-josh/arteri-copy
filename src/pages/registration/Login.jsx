@@ -10,9 +10,106 @@ import LogoWhite from "../../assets/logo-white.svg";
 import image1 from "../../assets/images/image-1.jpg";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   let navigate = useNavigate();
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginValid, setIsLoginValid] = useState({
+    email: "",
+    password: "",
+  });
+  const [loginInputField, setLoginInputField] = useState({
+    email: "",
+    password: "",
+  });
+
+  // regular expressions for email and password validation
+  let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  let passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
+
+  // control input fields on change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLoginInputField({ ...loginInputField, [name]: value });
+    validateInputChange(e, loginInputField);
+  };
+  // control input fields on submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // const newIsValid = {
+    //   password: isValid.password,
+    //   repeatPassword: isValid.repeatPassword,
+    // };
+
+    if (
+      Object.values(isLoginValid).includes("") ||
+      Object.values(isLoginValid).includes("invalid")
+    ) {
+      console.log(" wrong newIsValid");
+      validateInputSubmit();
+      return;
+    } else {
+      setLoginInputField({
+        email: "",
+        password: "",
+      });
+      setIsLoginValid({
+        email: "",
+        password: "",
+      });
+      setIsModalOpen(true);
+    }
+  };
+
+  // validate input fields on change
+  const validateInputChange = (e, loginInputField) => {
+    const { name, value } = e.target;
+    console.log(isLoginValid);
+
+    // handle error onChange
+    if (name === "password") {
+      if (!value.match(passwordRegex) && value.length !== 0) {
+        console.log("mismatch");
+        setIsLoginValid((prev) => ({ ...prev, [name]: "invalid" }));
+      }
+      // else if (value.match(passwordRegex)) {
+      //   setIsLoginValid((prev) => ({ ...prev, [name]: "valid" }));
+      //   console.log("match");
+      // }
+      else if (value.length === 0) {
+        console.log("empty");
+
+        setIsLoginValid((prev) => ({ ...prev, [name]: "" }));
+      } else {
+        console.log("success");
+
+        setIsLoginValid((prev) => ({ ...prev, [name]: "valid" }));
+      }
+    }
+    // else {
+    //   if (value.length !== 0 && value.length < 3) {
+    //     setIsLoginValid((prev) => ({ ...prev, [name]: "invalid" }));
+    //   } else if (value.length === 0) {
+    //     setIsLoginValid((prev) => ({ ...prev, [name]: "" }));
+    //   } else {
+    //     setIsLoginValid((prev) => ({ ...prev, [name]: "valid" }));
+    //   }
+    // }
+
+    if (name === "email") {
+      if (!value.match(emailRegex) && value.length !== 0) {
+        setIsLoginValid((prev) => ({ ...prev, [name]: "invalid" }));
+      } else if (value.length === 0) {
+        setIsLoginValid((prev) => ({ ...prev, [name]: "" }));
+      } else {
+        setIsLoginValid((prev) => ({ ...prev, [name]: "valid" }));
+      }
+    }
+  };
+
   return (
     <>
       <div className=" md:flex">

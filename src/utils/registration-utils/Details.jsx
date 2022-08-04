@@ -11,29 +11,10 @@ import CheckIcon from "../../assets/icons/check.svg";
 
 const Details = () => {
   let navigate = useNavigate();
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [phone, setPhone] = useState("");
   const [countries, setCountries] = useState("");
 
-  // const [inputField, setInputField] = useState({
-  //   firstname: "",
-  //   lastname: "",
-  //   email: "",
-  //   phone: "",
-  //   // countries: "",
-  // });
-  // const [isValid, setIsValid] = useState({
-  //   firstname: "",
-  //   lastname: "",
-  //   email: "",
-  //   phone: "",
-  //   // countries: "",
-  // });
-  // const [isSubmit, setIsSubmit] = useState(false);
-
-  // const [inputErrors, setInputErrors] = useState();
+  // Regex for email validation
+  let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
   // contexts
   const {
@@ -88,16 +69,14 @@ const Details = () => {
     }
   };
 
-  let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
   // validate input fields on change
   const validateInputChange = (e, inputField) => {
     const { name, value } = e.target;
-    // Regex for email validation
     console.log(isValid);
 
     // handle error onChange
     if (name === "email") {
-      if (!e.target.value.match(pattern) && e.target.value.length !== 0) {
+      if (!e.target.value.match(emailRegex) && e.target.value.length !== 0) {
         setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
       } else if (value.length === 0) {
         setIsValid((prev) => ({ ...prev, [name]: "" }));
@@ -158,7 +137,10 @@ const Details = () => {
     } else {
       setIsValid((prev) => ({ ...prev, lastname: "valid" }));
     }
-    if ((!email.match(pattern) && email.length !== 0) || email.length === 0) {
+    if (
+      (!email.match(emailRegex) && email.length !== 0) ||
+      email.length === 0
+    ) {
       setIsValid((prev) => ({ ...prev, email: "invalid" }));
     } else {
       setIsValid((prev) => ({ ...prev, email: "valid" }));
