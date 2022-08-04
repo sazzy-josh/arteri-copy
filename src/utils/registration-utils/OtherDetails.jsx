@@ -25,7 +25,7 @@ const OtherDetails = () => {
 
   // regular expressions for password validation
   let passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
 
   useEffect(() => {
     setSidebarImage("image2");
@@ -99,6 +99,7 @@ const OtherDetails = () => {
     // handle error onChange
     if (name === "repeatPassword") {
       console.log("value after if" + value);
+
       if (value !== inputField.password) {
         setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
       } else if (value.length === 0) {
@@ -110,9 +111,10 @@ const OtherDetails = () => {
       if (!value.match(passwordRegex) && value.length !== 0) {
         console.log("mismatch");
         setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.match(passwordRegex)) {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-        console.log("match");
+      } else if (value.length === 0) {
+        console.log("empty");
+
+        setIsValid((prev) => ({ ...prev, [name]: "" }));
       } else if (
         value !== inputField.repeatPassword &&
         inputField.repeatPassword.length !== 0
@@ -120,10 +122,9 @@ const OtherDetails = () => {
         console.log("mutated");
 
         setIsValid((prev) => ({ ...prev, repeatPassword: "invalid" }));
-      } else if (value.length === 0) {
-        console.log("empty");
-
-        setIsValid((prev) => ({ ...prev, [name]: "" }));
+      } else if (value.match(passwordRegex)) {
+        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+        console.log("match");
       } else {
         console.log("success");
 
@@ -220,7 +221,7 @@ const OtherDetails = () => {
               </label>
             </div>
           </div>
-          {/* {gender} */}
+
           <label className="mb-5 block">
             <p className="registration-input-label">Password</p>
 
@@ -252,8 +253,8 @@ const OtherDetails = () => {
             </div>
             {isValid.password === "invalid" && (
               <p className="registration-input-error ">
-                *The password should contain at least: <br /> 8 characters, one
-                uppercase and one number
+                *The password should contain at least: 8 characters, one
+                uppercase, one number and one special character
               </p>
             )}
           </label>

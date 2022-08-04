@@ -8,6 +8,10 @@ import RegistrationRedirect2 from "../../utils/registration-utils/RegistrationRe
 // images
 import LogoWhite from "../../assets/logo-white.svg";
 import image1 from "../../assets/images/image-1.jpg";
+// import icons
+import AlertIcon from "../../assets/icons/alert-info.svg";
+import CheckIcon from "../../assets/icons/check.svg";
+import Alert from "../../components/Alert";
 
 const Login = () => {
   let navigate = useNavigate();
@@ -27,7 +31,7 @@ const Login = () => {
   // regular expressions for email and password validation
   let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
   let passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
 
   // control input fields on change
   const handleInputChange = (e) => {
@@ -110,6 +114,21 @@ const Login = () => {
     }
   };
 
+  // ----- handle error on submit -----
+  const validateInputSubmit = () => {
+    const { email, password } = loginInputField;
+
+    if (!email.match(emailRegex) || email.length === 0) {
+      setIsLoginValid((prev) => ({ ...prev, email: "invalid" }));
+    } else {
+      setIsLoginValid((prev) => ({ ...prev, email: "valid" }));
+    }
+    if (!password.match(passwordRegex) || password.length === 0) {
+      setIsLoginValid((prev) => ({ ...prev, password: "invalid" }));
+    } else {
+      setIsLoginValid((prev) => ({ ...prev, password: "valid" }));
+    }
+  };
   return (
     <>
       <div className=" md:flex">
@@ -138,43 +157,104 @@ const Login = () => {
             <h1 className="font-semibold text-3xl text-left text-gray-900 mb-14 pr-20 sm:p-0 sm:text-center md:hidden ">
               Welcome back to Arteri
             </h1>
-            <label className="mb-5 block">
-              <p className="registration-input-label">Email Address</p>
+            <form>
+              <label className="mb-5 block">
+                <p className="registration-input-label">Email Address</p>
 
-              <input
-                type="email"
-                className="registration-input"
-                name="email"
-                placeholder="yourmail@mail.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
-            <label className="mb-5 block">
-              <p className="registration-input-label"> Password</p>
+                <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+                  <input
+                    type="email"
+                    className={`registration-input ${
+                      isLoginValid.email === "invalid" && "invalid"
+                    } ${isLoginValid.email === "valid" && "valid"}`}
+                    name="email"
+                    placeholder="Yourmail@mail.com"
+                    value={loginInputField.email}
+                    onChange={handleInputChange}
+                  />
 
-              <input
-                type="password"
-                className="registration-input"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
-            <p
-              className="text-right cursor-pointer text-secondary font-medium my-5 sm:w-[400px]  sm:mx-auto lg:mx-0"
-              onClick={() => {
-                navigate("/forgot-password", { replace: true });
-              }}
-            >
-              Forgot password?
-            </p>
-            <PrimaryButton>Login into account</PrimaryButton>
+                  <img
+                    src={AlertIcon}
+                    alt=""
+                    className={`registration-input-icon  ${
+                      isLoginValid.email === "invalid" ? "visible" : "hidden"
+                    }`}
+                  />
+                  <img
+                    src={CheckIcon}
+                    alt=""
+                    className={`registration-input-icon  ${
+                      isLoginValid.email === "valid" ? "visible" : "hidden"
+                    }`}
+                  />
+                </div>
+                {isLoginValid.email === "invalid" && (
+                  <p className="registration-input-error ">
+                    *The email you entered is invalid
+                  </p>
+                )}
+              </label>
+              <label className="mb-5 block">
+                <p className="registration-input-label">Password</p>
+
+                <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+                  <input
+                    type="password"
+                    className={`registration-input ${
+                      isLoginValid.password === "invalid" && "invalid"
+                    } ${isLoginValid.password === "valid" && "valid"}`}
+                    name="password"
+                    value={loginInputField.password}
+                    onChange={handleInputChange}
+                  />
+
+                  <img
+                    src={AlertIcon}
+                    alt=""
+                    className={`registration-input-icon  ${
+                      isLoginValid.password === "invalid" ? "visible" : "hidden"
+                    }`}
+                  />
+                  <img
+                    src={CheckIcon}
+                    alt=""
+                    className={`registration-input-icon  ${
+                      isLoginValid.password === "valid" ? "visible" : "hidden"
+                    }`}
+                  />
+                </div>
+                {isLoginValid.password === "invalid" && (
+                  <p className="registration-input-error ">
+                    *The password should contain at least: 8 characters, one
+                    uppercase, one number and one special character
+                  </p>
+                )}
+              </label>
+
+              <p
+                className="text-right cursor-pointer text-secondary font-medium my-5 pr-3 sm:w-[400px] sm:pr-0 sm:mx-auto lg:mx-0"
+                onClick={() => {
+                  navigate("/forgot-password", { replace: true });
+                }}
+              >
+                Forgot password?
+              </p>
+              <PrimaryButton handle={handleSubmit}>
+                Login into account
+              </PrimaryButton>
+            </form>
             <RegistrationRedirect2 />
           </section>
         </div>
-        `
       </div>
+      <Alert
+        type={"success"}
+        title={" Logged In!"}
+        buttonText={"Go to Dashboard"}
+        buttonHandle={() => navigate("/dashboard", { replace: true })}
+        modalTrigger={isModalOpen}
+        setModalTrigger={setIsModalOpen}
+      />
     </>
   );
 };
