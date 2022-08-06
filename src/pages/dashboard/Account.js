@@ -35,13 +35,13 @@ const Account = () => {
               <div className="w-full flex flex-col justify-start items-start">
                 <div className="">
                   {/* <LargeCard /> */}
-                  <div className="my-5">
+                  <div className="my-5 lg:px-0 px-5">
                     <p className="text-2xl font-bold">My Account</p>
                   </div>
                 </div>
                 <div className="w-full">
                   <div className="w-full">
-                    <div className="flex flex-row justify-start items-start w-2/3">
+                    <div className="flex flex-row justify-start items-start whitespace-nowrap w-2/3">
                       <p
                         onClick={() => {
                           setProfile(true);
@@ -85,11 +85,11 @@ const Account = () => {
                         Security Settings
                       </p>
                     </div>
-                    <hr className="w-full bg-gray-400" />
+                    <hr className="w-full bg-gray-400 lg:mx-0 mx-5" />
                   </div>
                 </div>
 
-                <div className="w-full">
+                <div className="w-full lg:px-0 px-5">
                   {showProfile && <Profile />}
                   {showPassword && <Password />}
                   {showSecurity && <Security />}

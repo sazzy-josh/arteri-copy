@@ -18,7 +18,7 @@ const Security = () => {
         </div>
         <div className="flex flex-col justify-start items-start my-10">
           <p className="font-bold">Notifications</p>
-          <div className="flex flex-row justify-start items-start w-full my-10">
+          <div className="flex lg:flex-row flex-col justify-start items-start w-full my-10">
             <div className="flex flex-row justify-start items-start mr-10">
               <p className="mr-5 font-semibold">Allow Notification</p>
               <OnToggle click={() => setAllowOn(!allowOn)} on={allowOn} />
