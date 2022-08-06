@@ -12,6 +12,7 @@ import ErrorPage from "../pages/ErrorPage";
 import AccountType from "../utils/registration-utils/AccountType";
 import Details from "../utils/registration-utils/Details";
 import OtherDetails from "../utils/registration-utils/OtherDetails";
+import Account from "../pages/dashboard/Account";
 
 const ArteriRoutes = () => {
   return (
@@ -24,6 +25,7 @@ const ArteriRoutes = () => {
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/application" element={<Application />} />
+        <Route path="/my-account" element={<Account />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Registration />}>
           <Route path="type" element={<AccountType />} />

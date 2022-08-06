@@ -6,13 +6,17 @@ import MobileHeader from "../../components/head/MobileHeader";
 import SideMenu from "../../components/nav/SideBar";
 import Cost from "../../components/terms/Cost";
 import Details from "../../components/terms/Details";
+import NextOfKin from "../../components/terms/NextOfKin";
 import Terms from "../../components/terms/Terms";
+import Work from "../../components/terms/Work";
 
 const Application = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showTerms, setShowTerms] = useState(true);
+  const [showTerms, setShowTerms] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [showCosts, setShowCosts] = useState(false);
+  const [showWork, setShowWork] = useState(false);
+  const [showNok, setShowNok] = useState(true);
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
@@ -68,6 +72,8 @@ const Application = () => {
                       />
                     )}
                     {showCosts && <Cost />}
+                    {showWork && <Work />}
+                    {showNok && <NextOfKin /> }
                   </div>
                 </div>
               </div>
