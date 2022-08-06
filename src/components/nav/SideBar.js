@@ -39,7 +39,7 @@ const SideMenu = ({ selectDash, selectApplication }) => {
             </span>
             <span>Apply for loan</span>
           </div>
-          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
+          <div  onClick={() => navigate("/my-account")} className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
             <span className="mr-4 pl-3">
               <Icon.BsFillPersonFill />
             </span>
