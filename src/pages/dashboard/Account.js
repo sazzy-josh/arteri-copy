@@ -17,7 +17,7 @@ const Account = () => {
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
         <div className="w-1/5 hidden lg:flex md:flex">
-          <SideMenu selectDash={true} />
+          <SideMenu selectAccount={true} />
         </div>
         <div className="lg:w-4/5 w-full">
           <Container>

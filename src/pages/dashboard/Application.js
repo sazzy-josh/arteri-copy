@@ -12,11 +12,11 @@ import Work from "../../components/terms/Work";
 
 const Application = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showTerms, setShowTerms] = useState(false);
+  const [showTerms, setShowTerms] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
   const [showCosts, setShowCosts] = useState(false);
   const [showWork, setShowWork] = useState(false);
-  const [showNok, setShowNok] = useState(true);
+  const [showNok, setShowNok] = useState(false);
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
