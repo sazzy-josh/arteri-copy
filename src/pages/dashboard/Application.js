@@ -50,30 +50,93 @@ const Application = () => {
                     {showDetails && (
                       <Details
                         handleDecline={() => {
-                          setShowTerms(!showTerms);
-                          setShowDetails(!showDetails);
+                          setShowTerms(false);
+                          setShowDetails(true);
+                          setShowCosts(false);
+                          setShowWork(false);
+                          setShowNok(false);
                         }}
                         handleAccept={() => {
-                          setShowCosts(!showCosts);
-                          setShowDetails(!showDetails);
+                          setShowTerms(true);
+                          setShowDetails(false);
+                          setShowCosts(false);
+                          setShowWork(false);
+                          setShowNok(false);
                         }}
                       />
                     )}
                     {showTerms && (
                       <Terms
-                        handleAccept={() => {
-                          setShowTerms(!showTerms);
-                          setShowDetails(!showDetails);
-                        }}
                         handleDecline={() => {
-                          setShowTerms(!showTerms);
-                          setShowDetails(!showDetails);
+                          setShowTerms(false);
+                          setShowDetails(true);
+                          setShowCosts(false);
+                          setShowWork(false);
+                          setShowNok(false);
+                        }}
+                        handleAccept={() => {
+                          setShowTerms(false);
+                          setShowDetails(false);
+                          setShowCosts(true);
+                          setShowWork(false);
+                          setShowNok(false);
                         }}
                       />
                     )}
-                    {showCosts && <Cost />}
-                    {showWork && <Work />}
-                    {showNok && <NextOfKin /> }
+                    {showCosts && (
+                      <Cost
+                        handleDecline={() => {
+                          setShowTerms(false);
+                          setShowDetails(true);
+                          setShowCosts(false);
+                          setShowWork(false);
+                          setShowNok(false);
+                        }}
+                        handleAccept={() => {
+                          setShowTerms(false);
+                          setShowDetails(false);
+                          setShowCosts(false);
+                          setShowWork(true);
+                          setShowNok(false);
+                        }}
+                      />
+                    )}
+                    {showWork && (
+                      <Work
+                        handleDecline={() => {
+                          setShowTerms(false);
+                          setShowDetails(false);
+                          setShowCosts(true);
+                          setShowWork(false);
+                          setShowNok(false);
+                        }}
+                        handleAccept={() => {
+                          setShowTerms(false);
+                          setShowDetails(false);
+                          setShowCosts(false);
+                          setShowWork(false);
+                          setShowNok(true);
+                        }}
+                      />
+                    )}
+                    {showNok && (
+                      <NextOfKin
+                        handleDecline={() => {
+                          setShowTerms(false);
+                          setShowDetails(false);
+                          setShowCosts(false);
+                          setShowWork(true);
+                          setShowNok(false);
+                        }}
+                        handleAccept={() => {
+                          setShowTerms(false);
+                          setShowDetails(false);
+                          setShowCosts(false);
+                          setShowWork(false);
+                          setShowNok(true);
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
