@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 
+// components
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import { RegistrationContext } from "../../contexts/authContext/RegistrationContext";
 import "../../styles/registration.css";
@@ -12,6 +14,33 @@ import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
 
 const OtherDetails = () => {
+  useEffect(() => {
+    const fetchPosts = async () => {
+      let formData = new FormData();
+      formData.append("firstname", inputField.firstname);
+      formData.append("lastname", inputField.lastname);
+      formData.append("email", inputField.email);
+      formData.append("phone", inputField.phone);
+      formData.append("password", inputField.password);
+      formData.append("repeatPassword", inputField.repeatPassword);
+      formData.append("accountType", accountType);
+      for (const item of Object.keys(inputField)) {
+        formData.append(item, inputField[item]);
+      }
+      try {
+        const response = await Axios.post(
+          "https://jsonplaceholder.typicode.com/posts",
+          {
+            formData,
+          }
+        );
+        console.log("response is: ", response);
+      } catch (err) {
+        console.log("eror message is: " + err.message);
+      }
+    };
+    fetchPosts();
+  });
   let navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
@@ -69,24 +98,39 @@ const OtherDetails = () => {
     } else {
       // navigate("/login", { replace: true });
       // alert("Hurray");
-      setInputField({
-        firstname: "",
-        lastname: "",
-        email: "",
-        phone: "",
-        gender: "male",
-        password: "",
-        repeatPassword: "",
-      });
-      setIsValid({
-        firstname: "",
-        lastname: "",
-        email: "",
-        phone: "",
-        gender: "",
-        password: "",
-        repeatPassword: "",
-      });
+      // setInputField({
+      //   firstname: "",
+      //   lastname: "",
+
+      //   email: "",
+      //   phone: "",
+      //   gender: "male",
+      //   password: "",
+      //   repeatPassword: "",
+      // });
+      // setIsValid({
+      //   firstname: "",
+      //   lastname: "",
+      //   email: "",
+      //   phone: "",
+      //   gender: "",
+      //   password: "",
+      //   repeatPassword: "",
+      // });
+      let formData = new FormData();
+      formData.append("firstname", inputField.firstname);
+      formData.append("lastname", inputField.lastname);
+      formData.append("email", inputField.email);
+      formData.append("phone", inputField.phone);
+      formData.append("password", inputField.password);
+      formData.append("repeatPassword", inputField.repeatPassword);
+      formData.append("accountType", accountType);
+      for (const item of Object.keys(inputField)) {
+        formData.append(item, inputField[item]);
+      }
+
+      console.log(Array.from(formData));
+      // console.log(inputField);
       setIsModalOpen(true);
     }
   };
