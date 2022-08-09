@@ -13,7 +13,7 @@ import image3 from "../../assets/images/image-3.jpg";
 import { RegistrationContext } from "../../contexts/authContext/RegistrationContext";
 
 const Registration = () => {
-  const [accountType, setAccountType] = useState("consumer");
+  const [accountType, setAccountType] = useState("personal");
   const [sidebarImage, setSidebarImage] = useState("");
   const [isValid, setIsValid] = useState({
     firstname: "",
@@ -23,6 +23,7 @@ const Registration = () => {
     gender: "",
     password: "",
     repeatPassword: "",
+    tos: "",
   });
   const [inputField, setInputField] = useState({
     firstname: "",
@@ -32,6 +33,7 @@ const Registration = () => {
     gender: "male",
     password: "",
     repeatPassword: "",
+    tos: "",
   });
   let navigate = useNavigate();
 

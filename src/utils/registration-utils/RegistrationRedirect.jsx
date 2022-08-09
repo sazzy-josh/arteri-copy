@@ -6,11 +6,11 @@ const RegistrationRedirect = () => {
   return (
     <>
       <div className="mb-6 md:flex md:items-center md:gap-3 md:px-8 md:justify-center lg:justify-start">
-        <p className="text-black font-medium mt-2 mb-2">
+        <p className="text-black font-medium mt-2 mb-2 inline-block">
           Already have an account?
         </p>
         <p
-          className="text-secondary font-medium cursor-pointer"
+          className="text-secondary font-medium cursor-pointer inline-block"
           onClick={() => {
             navigate("/login", { replace: true });
           }}
@@ -18,10 +18,10 @@ const RegistrationRedirect = () => {
           Login into account
         </p>
       </div>
-      <div className="sm:w-[400px] sm:mx-auto lg:mx-0 ">
+      <div className="sm:w-[400px] sm:mx-auto lg:mx-0  ">
         <NavLink
           to="/dashboard"
-          className="text-blue-500 underline mb-2 text-center block  "
+          className="text-blue-500 underline  inline-block mb-2 text-center   "
         >
           Go to dashboard
         </NavLink>
