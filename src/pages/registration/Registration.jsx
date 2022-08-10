@@ -33,7 +33,7 @@ const Registration = () => {
     gender: "male",
     password: "",
     repeatPassword: "",
-    tos: "",
+    tos: "invalid",
   });
   let navigate = useNavigate();
 

@@ -26,9 +26,8 @@ const OtherDetails = () => {
     formData.append("tos_accepted", inputField.tos);
     formData.append("account_type", accountType);
     console.log(Array.from(formData));
-    // for (const item of Object.keys(inputField)) {
-    //   formData.append(item, inputField[item]);
-    // }
+    console.log(inputField.tos);
+    console.log(isValid.tos);
 
     // try {
     //   const response = await Axios.post(
@@ -40,19 +39,6 @@ const OtherDetails = () => {
     //   console.log(err);
     //   console.log(err?.response?.data?.data?.errors);
     // }
-    try {
-      const res = await fetch(
-        "https://api.arteri.tk/api/account/create/with-email-address",
-        {
-          method: "post",
-          body: formData,
-        }
-      );
-      const data = await res.json();
-      console.log(data);
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   let navigate = useNavigate();
@@ -113,11 +99,10 @@ const OtherDetails = () => {
       navigate("/register/details", { replace: true });
     } else {
       // navigate("/login", { replace: true });
-      // alert("Hurray");
+
       // setInputField({
       //   firstname: "",
       //   lastname: "",
-
       //   email: "",
       //   phone: "",
       //   gender: "male",
@@ -133,31 +118,6 @@ const OtherDetails = () => {
       //   password: "",
       //   repeatPassword: "",
       // });
-
-      // ----
-
-      // let formData = new FormData();
-      // formData.append("firstname", inputField.firstname);
-      // formData.append("lastname", inputField.lastname);
-      // formData.append("email", inputField.email);
-      // formData.append("phone", inputField.phone);
-      // formData.append("password", inputField.password);
-      // formData.append("repeatPassword", inputField.repeatPassword);
-      // formData.append("accountType", accountType);
-      // for (const item of Object.keys(inputField)) {
-      //   formData.append(item, inputField[item]);
-      // }
-
-      // try {
-      //   const response = await Axios.post(
-      //     "https://httpbin.org/post",
-
-      //     formData
-      //   );
-      //   console.log("response is: ", response);
-      // } catch (err) {
-      //   console.log("eror message is: " + err.message);
-      // }
 
       registerNewUser();
       setIsModalOpen(true);
@@ -236,8 +196,6 @@ const OtherDetails = () => {
   return (
     <>
       <section className="px-7 py-3">
-        <p className="w-64 ">input field {JSON.stringify(inputField.tos)}</p>
-        <p className="w-64 ">is valid {JSON.stringify(isValid.tos)}</p>
         <form>
           <div className="mb-5 sm:w-[400px]  sm:mx-auto lg:mx-0">
             <p className=" registration-input-label ">Gender</p>
@@ -390,7 +348,7 @@ const OtherDetails = () => {
               />
               <div
                 className={` min-w-[24px] h-6 flex justify-center items-center rounded-md mr-2 ${
-                  inputField.tos
+                  inputField.tos === "yes"
                     ? "bg-secondary"
                     : "bg-none border-2 border-secondary"
                 }`}

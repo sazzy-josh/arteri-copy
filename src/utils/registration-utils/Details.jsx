@@ -1,4 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 import { useNavigate } from "react-router-dom";
 import "../../styles/registration.css";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
@@ -12,6 +14,7 @@ import CheckIcon from "../../assets/icons/check.svg";
 const Details = () => {
   let navigate = useNavigate();
   const [countries, setCountries] = useState("");
+  const [countryValue, setCountryValue] = useState("");
 
   // Regex for email validation
   let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -262,31 +265,30 @@ const Details = () => {
               </p>
             )}
           </label>
-          <label className="mb-5 block">
-            <p className="registration-input-label">Phone Number </p>
+
+          <label>
+            <p className="registration-input-label">Phone Number</p>
             <div
-              className={`registration-input-2 relative  w-[95%] ml-0 h-14 rounded-xl my-3 block mx-auto border-2 border-gray-300 outline-none sm:w-[400px] sm:mx-auto lg:mx-0 ${
+              className={`registration-input-2 relative  w-[95%] ml-0 h-14 rounded-xl my-3 block mx-auto px-4 py-1 border-2 border-gray-300 outline-none sm:w-[400px] sm:mx-auto lg:mx-0 ${
                 isValid.phone === "invalid" && "invalid"
               } ${isValid.phone === "valid" && "valid"}`}
             >
-              <select
-                name="country-code"
-                className=" bg-transparent w-1/4 h-full p-[2px] text-sm font-medium text-black border-r border-gray-300 outline-none "
-              >
-                <option value="Nigeria">+234</option>
-                {countries &&
-                  countries.map((item, index) => (
-                    <option value={item.name} key={index}>
-                      +{item.callingCodes[0]}
-                    </option>
-                  ))}
-              </select>
-              <input
-                type="tel"
-                className=" px-4 w-3/4 h-full bg-transparent  outline-none "
-                name="phone"
+              <PhoneInput
+                defaultCountry="NG"
+                className=" w-full h-full border-none rounded-xl"
                 value={inputField.phone}
-                onChange={handleInputChange}
+                onChange={(val) => {
+                  if (!val) {
+                    setInputField({ ...inputField, phone: "" });
+                    setIsValid((prev) => ({ ...prev, phone: "" }));
+                  } else if (val.length > 10 && val.length < 16) {
+                    setInputField({ ...inputField, phone: val });
+                    setIsValid((prev) => ({ ...prev, phone: "valid" }));
+                    console.log("value", val);
+                  } else {
+                    setIsValid((prev) => ({ ...prev, phone: "invalid" }));
+                  }
+                }}
               />
               <img
                 src={AlertIcon}

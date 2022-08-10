@@ -10,6 +10,9 @@
 .registration-input-error {
   @apply w-[95%]  py-4 px-3 bg-[#FDDBCE] text-[#ff0000] font-medium rounded-lg text-left text-sm  sm:w-[400px] sm:mx-auto lg:mx-0;
 }
+.PhoneInputInput {
+  @apply outline-none h-full border-l-2 pl-2;
+}
 .registration-input.valid {
   @apply border-[#10C90A];
 }
