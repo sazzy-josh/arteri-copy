@@ -16,7 +16,7 @@ const AccountType = () => {
   return (
     <>
       <section className="px-7 py-5 ">
-        {accountType === "consumer" && (
+        {accountType === "personal" && (
           <>
             <h1 className="text-black text-2xl font-bold text-left mb-10 w-full sm:text-center md:hidden md:text-left">
               Easier access to{" "}
@@ -49,14 +49,14 @@ const AccountType = () => {
             <input
               type="radio"
               name="account-type"
-              value="consumer"
+              value="personal"
               className="hidden"
               onChange={(e) => setAccountType(e.target.value)}
             />
             <p
               className={` cursor-pointer w-full h-14 leading-[50px]  font-medium bg-transparent text-lg border-2 text-center rounded-xl my-4 block mx-auto sm:w-4/6 md:w-40
                md:inline-block md:mr-7 ${
-                 accountType === "consumer"
+                 accountType === "personal"
                    ? "border-primary text-primary"
                    : "border-gray-400 text-gray-400"
                }`}

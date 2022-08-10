@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Axios from "axios";
 
+// components
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import { RegistrationContext } from "../../contexts/authContext/RegistrationContext";
 import "../../styles/registration.css";
@@ -12,6 +14,33 @@ import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
 
 const OtherDetails = () => {
+  const registerNewUser = async () => {
+    let formData = new FormData();
+    formData.append("first_name", inputField.firstname);
+    formData.append("last_name", inputField.lastname);
+    formData.append("email", inputField.email);
+    formData.append("gender", inputField.gender);
+    formData.append("phone", inputField.phone);
+    formData.append("password", inputField.password);
+    formData.append("password_confirmation", inputField.repeatPassword);
+    formData.append("tos_accepted", inputField.tos);
+    formData.append("account_type", accountType);
+    console.log(Array.from(formData));
+    console.log(inputField.tos);
+    console.log(isValid.tos);
+
+    // try {
+    //   const response = await Axios.post(
+    //     "https://api.arteri.tk/api/account/create/with-email-address",
+    //     formData
+    //   );
+    //   console.log("response is: ", response);
+    // } catch (err) {
+    //   console.log(err);
+    //   console.log(err?.response?.data?.data?.errors);
+    // }
+  };
+
   let navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
@@ -40,11 +69,13 @@ const OtherDetails = () => {
 
   // control input fields on submit
   const handleSubmit = (e) => {
+    console.log("eweee", inputField);
     e.preventDefault();
 
     const newIsValid = {
       password: isValid.password,
       repeatPassword: isValid.repeatPassword,
+      tos: isValid.tos,
     };
     const prevIsValid = {
       firstname: isValid.firstname,
@@ -68,7 +99,7 @@ const OtherDetails = () => {
       navigate("/register/details", { replace: true });
     } else {
       // navigate("/login", { replace: true });
-      // alert("Hurray");
+
       setInputField({
         firstname: "",
         lastname: "",
@@ -87,6 +118,8 @@ const OtherDetails = () => {
         password: "",
         repeatPassword: "",
       });
+
+      registerNewUser();
       setIsModalOpen(true);
     }
   };
@@ -292,6 +325,75 @@ const OtherDetails = () => {
                 *The password does not match
               </p>
             )}
+          </label>
+          <label className="my-8  block">
+            <div className="relative flex justify-start items-start sm:w-[400px] sm:mx-auto lg:mx-0 ">
+              <input
+                type="checkbox"
+                className={`ml-auto hidden`}
+                name="tos"
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setInputField({ ...inputField, tos: "yes" });
+                    setIsValid((prev) => ({ ...prev, tos: "valid" }));
+
+                    console.log("checked", inputField);
+                  } else {
+                    setInputField({ ...inputField, tos: "" });
+                    setIsValid((prev) => ({ ...prev, tos: "invalid" }));
+
+                    console.log("unchecked", inputField);
+                  }
+                }}
+              />
+              <div
+                className={` min-w-[24px] h-6 flex justify-center items-center rounded-md mr-2 ${
+                  inputField.tos === "yes"
+                    ? "bg-secondary"
+                    : "bg-none border-2 border-secondary"
+                }`}
+              >
+                <svg
+                  className="w-4/6 h-4/6 m-auto"
+                  viewBox="0 0 16 11"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.15381 5.23529L5.48955 9.47793L14.161 0.99265"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+              <p className="font-medium text-left text-sm inline-block w-5/6">
+                I agree to Arteri{" "}
+                <Link to="/" className="text-secondary">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link to="/" className="text-secondary">
+                  {" "}
+                  Privacy Policy
+                </Link>{" "}
+              </p>
+
+              {/* <img
+                src={AlertIcon}
+                alt=""
+                className={`registration-input-icon  ${
+                  isValid.repeatPassword === "invalid" ? "visible" : "hidden"
+                }`}
+              />
+              <img
+                src={CheckIcon}
+                alt=""
+                className={`registration-input-icon  ${
+                  isValid.repeatPassword === "valid" ? "visible" : "hidden"
+                }`}
+              /> */}
+            </div>
           </label>
           <div className="mt-10 mb-5">
             <PrimaryButton handle={handleSubmit}>
