@@ -100,24 +100,24 @@ const OtherDetails = () => {
     } else {
       // navigate("/login", { replace: true });
 
-      // setInputField({
-      //   firstname: "",
-      //   lastname: "",
-      //   email: "",
-      //   phone: "",
-      //   gender: "male",
-      //   password: "",
-      //   repeatPassword: "",
-      // });
-      // setIsValid({
-      //   firstname: "",
-      //   lastname: "",
-      //   email: "",
-      //   phone: "",
-      //   gender: "",
-      //   password: "",
-      //   repeatPassword: "",
-      // });
+      setInputField({
+        firstname: "",
+        lastname: "",
+        email: "",
+        phone: "",
+        gender: "male",
+        password: "",
+        repeatPassword: "",
+      });
+      setIsValid({
+        firstname: "",
+        lastname: "",
+        email: "",
+        phone: "",
+        gender: "",
+        password: "",
+        repeatPassword: "",
+      });
 
       registerNewUser();
       setIsModalOpen(true);
