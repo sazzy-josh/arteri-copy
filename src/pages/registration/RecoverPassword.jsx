@@ -131,97 +131,101 @@ const RecoverPassword = () => {
           <h3 className="text-left mb-12 sm:text-center sm:mx-auto sm:w-[500px] md:w-[400px] md:text-left lg:mx-0 ">
             Your new password must be different from the old password
           </h3>
-          <label className="mb-5 block">
-            <p className="registration-input-label">Password</p>
-            <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
-              <input
-                type="password"
-                className={`registration-input ${
-                  isRecoverValid.password === "invalid" && "invalid"
-                } ${isRecoverValid.password === "valid" && "valid"}`}
-                name="password"
-                value={recoverInputField.password}
-                onChange={handleInputChange}
-                //   value={test}
-                //   onChange={(e) => setTest(e.target.value)}
-              />
-              <img
-                src={AlertIcon}
-                alt=""
-                className={`registration-input-icon  ${
-                  isRecoverValid.password === "invalid" ? "visible" : "hidden"
-                }`}
-              />
-              <img
-                src={CheckIcon}
-                alt=""
-                className={`registration-input-icon  ${
-                  isRecoverValid.password === "valid" ? "visible" : "hidden"
-                }`}
-              />
+          <form>
+            <label className="mb-5 block">
+              <p className="registration-input-label">Password</p>
+              <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+                <input
+                  type="password"
+                  className={`registration-input ${
+                    isRecoverValid.password === "invalid" && "invalid"
+                  } ${isRecoverValid.password === "valid" && "valid"}`}
+                  name="password"
+                  value={recoverInputField.password}
+                  onChange={handleInputChange}
+                  //   value={test}
+                  //   onChange={(e) => setTest(e.target.value)}
+                />
+                <img
+                  src={AlertIcon}
+                  alt=""
+                  className={`registration-input-icon  ${
+                    isRecoverValid.password === "invalid" ? "visible" : "hidden"
+                  }`}
+                />
+                <img
+                  src={CheckIcon}
+                  alt=""
+                  className={`registration-input-icon  ${
+                    isRecoverValid.password === "valid" ? "visible" : "hidden"
+                  }`}
+                />
+              </div>
+            </label>
+            <div className="bg-[#EAF2FB] rounded-xl p-4 mb-6 sm:w-[400px] sm:mx-auto lg:mx-0">
+              <p className="text-sm mb-3  font-medium text-left text-[#B3B3B3]">
+                Passoword must contain Numbers
+              </p>
+              <p className="text-sm mb-3 text-primary font-medium text-left">
+                Passoword must contain uppercase and lowercase alphabets
+              </p>
+              <p className="text-sm mb-3 text-primary font-medium text-left">
+                Passoword must contain Special Characters
+              </p>
             </div>
-          </label>
-          <div className="bg-[#EAF2FB] rounded-xl p-4 mb-6 sm:w-[400px] sm:mx-auto lg:mx-0">
-            <p className="text-sm mb-3  font-medium text-left text-[#B3B3B3]">
-              Passoword must contain Numbers
-            </p>
-            <p className="text-sm mb-3 text-primary font-medium text-left">
-              Passoword must contain Alphabets
-            </p>
-            <p className="text-sm mb-3 text-primary font-medium text-left">
-              Passoword must contain Special Characters
-            </p>
-          </div>
-          <label className="mb-5 block">
-            <p className="registration-input-label">Repeat Password</p>
+            <label className="mb-5 block">
+              <p className="registration-input-label">Repeat Password</p>
 
-            <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
-              <input
-                type="password"
-                className={`registration-input ${
-                  isRecoverValid.repeatPassword === "invalid" && "invalid"
-                } ${isRecoverValid.repeatPassword === "valid" && "valid"}`}
-                name="repeatPassword"
-                value={recoverInputField.repeatPassword}
-                onChange={handleInputChange}
-              />
-              <img
-                src={AlertIcon}
-                alt=""
-                className={`registration-input-icon  ${
-                  isRecoverValid.repeatPassword === "invalid"
-                    ? "visible"
-                    : "hidden"
-                }`}
-              />
-              <img
-                src={CheckIcon}
-                alt=""
-                className={`registration-input-icon  ${
-                  isRecoverValid.repeatPassword === "valid"
-                    ? "visible"
-                    : "hidden"
-                }`}
-              />
+              <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+                <input
+                  type="password"
+                  className={`registration-input ${
+                    isRecoverValid.repeatPassword === "invalid" && "invalid"
+                  } ${isRecoverValid.repeatPassword === "valid" && "valid"}`}
+                  name="repeatPassword"
+                  value={recoverInputField.repeatPassword}
+                  onChange={handleInputChange}
+                />
+                <img
+                  src={AlertIcon}
+                  alt=""
+                  className={`registration-input-icon  ${
+                    isRecoverValid.repeatPassword === "invalid"
+                      ? "visible"
+                      : "hidden"
+                  }`}
+                />
+                <img
+                  src={CheckIcon}
+                  alt=""
+                  className={`registration-input-icon  ${
+                    isRecoverValid.repeatPassword === "valid"
+                      ? "visible"
+                      : "hidden"
+                  }`}
+                />
+              </div>
+            </label>
+            {isPasswordMatch === "true" && (
+              <div className="bg-[#EAF2FB] rounded-xl p-4 sm:w-[400px] sm:mx-auto lg:mx-0">
+                <p className=" font-medium text-left text-sm text-[#B3B3B3]">
+                  Both pasword match
+                </p>
+              </div>
+            )}
+            {isPasswordMatch === "false" && (
+              <div className="bg-[#EAF2FB] rounded-xl p-4 sm:w-[400px] sm:mx-auto lg:mx-0">
+                <p className=" font-medium text-left text-sm text-[#B3B3B3]">
+                  Both pasword does not match
+                </p>
+              </div>
+            )}
+            <div className="my-8">
+              <PrimaryButton handle={handleSubmit}>
+                Reset Password
+              </PrimaryButton>
             </div>
-          </label>
-          {isPasswordMatch === "true" && (
-            <div className="bg-[#EAF2FB] rounded-xl p-4 sm:w-[400px] sm:mx-auto lg:mx-0">
-              <p className=" font-medium text-left text-sm text-[#B3B3B3]">
-                Both pasword match
-              </p>
-            </div>
-          )}
-          {isPasswordMatch === "false" && (
-            <div className="bg-[#EAF2FB] rounded-xl p-4 sm:w-[400px] sm:mx-auto lg:mx-0">
-              <p className=" font-medium text-left text-sm text-[#B3B3B3]">
-                Both pasword does not match
-              </p>
-            </div>
-          )}
-          <div className="my-8">
-            <PrimaryButton handle={handleSubmit}>Reset Password</PrimaryButton>
-          </div>
+          </form>
         </section>
       </div>
       <Alert
