@@ -84,11 +84,8 @@ const RecoverPassword = () => {
       Object.values(isRecoverValid).includes("invalid")
     ) {
       console.log(" wrong isRecoverValid");
-      //   validateInputSubmit();
       return;
     } else {
-      // navigate("/login", { replace: true });
-
       setRecoverInputField({
         password: "",
         repeatPassword: "",
@@ -127,11 +124,11 @@ const RecoverPassword = () => {
         </p>
         <MobileNavbar />
         <section className="p-7">
-          <h1 className="font-semibold text-3xl text-left text-gray-900 mb-6 sm:mx-auto sm:text-center md:hidden">
+          <h1 className="font-semibold text-3xl text-left text-gray-900 mb-6 sm:mx-auto sm:w-[500px] sm:text-center md:w-[400px] md:text-left lg:mx-0 ">
             Create New Password
           </h1>
 
-          <h3 className="text-left mb-12 sm:text-center sm:mx-auto sm:w-[500px] md:w-[400px] lg:text-left lg:mx-0 ">
+          <h3 className="text-left mb-12 sm:text-center sm:mx-auto sm:w-[500px] md:w-[400px] md:text-left lg:mx-0 ">
             Your new password must be different from the old password
           </h3>
           <label className="mb-5 block">
@@ -164,7 +161,7 @@ const RecoverPassword = () => {
               />
             </div>
           </label>
-          <div className="bg-[#EAF2FB] rounded-xl p-4 mb-6">
+          <div className="bg-[#EAF2FB] rounded-xl p-4 mb-6 sm:w-[400px] sm:mx-auto lg:mx-0">
             <p className="text-sm mb-3  font-medium text-left text-[#B3B3B3]">
               Passoword must contain Numbers
             </p>
@@ -209,14 +206,14 @@ const RecoverPassword = () => {
             </div>
           </label>
           {isPasswordMatch === "true" && (
-            <div className="bg-[#EAF2FB] rounded-xl p-4">
+            <div className="bg-[#EAF2FB] rounded-xl p-4 sm:w-[400px] sm:mx-auto lg:mx-0">
               <p className=" font-medium text-left text-sm text-[#B3B3B3]">
                 Both pasword match
               </p>
             </div>
           )}
           {isPasswordMatch === "false" && (
-            <div className="bg-[#EAF2FB] rounded-xl p-4">
+            <div className="bg-[#EAF2FB] rounded-xl p-4 sm:w-[400px] sm:mx-auto lg:mx-0">
               <p className=" font-medium text-left text-sm text-[#B3B3B3]">
                 Both pasword does not match
               </p>
