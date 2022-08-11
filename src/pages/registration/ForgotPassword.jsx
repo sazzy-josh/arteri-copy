@@ -72,10 +72,7 @@ const ForgotPassword = () => {
             </>
           ) : (
             <>
-              <h1
-                className="font-semibold text-3xl text-left text-gray-900 mb-6 sm:text-center  lg:text-left"
-                //   onClick={() => Linking.openURL("email@gmail.com")}
-              >
+              <h1 className="font-semibold text-3xl text-left text-gray-900 mb-6 sm:text-center  lg:text-left">
                 Check your mail
               </h1>
               <h3 className="text-left mb-16 sm:text-center  lg:text-left md:w-[400px] md:mx-auto lg:mx-0">
@@ -83,7 +80,13 @@ const ForgotPassword = () => {
               </h3>
 
               <div className="my-8">
-                <PrimaryButton>Open Mail</PrimaryButton>
+                <PrimaryButton
+                  handle={() =>
+                    navigate("/create-new-password", { replace: true })
+                  }
+                >
+                  Open Mail
+                </PrimaryButton>
               </div>
               <div className="mb-6 lg:w-[450px]">
                 <div className="lg:flex lg:items-center lg:gap-3">

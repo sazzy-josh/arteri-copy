@@ -35,13 +35,13 @@ const Details = () => {
   }, [setSidebarImage]);
 
   // fetch countries dial code
-  useEffect(() => {
-    fetch("https://restcountries.com/v2/all")
-      .then((res) => res.json())
-      .then((data) => {
-        setCountries(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://restcountries.com/v2/all")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setCountries(data);
+  //     });
+  // }, []);
 
   // control input fields
   const handleInputChange = (e) => {
@@ -107,24 +107,6 @@ const Details = () => {
         setIsValid((prev) => ({ ...prev, [name]: "valid" }));
       }
     }
-
-    // ----- handle error on submit -----
-    // const { firstname, lastname, email, phone } = inputField;
-    // if (firstname.length < 3 || firstname.length === 0) {
-    //   setIsValid((prev) => ({ ...prev, firstname: "invalid" }));
-    // } else {
-    //   setIsValid((prev) => ({ ...prev, firstname: "valid" }));
-    // }
-    // if (lastname.length < 3 || lastname.length === 0) {
-    //   setIsValid((prev) => ({ ...prev, lastname: "invalid" }));
-    // } else {
-    //   setIsValid((prev) => ({ ...prev, lastname: "valid" }));
-    // }
-    // if (email.length < 3 || email.length === 0) {
-    //   setIsValid((prev) => ({ ...prev, email: "invalid" }));
-    // } else {
-    //   setIsValid((prev) => ({ ...prev, email: "valid" }));
-    // }
   };
 
   // ----- handle error on submit -----
