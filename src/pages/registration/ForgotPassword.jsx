@@ -8,13 +8,37 @@ import RegistrationRedirect2 from "../../utils/registration-utils/RegistrationRe
 // images
 import LogoWhite from "../../assets/logo-white.svg";
 import image3 from "../../assets/images/image-1.jpg";
+// import icons
+import AlertIcon from "../../assets/icons/alert-info.svg";
+import CheckIcon from "../../assets/icons/check.svg";
 
 const ForgotPassword = () => {
   let navigate = useNavigate();
 
   const [email, setEmail] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState("");
   const [isResetEmail, setIsResetEmail] = useState("");
-  //   let navigate = useNavigate();
+  const handleInputChange = (e) => {
+    setEmail(e.target.value);
+    if (!e.target.value.match(emailRegex) && e.target.value.length !== 0) {
+      setIsEmailValid("invalid");
+    } else if (e.target.value.length === 0) {
+      setIsEmailValid("");
+    } else {
+      setIsEmailValid("valid");
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    isEmailValid === "valid"
+      ? setIsResetEmail(email)
+      : setIsEmailValid("invalid");
+  };
+
+  // Regex for email validation
+  let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
   return (
     <div className=" md:flex">
       <div className=" w-[350px]  h-auto fixed hidden md:block lg:w-[440px] md:h-screen">
@@ -51,23 +75,49 @@ const ForgotPassword = () => {
                 Enter the email associated with your account and we will send
                 you and instructions to reset your password
               </h3>
-              <label className="mb-5 block">
-                <p className="registration-input-label">Email Address</p>
+              <form>
+                <label className="mb-5 block">
+                  <p className="registration-input-label">Email Address</p>
 
-                <input
-                  type="text"
-                  className="registration-input"
-                  name="email"
-                  value={email}
-                  placeholder="yourmail@mail.com"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </label>
-              <div className="my-8">
-                <PrimaryButton handle={() => setIsResetEmail(email)}>
-                  Send Instructions
-                </PrimaryButton>
-              </div>
+                  <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+                    <input
+                      type="email"
+                      className={`registration-input ${
+                        isEmailValid === "invalid" && "invalid"
+                      } ${isEmailValid === "valid" && "valid"}`}
+                      name="email"
+                      placeholder="Enter your email address"
+                      value={email}
+                      onChange={handleInputChange}
+                    />
+
+                    <img
+                      src={AlertIcon}
+                      alt=""
+                      className={`registration-input-icon  ${
+                        isEmailValid === "invalid" ? "visible" : "hidden"
+                      }`}
+                    />
+                    <img
+                      src={CheckIcon}
+                      alt=""
+                      className={`registration-input-icon  ${
+                        isEmailValid === "valid" ? "visible" : "hidden"
+                      }`}
+                    />
+                  </div>
+                  {isEmailValid === "invalid" && (
+                    <p className="registration-input-error ">
+                      *The email you entered is invalid
+                    </p>
+                  )}
+                </label>
+                <div className="my-8">
+                  <PrimaryButton handle={handleSubmit}>
+                    Send Instructions
+                  </PrimaryButton>
+                </div>
+              </form>
               <RegistrationRedirect2 />
             </>
           ) : (

@@ -9,6 +9,7 @@ const RegistrationRedirect = () => {
         <p className="text-black font-medium mt-2 mb-2 inline-block">
           Already have an account?
         </p>
+        <br />
         <p
           className="text-secondary font-medium cursor-pointer inline-block"
           onClick={() => {

@@ -222,7 +222,7 @@ const Details = () => {
                 } ${isValid.email === "valid" && "valid"}`}
                 name="email"
                 value={inputField.email}
-                placeholder="Enter your last name"
+                placeholder="Enter your email address"
                 onChange={handleInputChange}
               />
 
