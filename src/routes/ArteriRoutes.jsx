@@ -12,7 +12,11 @@ import ErrorPage from "../pages/ErrorPage";
 import AccountType from "../utils/registration-utils/AccountType";
 import Details from "../utils/registration-utils/Details";
 import OtherDetails from "../utils/registration-utils/OtherDetails";
+
 import Account from "../pages/dashboard/Account";
+
+import RecoverPassword from "../pages/registration/RecoverPassword";
+
 
 const ArteriRoutes = () => {
   return (
@@ -33,6 +37,7 @@ const ArteriRoutes = () => {
           <Route path="details-2" element={<OtherDetails />} />
         </Route>
         <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="create-new-password" element={<RecoverPassword />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
