@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+/* import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input"; */
 import { useNavigate } from "react-router-dom";
 import "../../styles/registration.css";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
@@ -255,7 +255,7 @@ const Details = () => {
                 isValid.phone === "invalid" && "invalid"
               } ${isValid.phone === "valid" && "valid"}`}
             >
-              <PhoneInput
+              {/* <PhoneInput
                 defaultCountry="NG"
                 className=" w-full h-full border-none rounded-xl"
                 value={inputField.phone}
@@ -270,8 +270,8 @@ const Details = () => {
                   } else {
                     setIsValid((prev) => ({ ...prev, phone: "invalid" }));
                   }
-                }}
-              />
+                }} 
+              /> */}
               <img
                 src={AlertIcon}
                 alt=""
