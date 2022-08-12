@@ -16,6 +16,8 @@ import OtherDetails from "../utils/registration-utils/OtherDetails";
 import Account from "../pages/dashboard/Account";
 
 import RecoverPassword from "../pages/registration/RecoverPassword";
+import Help from "../pages/dashboard/Help";
+import Notifications from "../pages/dashboard/Notifications";
 
 
 const ArteriRoutes = () => {
@@ -30,6 +32,8 @@ const ArteriRoutes = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/application" element={<Application />} />
         <Route path="/my-account" element={<Account />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/help" element={<Help />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Registration />}>
           <Route path="type" element={<AccountType />} />
