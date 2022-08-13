@@ -18,7 +18,7 @@ import Account from "../pages/dashboard/Account";
 import RecoverPassword from "../pages/registration/RecoverPassword";
 import Help from "../pages/dashboard/Help";
 import Notifications from "../pages/dashboard/Notifications";
-
+import History from "../pages/dashboard/History";
 
 const ArteriRoutes = () => {
   return (
@@ -33,6 +33,7 @@ const ArteriRoutes = () => {
         <Route path="/application" element={<Application />} />
         <Route path="/my-account" element={<Account />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/history" element={<History />} />
         <Route path="/help" element={<Help />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Registration />}>

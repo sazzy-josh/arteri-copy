@@ -10,6 +10,7 @@ const SideMenu = ({
   selectAccount,
   selectNot,
   selectHelp,
+  selectHistory,
 }) => {
   const navigate = useNavigate();
   return (
@@ -58,7 +59,20 @@ const SideMenu = ({
             </span>
             <span>My Account</span>
           </div>
-          <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
+          {/* <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
+            <span className="mr-4 pl-3">
+              <Icon.BsFileEarmarkFontFill />
+            </span>
+            <span>History</span>
+          </div> */}
+          <div
+            onClick={() => navigate("/history")}
+            className={
+              selectHistory
+                ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+            }
+          >
             <span className="mr-4 pl-3">
               <Icon.BsFileEarmarkFontFill />
             </span>
