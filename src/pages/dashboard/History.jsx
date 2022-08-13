@@ -6,6 +6,49 @@ import SideMenu from "../../components/nav/SideBar";
 import SearchIcon from "../../assets/icons/search-icon.svg";
 import TrashIcon from "../../assets/icons/trash-icon.svg";
 
+const SearchSort = () => {
+  return (
+    <div className="lg:flex justify-between items-center">
+      <div className="relative flex-1 w-full  h-12 border-2 border-gray-300 rounded-lg p-1">
+        <input
+          type="text"
+          name="search"
+          className=" w-full h-full border-none outline-none bg-transparent pl-3 pr-12"
+          placeholder="Search"
+        />
+        <img
+          src={SearchIcon}
+          className="absolute top-1/2 right-5 -translate-y-1/2 "
+        />
+      </div>
+      <div className="mt-4 flex justify-between items-center">
+        <p className=" border-2 px-4 py-3 rounded-md border-gray-300 flex justify-betwwen items-center gap-2">
+          <svg
+            width="18"
+            height="9"
+            viewBox="0 0 18 9"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16.9201 0.950195L10.4001 7.4702C9.63008 8.2402 8.37008 8.2402 7.60008 7.4702L1.08008 0.950195"
+              stroke="#808080"
+              stroke-width="2"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <p>Sort by</p>
+        </p>
+        <div className="bg-[#EAF2FB] w-10 h-10 leading-10 text-center rounded-full">
+          <img src={TrashIcon} className=" text-center" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const History = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("tab2");
