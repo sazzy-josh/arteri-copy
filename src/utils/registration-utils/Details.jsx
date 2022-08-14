@@ -250,11 +250,12 @@ const Details = () => {
 
           <label>
             <p className="registration-input-label">Phone Number</p>
-            <div
+            <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+              {/* <div
               className={`registration-input-2 relative  w-[95%] ml-0 h-14 rounded-xl my-3 block mx-auto px-4 py-1 border-2 border-gray-300 outline-none sm:w-[400px] sm:mx-auto lg:mx-0 ${
                 isValid.phone === "invalid" && "invalid"
               } ${isValid.phone === "valid" && "valid"}`}
-            >
+            > */}
               {/* <PhoneInput
                 defaultCountry="NG"
                 className=" w-full h-full border-none rounded-xl"
@@ -272,6 +273,17 @@ const Details = () => {
                   }
                 }} 
               /> */}
+
+              <input
+                type="tel"
+                className={`registration-input ${
+                  isValid.phone === "invalid" && "invalid"
+                } ${isValid.phone === "valid" && "valid"}`}
+                name="phone"
+                value={inputField.phone}
+                onChange={handleInputChange}
+              />
+
               <img
                 src={AlertIcon}
                 alt=""
