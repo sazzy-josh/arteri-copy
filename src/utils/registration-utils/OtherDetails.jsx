@@ -14,48 +14,120 @@ import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
 
 const OtherDetails = () => {
-  const registerNewUser = async () => {
-    let formData = new FormData();
-    formData.append("first_name", inputField.firstname);
-    formData.append("last_name", inputField.lastname);
-    formData.append("email", inputField.email);
-    formData.append("gender", inputField.gender);
-    formData.append("phone", inputField.phone);
-    formData.append("password", inputField.password);
-    formData.append("password_confirmation", inputField.repeatPassword);
-    formData.append("tos_accepted", inputField.tos);
-    formData.append("account_type", accountType);
-    console.log(Array.from(formData));
-    console.log(inputField.tos);
-    console.log(isValid.tos);
-
-    // try {
-    //   const response = await Axios.post(
-    //     "https://api.arteri.tk/api/account/create/with-email-address",
-    //     formData
-    //   );
-    //   console.log("response is: ", response);
-    // } catch (err) {
-    //   console.log(err);
-    //   console.log(err?.response?.data?.data?.errors);
-    // }
-  };
-
   let navigate = useNavigate();
+  const [alertProps, setAlertProps] = useState({
+    type: "",
+    title: "",
+    subtitle: "",
+    buttonText: "",
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
-    accountType,
+    account_type,
     setSidebarImage,
     isValid,
     setIsValid,
     inputField,
     setInputField,
   } = useContext(RegistrationContext);
+  const [authtToken, setAuthToken] = useState("");
+  useEffect(() => {
+    console.log("authtkoen state is: " + authtToken);
+    localStorage.setItem("token", JSON.stringify(authtToken));
+  }, [authtToken]);
 
   // regular expressions for password validation
   let passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
 
+  const registerNewUser = async () => {
+    let formData = new FormData();
+    formData.append("first_name", inputField.first_name);
+    formData.append("last_name", inputField.last_name);
+    formData.append("email", inputField.email);
+    formData.append("gender", inputField.gender);
+    formData.append("phone", inputField.phone);
+    formData.append("password", inputField.password);
+    formData.append("password_confirmation", inputField.password_confirmation);
+    formData.append("tos_accepted", inputField.tos_accepted);
+    formData.append("account_type", account_type);
+
+    try {
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/create/with-email-address",
+        formData
+      );
+      console.log("response is: ", response);
+      console.log(response.data);
+      console.log("my token is ", response.data.data.auth_token);
+
+      setAuthToken((prev) => response.data.data.auth_token);
+
+      // client received a success response (2xx)
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "success",
+        title: "Congratulations",
+        subtitle: "You have successfully registered!",
+        buttonText: "Go to dashboard",
+      }));
+      setIsModalOpen(true);
+      console.log(response.data.data);
+      console.log(response.data.data.auth_token);
+
+      // setInputField({
+      //   first_name: "",
+      //   last_name: "",
+      //   email: "",
+      //   phone: "",
+      //   gender: "male",
+      //   password: "",
+      //   password_confirmation: "",
+      // });
+      // setIsValid({
+      //   first_name: "",
+      //   last_name: "",
+      //   email: "",
+      //   phone: "",
+      //   gender: "",
+      //   password: "",
+      //   password_confirmation: "",
+      // });
+    } catch (err) {
+      if (err.response) {
+        // client received an error response (5xx, 4xx)
+        let errTest;
+        if (err.response.data.data.errors.email) {
+          errTest = err.response.data.data.errors.email[0];
+          setAlertProps((prev) => ({
+            ...prev,
+            type: "fail",
+            title: "Ooops! Sorry",
+            subtitle: errTest,
+          }));
+          setIsModalOpen(true);
+        } else if (err.response.data.data.errors.phone) {
+          errTest = err.response.data.data.errors.phone[0];
+          setAlertProps((prev) => ({
+            ...prev,
+            type: "fail",
+            title: "Ooops! Sorry",
+            subtitle: errTest,
+          }));
+          setIsModalOpen(true);
+        } else {
+          setAlertProps((prev) => ({
+            ...prev,
+            type: "fail",
+            title: "Ooops! Sorry",
+            subtitle: err.response.data.flash_message,
+          }));
+          setIsModalOpen(true);
+        }
+        console.log(err.response.data);
+      }
+    }
+  };
   useEffect(() => {
     setSidebarImage("image2");
   }, [setSidebarImage]);
@@ -74,12 +146,12 @@ const OtherDetails = () => {
 
     const newIsValid = {
       password: isValid.password,
-      repeatPassword: isValid.repeatPassword,
-      tos: isValid.tos,
+      password_confirmation: isValid.password_confirmation,
+      tos_accepted: isValid.tos_accepted,
     };
     const prevIsValid = {
-      firstname: isValid.firstname,
-      lastname: isValid.lastname,
+      first_name: isValid.first_name,
+      last_name: isValid.last_name,
       email: isValid.email,
       phone: isValid.phone,
     };
@@ -100,27 +172,7 @@ const OtherDetails = () => {
     } else {
       // navigate("/login", { replace: true });
 
-      setInputField({
-        firstname: "",
-        lastname: "",
-        email: "",
-        phone: "",
-        gender: "male",
-        password: "",
-        repeatPassword: "",
-      });
-      setIsValid({
-        firstname: "",
-        lastname: "",
-        email: "",
-        phone: "",
-        gender: "",
-        password: "",
-        repeatPassword: "",
-      });
-
       registerNewUser();
-      setIsModalOpen(true);
     }
   };
 
@@ -130,7 +182,7 @@ const OtherDetails = () => {
     console.log(isValid);
 
     // handle error onChange
-    if (name === "repeatPassword") {
+    if (name === "password_confirmation") {
       console.log("value after if" + value);
 
       if (value !== inputField.password) {
@@ -149,12 +201,12 @@ const OtherDetails = () => {
 
         setIsValid((prev) => ({ ...prev, [name]: "" }));
       } else if (
-        value !== inputField.repeatPassword &&
-        inputField.repeatPassword.length !== 0
+        value !== inputField.password_confirmation &&
+        inputField.password_confirmation.length !== 0
       ) {
         console.log("mutated");
 
-        setIsValid((prev) => ({ ...prev, repeatPassword: "invalid" }));
+        setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
       } else if (value.match(passwordRegex)) {
         setIsValid((prev) => ({ ...prev, [name]: "valid" }));
         console.log("match");
@@ -177,19 +229,21 @@ const OtherDetails = () => {
   // ----- handle error on submit -----
   const validateInputSubmit = () => {
     console.log("validate subit");
-    const { gender, password, repeatPassword } = inputField;
+    const { gender, password, password_confirmation } = inputField;
     if (!password.match(passwordRegex) || password.length === 0) {
       setIsValid((prev) => ({ ...prev, password: "invalid" }));
     } else {
       setIsValid((prev) => ({ ...prev, password: "valid" }));
     }
-    if (repeatPassword !== password || repeatPassword.length === 0) {
+    if (
+      password_confirmation !== password ||
+      password_confirmation.length === 0
+    ) {
       console.log("submit mismatch");
-      setIsValid((prev) => ({ ...prev, repeatPassword: "invalid" }));
+      setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
     } else {
       console.log("submit match");
-
-      setIsValid((prev) => ({ ...prev, repeatPassword: "valid" }));
+      setIsValid((prev) => ({ ...prev, password_confirmation: "valid" }));
     }
   };
 
@@ -298,10 +352,10 @@ const OtherDetails = () => {
               <input
                 type="password"
                 className={`registration-input ${
-                  isValid.repeatPassword === "invalid" && "invalid"
-                } ${isValid.repeatPassword === "valid" && "valid"}`}
-                name="repeatPassword"
-                value={inputField.repeatPassword}
+                  isValid.password_confirmation === "invalid" && "invalid"
+                } ${isValid.password_confirmation === "valid" && "valid"}`}
+                name="password_confirmation"
+                value={inputField.password_confirmation}
                 onChange={handleInputChange}
               />
 
@@ -309,18 +363,22 @@ const OtherDetails = () => {
                 src={AlertIcon}
                 alt=""
                 className={`registration-input-icon  ${
-                  isValid.repeatPassword === "invalid" ? "visible" : "hidden"
+                  isValid.password_confirmation === "invalid"
+                    ? "visible"
+                    : "hidden"
                 }`}
               />
               <img
                 src={CheckIcon}
                 alt=""
                 className={`registration-input-icon  ${
-                  isValid.repeatPassword === "valid" ? "visible" : "hidden"
+                  isValid.password_confirmation === "valid"
+                    ? "visible"
+                    : "hidden"
                 }`}
               />
             </div>
-            {isValid.repeatPassword === "invalid" && (
+            {isValid.password_confirmation === "invalid" && (
               <p className="registration-input-error ">
                 *The password does not match
               </p>
@@ -331,16 +389,19 @@ const OtherDetails = () => {
               <input
                 type="checkbox"
                 className={`ml-auto hidden`}
-                name="tos"
+                name="tos_accepted"
                 onChange={(e) => {
                   if (e.target.checked) {
-                    setInputField({ ...inputField, tos: "yes" });
-                    setIsValid((prev) => ({ ...prev, tos: "valid" }));
+                    setInputField({ ...inputField, tos_accepted: "yes" });
+                    setIsValid((prev) => ({ ...prev, tos_accepted: "valid" }));
 
                     console.log("checked", inputField);
                   } else {
-                    setInputField({ ...inputField, tos: "" });
-                    setIsValid((prev) => ({ ...prev, tos: "invalid" }));
+                    setInputField({ ...inputField, tos_accepted: "" });
+                    setIsValid((prev) => ({
+                      ...prev,
+                      tos_accepted: "invalid",
+                    }));
 
                     console.log("unchecked", inputField);
                   }
@@ -348,7 +409,7 @@ const OtherDetails = () => {
               />
               <div
                 className={` min-w-[24px] h-6 flex justify-center items-center rounded-md mr-2 ${
-                  inputField.tos === "yes"
+                  inputField.tos_accepted === "yes"
                     ? "bg-secondary"
                     : "bg-none border-2 border-secondary"
                 }`}
@@ -383,14 +444,14 @@ const OtherDetails = () => {
                 src={AlertIcon}
                 alt=""
                 className={`registration-input-icon  ${
-                  isValid.repeatPassword === "invalid" ? "visible" : "hidden"
+                  isValid.password_confirmation === "invalid" ? "visible" : "hidden"
                 }`}
               />
               <img
                 src={CheckIcon}
                 alt=""
                 className={`registration-input-icon  ${
-                  isValid.repeatPassword === "valid" ? "visible" : "hidden"
+                  isValid.password_confirmation === "valid" ? "visible" : "hidden"
                 }`}
               /> */}
             </div>
@@ -406,14 +467,14 @@ const OtherDetails = () => {
       <div className="sm:w-[400px] sm:mx-auto lg:mx-0 ">
         <p className="py-2 px-3 mb-3 inline-block rounded-xl bg-blue-100 text-gray-400 font-medium">
           Account Type:
-          <span className="text-primary capitalize ml-1">{accountType} </span>
+          <span className="text-primary capitalize ml-1">{account_type} </span>
         </p>
       </div>
       <Alert
-        type={"success"}
-        title={" Congratulations!"}
-        subtitle={"Your account has been created successfully"}
-        buttonText={"Go to Dashboard"}
+        type={alertProps.type}
+        title={alertProps.title}
+        subtitle={alertProps.subtitle}
+        buttonText={alertProps.buttonText}
         buttonHandle={() => navigate("/dashboard", { replace: true })}
         modalTrigger={isModalOpen}
         setModalTrigger={setIsModalOpen}

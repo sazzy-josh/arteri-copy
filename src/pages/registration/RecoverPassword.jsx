@@ -18,11 +18,11 @@ const RecoverPassword = () => {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
   const [recoverInputField, setRecoverInputField] = useState({
     password: "",
-    repeatPassword: "",
+    password_confirmation: "",
   });
   const [isRecoverValid, setIsRecoverValid] = useState({
     password: "",
-    repeatPassword: "",
+    password_confirmation: "",
   });
   const [isPasswordMatch, setIsPasswordMatch] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,7 +38,7 @@ const RecoverPassword = () => {
   const validateInputChange = (e, recoverInputField) => {
     const { name, value } = e.target;
 
-    if (name === "repeatPassword") {
+    if (name === "password_confirmation") {
       if (value !== recoverInputField.password) {
         setIsPasswordMatch((prev) => "false");
         setIsRecoverValid((prev) => ({ ...prev, [name]: "invalid" }));
@@ -58,12 +58,15 @@ const RecoverPassword = () => {
 
         setIsRecoverValid((prev) => ({ ...prev, [name]: "" }));
       } else if (
-        value !== recoverInputField.repeatPassword &&
-        recoverInputField.repeatPassword.length !== 0
+        value !== recoverInputField.password_confirmation &&
+        recoverInputField.password_confirmation.length !== 0
       ) {
         console.log("mutated");
 
-        setIsRecoverValid((prev) => ({ ...prev, repeatPassword: "invalid" }));
+        setIsRecoverValid((prev) => ({
+          ...prev,
+          password_confirmation: "invalid",
+        }));
       } else if (value.match(passwordRegex)) {
         setIsRecoverValid((prev) => ({ ...prev, [name]: "valid" }));
         console.log("match");
@@ -88,11 +91,11 @@ const RecoverPassword = () => {
     } else {
       setRecoverInputField({
         password: "",
-        repeatPassword: "",
+        password_confirmation: "",
       });
       setIsRecoverValid({
         password: "",
-        repeatPassword: "",
+        password_confirmation: "",
       });
 
       //   registerNewUser();
@@ -180,17 +183,20 @@ const RecoverPassword = () => {
                 <input
                   type="password"
                   className={`registration-input ${
-                    isRecoverValid.repeatPassword === "invalid" && "invalid"
-                  } ${isRecoverValid.repeatPassword === "valid" && "valid"}`}
-                  name="repeatPassword"
-                  value={recoverInputField.repeatPassword}
+                    isRecoverValid.password_confirmation === "invalid" &&
+                    "invalid"
+                  } ${
+                    isRecoverValid.password_confirmation === "valid" && "valid"
+                  }`}
+                  name="password_confirmation"
+                  value={recoverInputField.password_confirmation}
                   onChange={handleInputChange}
                 />
                 <img
                   src={AlertIcon}
                   alt=""
                   className={`registration-input-icon  ${
-                    isRecoverValid.repeatPassword === "invalid"
+                    isRecoverValid.password_confirmation === "invalid"
                       ? "visible"
                       : "hidden"
                   }`}
@@ -199,7 +205,7 @@ const RecoverPassword = () => {
                   src={CheckIcon}
                   alt=""
                   className={`registration-input-icon  ${
-                    isRecoverValid.repeatPassword === "valid"
+                    isRecoverValid.password_confirmation === "valid"
                       ? "visible"
                       : "hidden"
                   }`}

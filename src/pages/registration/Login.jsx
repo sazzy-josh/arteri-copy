@@ -45,7 +45,7 @@ const Login = () => {
 
     // const newIsValid = {
     //   password: isValid.password,
-    //   repeatPassword: isValid.repeatPassword,
+    //   password_confirmation: isValid.password_confirmation,
     // };
 
     if (

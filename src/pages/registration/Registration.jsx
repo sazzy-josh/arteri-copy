@@ -13,27 +13,27 @@ import image3 from "../../assets/images/image-3.jpg";
 import { RegistrationContext } from "../../contexts/authContext/RegistrationContext";
 
 const Registration = () => {
-  const [accountType, setAccountType] = useState("personal");
+  const [account_type, setaccount_type] = useState("personal");
   const [sidebarImage, setSidebarImage] = useState("");
   const [isValid, setIsValid] = useState({
-    firstname: "",
-    lastname: "",
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
     gender: "",
     password: "",
-    repeatPassword: "",
-    tos: "",
+    password_confirmation: "",
+    tos_accepted: "",
   });
   const [inputField, setInputField] = useState({
-    firstname: "",
-    lastname: "",
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
     gender: "male",
     password: "",
-    repeatPassword: "",
-    tos: "invalid",
+    password_confirmation: "",
+    tos_accepted: "invalid",
   });
   let navigate = useNavigate();
 
@@ -41,8 +41,8 @@ const Registration = () => {
     <>
       <RegistrationContext.Provider
         value={{
-          accountType,
-          setAccountType,
+          account_type,
+          setaccount_type,
           setSidebarImage,
           isValid,
           setIsValid,
