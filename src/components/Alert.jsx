@@ -45,7 +45,7 @@ const Alert = ({
           <p className="text-black font-semibold capitalize text-2xl mb-3">
             {title}
           </p>
-          <p className="text-gray-500 mb-2">{subtitle}</p>
+          <p className="text-gray-500 mb-2 px-2">{subtitle}</p>
           {buttonText && (
             <button
               className="bg-secondary text-white font-medium w-48 h-12 rounded-md my-4 cursor-pointer"

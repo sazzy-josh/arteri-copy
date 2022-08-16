@@ -8,7 +8,7 @@ import { RegistrationContext } from "../../contexts/authContext/RegistrationCont
 
 const AccountType = () => {
   let navigate = useNavigate();
-  const { accountType, setAccountType, setSidebarImage } =
+  const { account_type, setaccount_type, setSidebarImage } =
     useContext(RegistrationContext);
   useEffect(() => {
     setSidebarImage("image1");
@@ -16,7 +16,7 @@ const AccountType = () => {
   return (
     <>
       <section className="px-7 py-5 ">
-        {accountType === "personal" && (
+        {account_type === "personal" && (
           <>
             <h1 className="text-black text-2xl font-bold text-left mb-10 w-full sm:text-center md:hidden md:text-left">
               Easier access to{" "}
@@ -29,7 +29,7 @@ const AccountType = () => {
             </h1>
           </>
         )}
-        {accountType === "provider" && (
+        {account_type === "provider" && (
           <>
             <h1 className="text-black text-2xl font-bold text-left mb-10 w-full sm:text-center md:hidden md:text-left">
               Create an account to access the tools and financing that your{" "}
@@ -51,12 +51,12 @@ const AccountType = () => {
               name="account-type"
               value="personal"
               className="hidden"
-              onChange={(e) => setAccountType(e.target.value)}
+              onChange={(e) => setaccount_type(e.target.value)}
             />
             <p
               className={` cursor-pointer w-full h-14 leading-[50px]  font-medium bg-transparent text-lg border-2 text-center rounded-xl my-4 block mx-auto sm:w-4/6 md:w-40
                md:inline-block md:mr-7 ${
-                 accountType === "personal"
+                 account_type === "personal"
                    ? "border-primary text-primary"
                    : "border-gray-400 text-gray-400"
                }`}
@@ -67,7 +67,7 @@ const AccountType = () => {
           <label>
             <p
               className={`cursor-pointer w-full h-14 leading-[50px] font-medium bg-transparent text-lg border-2  text-center rounded-xl my-4 block mx-auto sm:w-4/6 md:w-40  md:inline-block md:mr-5 ${
-                accountType === "provider"
+                account_type === "provider"
                   ? "border-primary text-primary"
                   : "border-gray-400 text-gray-400"
               }`}
@@ -79,7 +79,7 @@ const AccountType = () => {
               name="account-type"
               value="provider"
               className="hidden"
-              onChange={(e) => setAccountType(e.target.value)}
+              onChange={(e) => setaccount_type(e.target.value)}
             />
           </label>
         </div>

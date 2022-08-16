@@ -4,6 +4,7 @@ import PrimaryButton from "../../components/buttons/PrimaryButton";
 import MobileNavbar from "../../components/MobileNavbar";
 import "../../styles/registration.css";
 import RegistrationRedirect2 from "../../utils/registration-utils/RegistrationRedirect2";
+import Axios from "axios";
 
 // images
 import LogoWhite from "../../assets/logo-white.svg";
@@ -12,21 +13,31 @@ import image1 from "../../assets/images/image-1.jpg";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
+import { useEffect } from "react";
 
 const Login = () => {
   let navigate = useNavigate();
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
+  const [authToken, setAuthToken] = useState("");
+  const [alertProps, setAlertProps] = useState({
+    type: "",
+    title: "",
+    subtitle: "",
+    buttonText: "",
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoginValid, setIsLoginValid] = useState({
-    email: "",
+    identifier: "",
     password: "",
   });
   const [loginInputField, setLoginInputField] = useState({
-    email: "",
+    identifier: "",
     password: "",
   });
+
+  // useEffect(() => {
+  //   console.log("use effect token", authToken);
+  //   localStorage.setItem("authToken", authToken);
+  // }, [authToken]);
 
   // regular expressions for email and password validation
   let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -45,7 +56,7 @@ const Login = () => {
 
     // const newIsValid = {
     //   password: isValid.password,
-    //   repeatPassword: isValid.repeatPassword,
+    //   password_confirmation: isValid.password_confirmation,
     // };
 
     if (
@@ -56,15 +67,62 @@ const Login = () => {
       validateInputSubmit();
       return;
     } else {
+      loginUser();
+    }
+  };
+
+  // post formData to server
+  const loginUser = async () => {
+    let formData = new FormData();
+    formData.append("identifier", loginInputField.identifier);
+    formData.append("password", loginInputField.password);
+
+    // post formData to server
+    try {
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/log-in",
+        formData
+      );
+
+      // console.log("my token is ", response.data.data.auth_token);
+      // setAuthToken(response.data.data.auth_token);
+
+      localStorage.setItem("authToken", response.data.data.auth_token);
+
+      // client received a success response (2xx)
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "success",
+        // title: "Congratulations",
+        title: "Logged in",
+      }));
+      setIsModalOpen(true);
+      console.log(response.data.data);
+      console.log(response.data.data.auth_token);
+
       setLoginInputField({
-        email: "",
+        identifier: "",
         password: "",
       });
       setIsLoginValid({
-        email: "",
+        identifier: "",
         password: "",
       });
-      setIsModalOpen(true);
+      navigate("/dashboard", { replace: true });
+    } catch (err) {
+      if (err.response) {
+        // client received an error response (5xx, 4xx)
+
+        setAlertProps((prev) => ({
+          ...prev,
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.response.data.data.flash_message,
+        }));
+        setIsModalOpen(true);
+
+        console.log(err.response.data);
+      }
     }
   };
 
@@ -103,7 +161,7 @@ const Login = () => {
     //   }
     // }
 
-    if (name === "email") {
+    if (name === "identifier") {
       if (!value.match(emailRegex) && value.length !== 0) {
         setIsLoginValid((prev) => ({ ...prev, [name]: "invalid" }));
       } else if (value.length === 0) {
@@ -116,12 +174,12 @@ const Login = () => {
 
   // ----- handle error on submit -----
   const validateInputSubmit = () => {
-    const { email, password } = loginInputField;
+    const { identifier, password } = loginInputField;
 
-    if (!email.match(emailRegex) || email.length === 0) {
-      setIsLoginValid((prev) => ({ ...prev, email: "invalid" }));
+    if (!identifier.match(emailRegex) || identifier.length === 0) {
+      setIsLoginValid((prev) => ({ ...prev, identifier: "invalid" }));
     } else {
-      setIsLoginValid((prev) => ({ ...prev, email: "valid" }));
+      setIsLoginValid((prev) => ({ ...prev, identifier: "valid" }));
     }
     if (!password.match(passwordRegex) || password.length === 0) {
       setIsLoginValid((prev) => ({ ...prev, password: "invalid" }));
@@ -165,11 +223,11 @@ const Login = () => {
                   <input
                     type="email"
                     className={`registration-input ${
-                      isLoginValid.email === "invalid" && "invalid"
-                    } ${isLoginValid.email === "valid" && "valid"}`}
-                    name="email"
+                      isLoginValid.identifier === "invalid" && "invalid"
+                    } ${isLoginValid.identifier === "valid" && "valid"}`}
+                    name="identifier"
                     placeholder="Yourmail@mail.com"
-                    value={loginInputField.email}
+                    value={loginInputField.identifier}
                     onChange={handleInputChange}
                   />
 
@@ -177,18 +235,20 @@ const Login = () => {
                     src={AlertIcon}
                     alt=""
                     className={`registration-input-icon  ${
-                      isLoginValid.email === "invalid" ? "visible" : "hidden"
+                      isLoginValid.identifier === "invalid"
+                        ? "visible"
+                        : "hidden"
                     }`}
                   />
                   <img
                     src={CheckIcon}
                     alt=""
                     className={`registration-input-icon  ${
-                      isLoginValid.email === "valid" ? "visible" : "hidden"
+                      isLoginValid.identifier === "valid" ? "visible" : "hidden"
                     }`}
                   />
                 </div>
-                {isLoginValid.email === "invalid" && (
+                {isLoginValid.identifier === "invalid" && (
                   <p className="registration-input-error ">
                     *The email you entered is invalid
                   </p>
@@ -248,9 +308,10 @@ const Login = () => {
         </div>
       </div>
       <Alert
-        type={"success"}
-        title={" Logged In!"}
-        buttonText={"Go to Dashboard"}
+        type={alertProps.type}
+        title={alertProps.title}
+        subtitle={alertProps.subtitle}
+        buttonText={alertProps.buttonText}
         buttonHandle={() => navigate("/dashboard", { replace: true })}
         modalTrigger={isModalOpen}
         setModalTrigger={setIsModalOpen}

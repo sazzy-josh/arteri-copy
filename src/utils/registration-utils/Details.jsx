@@ -21,7 +21,7 @@ const Details = () => {
 
   // contexts
   const {
-    accountType,
+    account_type,
     setSidebarImage,
     isValid,
     setIsValid,
@@ -55,8 +55,8 @@ const Details = () => {
     e.preventDefault();
 
     const newIsValid = {
-      firstname: isValid.firstname,
-      lastname: isValid.lastname,
+      first_name: isValid.first_name,
+      last_name: isValid.last_name,
       email: isValid.email,
       phone: isValid.phone,
     };
@@ -111,16 +111,16 @@ const Details = () => {
 
   // ----- handle error on submit -----
   const validateInputSubmit = () => {
-    const { firstname, lastname, email, phone } = inputField;
-    if (firstname.length < 3 || firstname.length === 0) {
-      setIsValid((prev) => ({ ...prev, firstname: "invalid" }));
+    const { first_name, last_name, email, phone } = inputField;
+    if (first_name.length < 3 || first_name.length === 0) {
+      setIsValid((prev) => ({ ...prev, first_name: "invalid" }));
     } else {
-      setIsValid((prev) => ({ ...prev, firstname: "valid" }));
+      setIsValid((prev) => ({ ...prev, first_name: "valid" }));
     }
-    if (lastname.length < 3 || lastname.length === 0) {
-      setIsValid((prev) => ({ ...prev, lastname: "invalid" }));
+    if (last_name.length < 3 || last_name.length === 0) {
+      setIsValid((prev) => ({ ...prev, last_name: "invalid" }));
     } else {
-      setIsValid((prev) => ({ ...prev, lastname: "valid" }));
+      setIsValid((prev) => ({ ...prev, last_name: "valid" }));
     }
     if (
       (!email.match(emailRegex) && email.length !== 0) ||
@@ -146,10 +146,10 @@ const Details = () => {
               <input
                 type="text"
                 className={`registration-input ${
-                  isValid.firstname === "invalid" && "invalid"
-                } ${isValid.firstname === "valid" && "valid"}`}
-                name="firstname"
-                value={inputField.firstname}
+                  isValid.first_name === "invalid" && "invalid"
+                } ${isValid.first_name === "valid" && "valid"}`}
+                name="first_name"
+                value={inputField.first_name}
                 placeholder="Enter your first name"
                 onChange={handleInputChange}
               />
@@ -158,20 +158,20 @@ const Details = () => {
                 src={AlertIcon}
                 alt=""
                 className={`registration-input-icon  ${
-                  isValid.firstname === "invalid" ? "visible" : "hidden"
+                  isValid.first_name === "invalid" ? "visible" : "hidden"
                 }`}
               />
               <img
                 src={CheckIcon}
                 alt=""
                 className={`registration-input-icon  ${
-                  isValid.firstname === "valid" ? "visible" : "hidden"
+                  isValid.first_name === "valid" ? "visible" : "hidden"
                 }`}
               />
             </div>
-            {isValid.firstname === "invalid" && (
+            {isValid.first_name === "invalid" && (
               <p className="registration-input-error ">
-                *The firstname you entered is invalid
+                *The first_name you entered is invalid
               </p>
             )}
           </label>
@@ -182,10 +182,10 @@ const Details = () => {
               <input
                 type="text"
                 className={`registration-input ${
-                  isValid.lastname === "invalid" && "invalid"
-                } ${isValid.lastname === "valid" && "valid"}`}
-                name="lastname"
-                value={inputField.lastname}
+                  isValid.last_name === "invalid" && "invalid"
+                } ${isValid.last_name === "valid" && "valid"}`}
+                name="last_name"
+                value={inputField.last_name}
                 placeholder="Enter your last name"
                 onChange={handleInputChange}
               />
@@ -194,20 +194,20 @@ const Details = () => {
                 src={AlertIcon}
                 alt=""
                 className={`registration-input-icon  ${
-                  isValid.lastname === "invalid" ? "visible" : "hidden"
+                  isValid.last_name === "invalid" ? "visible" : "hidden"
                 }`}
               />
               <img
                 src={CheckIcon}
                 alt=""
                 className={`registration-input-icon  ${
-                  isValid.lastname === "valid" ? "visible" : "hidden"
+                  isValid.last_name === "valid" ? "visible" : "hidden"
                 }`}
               />
             </div>
-            {isValid.lastname === "invalid" && (
+            {isValid.last_name === "invalid" && (
               <p className="registration-input-error ">
-                *The lastname you entered is invalid
+                *The last_name you entered is invalid
               </p>
             )}
           </label>
@@ -250,11 +250,12 @@ const Details = () => {
 
           <label>
             <p className="registration-input-label">Phone Number</p>
-            <div
+            <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+              {/* <div
               className={`registration-input-2 relative  w-[95%] ml-0 h-14 rounded-xl my-3 block mx-auto px-4 py-1 border-2 border-gray-300 outline-none sm:w-[400px] sm:mx-auto lg:mx-0 ${
                 isValid.phone === "invalid" && "invalid"
               } ${isValid.phone === "valid" && "valid"}`}
-            >
+            > */}
               {/* <PhoneInput
                 defaultCountry="NG"
                 className=" w-full h-full border-none rounded-xl"
@@ -272,6 +273,18 @@ const Details = () => {
                   }
                 }} 
               /> */}
+
+              <input
+                type="tel"
+                className={`registration-input ${
+                  isValid.phone === "invalid" && "invalid"
+                } ${isValid.phone === "valid" && "valid"}`}
+                name="phone"
+                placeholder="Enter your phone number"
+                value={inputField.phone}
+                onChange={handleInputChange}
+              />
+
               <img
                 src={AlertIcon}
                 alt=""
@@ -304,7 +317,7 @@ const Details = () => {
         <p className="py-2 px-3 mb-3 inline-block rounded-xl bg-blue-100 text-gray-400 font-medium">
           Account Type:{" "}
           <span className="text-primary capitalize ml-1">
-            {accountType === "personal" ? "consumer" : accountType}{" "}
+            {account_type === "personal" ? "consumer" : account_type}{" "}
           </span>
         </p>
       </div>
