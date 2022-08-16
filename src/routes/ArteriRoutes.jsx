@@ -29,7 +29,7 @@ const ArteriRoutes = () => {
         <Route
           path="/"
           element={
-            localStorage.getItem("AuthToken") ? (
+            localStorage.getItem("authToken") ? (
               <Navigate to="/dashboard" replace={true} />
             ) : (
               <Navigate to="/register/type" replace={true} />

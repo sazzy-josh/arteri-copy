@@ -30,11 +30,6 @@ const OtherDetails = () => {
     inputField,
     setInputField,
   } = useContext(RegistrationContext);
-  const [authToken, setAuthToken] = useState("");
-  useEffect(() => {
-    console.log("authtkoen state is: " + authToken);
-    localStorage.setItem("token", JSON.stringify(authToken));
-  }, [authToken]);
 
   // regular expressions for password validation
   let passwordRegex =
@@ -61,9 +56,8 @@ const OtherDetails = () => {
 
       console.log("my token is ", response.data.data.auth_token);
 
-      setAuthToken((prev) => response.data.data.auth_token);
-
       // client received a success response (2xx)
+      localStorage.setItem("authToken", response.data.data.auth_token);
       setAlertProps((prev) => ({
         ...alertProps,
         type: "success",

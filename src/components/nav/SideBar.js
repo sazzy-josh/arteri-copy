@@ -41,6 +41,7 @@ const SideMenu = ({
       //   title: "Logged in",
       // }));
       // setIsModalOpen(true);
+      localStorage.removeItem("authToken");
 
       navigate("/login", { replace: true });
     } catch (err) {

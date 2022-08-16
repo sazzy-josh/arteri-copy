@@ -34,9 +34,10 @@ const Login = () => {
     password: "",
   });
 
-  useEffect(() => {
-    localStorage.setItem("authToken", authToken);
-  }, [authToken]);
+  // useEffect(() => {
+  //   console.log("use effect token", authToken);
+  //   localStorage.setItem("authToken", authToken);
+  // }, [authToken]);
 
   // regular expressions for email and password validation
   let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -83,9 +84,10 @@ const Login = () => {
         formData
       );
 
-      console.log("my token is ", response.data.data.auth_token);
+      // console.log("my token is ", response.data.data.auth_token);
+      // setAuthToken(response.data.data.auth_token);
 
-      setAuthToken((prev) => response.data.data.auth_token);
+      localStorage.setItem("authToken", response.data.data.auth_token);
 
       // client received a success response (2xx)
       setAlertProps((prev) => ({
