@@ -30,11 +30,11 @@ const OtherDetails = () => {
     inputField,
     setInputField,
   } = useContext(RegistrationContext);
-  const [authtToken, setAuthToken] = useState("");
+  const [authToken, setAuthToken] = useState("");
   useEffect(() => {
-    console.log("authtkoen state is: " + authtToken);
-    localStorage.setItem("token", JSON.stringify(authtToken));
-  }, [authtToken]);
+    console.log("authtkoen state is: " + authToken);
+    localStorage.setItem("token", JSON.stringify(authToken));
+  }, [authToken]);
 
   // regular expressions for password validation
   let passwordRegex =
@@ -52,13 +52,13 @@ const OtherDetails = () => {
     formData.append("tos_accepted", inputField.tos_accepted);
     formData.append("account_type", account_type);
 
+    // post formData to server
     try {
       const response = await Axios.post(
         "https://api.arteri.tk/api/account/create/with-email-address",
         formData
       );
-      console.log("response is: ", response);
-      console.log(response.data);
+
       console.log("my token is ", response.data.data.auth_token);
 
       setAuthToken((prev) => response.data.data.auth_token);
@@ -75,44 +75,44 @@ const OtherDetails = () => {
       console.log(response.data.data);
       console.log(response.data.data.auth_token);
 
-      // setInputField({
-      //   first_name: "",
-      //   last_name: "",
-      //   email: "",
-      //   phone: "",
-      //   gender: "male",
-      //   password: "",
-      //   password_confirmation: "",
-      // });
-      // setIsValid({
-      //   first_name: "",
-      //   last_name: "",
-      //   email: "",
-      //   phone: "",
-      //   gender: "",
-      //   password: "",
-      //   password_confirmation: "",
-      // });
+      setInputField({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "male",
+        password: "",
+        password_confirmation: "",
+      });
+      setIsValid({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "",
+        password: "",
+        password_confirmation: "",
+      });
     } catch (err) {
       if (err.response) {
         // client received an error response (5xx, 4xx)
-        let errTest;
+        let dataErrorMessage;
         if (err.response.data.data.errors.email) {
-          errTest = err.response.data.data.errors.email[0];
+          dataErrorMessage = err.response.data.data.errors.email[0];
           setAlertProps((prev) => ({
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: errTest,
+            subtitle: dataErrorMessage,
           }));
           setIsModalOpen(true);
         } else if (err.response.data.data.errors.phone) {
-          errTest = err.response.data.data.errors.phone[0];
+          dataErrorMessage = err.response.data.data.errors.phone[0];
           setAlertProps((prev) => ({
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: errTest,
+            subtitle: dataErrorMessage,
           }));
           setIsModalOpen(true);
         } else {

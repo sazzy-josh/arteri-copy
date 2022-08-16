@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Application from "../pages/dashboard/Application";
 
@@ -21,12 +21,20 @@ import Notifications from "../pages/dashboard/Notifications";
 import History from "../pages/dashboard/History";
 
 const ArteriRoutes = () => {
+  const [authToken, setAuthToken] = useState("");
+
   return (
     <>
       <Routes>
         <Route
           path="/"
-          element={<Navigate to="/register/type" replace={true} />}
+          element={
+            localStorage.getItem("AuthToken") ? (
+              <Navigate to="/dashboard" replace={true} />
+            ) : (
+              <Navigate to="/register/type" replace={true} />
+            )
+          }
         />
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
