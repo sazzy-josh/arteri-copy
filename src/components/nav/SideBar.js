@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Icon from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import Logo from "../Logo";
+import axios from "axios";
+import Alert from "../Alert";
 
 const SideMenu = ({
   selectDash,
@@ -13,6 +15,51 @@ const SideMenu = ({
   selectHistory,
 }) => {
   const navigate = useNavigate();
+  const [alertProps, setAlertProps] = useState({
+    type: "",
+    title: "",
+    subtitle: "",
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const logOutUser = async () => {
+    const loggedInToken = localStorage.getItem("authToken");
+    // post formData to server
+    try {
+      console.log(loggedInToken, "token start");
+      const response = await axios.post(
+        "https://api.arteri.tk/api/account/log-out/here",
+        {},
+        { headers: { Authorization: `Bearer ${loggedInToken}` } }
+      );
+      console.log("user logged out", loggedInToken);
+
+      // client received a success response (2xx)
+      // setAlertProps((prev) => ({
+      //   ...alertProps,
+      //   type: "success",
+      //   // title: "Congratulations",
+      //   title: "Logged in",
+      // }));
+      // setIsModalOpen(true);
+
+      navigate("/login", { replace: true });
+    } catch (err) {
+      if (err.response) {
+        // client received an error response (5xx, 4xx)
+
+        setAlertProps((prev) => ({
+          ...prev,
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.response.data.data.flash_message,
+        }));
+        setIsModalOpen(true);
+
+        console.log(err.response);
+      }
+    }
+    console.log("log out");
+  };
   return (
     <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-10">
       <div className="w-full mt-20 mb-10">
@@ -115,7 +162,10 @@ const SideMenu = ({
           <div className="border rounded-md border-white bg-transparent px-5 py-2 cursor-pointer">
             <span>Switch Account</span>
           </div>
-          <div className="flex flex-row justify-start items-center border rounded-md border-white bg-transparent px-5 py-2 my-5 cursor-pointer">
+          <div
+            onClick={logOutUser}
+            className="flex flex-row justify-start items-center border rounded-md border-white bg-transparent px-5 py-2 my-5 cursor-pointer"
+          >
             <span className="mr-5">
               <BiLogOut />
             </span>
@@ -123,6 +173,14 @@ const SideMenu = ({
           </div>
         </div>
       </div>
+      <Alert
+        type={alertProps.type}
+        title={alertProps.title}
+        subtitle={alertProps.subtitle}
+        buttonText={alertProps.buttonText}
+        modalTrigger={isModalOpen}
+        setModalTrigger={setIsModalOpen}
+      />
     </div>
   );
 };

@@ -106,7 +106,7 @@ const Login = () => {
         identifier: "",
         password: "",
       });
-      // navigate("/dashboard", { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       if (err.response) {
         // client received an error response (5xx, 4xx)
