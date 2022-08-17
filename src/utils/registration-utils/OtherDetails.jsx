@@ -433,21 +433,6 @@ const OtherDetails = () => {
                   Privacy Policy
                 </Link>{" "}
               </p>
-
-              {/* <img
-                src={AlertIcon}
-                alt=""
-                className={`registration-input-icon  ${
-                  isValid.password_confirmation === "invalid" ? "visible" : "hidden"
-                }`}
-              />
-              <img
-                src={CheckIcon}
-                alt=""
-                className={`registration-input-icon  ${
-                  isValid.password_confirmation === "valid" ? "visible" : "hidden"
-                }`}
-              /> */}
             </div>
           </label>
           <div className="mt-10 mb-5">

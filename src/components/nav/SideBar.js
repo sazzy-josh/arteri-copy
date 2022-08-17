@@ -34,20 +34,12 @@ const SideMenu = ({
       console.log("user logged out", loggedInToken);
 
       // client received a success response (2xx)
-      // setAlertProps((prev) => ({
-      //   ...alertProps,
-      //   type: "success",
-      //   // title: "Congratulations",
-      //   title: "Logged in",
-      // }));
-      // setIsModalOpen(true);
       localStorage.removeItem("authToken");
 
       navigate("/login", { replace: true });
     } catch (err) {
       if (err.response) {
         // client received an error response (5xx, 4xx)
-
         setAlertProps((prev) => ({
           ...prev,
           type: "fail",
