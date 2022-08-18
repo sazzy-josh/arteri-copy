@@ -22,19 +22,23 @@ const SideMenu = ({
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const logOutUser = async () => {
-    const loggedInToken = localStorage.getItem("authToken");
+    let loggedInToken;
     // post formData to server
     try {
-      console.log(loggedInToken, "token start");
+      if (localStorage.getItem("authToken")) {
+        loggedInToken = localStorage.getItem("authToken");
+      } else {
+        loggedInToken = sessionStorage.getItem("authToken");
+      }
       const response = await axios.post(
         "https://api.arteri.tk/api/account/log-out/here",
         {},
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
-      console.log("user logged out", loggedInToken);
 
       // client received a success response (2xx)
       localStorage.removeItem("authToken");
+      sessionStorage.removeItem("authToken");
 
       navigate("/login", { replace: true });
     } catch (err) {

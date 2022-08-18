@@ -87,8 +87,11 @@ const Login = () => {
 
       // console.log("my token is ", response.data.data.auth_token);
       // setAuthToken(response.data.data.auth_token);
-
-      localStorage.setItem("authToken", response.data.data.auth_token);
+      if (longLiveAuthToken) {
+        localStorage.setItem("authToken", response.data.data.auth_token);
+      } else {
+        sessionStorage.setItem("authToken", response.data.data.auth_token);
+      }
 
       // client received a success response (2xx)
       setAlertProps((prev) => ({
@@ -291,15 +294,16 @@ const Login = () => {
                   </p>
                 )}
               </label>
-
-              <p
-                className="text-right cursor-pointer text-secondary font-medium my-5 pr-3 sm:w-[400px] sm:pr-0 sm:mx-auto lg:mx-0"
-                onClick={() => {
-                  navigate("/forgot-password", { replace: true });
-                }}
-              >
-                Forgot password?
-              </p>
+              <div className="sm:w-[400px] sm:pr-0 sm:mx-auto lg:mx-0 text-right">
+                <p
+                  className=" inline-block cursor-pointer text-secondary font-medium my-5 pr-3"
+                  onClick={() => {
+                    navigate("/forgot-password", { replace: true });
+                  }}
+                >
+                  Forgot password?
+                </p>
+              </div>
               <label className="my-9 block sm:w-[400px] text-left mx-auto lg:mx-0 ">
                 <div className="relative inline-flex justify-start items-start  ">
                   <input
