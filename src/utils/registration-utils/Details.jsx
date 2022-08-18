@@ -251,6 +251,9 @@ const Details = () => {
           <label>
             <p className="registration-input-label">Phone Number</p>
             <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+              {/* code block for using international phone number dropdown
+              NB: you must install react-phone-number-input npm package and uncomment the import at the top of this file */}
+
               {/* <div
               className={`registration-input-2 relative  w-[95%] ml-0 h-14 rounded-xl my-3 block mx-auto px-4 py-1 border-2 border-gray-300 outline-none sm:w-[400px] sm:mx-auto lg:mx-0 ${
                 isValid.phone === "invalid" && "invalid"
