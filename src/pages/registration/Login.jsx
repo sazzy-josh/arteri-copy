@@ -33,6 +33,7 @@ const Login = () => {
     identifier: "",
     password: "",
   });
+  const [longLiveAuthToken, setLongLiveAuthToken] = useState(false);
 
   // useEffect(() => {
   //   console.log("use effect token", authToken);
@@ -86,8 +87,11 @@ const Login = () => {
 
       // console.log("my token is ", response.data.data.auth_token);
       // setAuthToken(response.data.data.auth_token);
-
-      localStorage.setItem("authToken", response.data.data.auth_token);
+      if (longLiveAuthToken) {
+        localStorage.setItem("authToken", response.data.data.auth_token);
+      } else {
+        sessionStorage.setItem("authToken", response.data.data.auth_token);
+      }
 
       // client received a success response (2xx)
       setAlertProps((prev) => ({
@@ -290,15 +294,62 @@ const Login = () => {
                   </p>
                 )}
               </label>
-
-              <p
-                className="text-right cursor-pointer text-secondary font-medium my-5 pr-3 sm:w-[400px] sm:pr-0 sm:mx-auto lg:mx-0"
-                onClick={() => {
-                  navigate("/forgot-password", { replace: true });
-                }}
-              >
-                Forgot password?
-              </p>
+              <div className="sm:w-[400px] sm:pr-0 sm:mx-auto lg:mx-0 text-right">
+                <p
+                  className=" inline-block cursor-pointer text-secondary font-medium my-5 pr-3"
+                  onClick={() => {
+                    navigate("/forgot-password", { replace: true });
+                  }}
+                >
+                  Forgot password?
+                </p>
+              </div>
+              <label className="my-9 block sm:w-[400px] text-left mx-auto lg:mx-0 ">
+                <div className="relative inline-flex justify-start items-start  ">
+                  <input
+                    type="checkbox"
+                    className={`ml-auto hidden`}
+                    name="tos_accepted"
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setLongLiveAuthToken(true);
+                        console.log("yes keep me logged in");
+                      } else {
+                        setLongLiveAuthToken(false);
+                        console.log("No! don't keep me logged in");
+                      }
+                    }}
+                  />
+                  <div
+                    className={` min-w-[24px] h-6 flex justify-center items-center rounded-md mr-2 ${
+                      longLiveAuthToken
+                        ? "bg-secondary"
+                        : "bg-none border-2 border-gray-400"
+                    }`}
+                  >
+                    <svg
+                      className="w-4/6 h-4/6 m-auto"
+                      viewBox="0 0 16 11"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.15381 5.23529L5.48955 9.47793L14.161 0.99265"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </div>
+                  <p
+                    className={`font-medium text-left  inline-block w-5/6 ${
+                      longLiveAuthToken ? "text-secondary" : "text-gray-400"
+                    }`}
+                  >
+                    Keep me logged in
+                  </p>
+                </div>
+              </label>
               <PrimaryButton handle={handleSubmit}>
                 Login into account
               </PrimaryButton>
