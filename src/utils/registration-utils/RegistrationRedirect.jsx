@@ -19,14 +19,14 @@ const RegistrationRedirect = () => {
           Login into account
         </p>
       </div>
-      <div className="sm:w-[400px] sm:mx-auto lg:mx-0  ">
+      {/* <div className="sm:w-[400px] sm:mx-auto lg:mx-0  ">
         <NavLink
           to="/dashboard"
           className="text-blue-500 underline  inline-block mb-2 text-center   "
         >
           Go to dashboard
         </NavLink>
-      </div>
+      </div> */}
     </>
   );
 };
