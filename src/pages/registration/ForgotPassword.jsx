@@ -19,6 +19,7 @@ const ForgotPassword = () => {
 
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
   const [isResetEmail, setIsResetEmail] = useState("");
   const [alertProps, setAlertProps] = useState({
     type: "",
@@ -176,16 +177,56 @@ const ForgotPassword = () => {
               <h3 className="text-left mb-16 sm:text-center  lg:text-left md:w-[400px] md:mx-auto lg:mx-0">
                 We have sent password recovery instructions to your mail
               </h3>
+              <form>
+                <label className="mb-5 block">
+                  <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+                    <input
+                      type="text"
+                      className={`registration-input ${
+                        isEmailValid === "invalid" && "invalid"
+                      } ${isEmailValid === "valid" && "valid"}`}
+                      name="email"
+                      placeholder="Enter the code here"
+                      value={verificationCode}
+                      onChange={(e) => {
+                        setVerificationCode(e.target.value);
+                      }}
+                    />
 
-              <div className="my-8">
-                <PrimaryButton
-                  handle={() =>
-                    navigate("/create-new-password", { replace: true })
-                  }
-                >
-                  Open Mail
-                </PrimaryButton>
-              </div>
+                    {/* <img
+                      src={AlertIcon}
+                      alt=""
+                      className={`registration-input-icon  ${
+                        isEmailValid === "invalid" ? "visible" : "hidden"
+                      }`}
+                    />
+                    <img
+                      src={CheckIcon}
+                      alt=""
+                      className={`registration-input-icon  ${
+                        isEmailValid === "valid" ? "visible" : "hidden"
+                      }`}
+                    /> */}
+                  </div>
+                </label>
+                <div className="my-8">
+                  <PrimaryButton
+                    handle={(e) => {
+                      e.preventDefault();
+                      console.log(verificationCode.length);
+                      if (verificationCode.length > 0) {
+                        // setIsVerified(true);
+                        console.log("Verified");
+                        navigate(`/create-new-password/${verificationCode}`, {
+                          replace: true,
+                        });
+                      }
+                    }}
+                  >
+                    Create New Password
+                  </PrimaryButton>
+                </div>
+              </form>
               <div className="mb-6 lg:w-[450px]">
                 <div className="lg:flex lg:items-center lg:gap-3">
                   <p className="text-black font-medium mt-2 mb-2">

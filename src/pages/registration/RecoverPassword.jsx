@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import MobileNavbar from "../../components/MobileNavbar";
 import "../../styles/registration.css";
+import Axios from "axios";
 
 // images
 import LogoWhite from "../../assets/logo-white.svg";
@@ -14,6 +15,7 @@ import Alert from "../../components/Alert";
 
 const RecoverPassword = () => {
   let navigate = useNavigate();
+  let { code } = useParams();
   let passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
   const [recoverInputField, setRecoverInputField] = useState({
@@ -26,6 +28,11 @@ const RecoverPassword = () => {
   });
   const [isPasswordMatch, setIsPasswordMatch] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    type: "",
+    title: "",
+    subtitle: "",
+  });
 
   // control input fields on change
   const handleInputChange = (e) => {
@@ -78,7 +85,7 @@ const RecoverPassword = () => {
     }
   };
   // control input fields on submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     console.log("eweee", recoverInputField);
     e.preventDefault();
 
@@ -89,17 +96,44 @@ const RecoverPassword = () => {
       console.log(" wrong isRecoverValid");
       return;
     } else {
-      setRecoverInputField({
-        password: "",
-        password_confirmation: "",
-      });
-      setIsRecoverValid({
-        password: "",
-        password_confirmation: "",
-      });
+      // setRecoverInputField({
+      //   password: "",
+      //   password_confirmation: "",
+      // });
+      // setIsRecoverValid({
+      //   password: "",
+      //   password_confirmation: "",
+      // });
 
-      //   registerNewUser();
-      setIsModalOpen(true);
+      let formData = new FormData();
+      formData.append("verification_code", code);
+      formData.append("password", recoverInputField.password);
+      formData.append(
+        "password_confirmation",
+        recoverInputField.password_confirmation
+      );
+
+      // post formData to server
+      try {
+        const response = await Axios.post(
+          "https://api.arteri.tk/api/account/password/reset",
+          formData
+        );
+
+        navigate("/login", { replace: true });
+      } catch (err) {
+        if (err.response) {
+          // client received an error response (5xx, 4xx)
+
+          setAlertProps((prev) => ({
+            ...prev,
+            type: "fail",
+            title: "Ooops! Sorry",
+            subtitle: err.response.data.data.flash_message,
+          }));
+          setIsModalOpen(true);
+        }
+      }
     }
   };
 
@@ -134,6 +168,7 @@ const RecoverPassword = () => {
           <h3 className="text-left mb-12 sm:text-center sm:mx-auto sm:w-[500px] md:w-[400px] md:text-left lg:mx-0 ">
             Your new password must be different from the old password
           </h3>
+
           <form>
             <label className="mb-5 block">
               <p className="registration-input-label">Password</p>
@@ -166,7 +201,18 @@ const RecoverPassword = () => {
               </div>
             </label>
             <div className="bg-[#EAF2FB] rounded-xl p-4 mb-6 sm:w-[400px] sm:mx-auto lg:mx-0">
-              <p className="text-sm mb-3  font-medium text-left text-[#B3B3B3]">
+              {/* <p
+                className={`text-sm mb-3  font-medium text-left ${
+                  new RegExp("d").test(recoverInputField.password)
+                    ? "bg-green-400"
+                    : "bg-red-400"
+                } text-[#B3B3B3]`}
+              >
+                Passoword must contain Numbers
+              </p> */}
+              <p
+                className={`text-sm mb-3  font-medium text-left  text-[#B3B3B3]`}
+              >
                 Passoword must contain Numbers
               </p>
               <p className="text-sm mb-3 text-primary font-medium text-left">
@@ -212,20 +258,34 @@ const RecoverPassword = () => {
                 />
               </div>
             </label>
-            {isPasswordMatch === "true" && (
+
+            <div className="bg-[#EAF2FB] rounded-xl p-4 sm:w-[400px] sm:mx-auto lg:mx-0">
+              <p
+                className={` font-medium text-left text-sm ${
+                  recoverInputField.password ===
+                  recoverInputField.password_confirmation
+                    ? "text-primary"
+                    : "text-[#B3B3B3]"
+                } `}
+              >
+                Both pasword match
+              </p>
+            </div>
+
+            {/* {isPasswordMatch === "true" && (
               <div className="bg-[#EAF2FB] rounded-xl p-4 sm:w-[400px] sm:mx-auto lg:mx-0">
                 <p className=" font-medium text-left text-sm text-[#B3B3B3]">
                   Both pasword match
                 </p>
               </div>
-            )}
-            {isPasswordMatch === "false" && (
+            )} */}
+            {/* {isPasswordMatch === "false" && (
               <div className="bg-[#EAF2FB] rounded-xl p-4 sm:w-[400px] sm:mx-auto lg:mx-0">
                 <p className=" font-medium text-left text-sm text-[#B3B3B3]">
                   Both pasword does not match
                 </p>
               </div>
-            )}
+            )} */}
             <div className="my-8">
               <PrimaryButton handle={handleSubmit}>
                 Reset Password
@@ -235,11 +295,9 @@ const RecoverPassword = () => {
         </section>
       </div>
       <Alert
-        type={"success"}
-        title={" Congratulations!"}
-        subtitle={"Your password has been updated"}
-        buttonText={"Go to Dashboard"}
-        buttonHandle={() => navigate("/dashboard", { replace: true })}
+        type={alertProps.type}
+        title={alertProps.title}
+        subtitle={alertProps.subtitle}
         modalTrigger={isModalOpen}
         setModalTrigger={setIsModalOpen}
       />
