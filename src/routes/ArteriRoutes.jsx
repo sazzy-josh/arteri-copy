@@ -66,7 +66,10 @@ const ArteriRoutes = () => {
             <Route path="details-2" element={<OtherDetails />} />
           </Route>
           <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="create-new-password" element={<RecoverPassword />} />
+          <Route
+            path="create-new-password/:code"
+            element={<RecoverPassword />}
+          />
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
