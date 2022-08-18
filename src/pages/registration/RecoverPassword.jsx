@@ -201,26 +201,44 @@ const RecoverPassword = () => {
               </div>
             </label>
             <div className="bg-[#EAF2FB] rounded-xl p-4 mb-6 sm:w-[400px] sm:mx-auto lg:mx-0">
-              {/* <p
+              <p
                 className={`text-sm mb-3  font-medium text-left ${
-                  new RegExp("d").test(recoverInputField.password)
-                    ? "bg-green-400"
-                    : "bg-red-400"
-                } text-[#B3B3B3]`}
+                  /\d/.test(recoverInputField.password)
+                    ? "text-primary"
+                    : "text-[#B3B3B3]"
+                } `}
               >
                 Passoword must contain Numbers
-              </p> */}
+              </p>
               <p
+                className={`text-sm mb-3  font-medium text-left ${
+                  /(?=.*[a-z])(?=.*[A-Z])/.test(recoverInputField.password)
+                    ? "text-primary"
+                    : "text-[#B3B3B3]"
+                } `}
+              >
+                Passoword must contain uppercase and lowercase alphabets
+              </p>
+              <p
+                className={`text-sm mb-3  font-medium text-left ${
+                  /(?=.*[!@#\$%\^&\*])/.test(recoverInputField.password)
+                    ? "text-primary"
+                    : "text-[#B3B3B3]"
+                } `}
+              >
+                Passoword must contain Special Characters
+              </p>
+              {/* <p
                 className={`text-sm mb-3  font-medium text-left  text-[#B3B3B3]`}
               >
                 Passoword must contain Numbers
-              </p>
-              <p className="text-sm mb-3 text-primary font-medium text-left">
+              </p> */}
+              {/* <p className="text-sm mb-3 text-primary font-medium text-left">
                 Passoword must contain uppercase and lowercase alphabets
-              </p>
-              <p className="text-sm mb-3 text-primary font-medium text-left">
+              </p> */}
+              {/* <p className="text-sm mb-3 text-primary font-medium text-left">
                 Passoword must contain Special Characters
-              </p>
+              </p> */}
             </div>
             <label className="mb-5 block">
               <p className="registration-input-label">Repeat Password</p>
