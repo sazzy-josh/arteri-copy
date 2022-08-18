@@ -120,9 +120,7 @@ const Login = () => {
 
     // handle error onChange
     if (name === "password") {
-      if (!value.match(passwordRegex) && value.length !== 0) {
-        setIsLoginValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length === 0) {
+      if (value.length === 0) {
         setIsLoginValid((prev) => ({ ...prev, [name]: "" }));
       } else {
         setIsLoginValid((prev) => ({ ...prev, [name]: "valid" }));
@@ -130,9 +128,7 @@ const Login = () => {
     }
 
     if (name === "identifier") {
-      if (!value.match(emailRegex) && value.length !== 0) {
-        setIsLoginValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length === 0) {
+      if (value.length === 0) {
         setIsLoginValid((prev) => ({ ...prev, [name]: "" }));
       } else {
         setIsLoginValid((prev) => ({ ...prev, [name]: "valid" }));
@@ -144,12 +140,12 @@ const Login = () => {
   const validateInputSubmit = () => {
     const { identifier, password } = loginInputField;
 
-    if (!identifier.match(emailRegex) || identifier.length === 0) {
+    if (identifier.length === 0) {
       setIsLoginValid((prev) => ({ ...prev, identifier: "invalid" }));
     } else {
       setIsLoginValid((prev) => ({ ...prev, identifier: "valid" }));
     }
-    if (!password.match(passwordRegex) || password.length === 0) {
+    if (password.length === 0) {
       setIsLoginValid((prev) => ({ ...prev, password: "invalid" }));
     } else {
       setIsLoginValid((prev) => ({ ...prev, password: "valid" }));
@@ -190,16 +186,14 @@ const Login = () => {
                 <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
                   <input
                     type="email"
-                    className={`registration-input ${
-                      isLoginValid.identifier === "invalid" && "invalid"
-                    } ${isLoginValid.identifier === "valid" && "valid"}`}
+                    className="registration-input"
                     name="identifier"
                     placeholder="Yourmail@mail.com"
                     value={loginInputField.identifier}
                     onChange={handleInputChange}
                   />
 
-                  <img
+                  {/* <img
                     src={AlertIcon}
                     alt=""
                     className={`registration-input-icon  ${
@@ -214,7 +208,7 @@ const Login = () => {
                     className={`registration-input-icon  ${
                       isLoginValid.identifier === "valid" ? "visible" : "hidden"
                     }`}
-                  />
+                  /> */}
                 </div>
                 {isLoginValid.identifier === "invalid" && (
                   <p className="registration-input-error ">
@@ -228,15 +222,13 @@ const Login = () => {
                 <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
                   <input
                     type="password"
-                    className={`registration-input ${
-                      isLoginValid.password === "invalid" && "invalid"
-                    } ${isLoginValid.password === "valid" && "valid"}`}
+                    className="registration-input"
                     name="password"
                     value={loginInputField.password}
                     onChange={handleInputChange}
                   />
 
-                  <img
+                  {/* <img
                     src={AlertIcon}
                     alt=""
                     className={`registration-input-icon  ${
@@ -249,7 +241,7 @@ const Login = () => {
                     className={`registration-input-icon  ${
                       isLoginValid.password === "valid" ? "visible" : "hidden"
                     }`}
-                  />
+                  /> */}
                 </div>
                 {isLoginValid.password === "invalid" && (
                   <p className="registration-input-error ">
