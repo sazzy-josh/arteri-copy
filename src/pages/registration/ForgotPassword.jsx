@@ -28,7 +28,6 @@ const ForgotPassword = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleInputChange = (e) => {
-    console.log(isEmailValid);
     setEmail(e.target.value);
     if (!e.target.value.match(emailRegex) && e.target.value.length !== 0) {
       setIsEmailValid("invalid");
@@ -38,13 +37,7 @@ const ForgotPassword = () => {
       setIsEmailValid("valid");
     }
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // isEmailValid === "valid"
-    //   ? setIsResetEmail(email)
-    //   : setIsEmailValid("invalid");
-
+  const requestPasswordReset = async () => {
     if (isEmailValid === "valid") {
       let formData = new FormData();
       formData.append("identifier", email);
@@ -55,9 +48,9 @@ const ForgotPassword = () => {
           "https://api.arteri.tk/api/account/password/request-reset",
           formData
         );
-        console.log("form is submitted");
+        console.log("reset email sent");
 
-        setEmail(() => "");
+        // setEmail(() => "");
         setIsResetEmail(() => email);
       } catch (err) {
         if (err.response) {
@@ -77,6 +70,14 @@ const ForgotPassword = () => {
       setIsEmailValid("invalid");
     }
   };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   // isEmailValid === "valid"
+  //   //   ? setIsResetEmail(email)
+  //   //   : setIsEmailValid("invalid");
+
+  // };
 
   // Regex for email validation
   let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -155,7 +156,12 @@ const ForgotPassword = () => {
                   )}
                 </label>
                 <div className="my-8">
-                  <PrimaryButton handle={handleSubmit}>
+                  <PrimaryButton
+                    handle={(e) => {
+                      e.preventDefault();
+                      requestPasswordReset();
+                    }}
+                  >
                     Send Instructions
                   </PrimaryButton>
                 </div>
@@ -197,7 +203,10 @@ const ForgotPassword = () => {
                 </div>
                 <div className="lg:flex lg:items-center lg:justify-center lg:gap-3 ">
                   <p className="text-black font-medium mt-2 mb-2">Or</p>
-                  <p className="text-secondary font-medium cursor-pointer">
+                  <p
+                    onClick={requestPasswordReset}
+                    className="text-secondary font-medium cursor-pointer"
+                  >
                     Resend Instructions
                   </p>
                 </div>
