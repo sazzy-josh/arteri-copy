@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import MobileNavbar from "../../components/MobileNavbar";
 import "../../styles/registration.css";
 import RegistrationRedirect2 from "../../utils/registration-utils/RegistrationRedirect2";
+import Axios from "axios";
 
 // images
 import LogoWhite from "../../assets/logo-white.svg";
@@ -11,6 +12,7 @@ import image3 from "../../assets/images/image-1.jpg";
 // import icons
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
+import Alert from "../../components/Alert";
 
 const ForgotPassword = () => {
   let navigate = useNavigate();
@@ -18,7 +20,15 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState("");
   const [isResetEmail, setIsResetEmail] = useState("");
+  const [alertProps, setAlertProps] = useState({
+    type: "",
+    title: "",
+    subtitle: "",
+    buttonText: "",
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleInputChange = (e) => {
+    console.log(isEmailValid);
     setEmail(e.target.value);
     if (!e.target.value.match(emailRegex) && e.target.value.length !== 0) {
       setIsEmailValid("invalid");
@@ -28,12 +38,44 @@ const ForgotPassword = () => {
       setIsEmailValid("valid");
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    isEmailValid === "valid"
-      ? setIsResetEmail(email)
-      : setIsEmailValid("invalid");
+    // isEmailValid === "valid"
+    //   ? setIsResetEmail(email)
+    //   : setIsEmailValid("invalid");
+
+    if (isEmailValid === "valid") {
+      let formData = new FormData();
+      formData.append("identifier", email);
+
+      // post formData to server
+      try {
+        const response = await Axios.post(
+          "https://api.arteri.tk/api/account/password/request-reset",
+          formData
+        );
+        console.log("form is submitted");
+
+        setEmail(() => "");
+        setIsResetEmail(() => email);
+      } catch (err) {
+        if (err.response) {
+          // client received an error response (5xx, 4xx)
+          setAlertProps((prev) => ({
+            ...prev,
+            type: "fail",
+            title: "Ooops! Sorry",
+            subtitle: err.response.data.data.flash_message,
+          }));
+          setIsModalOpen(true);
+        }
+      }
+    } else {
+      console.log("email is invalid");
+
+      setIsEmailValid("invalid");
+    }
   };
 
   // Regex for email validation
@@ -163,6 +205,13 @@ const ForgotPassword = () => {
             </>
           )}
         </section>
+        <Alert
+          type={alertProps.type}
+          title={alertProps.title}
+          subtitle={alertProps.subtitle}
+          modalTrigger={isModalOpen}
+          setModalTrigger={setIsModalOpen}
+        />
       </div>
     </div>
   );

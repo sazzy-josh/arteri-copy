@@ -54,8 +54,6 @@ const OtherDetails = () => {
         formData
       );
 
-      console.log("my token is ", response.data.data.auth_token);
-
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
       setAlertProps((prev) => ({
@@ -66,8 +64,6 @@ const OtherDetails = () => {
         buttonText: "Go to dashboard",
       }));
       setIsModalOpen(true);
-      console.log(response.data.data);
-      console.log(response.data.data.auth_token);
 
       setInputField({
         first_name: "",
@@ -118,7 +114,6 @@ const OtherDetails = () => {
           }));
           setIsModalOpen(true);
         }
-        console.log(err.response.data);
       }
     }
   };
@@ -135,7 +130,6 @@ const OtherDetails = () => {
 
   // control input fields on submit
   const handleSubmit = (e) => {
-    console.log("eweee", inputField);
     e.preventDefault();
 
     const newIsValid = {
@@ -149,19 +143,16 @@ const OtherDetails = () => {
       email: isValid.email,
       phone: isValid.phone,
     };
-    console.log(newIsValid);
     if (
       Object.values(newIsValid).includes("") ||
       Object.values(newIsValid).includes("invalid")
     ) {
-      console.log(" wrong newIsValid");
       validateInputSubmit();
       return;
     } else if (
       Object.values(prevIsValid).includes("") ||
       Object.values(prevIsValid).includes("invalid")
     ) {
-      console.log("wrong preIsValid");
       navigate("/register/details", { replace: true });
     } else {
       // navigate("/login", { replace: true });
@@ -173,12 +164,9 @@ const OtherDetails = () => {
   // validate input fields on change
   const validateInputChange = (e, inputField) => {
     const { name, value } = e.target;
-    console.log(isValid);
 
     // handle error onChange
     if (name === "password_confirmation") {
-      console.log("value after if" + value);
-
       if (value !== inputField.password) {
         setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
       } else if (value.length === 0) {
@@ -188,25 +176,17 @@ const OtherDetails = () => {
       }
     } else if (name === "password") {
       if (!value.match(passwordRegex) && value.length !== 0) {
-        console.log("mismatch");
         setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
       } else if (value.length === 0) {
-        console.log("empty");
-
         setIsValid((prev) => ({ ...prev, [name]: "" }));
       } else if (
         value !== inputField.password_confirmation &&
         inputField.password_confirmation.length !== 0
       ) {
-        console.log("mutated");
-
         setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
       } else if (value.match(passwordRegex)) {
         setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-        console.log("match");
       } else {
-        console.log("success");
-
         setIsValid((prev) => ({ ...prev, [name]: "valid" }));
       }
     } else {
@@ -222,7 +202,6 @@ const OtherDetails = () => {
 
   // ----- handle error on submit -----
   const validateInputSubmit = () => {
-    console.log("validate subit");
     const { gender, password, password_confirmation } = inputField;
     if (!password.match(passwordRegex) || password.length === 0) {
       setIsValid((prev) => ({ ...prev, password: "invalid" }));
@@ -233,10 +212,8 @@ const OtherDetails = () => {
       password_confirmation !== password ||
       password_confirmation.length === 0
     ) {
-      console.log("submit mismatch");
       setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
     } else {
-      console.log("submit match");
       setIsValid((prev) => ({ ...prev, password_confirmation: "valid" }));
     }
   };
@@ -388,16 +365,12 @@ const OtherDetails = () => {
                   if (e.target.checked) {
                     setInputField({ ...inputField, tos_accepted: "yes" });
                     setIsValid((prev) => ({ ...prev, tos_accepted: "valid" }));
-
-                    console.log("checked", inputField);
                   } else {
                     setInputField({ ...inputField, tos_accepted: "" });
                     setIsValid((prev) => ({
                       ...prev,
                       tos_accepted: "invalid",
                     }));
-
-                    console.log("unchecked", inputField);
                   }
                 }}
               />

@@ -13,7 +13,6 @@ import image1 from "../../assets/images/image-1.jpg";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
-import { useEffect } from "react";
 
 const Login = () => {
   let navigate = useNavigate();
@@ -35,11 +34,6 @@ const Login = () => {
   });
   const [longLiveAuthToken, setLongLiveAuthToken] = useState(false);
 
-  // useEffect(() => {
-  //   console.log("use effect token", authToken);
-  //   localStorage.setItem("authToken", authToken);
-  // }, [authToken]);
-
   // regular expressions for email and password validation
   let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
   let passwordRegex =
@@ -51,20 +45,15 @@ const Login = () => {
     setLoginInputField({ ...loginInputField, [name]: value });
     validateInputChange(e, loginInputField);
   };
+
   // control input fields on submit
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // const newIsValid = {
-    //   password: isValid.password,
-    //   password_confirmation: isValid.password_confirmation,
-    // };
 
     if (
       Object.values(isLoginValid).includes("") ||
       Object.values(isLoginValid).includes("invalid")
     ) {
-      console.log(" wrong newIsValid");
       validateInputSubmit();
       return;
     } else {
@@ -85,7 +74,6 @@ const Login = () => {
         formData
       );
 
-      // console.log("my token is ", response.data.data.auth_token);
       // setAuthToken(response.data.data.auth_token);
       if (longLiveAuthToken) {
         localStorage.setItem("authToken", response.data.data.auth_token);
@@ -101,8 +89,6 @@ const Login = () => {
         title: "Logged in",
       }));
       setIsModalOpen(true);
-      console.log(response.data.data);
-      console.log(response.data.data.auth_token);
 
       setLoginInputField({
         identifier: "",
@@ -124,8 +110,6 @@ const Login = () => {
           subtitle: err.response.data.data.flash_message,
         }));
         setIsModalOpen(true);
-
-        console.log(err.response.data);
       }
     }
   };
@@ -133,37 +117,17 @@ const Login = () => {
   // validate input fields on change
   const validateInputChange = (e, loginInputField) => {
     const { name, value } = e.target;
-    console.log(isLoginValid);
 
     // handle error onChange
     if (name === "password") {
       if (!value.match(passwordRegex) && value.length !== 0) {
-        console.log("mismatch");
         setIsLoginValid((prev) => ({ ...prev, [name]: "invalid" }));
-      }
-      // else if (value.match(passwordRegex)) {
-      //   setIsLoginValid((prev) => ({ ...prev, [name]: "valid" }));
-      //   console.log("match");
-      // }
-      else if (value.length === 0) {
-        console.log("empty");
-
+      } else if (value.length === 0) {
         setIsLoginValid((prev) => ({ ...prev, [name]: "" }));
       } else {
-        console.log("success");
-
         setIsLoginValid((prev) => ({ ...prev, [name]: "valid" }));
       }
     }
-    // else {
-    //   if (value.length !== 0 && value.length < 3) {
-    //     setIsLoginValid((prev) => ({ ...prev, [name]: "invalid" }));
-    //   } else if (value.length === 0) {
-    //     setIsLoginValid((prev) => ({ ...prev, [name]: "" }));
-    //   } else {
-    //     setIsLoginValid((prev) => ({ ...prev, [name]: "valid" }));
-    //   }
-    // }
 
     if (name === "identifier") {
       if (!value.match(emailRegex) && value.length !== 0) {
@@ -313,10 +277,8 @@ const Login = () => {
                     onChange={(e) => {
                       if (e.target.checked) {
                         setLongLiveAuthToken(true);
-                        console.log("yes keep me logged in");
                       } else {
                         setLongLiveAuthToken(false);
-                        console.log("No! don't keep me logged in");
                       }
                     }}
                   />
