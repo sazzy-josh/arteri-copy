@@ -6,6 +6,8 @@ import SideMenu from "../../components/nav/SideBar";
 import SearchIcon from "../../assets/icons/search-icon.svg";
 import TrashIcon from "../../assets/icons/trash-icon.svg";
 
+import HistoryTable from "../../components/HistoryTable";
+
 const SearchSort = () => {
   return (
     <div className="lg:flex justify-between items-center">
@@ -98,12 +100,15 @@ const History = () => {
                       onClick={() => setActiveTab("tab3")}
                       className={`inline-block medium pb-3 w-[100px] text-center   ${
                         activeTab === "tab3" && "border-b-4 border-primary"
-                      }`}
+                      }`} 
                     >
                       BNPL
                     </p>
                   </div>
                   <SearchSort />
+                </section>
+                <section>
+                  <HistoryTable />
                 </section>
               </>
             )}
