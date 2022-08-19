@@ -26,7 +26,7 @@ const SearchSort = () => {
         />
       </div>
       <div className="mt-6 flex justify-between items-center md:mt-0">
-        <p className=" border-2 px-4 py-2 rounded-lg h-12 border-gray-300 flex justify-betwwen items-center gap-2">
+        <p className=" border-2 px-4 py-2 rounded-lg h-12 border-gray-300 flex justify-betwwen items-center gap-2 cursor-pointer">
           <svg
             width="18"
             height="9"
@@ -78,31 +78,31 @@ const History = () => {
             {!isOpen && (
               <>
                 <section className="my-5 px-5  ">
-                  <p className="text-2xl font-bold text-left mb-8">
+                  <p className="text-2xl font-bold text-left mb-10">
                     Financing History
                   </p>
-                  <div className="flex justify-between items-center mb-8">
+                  <div className="flex justify-between items-center md:justify-start mb-8 border-b border-gray-100">
                     <p
                       onClick={() => setActiveTab("tab1")}
-                      className={`inline-block medium pb-3 w-[100px] text-center   ${
+                      className={`cursor-pointer inline-block font-medium pb-3 w-[100px] text-center   ${
                         activeTab === "tab1" && "border-b-4 border-primary"
-                      }`}
+                      } sm:w-48 lg:w-56`}
                     >
                       Repayment
                     </p>
                     <p
                       onClick={() => setActiveTab("tab2")}
-                      className={`inline-block medium pb-3 w-[100px] text-center   ${
+                      className={`cursor-pointer inline-block font-medium pb-3 w-[100px] text-center   ${
                         activeTab === "tab2" && "border-b-4 border-primary"
-                      }`}
+                      } sm:w-48 lg:w-56`}
                     >
                       Loan
                     </p>
                     <p
                       onClick={() => setActiveTab("tab3")}
-                      className={`inline-block medium pb-3 w-[100px] text-center   ${
+                      className={`cursor-pointer inline-block font-medium pb-3 w-[100px] text-center   ${
                         activeTab === "tab3" && "border-b-4 border-primary"
-                      }`}
+                      } sm:w-48 lg:w-56`}
                     >
                       BNPL
                     </p>
