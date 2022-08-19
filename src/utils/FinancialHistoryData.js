@@ -5,7 +5,7 @@ const FinancialHistoryData = [
     collection_date: "22 Jun, 2022 - 10:39PM",
     due_date: "22 Jun, 2022 - 10:39PM",
     amount: "35000",
-    status: "Payed",
+    status: "payed",
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ const FinancialHistoryData = [
     collection_date: "22 Jun, 2022 - 10:39PM",
     due_date: "22 Jun, 2022 - 10:39PM",
     amount: "35000",
-    status: "Payed",
+    status: "payed",
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ const FinancialHistoryData = [
     collection_date: "22 Jun, 2022 - 10:39PM",
     due_date: "22 Jun, 2022 - 10:39PM",
     amount: "35000",
-    status: "Declined",
+    status: "declined",
   },
 ];
 export default FinancialHistoryData;
