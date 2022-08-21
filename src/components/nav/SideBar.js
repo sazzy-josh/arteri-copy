@@ -110,7 +110,7 @@ const SideMenu = ({
             <span>History</span>
           </div> */}
           <div
-            onClick={() => navigate("/history")}
+            onClick={() => navigate("/history/repayment")}
             className={
               selectHistory
                 ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
