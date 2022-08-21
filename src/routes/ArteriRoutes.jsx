@@ -14,13 +14,16 @@ import Details from "../utils/registration-utils/Details";
 import OtherDetails from "../utils/registration-utils/OtherDetails";
 
 import Account from "../pages/dashboard/Account";
-
+// financial history
+import Repayment from "../utils/financial-history/Repayment";
 import RecoverPassword from "../pages/registration/RecoverPassword";
 import Help from "../pages/dashboard/Help";
 import Notifications from "../pages/dashboard/Notifications";
 import History from "../pages/dashboard/History";
 import AuthenticatedPrivateRoutes from "../layouts/AuthenticatedPrivateRoutes";
 import UnauthenticatedPrivateRoutes from "../layouts/UnauthenticatedPrivateRoutes";
+import Loans from "../utils/financial-history/Loans";
+import BNPL from "../utils/financial-history/BNPL";
 
 const ArteriRoutes = () => {
   // const [authToken, setAuthToken] = useState(null);
@@ -54,7 +57,15 @@ const ArteriRoutes = () => {
           <Route path="/application" element={<Application />} />
           <Route path="/my-account" element={<Account />} />
           <Route path="/notifications" element={<Notifications />} />
-          <Route path="/history" element={<History />} />
+          <Route
+            path="/history"
+            // element={<Navigate to="/history/repayment" replace={true} />}
+            element={<History />}
+          >
+            <Route path="repayment" element={<Repayment />} />
+            <Route path="loans" element={<Loans />} />
+            <Route path="bnpl" element={<BNPL />} />
+          </Route>
           <Route path="/help" element={<Help />} />
         </Route>
 
