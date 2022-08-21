@@ -2,7 +2,7 @@ import React from "react";
 import SearchSort from "../../components/history/SearchSort";
 // import Data from "../financial-history/FinancialHistoryData";
 
-const repayment = () => {
+const Repayment = () => {
   const Data = [
     {
       id: 1,
@@ -30,57 +30,59 @@ const repayment = () => {
     },
   ];
   return (
-    <section className=" px-3 py-5 shadow-2xl shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0">
-      <SearchSort />
-      <table className="w-full">
-        <thead className="">
-          <tr className="mb-5 border-b-2 border-gray-100">
-            <th className="py-3 px-3 whitespace-nowrap font-semibold">
-              Application
-            </th>
-            <th className="py-3 px-3  whitespace-nowrap font-semibold hidden lg:table-cell">
-              Collection Date and Time
-            </th>
-            <th className="py-3 px-3 whitespace-nowrap font-semibold hidden lg:table-cell">
-              Due Date and Time
-            </th>
-            <th className="py-3 px-3 w-48 whitespace-nowrap font-semibold hidden lg:table-cell">
-              Amount
-            </th>
-            <th className="py-3 px-3  whitespace-nowrap font-semibold ">
-              Status
-            </th>
-            {/* <th className="py-3 px-3 w-16 whitespace-nowrap hidden lg:table-cell "></th> */}
-          </tr>
-          <tr className="bg-red-300 h-5"></tr>
-        </thead>
-        <tbody>
-          {Data.map((item, index) => (
-            <tr key={index} className="odd:bg-[#F6FAFD]">
-              <td className="p-[18px] whitespace-nowrap font-medium ">
-                {item.application_id}
-              </td>
-              <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                {item.collection_date}
-              </td>
-              <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                {item.due_date}
-              </td>
-              <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                {item.amount}
-              </td>
-              <td className="p-[18px] whitespace-nowrap font-medium  ">
-                <p
-                  className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
-                    item.status === "payed" && "text-[#00A03E] bg-[#E5FFEF]"
-                  } ${
-                    item.status === "declined" && "text-[#DE4307] bg-[#FEEDE6]"
-                  }`}
-                >
-                  {item.status}
-                </p>
-              </td>
-              {/* <td className="p-[18px] whitespace-nowrap hidden lg:table-cell">
+    <>
+      <section className=" px-3 py-5 shadow-2xl shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0">
+        <SearchSort />
+        <table className="w-full">
+          <thead className="">
+            <tr className="mb-5 border-b-2 border-gray-100">
+              <th className="py-3 px-3 whitespace-nowrap font-semibold">
+                Application
+              </th>
+              <th className="py-3 px-3  whitespace-nowrap font-semibold hidden lg:table-cell">
+                Collection Date and Time
+              </th>
+              <th className="py-3 px-3 whitespace-nowrap font-semibold hidden lg:table-cell">
+                Due Date and Time
+              </th>
+              <th className="py-3 px-3 w-48 whitespace-nowrap font-semibold hidden lg:table-cell">
+                Amount
+              </th>
+              <th className="py-3 px-3  whitespace-nowrap font-semibold ">
+                Status
+              </th>
+              {/* <th className="py-3 px-3 w-16 whitespace-nowrap hidden lg:table-cell "></th> */}
+            </tr>
+            <tr className="bg-red-300 h-5"></tr>
+          </thead>
+          <tbody>
+            {Data.map((item, index) => (
+              <tr key={index} className="odd:bg-[#F6FAFD]">
+                <td className="p-[18px] whitespace-nowrap font-medium ">
+                  {item.application_id}
+                </td>
+                <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                  {item.collection_date}
+                </td>
+                <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                  {item.due_date}
+                </td>
+                <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                  {item.amount}
+                </td>
+                <td className="p-[18px] whitespace-nowrap font-medium  ">
+                  <p
+                    className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
+                      item.status === "payed" && "text-[#00A03E] bg-[#E5FFEF]"
+                    } ${
+                      item.status === "declined" &&
+                      "text-[#DE4307] bg-[#FEEDE6]"
+                    }`}
+                  >
+                    {item.status}
+                  </p>
+                </td>
+                {/* <td className="p-[18px] whitespace-nowrap hidden lg:table-cell">
         <svg
           width="24"
           height="24"
@@ -102,12 +104,13 @@ const repayment = () => {
           />
         </svg>
       </td> */}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    </>
   );
 };
 
-export default repayment;
+export default Repayment;
