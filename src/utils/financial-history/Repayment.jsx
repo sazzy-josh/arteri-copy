@@ -109,6 +109,17 @@ const Repayment = () => {
           </tbody>
         </table>
       </section>
+      <div className=" flex flex-col justify-center items-center my-10">
+        <div>pagination</div>
+        <div className="w-full px-6 ">
+          <button className="w-full h-14 text-lg  outline-none font-medium border-2 border-secondary text-secondary text-center rounded-xl mx-auto my-3 inline-block">
+            Back
+          </button>
+          <button className="w-full h-14 text-lg  outline-none font-medium  bg-secondary text-white text-center rounded-xl mx-auto my-3 inline-block">
+            Next
+          </button>
+        </div>
+      </div>
     </>
   );
 };
