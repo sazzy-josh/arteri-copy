@@ -1,6 +1,7 @@
 import React from "react";
+import { useState } from "react";
 import SearchSort from "../../components/history/SearchSort";
-// import Data from "../financial-history/FinancialHistoryData";
+import Pagination from "../../components/Pagination";
 
 const Repayment = () => {
   const Data = [
@@ -28,10 +29,51 @@ const Repayment = () => {
       amount: "35000",
       status: "declined",
     },
+    {
+      id: 4,
+      application_id: "#74563890",
+      collection_date: "22 Jun, 2022 - 10:39PM",
+      due_date: "22 Jun, 2022 - 10:39PM",
+      amount: "35000",
+      status: "declined",
+    },
+    {
+      id: 5,
+      application_id: "#74563890",
+      collection_date: "22 Jun, 2022 - 10:39PM",
+      due_date: "22 Jun, 2022 - 10:39PM",
+      amount: "35000",
+      status: "payed",
+    },
+    {
+      id: 6,
+      application_id: "#74563890",
+      collection_date: "22 Jun, 2022 - 10:39PM",
+      due_date: "22 Jun, 2022 - 10:39PM",
+      amount: "35000",
+      status: "declined",
+    },
+    {
+      id: 7,
+      application_id: "#74563890",
+      collection_date: "22 Jun, 2022 - 10:39PM",
+      due_date: "22 Jun, 2022 - 10:39PM",
+      amount: "35000",
+      status: "payed",
+    },
+    {
+      id: 8,
+      application_id: "#74563890",
+      collection_date: "22 Jun, 2022 - 10:39PM",
+      due_date: "22 Jun, 2022 - 10:39PM",
+      amount: "35000",
+      status: "declined",
+    },
   ];
+
   return (
     <>
-      <section className=" px-3 py-5 shadow-2xl shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0">
+      <section className=" px-3 py-5 sm:shadow-2xl sm:shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0">
         <SearchSort />
         <table className="w-full">
           <thead className="">
@@ -109,16 +151,8 @@ const Repayment = () => {
           </tbody>
         </table>
       </section>
-      <div className=" flex flex-col justify-center items-center my-10">
-        <div>infinite pagination</div>
-        <div className="w-full px-6 ">
-          <button className="w-full h-14 text-lg  outline-none font-medium border-2 border-secondary text-secondary text-center rounded-xl mx-auto my-3 inline-block">
-            Back
-          </button>
-          <button className="w-full h-14 text-lg  outline-none font-medium  bg-secondary text-white text-center rounded-xl mx-auto my-3 inline-block">
-            Next
-          </button>
-        </div>
+      <div className=" flex flex-col justify-center items-center my-7">
+        <Pagination data={Data} />
       </div>
     </>
   );
