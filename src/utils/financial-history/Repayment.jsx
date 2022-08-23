@@ -37,38 +37,6 @@ const Repayment = () => {
       amount: "35000",
       status: "declined",
     },
-    {
-      id: 5,
-      application_id: "#74563890",
-      collection_date: "22 Jun, 2022 - 10:39PM",
-      due_date: "22 Jun, 2022 - 10:39PM",
-      amount: "35000",
-      status: "payed",
-    },
-    {
-      id: 6,
-      application_id: "#74563890",
-      collection_date: "22 Jun, 2022 - 10:39PM",
-      due_date: "22 Jun, 2022 - 10:39PM",
-      amount: "35000",
-      status: "declined",
-    },
-    {
-      id: 7,
-      application_id: "#74563890",
-      collection_date: "22 Jun, 2022 - 10:39PM",
-      due_date: "22 Jun, 2022 - 10:39PM",
-      amount: "35000",
-      status: "payed",
-    },
-    {
-      id: 8,
-      application_id: "#74563890",
-      collection_date: "22 Jun, 2022 - 10:39PM",
-      due_date: "22 Jun, 2022 - 10:39PM",
-      amount: "35000",
-      status: "declined",
-    },
   ];
 
   return (
