@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
 import SearchSort from "../../components/history/SearchSort";
 
 const BNPL = () => {
+  let navigate = useNavigate();
   const Data = [
     {
       id: 1,
@@ -52,7 +54,18 @@ const BNPL = () => {
           </thead>
           <tbody>
             {Data.map((item, index) => (
-              <tr key={index} className="odd:bg-[#F6FAFD]">
+              <tr
+                onClick={() =>
+                  navigate(
+                    `/history/details/${item.application_id.slice(
+                      1,
+                      item.application_id.length
+                    )}`
+                  )
+                }
+                key={index}
+                className="odd:bg-[#F6FAFD] cursor-pointer"
+              >
                 <td className="p-[18px] whitespace-nowrap font-medium ">
                   {item.application_id}
                 </td>

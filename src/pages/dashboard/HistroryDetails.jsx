@@ -39,16 +39,14 @@ const HistoryDetails = () => {
                     Financing History
                   </p>
                 </section>
-                <section className="px-5">
-                  <div className="  flex flex-col items-start gap-10 mb-10 lg:flex-row lg:items-center">
+                <section className="px-10  py-10 lg:rounded-md lg:shadow-2xl lg:shadow-[#EAF2FB] lg:h-96">
+                  <div className="  flex flex-col items-start gap-10  mb-14 lg:flex-row lg:items-center">
                     <div className=" w-full flex justify-between items-center">
                       <div>
                         <h3 className="font-medium text-lg text-left mb-2">
                           Application ID:
                         </h3>
-                        <p className="font-bold text-2xl text-left">
-                          #{id.slice(1, id.length)}
-                        </p>
+                        <p className="font-bold text-2xl text-left">#{id}</p>
                       </div>
                       <div className="w-10 h-10 flex justify-center items-center rounded-full bg-[#EAF2FB] lg:hidden">
                         <svg

@@ -64,9 +64,16 @@ const Loans = () => {
           <tbody>
             {Data.map((item, index) => (
               <tr
-                // onClick={() => navigate("/history/details/repayment-$")}
+                onClick={() =>
+                  navigate(
+                    `/history/details/${item.application_id.slice(
+                      1,
+                      item.application_id.length
+                    )}`
+                  )
+                }
                 key={index}
-                className="odd:bg-[#F6FAFD]"
+                className="odd:bg-[#F6FAFD] cursor-pointer"
               >
                 <td className="p-[18px] whitespace-nowrap font-medium ">
                   {item.application_id}

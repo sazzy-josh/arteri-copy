@@ -68,7 +68,6 @@ const Repayment = () => {
               </th>
               {/* <th className="py-3 px-3 w-16 whitespace-nowrap hidden lg:table-cell "></th> */}
             </tr>
-            <tr className="bg-red-300 h-5"></tr>
           </thead>
           <tbody>
             {Data.map((item, index) => (
@@ -76,13 +75,13 @@ const Repayment = () => {
                 key={index}
                 onClick={() =>
                   navigate(
-                    `/history/details/1${item.application_id.slice(
+                    `/history/details/${item.application_id.slice(
                       1,
                       item.application_id.length
                     )}`
                   )
                 }
-                className="odd:bg-[#F6FAFD]"
+                className="odd:bg-[#F6FAFD] cursor-pointer"
               >
                 <td className="py-[18px] px-[0px]   whitespace-nowrap font-medium ">
                   {/* <Link
