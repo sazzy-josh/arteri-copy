@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
 import SearchSort from "../../components/history/SearchSort";
 import Pagination from "../../components/Pagination";
 
 const Repayment = () => {
+  let navigate = useNavigate();
   const Data = [
     {
       id: 1,
@@ -15,7 +18,7 @@ const Repayment = () => {
     },
     {
       id: 2,
-      application_id: "#74563890",
+      application_id: "#84953890",
       collection_date: "22 Jun, 2022 - 10:39PM",
       due_date: "22 Jun, 2022 - 10:39PM",
       amount: "35000",
@@ -23,7 +26,7 @@ const Repayment = () => {
     },
     {
       id: 3,
-      application_id: "#74563890",
+      application_id: "#22583890",
       collection_date: "22 Jun, 2022 - 10:39PM",
       due_date: "22 Jun, 2022 - 10:39PM",
       amount: "35000",
@@ -31,7 +34,7 @@ const Repayment = () => {
     },
     {
       id: 4,
-      application_id: "#74563890",
+      application_id: "#54003890",
       collection_date: "22 Jun, 2022 - 10:39PM",
       due_date: "22 Jun, 2022 - 10:39PM",
       amount: "35000",
@@ -41,6 +44,8 @@ const Repayment = () => {
 
   return (
     <>
+      <HistoryPageNavigation />
+
       <section className=" px-3 py-5 sm:shadow-2xl sm:shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0">
         <SearchSort />
         <table className="w-full">
@@ -63,24 +68,42 @@ const Repayment = () => {
               </th>
               {/* <th className="py-3 px-3 w-16 whitespace-nowrap hidden lg:table-cell "></th> */}
             </tr>
-            <tr className="bg-red-300 h-5"></tr>
           </thead>
           <tbody>
             {Data.map((item, index) => (
-              <tr key={index} className="odd:bg-[#F6FAFD]">
-                <td className="p-[18px] whitespace-nowrap font-medium ">
+              <tr
+                key={index}
+                onClick={() =>
+                  navigate(
+                    `/history/details/${item.application_id.slice(
+                      1,
+                      item.application_id.length
+                    )}`
+                  )
+                }
+                className="odd:bg-[#F6FAFD] cursor-pointer"
+              >
+                <td className="py-[18px] px-[0px]   whitespace-nowrap font-medium ">
+                  {/* <Link
+                    className="inline-block h-full w-full"
+                    to="/history/details/repayment-${item.application_id.slice(
+                      1,
+                      item.application_id.length
+                    )}"
+                  >
+                  </Link> */}
                   {item.application_id}
                 </td>
-                <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
                   {item.collection_date}
                 </td>
-                <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
                   {item.due_date}
                 </td>
-                <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
                   {item.amount}
                 </td>
-                <td className="p-[18px] whitespace-nowrap font-medium  ">
+                <td className="  py-[18px] px-[0px] whitespace-nowrap font-medium  ">
                   <p
                     className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
                       item.status === "payed" && "text-[#00A03E] bg-[#E5FFEF]"
@@ -92,7 +115,7 @@ const Repayment = () => {
                     {item.status}
                   </p>
                 </td>
-                {/* <td className="p-[18px] whitespace-nowrap hidden lg:table-cell">
+                {/* <td className="py-[18px] px-[0px] whitespace-nowrap hidden lg:table-cell">
         <svg
           width="24"
           height="24"

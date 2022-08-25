@@ -37,7 +37,10 @@ const Pagination = ({ data }) => {
             3
           </p>
           |<p className="inline-block mx-2 font-medium">Jump To:</p>
-          <select className="border border-gray-400 rounded-sm p-1 outline-none">
+          <select
+            disabled={true}
+            className="border border-gray-400 rounded-sm p-1 outline-none bg-none"
+          >
             <option value="20">20</option>
           </select>
         </div>
@@ -56,14 +59,17 @@ const Pagination = ({ data }) => {
         <div>
           <span className="font-medium mr-[5px]">10 Results</span> |{" "}
           <span className="font-medium mx-[5px]">Show:</span>{" "}
-          <select className="outline-none border border-gray-700 py-1 px-2 mr-2 rounded-sm">
+          <select
+            disabled={true}
+            className="outline-none border border-gray-700 py-1 px-2 mr-2 rounded-sm"
+          >
             <option value="3" className="text-gray-700">
               3
             </option>
           </select>
           | <span className="font-medium mx-[5px]">Jump To</span>
           <select className="outline-none border border-gray-700 py-1 px-2 mr-[5px] rounded-sm">
-            <option value="20" className="text-gray-700">
+            <option value="20" className="text-gray-700 disabled={true}">
               20
             </option>
           </select>

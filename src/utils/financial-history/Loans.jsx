@@ -1,7 +1,12 @@
 import React from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+
+import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
+
 import SearchSort from "../../components/history/SearchSort";
 
 const Loans = () => {
+  let navigate = useNavigate();
   const Data = [
     {
       id: 1,
@@ -30,6 +35,8 @@ const Loans = () => {
   ];
   return (
     <>
+      <HistoryPageNavigation />
+
       <section className=" px-3 py-5 sm:shadow-2xl sm:shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0">
         <SearchSort />
         <table className="w-full ">
@@ -56,7 +63,18 @@ const Loans = () => {
           </thead>
           <tbody>
             {Data.map((item, index) => (
-              <tr key={index} className="odd:bg-[#F6FAFD]">
+              <tr
+                onClick={() =>
+                  navigate(
+                    `/history/details/${item.application_id.slice(
+                      1,
+                      item.application_id.length
+                    )}`
+                  )
+                }
+                key={index}
+                className="odd:bg-[#F6FAFD] cursor-pointer"
+              >
                 <td className="p-[18px] whitespace-nowrap font-medium ">
                   {item.application_id}
                 </td>
