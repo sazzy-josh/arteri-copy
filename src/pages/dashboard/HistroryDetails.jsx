@@ -40,7 +40,7 @@ const HistoryDetails = () => {
                   </p>
                 </section>
                 <section className="px-5">
-                  <div className="  flex flex-col items-start gap-10 mb-10">
+                  <div className="  flex flex-col items-start gap-10 mb-10 lg:flex-row lg:items-center">
                     <div className=" w-full flex justify-between items-center">
                       <div>
                         <h3 className="font-medium text-lg text-left mb-2">
@@ -50,7 +50,7 @@ const HistoryDetails = () => {
                           #{id.slice(1, id.length)}
                         </p>
                       </div>
-                      <div className="w-10 h-10 flex justify-center items-center rounded-full bg-[#EAF2FB] md:hidden">
+                      <div className="w-10 h-10 flex justify-center items-center rounded-full bg-[#EAF2FB] lg:hidden">
                         <svg
                           // width="24"
                           // height="24"
@@ -86,14 +86,14 @@ const HistoryDetails = () => {
                         </svg>
                       </div>
                     </div>
-                    <p>
-                      <span className="font-medium text-lg mr-5">Status:</span>
+                    <p className=" flex gap-4 items-center">
+                      <span className="font-medium text-lg">Status:</span>
                       <span className="capitalize bg-[#FDEDD9] text-[#F29C2B] text-base text-center w-24 h-6 leading-6 inline-block rounded-lg font-medium">
                         pending
                       </span>
                     </p>
                   </div>
-                  <div className="flex flex-col gap-7 items-start">
+                  <div className="flex flex-col gap-7 items-start lg:flex-row lg:gap-10">
                     <div className="text-start">
                       <p className="font-semibold mb-3">Issued By</p>
                       <p>Arteri</p>
