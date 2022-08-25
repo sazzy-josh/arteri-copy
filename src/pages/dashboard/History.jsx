@@ -5,6 +5,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import Container from "../../components/container/Container";
 import Header from "../../components/head/Header";
 import MobileHeader from "../../components/head/MobileHeader";
+// import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
 import SideMenu from "../../components/nav/SideBar";
 
 // import styles
@@ -37,17 +38,6 @@ const History = () => {
                   <p className="text-2xl font-bold text-left mb-10">
                     Financing History
                   </p>
-                  <div className="flex justify-between items-center md:justify-start mb-8 border-b border-gray-100">
-                    <NavLink to="/history/repayment" className="history-tab">
-                      Repayment
-                    </NavLink>
-                    <NavLink to="/history/loans" className="history-tab">
-                      Loan
-                    </NavLink>
-                    <NavLink to="/history/bnpl" className="history-tab">
-                      BNPL
-                    </NavLink>
-                  </div>
                 </section>
                 <Outlet />
               </>
