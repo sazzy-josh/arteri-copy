@@ -8,7 +8,7 @@ import Header from "../../components/head/Header";
 import MobileHeader from "../../components/head/MobileHeader";
 import SideMenu from "../../components/nav/SideBar";
 
-const Help = () => {
+const ProviderHelp = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="w-screen">
@@ -92,4 +92,4 @@ const Help = () => {
   );
 };
 
-export default Help;
+export default ProviderHelp;

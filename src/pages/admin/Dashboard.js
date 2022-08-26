@@ -5,15 +5,17 @@ import Chart from "../../components/chart/HalfPie";
 import Container from "../../components/container/Container";
 import Header from "../../components/head/Header";
 import MobileHeader from "../../components/head/MobileHeader";
+import ProviderMobileHeader from "../../components/head/ProviderMobileHeader";
+import ProviderSideMenu from "../../components/nav/ProviderSideBar";
 import SideMenu from "../../components/nav/SideBar";
 
-const Dashboard = () => {
+const ProviderDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
         <div className="lg:w-1/5 md:w-2/5 hidden lg:flex md:flex h-screen fixed mr-auto">
-          <SideMenu selectDash={true} />
+          <ProviderSideMenu selectDash={true} />
         </div>
         <div className="lg:w-4/5 md:w-3/5 w-full ml-auto">
           <Container>
@@ -21,7 +23,7 @@ const Dashboard = () => {
               <Header />
             </div>
             <div className="w-screen lg:hidden md:hidden flex">
-              <MobileHeader
+              <ProviderMobileHeader
                 selectDash={true}
                 open={isOpen}
                 setOpen={() => setIsOpen(!isOpen)}
@@ -239,4 +241,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ProviderDashboard;

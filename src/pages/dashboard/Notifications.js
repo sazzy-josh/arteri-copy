@@ -10,10 +10,10 @@ const Notifications = () => {
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
-        <div className="w-1/5 hidden lg:flex md:flex">
+        <div className="w-1/5 hidden lg:flex md:flex h-screen fixed mr-auto">
           <SideMenu selectNot={true} />
         </div>
-        <div className="lg:w-4/5 w-full">
+        <div className="lg:w-4/5 w-full ml-auto">
           <Container>
             <div className="w-full my-5 lg:flex md:flex hidden">
               <Header />
