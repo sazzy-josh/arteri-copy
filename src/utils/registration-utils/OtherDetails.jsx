@@ -86,7 +86,15 @@ const OtherDetails = () => {
         password_confirmation: "",
       });
     } catch (err) {
-      alert("correct form input");
+      console.log(err.response.data);
+
+      setAlertProps((prev) => ({
+        ...prev,
+        type: "fail",
+        title: "Ooops! Sorry",
+        subtitle: err.response.data.data.flash_message,
+      }));
+      setIsModalOpen(true);
     }
   };
   const registerUserWithPhone = async () => {
@@ -169,7 +177,16 @@ const OtherDetails = () => {
       //     setIsModalOpen(true);
       //   }
       // }
-      alert("correct form input");
+
+      console.log(err.response.data);
+
+      setAlertProps((prev) => ({
+        ...prev,
+        type: "fail",
+        title: "Ooops! Sorry",
+        subtitle: err.response.data.data.flash_message,
+      }));
+      setIsModalOpen(true);
     }
   };
 
