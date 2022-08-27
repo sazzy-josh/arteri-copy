@@ -47,95 +47,103 @@ const Details = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputField({ ...inputField, [name]: value });
-    validateInputChange(e, inputField);
+    // validateInputChange(e, inputField);
   };
 
   // control input fields on submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newIsValid = {
-      first_name: isValid.first_name,
-      last_name: isValid.last_name,
-      email: isValid.email,
-      phone: isValid.phone,
-    };
-    if (
-      Object.values(newIsValid).includes("") ||
-      Object.values(newIsValid).includes("invalid")
-    ) {
-      // console.log("don't submit");
-      validateInputSubmit();
-      return;
+    // --- validate input fields on submit (validation on the frontend) ---
+    // const newIsValid = {
+    //   first_name: isValid.first_name,
+    //   last_name: isValid.last_name,
+    //   email: isValid.email,
+    //   phone: isValid.phone,
+    // };
+    // if (
+    //   Object.values(newIsValid).includes("") ||
+    //   Object.values(newIsValid).includes("invalid")
+    // ) {
+    //   validateInputSubmit();
+    //   return;
+    // } else {
+    //   navigate("/register/details-2", { replace: true });
+    // }
+
+    if (!inputField.phone) {
+      alert("phone is empty");
     } else {
-      navigate("/register/details-2", { replace: true });
+      alert("go ahead");
     }
   };
 
-  // validate input fields on change
-  const validateInputChange = (e, inputField) => {
-    const { name, value } = e.target;
-    console.log(isValid);
+  // --- validate input fields on change (validation on the frontend) ---
+  // const validateInputChange = (e, inputField) => {
+  //   const { name, value } = e.target;
+  //   console.log(isValid);
 
-    // handle error onChange
-    if (name === "email") {
-      if (!e.target.value.match(emailRegex) && e.target.value.length !== 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length === 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "" }));
-      } else {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      }
-    } else if (name === "phone") {
-      if (value.length !== 0 && value.length < 10) {
-        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length > 15) {
-        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length === 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "" }));
-      } else {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      }
-    } else {
-      if (value.length !== 0 && value.length < 3) {
-        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-        console.log("short");
-      } else if (value.length === 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "" }));
-      } else {
-        console.log("ok");
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      }
-    }
-  };
+  //   // handle error onChange
+  //   if (name === "email") {
+  //     if (!e.target.value.match(emailRegex) && e.target.value.length !== 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+  //     } else if (value.length === 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "" }));
+  //     } else {
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     }
+  //   } else if (name === "phone") {
+  //     if (value.length !== 0 && value.length < 10) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+  //     } else if (value.length > 15) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+  //     } else if (value.length === 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "" }));
+  //     } else {
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     }
+  //   } else {
+  //     if (value.length !== 0 && value.length < 3) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+  //       console.log("short");
+  //     } else if (value.length === 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "" }));
+  //     } else {
+  //       console.log("ok");
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     }
+  //   }
+  // };
 
-  // ----- handle error on submit -----
-  const validateInputSubmit = () => {
-    const { first_name, last_name, email, phone } = inputField;
-    if (first_name.length < 3 || first_name.length === 0) {
-      setIsValid((prev) => ({ ...prev, first_name: "invalid" }));
-    } else {
-      setIsValid((prev) => ({ ...prev, first_name: "valid" }));
-    }
-    if (last_name.length < 3 || last_name.length === 0) {
-      setIsValid((prev) => ({ ...prev, last_name: "invalid" }));
-    } else {
-      setIsValid((prev) => ({ ...prev, last_name: "valid" }));
-    }
-    if (
-      (!email.match(emailRegex) && email.length !== 0) ||
-      email.length === 0
-    ) {
-      setIsValid((prev) => ({ ...prev, email: "invalid" }));
-    } else {
-      setIsValid((prev) => ({ ...prev, email: "valid" }));
-    }
-    if ((phone.length !== 0 && phone.length < 10) || phone.length === 0) {
-      setIsValid((prev) => ({ ...prev, phone: "invalid" }));
-    } else {
-      setIsValid((prev) => ({ ...prev, phone: "valid" }));
-    }
-  };
+  // validate input fields on submit (validation on the frontend)
+
+  // const validateInputSubmit = () => {
+  //   const { first_name, last_name, email, phone } = inputField;
+  //   if (first_name.length < 3 || first_name.length === 0) {
+  //     setIsValid((prev) => ({ ...prev, first_name: "invalid" }));
+  //   } else {
+  //     setIsValid((prev) => ({ ...prev, first_name: "valid" }));
+  //   }
+  //   if (last_name.length < 3 || last_name.length === 0) {
+  //     setIsValid((prev) => ({ ...prev, last_name: "invalid" }));
+  //   } else {
+  //     setIsValid((prev) => ({ ...prev, last_name: "valid" }));
+  //   }
+  //   if (
+  //     (!email.match(emailRegex) && email.length !== 0) ||
+  //     email.length === 0
+  //   ) {
+  //     setIsValid((prev) => ({ ...prev, email: "invalid" }));
+  //   } else {
+  //     setIsValid((prev) => ({ ...prev, email: "valid" }));
+  //   }
+  //   if ((phone.length !== 0 && phone.length < 10) || phone.length === 0) {
+  //     setIsValid((prev) => ({ ...prev, phone: "invalid" }));
+  //   } else {
+  //     setIsValid((prev) => ({ ...prev, phone: "valid" }));
+  //   }
+  // };
+
   return (
     <>
       <section className="px-7 py-3">
