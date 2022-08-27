@@ -27,6 +27,8 @@ const Details = () => {
     setIsValid,
     inputField,
     setInputField,
+    inputErrorMessage,
+    setInputErrorMessage,
   } = useContext(RegistrationContext);
 
   // set sidebar images from context
@@ -35,6 +37,7 @@ const Details = () => {
   }, [setSidebarImage]);
 
   // fetch countries dial code
+
   // useEffect(() => {
   //   fetch("https://restcountries.com/v2/all")
   //     .then((res) => res.json())
@@ -55,6 +58,7 @@ const Details = () => {
     e.preventDefault();
 
     // --- validate input fields on submit (validation on the frontend) ---
+
     // const newIsValid = {
     //   first_name: isValid.first_name,
     //   last_name: isValid.last_name,
@@ -70,12 +74,8 @@ const Details = () => {
     // } else {
     //   navigate("/register/details-2", { replace: true });
     // }
-
-    if (!inputField.phone) {
-      alert("phone is empty");
-    } else {
-      alert("go ahead");
-    }
+    
+    navigate("/register/details-2", { replace: true });
   };
 
   // --- validate input fields on change (validation on the frontend) ---
@@ -148,7 +148,8 @@ const Details = () => {
     <>
       <section className="px-7 py-3">
         <form>
-          <label className="mb-5  block ">
+          {/* form validation from the frontend */}
+          {/* <label className="mb-5  block ">
             <p className="registration-input-label">First Name</p>
             <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
               <input
@@ -180,6 +181,42 @@ const Details = () => {
             {isValid.first_name === "invalid" && (
               <p className="registration-input-error ">
                 *The first_name you entered is invalid
+              </p>
+            )}
+          </label> */}
+
+          <label className="mb-5  block ">
+            <p className="registration-input-label">First Name</p>
+            <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+              <input
+                type="text"
+                className={`registration-input ${
+                  isValid.first_name === "invalid" && "invalid"
+                } ${isValid.first_name === "valid" && "valid"}`}
+                name="first_name"
+                value={inputField.first_name}
+                placeholder="Enter your first name"
+                onChange={handleInputChange}
+              />
+
+              <img
+                src={AlertIcon}
+                alt=""
+                className={`registration-input-icon  ${
+                  isValid.first_name === "invalid" ? "visible" : "hidden"
+                }`}
+              />
+              <img
+                src={CheckIcon}
+                alt=""
+                className={`registration-input-icon  ${
+                  isValid.first_name === "valid" ? "visible" : "hidden"
+                }`}
+              />
+            </div>
+            {isValid.first_name === "invalid" && (
+              <p className="registration-input-error ">
+                {inputErrorMessage.first_name}
               </p>
             )}
           </label>
@@ -215,7 +252,7 @@ const Details = () => {
             </div>
             {isValid.last_name === "invalid" && (
               <p className="registration-input-error ">
-                *The last_name you entered is invalid
+                {inputErrorMessage.last_name}
               </p>
             )}
           </label>
@@ -251,7 +288,7 @@ const Details = () => {
             </div>
             {isValid.email === "invalid" && (
               <p className="registration-input-error ">
-                *The email you entered is invalid
+                {inputErrorMessage.email}
               </p>
             )}
           </label>
@@ -313,7 +350,7 @@ const Details = () => {
             </div>
             {isValid.phone === "invalid" && (
               <p className="registration-input-error ">
-                *The number you entered is invalid
+                {inputErrorMessage.phone}
               </p>
             )}
           </label>

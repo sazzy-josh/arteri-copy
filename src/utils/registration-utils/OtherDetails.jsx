@@ -29,13 +29,15 @@ const OtherDetails = () => {
     setIsValid,
     inputField,
     setInputField,
+    inputErrorMessage,
+    setInputErrorMessage,
   } = useContext(RegistrationContext);
 
   // regular expressions for password validation
   let passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
 
-  const registerNewUser = async () => {
+  const registerUserWithEmail = async () => {
     let formData = new FormData();
     formData.append("first_name", inputField.first_name);
     formData.append("last_name", inputField.last_name);
@@ -84,39 +86,93 @@ const OtherDetails = () => {
         password_confirmation: "",
       });
     } catch (err) {
-      if (err.response) {
-        // client received an error response (5xx, 4xx)
-        let dataErrorMessage;
-        if (err.response.data.data.errors.email) {
-          dataErrorMessage = err.response.data.data.errors.email[0];
-          setAlertProps((prev) => ({
-            ...prev,
-            type: "fail",
-            title: "Ooops! Sorry",
-            subtitle: dataErrorMessage,
-          }));
-          setIsModalOpen(true);
-        } else if (err.response.data.data.errors.phone) {
-          dataErrorMessage = err.response.data.data.errors.phone[0];
-          setAlertProps((prev) => ({
-            ...prev,
-            type: "fail",
-            title: "Ooops! Sorry",
-            subtitle: dataErrorMessage,
-          }));
-          setIsModalOpen(true);
-        } else {
-          setAlertProps((prev) => ({
-            ...prev,
-            type: "fail",
-            title: "Ooops! Sorry",
-            subtitle: err.response.data.flash_message,
-          }));
-          setIsModalOpen(true);
-        }
-      }
+      alert("correct form input");
     }
   };
+  const registerUserWithPhone = async () => {
+    let formData = new FormData();
+    formData.append("first_name", inputField.first_name);
+    formData.append("last_name", inputField.last_name);
+    formData.append("gender", inputField.gender);
+    formData.append("phone", inputField.phone);
+    formData.append("password", inputField.password);
+    formData.append("password_confirmation", inputField.password_confirmation);
+    formData.append("tos_accepted", inputField.tos_accepted);
+    formData.append("account_type", account_type);
+
+    // post formData to server
+    try {
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/create/with-phone-number",
+        formData
+      );
+
+      // client received a success response (2xx)
+      localStorage.setItem("authToken", response.data.data.auth_token);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "success",
+        title: "Congratulations",
+        subtitle: "You have successfully registered!",
+        buttonText: "Go to dashboard",
+      }));
+      setIsModalOpen(true);
+
+      setInputField({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "male",
+        password: "",
+        password_confirmation: "",
+      });
+      setIsValid({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "",
+        password: "",
+        password_confirmation: "",
+      });
+    } catch (err) {
+      // --- form validation from the frontend
+      // if (err.response) {
+      //   // client received an error response (5xx, 4xx)
+      //   let dataErrorMessage;
+      //   if (err.response.data.data.errors.email) {
+      //     dataErrorMessage = err.response.data.data.errors.email[0];
+      //     setAlertProps((prev) => ({
+      //       ...prev,
+      //       type: "fail",
+      //       title: "Ooops! Sorry",
+      //       subtitle: dataErrorMessage,
+      //     }));
+      //     setIsModalOpen(true);
+      //   } else if (err.response.data.data.errors.phone) {
+      //     dataErrorMessage = err.response.data.data.errors.phone[0];
+      //     setAlertProps((prev) => ({
+      //       ...prev,
+      //       type: "fail",
+      //       title: "Ooops! Sorry",
+      //       subtitle: dataErrorMessage,
+      //     }));
+      //     setIsModalOpen(true);
+      //   } else {
+      //     setAlertProps((prev) => ({
+      //       ...prev,
+      //       type: "fail",
+      //       title: "Ooops! Sorry",
+      //       subtitle: err.response.data.flash_message,
+      //     }));
+      //     setIsModalOpen(true);
+      //   }
+      // }
+      alert("correct form input");
+    }
+  };
+
   useEffect(() => {
     setSidebarImage("image2");
   }, [setSidebarImage]);
@@ -125,98 +181,109 @@ const OtherDetails = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputField({ ...inputField, [name]: value });
-    validateInputChange(e, inputField);
+
+    // --- form validation on the frontend ---
+    // validateInputChange(e, inputField);
   };
 
   // control input fields on submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newIsValid = {
-      password: isValid.password,
-      password_confirmation: isValid.password_confirmation,
-      tos_accepted: isValid.tos_accepted,
-    };
-    const prevIsValid = {
-      first_name: isValid.first_name,
-      last_name: isValid.last_name,
-      email: isValid.email,
-      phone: isValid.phone,
-    };
-    if (
-      Object.values(newIsValid).includes("") ||
-      Object.values(newIsValid).includes("invalid")
-    ) {
-      validateInputSubmit();
-      return;
-    } else if (
-      Object.values(prevIsValid).includes("") ||
-      Object.values(prevIsValid).includes("invalid")
-    ) {
-      navigate("/register/details", { replace: true });
-    } else {
-      // navigate("/login", { replace: true });
+    // --- form validation on the frontend ---
 
-      registerNewUser();
+    // const newIsValid = {
+    //   password: isValid.password,
+    //   password_confirmation: isValid.password_confirmation,
+    //   tos_accepted: isValid.tos_accepted,
+    // };
+    // const prevIsValid = {
+    //   first_name: isValid.first_name,
+    //   last_name: isValid.last_name,
+    //   email: isValid.email,
+    //   phone: isValid.phone,
+    // };
+    // if (
+    //   Object.values(newIsValid).includes("") ||
+    //   Object.values(newIsValid).includes("invalid")
+    // ) {
+    //   validateInputSubmit();
+    //   return;
+    // } else if (
+    //   Object.values(prevIsValid).includes("") ||
+    //   Object.values(prevIsValid).includes("invalid")
+    // ) {
+    //   navigate("/register/details", { replace: true });
+    // } else {
+    //   // navigate("/login", { replace: true });
+
+    //   registerUserWithEmail();
+    // }
+
+    if (inputField.email.length === 0) {
+      registerUserWithPhone();
+    } else {
+      registerUserWithEmail();
+      console.log("hurray");
     }
   };
 
-  // validate input fields on change
-  const validateInputChange = (e, inputField) => {
-    const { name, value } = e.target;
+  // ---- validate input fields on change (validation on the frontend) ----
+  // const validateInputChange = (e, inputField) => {
+  //   const { name, value } = e.target;
 
-    // handle error onChange
-    if (name === "password_confirmation") {
-      if (value !== inputField.password) {
-        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length === 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "" }));
-      } else {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      }
-    } else if (name === "password") {
-      if (!value.match(passwordRegex) && value.length !== 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length === 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "" }));
-      } else if (
-        value !== inputField.password_confirmation &&
-        inputField.password_confirmation.length !== 0
-      ) {
-        setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
-      } else if (value.match(passwordRegex)) {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      } else {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      }
-    } else {
-      if (value.length !== 0 && value.length < 3) {
-        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length === 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "" }));
-      } else {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      }
-    }
-  };
+  //   // handle error onChange
+  //   if (name === "password_confirmation") {
+  //     if (value !== inputField.password) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+  //     } else if (value.length === 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "" }));
+  //     } else {
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     }
+  //   } else if (name === "password") {
+  //     if (!value.match(passwordRegex) && value.length !== 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+  //     } else if (value.length === 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "" }));
+  //     } else if (
+  //       value !== inputField.password_confirmation &&
+  //       inputField.password_confirmation.length !== 0
+  //     ) {
+  //       setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
+  //     } else if (value.match(passwordRegex)) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     } else {
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     }
+  //   } else {
+  //     if (value.length !== 0 && value.length < 3) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+  //     } else if (value.length === 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "" }));
+  //     } else {
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     }
+  //   }
+  // };
 
-  // ----- handle error on submit -----
-  const validateInputSubmit = () => {
-    const { gender, password, password_confirmation } = inputField;
-    if (!password.match(passwordRegex) || password.length === 0) {
-      setIsValid((prev) => ({ ...prev, password: "invalid" }));
-    } else {
-      setIsValid((prev) => ({ ...prev, password: "valid" }));
-    }
-    if (
-      password_confirmation !== password ||
-      password_confirmation.length === 0
-    ) {
-      setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
-    } else {
-      setIsValid((prev) => ({ ...prev, password_confirmation: "valid" }));
-    }
-  };
+  // ----- handle error on submit (validation on frontend) -----
+  // const validateInputSubmit = () => {
+  //   const { gender, password, password_confirmation } = inputField;
+  //   if (!password.match(passwordRegex) || password.length === 0) {
+  //     setIsValid((prev) => ({ ...prev, password: "invalid" }));
+  //   } else {
+  //     setIsValid((prev) => ({ ...prev, password: "valid" }));
+  //   }
+  //   if (
+  //     password_confirmation !== password ||
+  //     password_confirmation.length === 0
+  //   ) {
+  //     setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
+  //   } else {
+  //     setIsValid((prev) => ({ ...prev, password_confirmation: "valid" }));
+  //   }
+  // };
 
   return (
     <>
