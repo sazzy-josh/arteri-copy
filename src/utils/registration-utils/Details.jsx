@@ -36,16 +36,6 @@ const Details = () => {
     setSidebarImage("image2");
   }, [setSidebarImage]);
 
-  // fetch countries dial code
-
-  // useEffect(() => {
-  //   fetch("https://restcountries.com/v2/all")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setCountries(data);
-  //     });
-  // }, []);
-
   // control input fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;

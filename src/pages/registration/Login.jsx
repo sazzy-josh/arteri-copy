@@ -28,6 +28,10 @@ const Login = () => {
     identifier: "",
     password: "",
   });
+  const [loginErrorMessage, setLoginErrorMessage] = useState({
+    identifier: "",
+    password: "",
+  });
   const [loginInputField, setLoginInputField] = useState({
     identifier: "",
     password: "",
@@ -43,22 +47,26 @@ const Login = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLoginInputField({ ...loginInputField, [name]: value });
-    validateInputChange(e, loginInputField);
+
+    // form validation from the fontend
+    // validateInputChange(e, loginInputField);
   };
 
   // control input fields on submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      Object.values(isLoginValid).includes("") ||
-      Object.values(isLoginValid).includes("invalid")
-    ) {
-      validateInputSubmit();
-      return;
-    } else {
-      loginUser();
-    }
+    // handling form validation on form submission from the fontend
+    // if (
+    //   Object.values(isLoginValid).includes("") ||
+    //   Object.values(isLoginValid).includes("invalid")
+    // ) {
+    //   validateInputSubmit();
+    //   return;
+    // } else {
+    //   loginUser();
+    // }
+    loginUser();
   };
 
   // post formData to server
@@ -102,7 +110,28 @@ const Login = () => {
     } catch (err) {
       if (err.response) {
         // client received an error response (5xx, 4xx)
+        console.log(err.response.data);
 
+        setLoginErrorMessage({
+          identifier: "",
+          password: "",
+        });
+        setIsLoginValid({
+          identifier: "",
+          password: "",
+        });
+        for (const key in err.response.data.data.errors) {
+          // console.log(err.response.data.data.errors[key][0]);
+          console.log(key);
+          setLoginErrorMessage((prev) => ({
+            ...prev,
+            [key]: err.response.data.data.errors[key][0],
+          }));
+          setIsLoginValid((prev) => ({
+            ...prev,
+            [key]: "invalid",
+          }));
+        }
         setAlertProps((prev) => ({
           ...prev,
           type: "fail",
@@ -192,29 +221,22 @@ const Login = () => {
                     value={loginInputField.identifier}
                     onChange={handleInputChange}
                   />
-
-                  {/* <img
-                    src={AlertIcon}
-                    alt=""
-                    className={`registration-input-icon  ${
-                      isLoginValid.identifier === "invalid"
-                        ? "visible"
-                        : "hidden"
-                    }`}
-                  />
-                  <img
-                    src={CheckIcon}
-                    alt=""
-                    className={`registration-input-icon  ${
-                      isLoginValid.identifier === "valid" ? "visible" : "hidden"
-                    }`}
-                  /> */}
                 </div>
-                {isLoginValid.identifier === "invalid" && (
+                {/* {isLoginValid.identifier === "invalid" && (
                   <p className="registration-input-error ">
                     *The email you entered is invalid
                   </p>
-                )}
+                )} */}
+
+                <p
+                  className={
+                    loginErrorMessage.identifier
+                      ? "registration-input-error"
+                      : "hidden"
+                  }
+                >
+                  {loginErrorMessage.identifier}
+                </p>
               </label>
               <label className="mb-5 block">
                 <p className="registration-input-label">Password</p>
@@ -227,28 +249,16 @@ const Login = () => {
                     value={loginInputField.password}
                     onChange={handleInputChange}
                   />
-
-                  {/* <img
-                    src={AlertIcon}
-                    alt=""
-                    className={`registration-input-icon  ${
-                      isLoginValid.password === "invalid" ? "visible" : "hidden"
-                    }`}
-                  />
-                  <img
-                    src={CheckIcon}
-                    alt=""
-                    className={`registration-input-icon  ${
-                      isLoginValid.password === "valid" ? "visible" : "hidden"
-                    }`}
-                  /> */}
                 </div>
-                {isLoginValid.password === "invalid" && (
-                  <p className="registration-input-error ">
-                    *The password should contain at least: 8 characters, one
-                    uppercase, one number and one special character
-                  </p>
-                )}
+                <p
+                  className={
+                    loginErrorMessage.password
+                      ? "registration-input-error"
+                      : "hidden"
+                  }
+                >
+                  {loginErrorMessage.password}
+                </p>
               </label>
               <div className="sm:w-[400px] sm:pr-0 sm:mx-auto lg:mx-0 text-right">
                 <p
