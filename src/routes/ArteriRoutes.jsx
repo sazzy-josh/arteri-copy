@@ -25,6 +25,7 @@ import UnauthenticatedPrivateRoutes from "../layouts/UnauthenticatedPrivateRoute
 import Loans from "../utils/financial-history/Loans";
 import BNPL from "../utils/financial-history/BNPL";
 import HistoryDetails from "../pages/dashboard/HistroryDetails";
+import ProviderDashboard from "../pages/admin/Dashboard";
 
 const ArteriRoutes = () => {
   // const [authToken, setAuthToken] = useState(null);
@@ -71,6 +72,8 @@ const ArteriRoutes = () => {
           <Route path="/history/details/:id" element={<HistoryDetails />} />
           <Route path="/help" element={<Help />} />
         </Route>
+
+        <Route path="/provider-dashboard" element={<ProviderDashboard />} />
 
         <Route element={<UnauthenticatedPrivateRoutes />}>
           <Route path="login" element={<Login />} />
