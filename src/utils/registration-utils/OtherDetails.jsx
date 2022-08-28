@@ -33,10 +33,11 @@ const OtherDetails = () => {
     setInputErrorMessage,
   } = useContext(RegistrationContext);
 
-  // regular expressions for password validation
-  let passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
+  // regular expressions for password validation from the frontend
+  // let passwordRegex =
+  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
 
+  // function to register users with email address and phone number
   const registerUserWithEmail = async () => {
     let formData = new FormData();
     formData.append("first_name", inputField.first_name);
@@ -86,17 +87,66 @@ const OtherDetails = () => {
         password_confirmation: "",
       });
     } catch (err) {
-      console.log(err.response.data);
-
-      setAlertProps((prev) => ({
-        ...prev,
-        type: "fail",
-        title: "Ooops! Sorry",
-        subtitle: err.response.data.data.flash_message,
-      }));
-      setIsModalOpen(true);
+      setInputErrorMessage({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "male",
+        password: "",
+        password_confirmation: "",
+        tos_accepted: "",
+      });
+      setIsValid({
+        first_name: "valid",
+        last_name: "valid",
+        email: "valid",
+        phone: "valid",
+        gender: "valid",
+        password: "valid",
+        password_confirmation: "",
+      });
+      for (const key in err.response.data.data.errors) {
+        // console.log(err.response.data.data.errors[key][0]);
+        console.log(key);
+        setInputErrorMessage((prev) => ({
+          ...prev,
+          [key]: err.response.data.data.errors[key][0],
+        }));
+        setIsValid((prev) => ({
+          ...prev,
+          [key]: "invalid",
+        }));
+      }
+      if (
+        inputErrorMessage.first_name ||
+        inputErrorMessage.last_name ||
+        inputErrorMessage.email ||
+        inputErrorMessage.phone
+      ) {
+        navigate("/register/details", { replace: true });
+      }
+      if (!err.response.data.data.errors.tos_accepted) {
+        setIsModalOpen(true);
+        setAlertProps((prev) => ({
+          ...prev,
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.response.data.data.flash_message,
+        }));
+      } else {
+        setIsModalOpen(true);
+        setAlertProps((prev) => ({
+          ...prev,
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.response.data.data.errors.tos_accepted[0],
+        }));
+      }
     }
   };
+
+  // function to register users with phone number
   const registerUserWithPhone = async () => {
     let formData = new FormData();
     formData.append("first_name", inputField.first_name);
@@ -114,6 +164,7 @@ const OtherDetails = () => {
         "https://api.arteri.tk/api/account/create/with-phone-number",
         formData
       );
+      console.log(formData);
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
@@ -143,6 +194,16 @@ const OtherDetails = () => {
         gender: "",
         password: "",
         password_confirmation: "",
+      });
+      setInputErrorMessage({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "male",
+        password: "",
+        password_confirmation: "",
+        tos_accepted: "",
       });
     } catch (err) {
       // --- form validation from the frontend
@@ -179,14 +240,63 @@ const OtherDetails = () => {
       // }
 
       console.log(err.response.data);
+      setInputErrorMessage({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "male",
+        password: "",
+        password_confirmation: "",
+        tos_accepted: "",
+      });
+      setIsValid({
+        first_name: "valid",
+        last_name: "valid",
+        phone: "valid",
+        gender: "valid",
+        password: "valid",
+        password_confirmation: "",
+      });
+      for (const key in err.response.data.data.errors) {
+        // console.log(err.response.data.data.errors[key][0]);
+        console.log(key);
+        setInputErrorMessage((prev) => ({
+          ...prev,
+          [key]: err.response.data.data.errors[key][0],
+        }));
+        setIsValid((prev) => ({
+          ...prev,
+          [key]: "invalid",
+        }));
+      }
 
-      setAlertProps((prev) => ({
-        ...prev,
-        type: "fail",
-        title: "Ooops! Sorry",
-        subtitle: err.response.data.data.flash_message,
-      }));
-      setIsModalOpen(true);
+      if (
+        inputErrorMessage.first_name ||
+        inputErrorMessage.last_name ||
+        inputErrorMessage.email ||
+        inputErrorMessage.phone
+      ) {
+        navigate("/register/details", { replace: true });
+      }
+
+      if (!err.response.data.data.errors.tos_accepted) {
+        setIsModalOpen(true);
+        setAlertProps((prev) => ({
+          ...prev,
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.response.data.data.flash_message,
+        }));
+      } else {
+        setIsModalOpen(true);
+        setAlertProps((prev) => ({
+          ...prev,
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.response.data.data.errors.tos_accepted[0],
+        }));
+      }
     }
   };
 
@@ -393,12 +503,15 @@ const OtherDetails = () => {
                 }`}
               />
             </div>
-            {isValid.password === "invalid" && (
-              <p className="registration-input-error ">
-                *The password should contain at least: 8 characters, one
-                uppercase, one number and one special character
-              </p>
-            )}
+            <p
+              className={
+                inputErrorMessage.password
+                  ? "registration-input-error"
+                  : "hidden"
+              }
+            >
+              {inputErrorMessage.password}
+            </p>
           </label>
           <label className="mb-5 block">
             <p className="registration-input-label">Repeat Password</p>
@@ -433,11 +546,11 @@ const OtherDetails = () => {
                 }`}
               />
             </div>
-            {isValid.password_confirmation === "invalid" && (
+            {/* {isValid.password_confirmation === "invalid" && (
               <p className="registration-input-error ">
                 *The password does not match
               </p>
-            )}
+            )} */}
           </label>
           <label className="my-8  block">
             <div className="relative flex justify-start items-start sm:w-[400px] sm:mx-auto lg:mx-0 ">

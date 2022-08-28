@@ -74,7 +74,7 @@ const Details = () => {
     // } else {
     //   navigate("/register/details-2", { replace: true });
     // }
-    
+
     navigate("/register/details-2", { replace: true });
   };
 
@@ -214,11 +214,24 @@ const Details = () => {
                 }`}
               />
             </div>
-            {isValid.first_name === "invalid" && (
+
+            {/* form validation from the frontend */}
+
+            {/* {isValid.first_name === "invalid" && (
               <p className="registration-input-error ">
                 {inputErrorMessage.first_name}
               </p>
-            )}
+            )} */}
+
+            <p
+              className={
+                inputErrorMessage.first_name
+                  ? "registration-input-error"
+                  : "hidden"
+              }
+            >
+              {inputErrorMessage.first_name}
+            </p>
           </label>
           <label className="mb-5 block">
             <p className="registration-input-label">Last Name</p>
@@ -250,11 +263,15 @@ const Details = () => {
                 }`}
               />
             </div>
-            {isValid.last_name === "invalid" && (
-              <p className="registration-input-error ">
-                {inputErrorMessage.last_name}
-              </p>
-            )}
+            <p
+              className={
+                inputErrorMessage.last_name
+                  ? "registration-input-error"
+                  : "hidden"
+              }
+            >
+              {inputErrorMessage.last_name}
+            </p>
           </label>
           <label className="mb-5 block">
             <p className="registration-input-label">Email Address</p>
@@ -286,11 +303,13 @@ const Details = () => {
                 }`}
               />
             </div>
-            {isValid.email === "invalid" && (
-              <p className="registration-input-error ">
-                {inputErrorMessage.email}
-              </p>
-            )}
+            <p
+              className={
+                inputErrorMessage.email ? "registration-input-error" : "hidden"
+              }
+            >
+              {inputErrorMessage.email}
+            </p>
           </label>
 
           <label>
@@ -348,11 +367,13 @@ const Details = () => {
                 }`}
               />
             </div>
-            {isValid.phone === "invalid" && (
-              <p className="registration-input-error ">
-                {inputErrorMessage.phone}
-              </p>
-            )}
+            <p
+              className={
+                inputErrorMessage.phone ? "registration-input-error" : "hidden"
+              }
+            >
+              {inputErrorMessage.phone}
+            </p>
           </label>
 
           <div className="mt-10 mb-5">
