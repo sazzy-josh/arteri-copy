@@ -56,6 +56,7 @@ const OtherDetails = () => {
         "https://api.arteri.tk/api/account/create/with-email-address",
         formData
       );
+      console.log("registered new user with email address");
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
@@ -97,7 +98,7 @@ const OtherDetails = () => {
         phone: "valid",
         gender: "valid",
         password: "valid",
-        password_confirmation: "",
+        password_confirmation: "valid",
       });
       for (const key in err.response.data.data.errors) {
         // console.log(err.response.data.data.errors[key][0]);
@@ -157,7 +158,7 @@ const OtherDetails = () => {
         "https://api.arteri.tk/api/account/create/with-phone-number",
         formData
       );
-      console.log(formData);
+      console.log("registered new user with phone number");
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
@@ -242,7 +243,7 @@ const OtherDetails = () => {
         phone: "valid",
         gender: "valid",
         password: "valid",
-        password_confirmation: "",
+        password_confirmation: "valid",
       });
       for (const key in err.response.data.data.errors) {
         // console.log(err.response.data.data.errors[key][0]);
@@ -532,11 +533,15 @@ const OtherDetails = () => {
                 }`}
               />
             </div>
-            {/* {isValid.password_confirmation === "invalid" && (
-              <p className="registration-input-error ">
-                *The password does not match
-              </p>
-            )} */}
+            <p
+              className={
+                inputErrorMessage.password_confirmation
+                  ? "registration-input-error"
+                  : "hidden"
+              }
+            >
+              {inputErrorMessage.password_confirmation}
+            </p>
           </label>
           <label className="my-8  block">
             <div className="relative flex justify-start items-start sm:w-[400px] sm:mx-auto lg:mx-0 ">
