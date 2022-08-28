@@ -59,14 +59,7 @@ const OtherDetails = () => {
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
-      setAlertProps((prev) => ({
-        ...alertProps,
-        type: "success",
-        title: "Congratulations",
-        subtitle: "You have successfully registered!",
-        buttonText: "Go to dashboard",
-      }));
-      setIsModalOpen(true);
+      navigate("/dashboard", { replace: true });
 
       setInputField({
         first_name: "",
@@ -168,14 +161,7 @@ const OtherDetails = () => {
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
-      setAlertProps((prev) => ({
-        ...alertProps,
-        type: "success",
-        title: "Congratulations",
-        subtitle: "You have successfully registered!",
-        buttonText: "Go to dashboard",
-      }));
-      setIsModalOpen(true);
+      navigate("/dashboard", { replace: true });
 
       setInputField({
         first_name: "",
