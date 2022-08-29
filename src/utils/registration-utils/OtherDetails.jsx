@@ -21,6 +21,8 @@ const OtherDetails = () => {
     subtitle: "",
     buttonText: "",
   });
+  const [showPassword, setShowPassword] = useState(true);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     account_type,
@@ -466,7 +468,7 @@ const OtherDetails = () => {
 
             <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 className={`registration-input ${
                   isValid.password === "invalid" && "invalid"
                 } ${isValid.password === "valid" && "valid"}`}
@@ -505,7 +507,7 @@ const OtherDetails = () => {
 
             <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
               <input
-                type="password"
+                type={showRepeatPassword ? "text" : "password"}
                 className={`registration-input ${
                   isValid.password_confirmation === "invalid" && "invalid"
                 } ${isValid.password_confirmation === "valid" && "valid"}`}
