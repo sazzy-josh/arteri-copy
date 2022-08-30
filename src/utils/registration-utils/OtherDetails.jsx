@@ -124,22 +124,13 @@ const OtherDetails = () => {
         inputErrorMessage.phone
       ) {
         navigate("/register/details", { replace: true });
-      }
-      if (!err.response.data.data.errors.tos_accepted) {
-        setIsModalOpen(true);
-        setAlertProps((prev) => ({
-          ...prev,
-          type: "fail",
-          title: "Ooops! Sorry",
-          subtitle: err.response.data.data.flash_message,
-        }));
       } else {
         setIsModalOpen(true);
         setAlertProps((prev) => ({
           ...prev,
           type: "fail",
           title: "Ooops! Sorry",
-          subtitle: err.response.data.data.errors.tos_accepted[0],
+          subtitle: err.response.data.data.flash_message,
         }));
       }
     }
@@ -267,27 +258,16 @@ const OtherDetails = () => {
       if (
         inputErrorMessage.first_name ||
         inputErrorMessage.last_name ||
-        inputErrorMessage.email ||
         inputErrorMessage.phone
       ) {
         navigate("/register/details", { replace: true });
-      }
-
-      if (!err.response.data.data.errors.tos_accepted) {
-        setIsModalOpen(true);
-        setAlertProps((prev) => ({
-          ...prev,
-          type: "fail",
-          title: "Ooops! Sorry",
-          subtitle: err.response.data.data.flash_message,
-        }));
       } else {
         setIsModalOpen(true);
         setAlertProps((prev) => ({
           ...prev,
           type: "fail",
           title: "Ooops! Sorry",
-          subtitle: err.response.data.data.errors.tos_accepted[0],
+          subtitle: err.response.data.data.flash_message,
         }));
       }
     }
@@ -711,7 +691,7 @@ const OtherDetails = () => {
               {inputErrorMessage.password_confirmation}
             </p>
           </label>
-          <label className="my-8  block">
+          <label className="mt-8 mb-3  block">
             <div className="relative flex justify-start items-start sm:w-[400px] sm:mx-auto lg:mx-0 ">
               <input
                 type="checkbox"
@@ -764,6 +744,44 @@ const OtherDetails = () => {
               </p>
             </div>
           </label>
+          <p
+            className={
+              inputErrorMessage.tos_accepted
+                ? "registration-input-error mb-2 flex gap-2 items-center"
+                : "hidden"
+            }
+          >
+            <svg
+              className="w-5 h-5 inline-block"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="11"
+                stroke="#FF0000"
+                stroke-width="2"
+              />
+              <path
+                d="M12 7V12"
+                stroke="#FF0000"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 16V16.5"
+                stroke="#FF0000"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            {inputErrorMessage.tos_accepted}
+          </p>
           <div className="mt-10 mb-5">
             <PrimaryButton
               handle={handleSubmit}
