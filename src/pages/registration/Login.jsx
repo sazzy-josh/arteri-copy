@@ -17,6 +17,7 @@ import Alert from "../../components/Alert";
 const Login = () => {
   let navigate = useNavigate();
   const [authToken, setAuthToken] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [alertProps, setAlertProps] = useState({
     type: "",
     title: "",
@@ -54,6 +55,8 @@ const Login = () => {
 
   // control input fields on submit
   const handleSubmit = (e) => {
+    console.log("login button clicked");
+    setIsButtonDisabled(true);
     e.preventDefault();
 
     // handling form validation on form submission from the fontend
@@ -89,6 +92,7 @@ const Login = () => {
         sessionStorage.setItem("authToken", response.data.data.auth_token);
       }
 
+      setIsButtonDisabled(false);
       // client received a success response (2xx)
       setAlertProps((prev) => ({
         ...alertProps,
@@ -108,6 +112,8 @@ const Login = () => {
       });
       navigate("/dashboard", { replace: true });
     } catch (err) {
+      setIsButtonDisabled(false);
+
       if (err.response) {
         // client received an error response (5xx, 4xx)
         console.log(err.response.data);
@@ -314,7 +320,10 @@ const Login = () => {
                   </p>
                 </div>
               </label>
-              <PrimaryButton handle={handleSubmit}>
+              <PrimaryButton
+                handle={handleSubmit}
+                isButtonDisabled={isButtonDisabled}
+              >
                 Login into account
               </PrimaryButton>
             </form>
