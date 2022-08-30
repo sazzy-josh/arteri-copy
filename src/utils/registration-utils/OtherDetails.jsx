@@ -21,6 +21,7 @@ const OtherDetails = () => {
     subtitle: "",
     buttonText: "",
   });
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +59,7 @@ const OtherDetails = () => {
         "https://api.arteri.tk/api/account/create/with-email-address",
         formData
       );
+      setIsButtonDisabled(false);
       console.log("registered new user with email address");
 
       // client received a success response (2xx)
@@ -83,6 +85,7 @@ const OtherDetails = () => {
         password_confirmation: "",
       });
     } catch (err) {
+      setIsButtonDisabled(false);
       setInputErrorMessage({
         first_name: "",
         last_name: "",
@@ -160,6 +163,7 @@ const OtherDetails = () => {
         "https://api.arteri.tk/api/account/create/with-phone-number",
         formData
       );
+      setIsButtonDisabled(false);
       console.log("registered new user with phone number");
 
       // client received a success response (2xx)
@@ -227,7 +231,7 @@ const OtherDetails = () => {
       //     setIsModalOpen(true);
       //   }
       // }
-
+      setIsButtonDisabled(false);
       console.log(err.response.data);
       setInputErrorMessage({
         first_name: "",
@@ -305,6 +309,7 @@ const OtherDetails = () => {
   // control input fields on submit
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsButtonDisabled(true);
 
     // --- form validation on the frontend ---
 
@@ -752,7 +757,10 @@ const OtherDetails = () => {
             </div>
           </label>
           <div className="mt-10 mb-5">
-            <PrimaryButton handle={handleSubmit}>
+            <PrimaryButton
+              handle={handleSubmit}
+              isButtonDisabled={isButtonDisabled}
+            >
               Create My Account
             </PrimaryButton>
           </div>
