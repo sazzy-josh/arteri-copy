@@ -28,6 +28,7 @@ const RecoverPassword = () => {
   });
   const [isPasswordMatch, setIsPasswordMatch] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [alertProps, setAlertProps] = useState({
     type: "",
     title: "",
@@ -105,6 +106,7 @@ const RecoverPassword = () => {
       //   password_confirmation: "",
       // });
 
+      setIsButtonDisabled(true);
       let formData = new FormData();
       formData.append("verification_code", code);
       formData.append("password", recoverInputField.password);
@@ -121,7 +123,9 @@ const RecoverPassword = () => {
         );
 
         navigate("/login", { replace: true });
+        setIsButtonDisabled(false);
       } catch (err) {
+        setIsButtonDisabled(false);
         if (err.response) {
           // client received an error response (5xx, 4xx)
 
@@ -305,7 +309,10 @@ const RecoverPassword = () => {
               </div>
             )} */}
             <div className="my-8">
-              <PrimaryButton handle={handleSubmit}>
+              <PrimaryButton
+                handle={handleSubmit}
+                isButtonDisabled={isButtonDisabled}
+              >
                 Reset Password
               </PrimaryButton>
             </div>

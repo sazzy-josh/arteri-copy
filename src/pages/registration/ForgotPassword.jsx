@@ -220,6 +220,7 @@ const ForgotPassword = () => {
                         requestPasswordReset();
                       }
                     }}
+                    isButtonDisabled={isButtonDisabled}
                   >
                     Send Instructions
                   </PrimaryButton>
