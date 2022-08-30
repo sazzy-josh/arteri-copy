@@ -2,7 +2,7 @@
   @apply font-semibold capitalize mb-[6px] text-left sm:w-[400px] sm:mx-auto  lg:mx-0;
 }
 .registration-input {
-  @apply w-[95%] ml-0 h-14  text-base border-2 rounded-xl my-3 block mx-auto pl-4 pr-10 font-normal border-gray-300 outline-none sm:w-[400px] sm:mx-auto md:pr-12 lg:mx-0 focus:border-blue-300;
+  @apply w-[95%] ml-0 h-14  text-base border-2 rounded-xl my-3 block mx-auto pl-4 pr-10 font-normal border-gray-300 outline-none sm:w-[400px] sm:mx-auto md:pr-14 lg:mx-0 focus:border-blue-300;
 }
 .registration-input-icon {
   @apply w-[16px]  absolute -right-[10px] top-1/2 -translate-y-1/2 sm:-right-[23px];
@@ -24,4 +24,7 @@
 }
 .registration-input-2.invalid {
   @apply border-[#ff0000];
+}
+.show-hide-password {
+  @apply cursor-pointer w-5 h-5 absolute top-1/2 right-8 -translate-y-1/2 md:w-6 md:h-6 md:right-6;
 }

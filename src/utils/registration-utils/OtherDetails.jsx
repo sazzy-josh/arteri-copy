@@ -481,9 +481,11 @@ const OtherDetails = () => {
                 value={inputField.password}
                 onChange={handleInputChange}
               />
+
+              {/* show password/ hide password icons */}
               <svg
                 onClick={() => setShowPassword(!showPassword)}
-                className={`cursor-pointer w-5 h-5 absolute top-1/2 right-8 -translate-y-1/2 md:w-6 md:h-6 md:right-6 ${
+                className={`show-hide-password ${
                   !showPassword ? "hidden" : "visible"
                 }`}
                 viewBox="0 0 24 24"
@@ -508,7 +510,7 @@ const OtherDetails = () => {
 
               <svg
                 onClick={() => setShowPassword(!showPassword)}
-                className={`cursor-pointer w-5 h-5 absolute top-1/2 right-8 -translate-y-1/2 md:w-6 md:h-6 md:right-6 ${
+                className={`show-hide-password ${
                   showPassword ? "hidden" : "visible"
                 }`}
                 viewBox="0 0 24 24"
@@ -559,6 +561,7 @@ const OtherDetails = () => {
                 />
               </svg>
 
+              {/* check/error icons */}
               <img
                 src={AlertIcon}
                 alt=""
@@ -597,9 +600,12 @@ const OtherDetails = () => {
                 value={inputField.password_confirmation}
                 onChange={handleInputChange}
               />
+
+              {/* show password/ hide password icons */}
+
               <svg
                 onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-                className={`cursor-pointer w-5 h-5 absolute top-1/2 right-8 -translate-y-1/2 md:w-6 md:h-6 md:right-6 ${
+                className={`show-hide-password ${
                   !showRepeatPassword ? "hidden" : "visible"
                 }`}
                 viewBox="0 0 24 24"
@@ -624,7 +630,7 @@ const OtherDetails = () => {
 
               <svg
                 onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-                className={`cursor-pointer w-5 h-5 absolute top-1/2 right-8 -translate-y-1/2 md:w-6 md:h-6 md:right-6 ${
+                className={`show-hide-password ${
                   showRepeatPassword ? "hidden" : "visible"
                 }`}
                 viewBox="0 0 24 24"
@@ -674,6 +680,8 @@ const OtherDetails = () => {
                   strokeLinejoin="round"
                 />
               </svg>
+
+              {/* check/error icons */}
               <img
                 src={AlertIcon}
                 alt=""
