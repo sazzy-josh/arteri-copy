@@ -258,7 +258,7 @@ const Login = () => {
                   />
                   <svg
                     onClick={() => setShowPassword(!showPassword)}
-                    className={`cursor-pointer w-5 h-5 absolute top-1/2 right-8 -translate-y-1/2 md:w-6 md:h-6 md:right-6 ${
+                    className={`show-hide-password ${
                       !showPassword ? "hidden" : "visible"
                     }`}
                     viewBox="0 0 24 24"
@@ -283,7 +283,7 @@ const Login = () => {
 
                   <svg
                     onClick={() => setShowPassword(!showPassword)}
-                    className={`cursor-pointer w-5 h-5 absolute top-1/2 right-8 -translate-y-1/2 md:w-6 md:h-6 md:right-6 ${
+                    className={`show-hide-password ${
                       showPassword ? "hidden" : "visible"
                     }`}
                     viewBox="0 0 24 24"

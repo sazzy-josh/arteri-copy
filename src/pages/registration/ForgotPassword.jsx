@@ -22,6 +22,8 @@ const ForgotPassword = () => {
   const [inputErrorMessage, setInputErrorMessage] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [isResetEmail, setIsResetEmail] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const [alertProps, setAlertProps] = useState({
     type: "",
     title: "",
@@ -97,10 +99,12 @@ const ForgotPassword = () => {
         "https://api.arteri.tk/api/account/password/request-reset",
         formData
       );
+      setIsButtonDisabled(false);
       console.log("reset email sent");
       // setIsEmailValid("valid");
       setIsResetEmail(() => email);
     } catch (err) {
+      setIsButtonDisabled(false);
       if (err.response) {
         // setIsEmailValid("invalid");
 
@@ -211,10 +215,12 @@ const ForgotPassword = () => {
                   <PrimaryButton
                     handle={(e) => {
                       e.preventDefault();
+                      setIsButtonDisabled(true);
                       if (email) {
                         requestPasswordReset();
                       }
                     }}
+                    isButtonDisabled={isButtonDisabled}
                   >
                     Send Instructions
                   </PrimaryButton>
