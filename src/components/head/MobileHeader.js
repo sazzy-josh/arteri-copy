@@ -24,11 +24,13 @@ const MobileHeader = ({ open, setOpen, selectDash }) => {
           )}
         </div>
         <div className="w-full ml-auto flex flex-row justify-end items-end cursor-pointer">
-         
-          <div className="flex flex-row justify-center items-center" onClick={setOpen}>
-          <div className=" bg-gray-200 p-2 rounded-full h-8 w-8 cursor-pointer flex flex-col justify-center items-center my-5 ">
-            <BsEnvelope />
-          </div>
+          <div
+            className="flex flex-row justify-center items-center"
+            onClick={setOpen}
+          >
+            <div className=" bg-gray-200 p-2 rounded-full h-8 w-8 cursor-pointer flex flex-col justify-center items-center my-5 ">
+              <BsEnvelope />
+            </div>
             {open ? (
               <div className="p-2 rounded-md bg-sky-600 h-8 w-8 m-5 mr-5 text-white">
                 <FiX />

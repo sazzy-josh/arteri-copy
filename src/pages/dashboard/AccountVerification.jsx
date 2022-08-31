@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 // import { NavLink, Outlet } from "react-router-dom";
 
 // import components
@@ -8,16 +9,15 @@ import MobileHeader from "../../components/head/MobileHeader";
 import SideMenu from "../../components/nav/SideBar";
 
 // import styles
-// import "../../"
+import "../../styles/registration.css";
 
 const AccountVerification = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [activeTab, setActiveTab] = useState("tab2");
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
         <div className="w-1/5 hidden lg:flex md:flex h-screen fixed mr-auto">
-          <SideMenu selectHistory={true} />
+          <SideMenu selectAccount={true} />
         </div>
         <div className="lg:w-4/5 w-full ml-auto">
           <Container>
@@ -26,7 +26,7 @@ const AccountVerification = () => {
             </div>
             <div className="w-screen lg:hidden md:hidden flex">
               <MobileHeader
-                selectHistory={true}
+                selectAccount={true}
                 open={isOpen}
                 setOpen={() => setIsOpen(!isOpen)}
               />
@@ -34,57 +34,39 @@ const AccountVerification = () => {
             {!isOpen && (
               <>
                 <h1 className="font-semibold text-3xl text-left text-gray-900 mb-6 sm:text-center  lg:text-left">
-                  Code Verification
+                  Account Verification
                 </h1>
                 <h3 className="text-left mb-16 sm:text-center  lg:text-left md:w-[400px] md:mx-auto lg:mx-0">
-                  {/* We have sent password recovery instructions to your mail */}
-                  We have sent password recovery instructions to your mail and
-                  phone number
+                  Verification codes have been sent to your email address and
+                  phone number. Enter them in the respective boxes below.
                 </h3>
                 <form>
                   <label className="mb-5 block">
                     <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
                       <input
                         type="text"
-                        className={`registration-input ${
-                          isEmailValid === "invalid" && "invalid"
-                        } ${isEmailValid === "valid" && "valid"}`}
+                        className={`registration-input `}
                         name="email"
-                        placeholder="Enter the code here"
-                        value={verificationCode}
-                        onChange={(e) => {
-                          setVerificationCode(e.target.value);
-                        }}
+                        placeholder="Enter code here"
+                        // value={verificationCode}
+                        // onChange={(e) => {
+                        //   setVerificationCode(e.target.value);
+                        // }}
                       />
-
-                      {/* <img
-                      src={AlertIcon}
-                      alt=""
-                      className={`registration-input-icon  ${
-                        isEmailValid === "invalid" ? "visible" : "hidden"
-                      }`}
-                    />
-                    <img
-                      src={CheckIcon}
-                      alt=""
-                      className={`registration-input-icon  ${
-                        isEmailValid === "valid" ? "visible" : "hidden"
-                      }`}
-                    /> */}
                     </div>
                   </label>
                   <div className="my-8">
                     <PrimaryButton
-                      handle={(e) => {
-                        e.preventDefault();
-                        if (verificationCode.length > 0) {
-                          // setIsVerified(true);
-                          console.log("Verified");
-                          navigate(`/create-new-password/${verificationCode}`, {
-                            replace: true,
-                          });
-                        }
-                      }}
+                    //   handle={(e) => {
+                    //     e.preventDefault();
+                    //     if (verificationCode.length > 0) {
+                    //       // setIsVerified(true);
+                    //       console.log("Verified");
+                    //       navigate(`/create-new-password/${verificationCode}`, {
+                    //         replace: true,
+                    //       });
+                    //     }
+                    //   }}
                     >
                       Create New Password
                     </PrimaryButton>
@@ -97,10 +79,10 @@ const AccountVerification = () => {
                     </p>
                     <p
                       className="text-secondary font-medium cursor-pointer"
-                      onClick={() => {
-                        setIsResetEmail("");
-                        setEmail("");
-                      }}
+                      //   onClick={() => {
+                      //     setIsResetEmail("");
+                      //     setEmail("");
+                      //   }}
                     >
                       Try another email address
                     </p>
@@ -108,13 +90,13 @@ const AccountVerification = () => {
                   <div className="lg:flex lg:items-center lg:justify-center lg:gap-3 ">
                     <p className="text-black font-medium mt-2 mb-2">Or</p>
                     <p
-                      onClick={() => {
-                        if (email) {
-                          requestPasswordReset();
-                        } else {
-                          setIsResetEmail("");
-                        }
-                      }}
+                      //   onClick={() => {
+                      //     if (email) {
+                      //       requestPasswordReset();
+                      //     } else {
+                      //       setIsResetEmail("");
+                      //     }
+                      //   }}
                       className="text-secondary font-medium cursor-pointer"
                     >
                       Resend Instructions
