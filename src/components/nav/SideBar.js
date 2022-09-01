@@ -20,7 +20,7 @@ const SideMenu = ({
     title: "",
     subtitle: "",
   });
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
   const logOutUser = async () => {
     let loggedInToken;
     // post formData to server
@@ -160,7 +160,7 @@ const SideMenu = ({
             <span>Switch Account</span>
           </div>
           <div
-            onClick={logOutUser}
+            // onClick={logOutUser}
             className="flex flex-row justify-start items-center border rounded-md border-white bg-transparent px-5 py-2 my-5 cursor-pointer"
           >
             <span className="mr-5">
