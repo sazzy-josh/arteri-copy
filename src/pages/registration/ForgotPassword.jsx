@@ -231,10 +231,12 @@ const ForgotPassword = () => {
           ) : (
             <>
               <h1 className="font-semibold text-3xl text-left text-gray-900 mb-6 sm:text-center  lg:text-left">
-                Check your mail
+                Code Verification
               </h1>
               <h3 className="text-left mb-16 sm:text-center  lg:text-left md:w-[400px] md:mx-auto lg:mx-0">
-                We have sent password recovery instructions to your mail
+                {/* We have sent password recovery instructions to your mail */}
+                We have sent password recovery instructions to your mail and
+                phone number
               </h3>
               <form>
                 <label className="mb-5 block">

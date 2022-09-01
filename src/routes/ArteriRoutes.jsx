@@ -26,6 +26,7 @@ import Loans from "../utils/financial-history/Loans";
 import BNPL from "../utils/financial-history/BNPL";
 import HistoryDetails from "../pages/dashboard/HistroryDetails";
 import ProviderDashboard from "../pages/admin/Dashboard";
+import AccountVerification from "../pages/dashboard/AccountVerification";
 
 const ArteriRoutes = () => {
   // const [authToken, setAuthToken] = useState(null);
@@ -58,6 +59,10 @@ const ArteriRoutes = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/application" element={<Application />} />
           <Route path="/my-account" element={<Account />} />
+          <Route
+            path="/account/verification"
+            element={<AccountVerification />}
+          />
           <Route path="/notifications" element={<Notifications />} />
           <Route
             path="/history"
