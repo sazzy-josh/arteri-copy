@@ -13,6 +13,7 @@ import image1 from "../../assets/images/image-1.jpg";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
+import Preloader from "../../components/Preloader";
 
 const Login = () => {
   let navigate = useNavigate();
@@ -406,6 +407,7 @@ const Login = () => {
               </PrimaryButton>
             </form>
             <RegistrationRedirect2 />
+            <Preloader />
           </section>
         </div>
       </div>
