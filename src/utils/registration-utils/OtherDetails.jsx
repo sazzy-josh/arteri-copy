@@ -12,6 +12,7 @@ import RegistrationRedirect from "./RegistrationRedirect";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
+import Preloader from "../../components/Preloader";
 
 const OtherDetails = () => {
   let navigate = useNavigate();
@@ -22,6 +23,7 @@ const OtherDetails = () => {
     buttonText: "",
   });
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isContentLoading, setIsContentLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,6 +44,8 @@ const OtherDetails = () => {
 
   // function to register users with email address and phone number
   const registerUserWithEmail = async () => {
+    setIsContentLoading(true);
+
     let formData = new FormData();
     formData.append("first_name", inputField.first_name);
     formData.append("last_name", inputField.last_name);
@@ -59,6 +63,8 @@ const OtherDetails = () => {
         "https://api.arteri.tk/api/account/create/with-email-address",
         formData
       );
+      setIsContentLoading(false);
+
       setIsButtonDisabled(false);
       console.log("registered new user with email address");
 
@@ -86,6 +92,8 @@ const OtherDetails = () => {
       });
     } catch (err) {
       setIsButtonDisabled(false);
+      setIsContentLoading(false);
+
       setInputErrorMessage({
         first_name: "",
         last_name: "",
@@ -138,6 +146,7 @@ const OtherDetails = () => {
 
   // function to register users with phone number
   const registerUserWithPhone = async () => {
+    setIsContentLoading(true);
     let formData = new FormData();
     formData.append("first_name", inputField.first_name);
     formData.append("last_name", inputField.last_name);
@@ -154,6 +163,7 @@ const OtherDetails = () => {
         "https://api.arteri.tk/api/account/create/with-phone-number",
         formData
       );
+      setIsContentLoading(false);
       setIsButtonDisabled(false);
       console.log("registered new user with phone number");
 
@@ -223,6 +233,7 @@ const OtherDetails = () => {
       //   }
       // }
       setIsButtonDisabled(false);
+      setIsContentLoading(false);
       console.log(err.response.data);
       setInputErrorMessage({
         first_name: "",
@@ -799,6 +810,7 @@ const OtherDetails = () => {
           <span className="text-primary capitalize ml-1">{account_type} </span>
         </p>
       </div>
+      {isContentLoading && <Preloader />}
       <Alert
         type={alertProps.type}
         title={alertProps.title}
