@@ -30,22 +30,26 @@ const Profile = () => {
           </div>
           {!edit ? (
             <div className="w-full flex flex-col justify-start items-center">
-              <div className="flex flex-row lg:justify-between lg:items-center justify-center items-center text-lg w-full mb-5">
-                <div className="lg:text-left flex lg:flex-row flex-col justify-start items-center">
-                  <p className="font-semibold lg:mr-2">Verification Status:</p>
+              <div className="flex lg:flex-row flex-col-reverse lg:justify-between lg:items-center justify-center items-center text-lg w-full mb-5">
+                <div className="lg:w-1/3 w-full">
+                <div className="text-left flex flex-row justify-start items-center lg:my-0 my-5">
+                  <p className="font-semibold mr-2">Verification Status:</p>
                   <div className="rounded-xl border bg-red-100 text-red-500 px-2 py-1 text-center">
                     <span>Not Verified</span>
                   </div>
                 </div>
+                </div>
+                <div className="lg:w-1/3 w-full">
                 <div
                   onClick={() => navigate("/account/verification")}
                   className="rounded-xl border border-green-500 bg-green-50 hover:bg-green-100 text-green-500 px-2 cursor-pointer py-1 text-center"
                 >
                   <span>Verify account</span>
                 </div>
+                </div>
 
                 <div className="lg:w-1/4 w-full flex flex-row justify-start items-start">
-                  <div className="lg:w-1/2 w-full">
+                  <div className="lg:w-1/3 w-full">
                     <PrimaryButton2 handle={() => setEdit(!edit)}>
                       <span className="text-white text-center">
                         Edit Profile
@@ -54,16 +58,16 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row lg:justify-between lg:items-start justify-center items-center text-lg w-full">
-                <div className="lg:w-1/3 lg:text-left">
+              <div className="flex lg:flex-row flex-col lg:justify-between lg:items-start justify-start items-start lg:text-center text-left text-lg w-full">
+                <div className="lg:w-1/3 w-full lg:text-left">
                   <p className="font-semibold">First Name</p>
                   <p>Michael</p>
                 </div>
-                <div className="lg:w-1/3 lg:text-left">
+                <div className="lg:w-1/3 w-full lg:text-left">
                   <p className="font-semibold">Last Name</p>
                   <p>Jackson</p>
                 </div>
-                <div className="lg:w-1/3 lg:text-left">
+                <div className="lg:w-1/3 w-full lg:text-left">
                   <p className="font-semibold">Gender</p>
                   <p>Male</p>
                 </div>
@@ -72,11 +76,11 @@ const Profile = () => {
           ) : (
             <div className="w-full">
               <div className="text-left flex lg:flex-row flex-col justify-start items-center w-full">
-                <div className="lg:mr-10 lg:w-1/2">
+                <div className="lg:mr-10 lg:w-1/2 w-full">
                   <span>FirstName</span>
                   <TextField type="text" />
                 </div>
-                <div className="lg:w-1/2">
+                <div className="lg:w-1/2 w-full">
                   <span>LastName</span>
                   <TextField type="text" />
                 </div>
@@ -87,29 +91,29 @@ const Profile = () => {
         {edit && (
           <div>
             <div className="text-left flex lg:flex-row flex-col justify-start items-center w-full">
-              <div className="lg:mr-5 lg:w-1/3">
+              <div className="lg:mr-5 lg:w-1/3 w-full">
                 <span>Date of Birth</span>
                 <TextField type="date" />
               </div>
-              <div className="lg:mr-5 lg:w-1/3">
+              <div className="lg:mr-5 lg:w-1/3 w-full">
                 <span>Gender</span>
                 <TextField type="text" />
               </div>
-              <div className="lg:w-1/3">
+              <div className="lg:w-1/3 w-full">
                 <span>Address Line 1</span>
                 <TextField type="text" />
               </div>
             </div>
             <div className="text-left flex lg:flex-row flex-col justify-start items-center w-full my-10">
-              <div className="lg:mr-5 lg:w-1/3">
+              <div className="lg:mr-5 lg:w-1/3 w-full">
                 <span>Address Line 2</span>
                 <TextField type="text" />
               </div>
-              <div className="lg:mr-5 lg:w-1/3">
+              <div className="lg:mr-5 lg:w-1/3 w-full">
                 <span>City</span>
                 <TextField type="text" />
               </div>
-              <div className="lg:w-1/3">
+              <div className="lg:w-1/3 w-full">
                 <span>State</span>
                 <TextField type="text" />
               </div>
