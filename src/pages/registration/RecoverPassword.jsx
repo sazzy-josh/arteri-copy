@@ -12,12 +12,15 @@ import image3 from "../../assets/images/image-1.jpg";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
+import Preloader from "../../components/Preloader";
 
 const RecoverPassword = () => {
   let navigate = useNavigate();
   let { code } = useParams();
   let passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
+
+  const [isContentLoading, setIsContentLoading] = useState(false);
   const [recoverInputField, setRecoverInputField] = useState({
     password: "",
     password_confirmation: "",
@@ -107,6 +110,7 @@ const RecoverPassword = () => {
       // });
 
       setIsButtonDisabled(true);
+      setIsContentLoading(true);
       let formData = new FormData();
       formData.append("verification_code", code);
       formData.append("password", recoverInputField.password);
@@ -121,10 +125,13 @@ const RecoverPassword = () => {
           "https://api.arteri.tk/api/account/password/reset",
           formData
         );
+        setIsContentLoading(false);
 
         navigate("/login", { replace: true });
         setIsButtonDisabled(false);
       } catch (err) {
+        setIsContentLoading(false);
+
         setIsButtonDisabled(false);
         if (err.response) {
           // client received an error response (5xx, 4xx)
@@ -480,6 +487,7 @@ const RecoverPassword = () => {
           </form>
         </section>
       </div>
+      {isContentLoading && <Preloader />}
       <Alert
         type={alertProps.type}
         title={alertProps.title}
