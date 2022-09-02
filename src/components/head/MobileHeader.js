@@ -9,7 +9,8 @@ const MobileHeader = ({ open, setOpen, selectDash }) => {
       <div className="w-full flex flex-row justify-start items-start">
         <div className="w-full mr-auto">
           {open ? (
-            <div className="w-full transition-all ease-in-out duration-300">
+            <div className={`bottom-0 top-0 left-0 w-[90vw] pr-20 text-white fixed h-full z-40 transition-all  ease-in-out duration-300 translate-x-0"
+            }`}>
               <SideMenu selectDash={selectDash} />
             </div>
           ) : (
