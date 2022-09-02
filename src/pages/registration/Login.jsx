@@ -18,6 +18,7 @@ import Preloader from "../../components/Preloader";
 const Login = () => {
   let navigate = useNavigate();
   const [authToken, setAuthToken] = useState("");
+  const [isContentLoading, setIsContentLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [alertProps, setAlertProps] = useState({
@@ -76,6 +77,7 @@ const Login = () => {
 
   // post formData to server
   const loginUser = async () => {
+    setIsContentLoading(true);
     let formData = new FormData();
     formData.append("identifier", loginInputField.identifier);
     formData.append("password", loginInputField.password);
@@ -95,6 +97,7 @@ const Login = () => {
       }
 
       setIsButtonDisabled(false);
+      setIsContentLoading(false);
       // client received a success response (2xx)
       setAlertProps((prev) => ({
         ...alertProps,
@@ -115,6 +118,7 @@ const Login = () => {
       navigate("/dashboard", { replace: true });
     } catch (err) {
       setIsButtonDisabled(false);
+      setIsContentLoading(false);
 
       if (err.response) {
         // client received an error response (5xx, 4xx)
@@ -407,10 +411,10 @@ const Login = () => {
               </PrimaryButton>
             </form>
             <RegistrationRedirect2 />
-            <Preloader />
           </section>
         </div>
       </div>
+      {isContentLoading && <Preloader />}
       <Alert
         type={alertProps.type}
         title={alertProps.title}

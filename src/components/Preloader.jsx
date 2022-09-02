@@ -3,7 +3,7 @@ import { ThreeDots } from "react-loader-spinner";
 
 const Preloader = () => {
   return (
-    <div className="fixed z-[99999] left-0 top-0 w-screen h-screen bg-white opacity-80 flex items-center justify-center ">
+    <div className="fixed z-[99999] left-0 top-0 w-screen h-screen bg-white opacity-80 flex items-center justify-center overflow-hidden ">
       <ThreeDots
         height="80"
         width="80"
