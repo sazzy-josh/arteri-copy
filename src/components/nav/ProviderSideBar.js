@@ -62,7 +62,7 @@ const ProviderSideMenu = ({
     console.log("log out");
   };
   return (
-    <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-10">
+    <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-10 overflow-y-auto">
       <div className="w-full mt-20 mb-10">
         <Logo />
       </div>
