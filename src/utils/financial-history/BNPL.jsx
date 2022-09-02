@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
 import SearchSort from "../../components/history/SearchSort";
+import Pagination from "../../components/Pagination";
 
 const BNPL = () => {
   let navigate = useNavigate();
@@ -83,16 +84,8 @@ const BNPL = () => {
           </tbody>
         </table>
       </section>
-      <div className=" flex flex-col justify-center items-center my-10">
-        <div>infinite pagination</div>
-        <div className="w-full px-6 ">
-          <button className="w-full h-14 text-lg  outline-none font-medium border-2 border-secondary text-secondary text-center rounded-xl mx-auto my-3 inline-block">
-            Back
-          </button>
-          <button className="w-full h-14 text-lg  outline-none font-medium  bg-secondary text-white text-center rounded-xl mx-auto my-3 inline-block">
-            Next
-          </button>
-        </div>
+      <div className=" flex flex-col justify-center items-center my-7">
+        <Pagination data={Data} />
       </div>
     </>
   );

@@ -16,7 +16,7 @@ const Alert = ({
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-20 w-screen h-screen  ${
+        className={`fixed top-0 left-0 z-[999] w-screen h-screen  ${
           modalTrigger ? "block" : "hidden"
         }`}
       >
