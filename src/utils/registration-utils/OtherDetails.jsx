@@ -21,6 +21,9 @@ const OtherDetails = () => {
     subtitle: "",
     buttonText: "",
   });
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     account_type,
@@ -29,13 +32,16 @@ const OtherDetails = () => {
     setIsValid,
     inputField,
     setInputField,
+    inputErrorMessage,
+    setInputErrorMessage,
   } = useContext(RegistrationContext);
 
-  // regular expressions for password validation
-  let passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
+  // regular expressions for password validation from the frontend
+  // let passwordRegex =
+  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
 
-  const registerNewUser = async () => {
+  // function to register users with email address and phone number
+  const registerUserWithEmail = async () => {
     let formData = new FormData();
     formData.append("first_name", inputField.first_name);
     formData.append("last_name", inputField.last_name);
@@ -53,17 +59,12 @@ const OtherDetails = () => {
         "https://api.arteri.tk/api/account/create/with-email-address",
         formData
       );
+      setIsButtonDisabled(false);
+      console.log("registered new user with email address");
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
-      setAlertProps((prev) => ({
-        ...alertProps,
-        type: "success",
-        title: "Congratulations",
-        subtitle: "You have successfully registered!",
-        buttonText: "Go to dashboard",
-      }));
-      setIsModalOpen(true);
+      navigate("/dashboard", { replace: true });
 
       setInputField({
         first_name: "",
@@ -84,39 +85,194 @@ const OtherDetails = () => {
         password_confirmation: "",
       });
     } catch (err) {
-      if (err.response) {
-        // client received an error response (5xx, 4xx)
-        let dataErrorMessage;
-        if (err.response.data.data.errors.email) {
-          dataErrorMessage = err.response.data.data.errors.email[0];
-          setAlertProps((prev) => ({
-            ...prev,
-            type: "fail",
-            title: "Ooops! Sorry",
-            subtitle: dataErrorMessage,
-          }));
-          setIsModalOpen(true);
-        } else if (err.response.data.data.errors.phone) {
-          dataErrorMessage = err.response.data.data.errors.phone[0];
-          setAlertProps((prev) => ({
-            ...prev,
-            type: "fail",
-            title: "Ooops! Sorry",
-            subtitle: dataErrorMessage,
-          }));
-          setIsModalOpen(true);
-        } else {
-          setAlertProps((prev) => ({
-            ...prev,
-            type: "fail",
-            title: "Ooops! Sorry",
-            subtitle: err.response.data.flash_message,
-          }));
-          setIsModalOpen(true);
-        }
+      setIsButtonDisabled(false);
+      setInputErrorMessage({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "male",
+        password: "",
+        password_confirmation: "",
+        tos_accepted: "",
+      });
+      setIsValid({
+        first_name: "valid",
+        last_name: "valid",
+        email: "valid",
+        phone: "valid",
+        gender: "valid",
+        password: "valid",
+        password_confirmation: "valid",
+      });
+      for (const key in err.response.data.data.errors) {
+        // console.log(err.response.data.data.errors[key][0]);
+        console.log(key);
+        setInputErrorMessage((prev) => ({
+          ...prev,
+          [key]: err.response.data.data.errors[key][0],
+        }));
+        setIsValid((prev) => ({
+          ...prev,
+          [key]: "invalid",
+        }));
+      }
+      if (
+        inputErrorMessage.first_name ||
+        inputErrorMessage.last_name ||
+        inputErrorMessage.email ||
+        inputErrorMessage.phone
+      ) {
+        navigate("/register/details", { replace: true });
+      } else {
+        setIsModalOpen(true);
+        setAlertProps((prev) => ({
+          ...prev,
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.response.data.data.flash_message,
+        }));
       }
     }
   };
+
+  // function to register users with phone number
+  const registerUserWithPhone = async () => {
+    let formData = new FormData();
+    formData.append("first_name", inputField.first_name);
+    formData.append("last_name", inputField.last_name);
+    formData.append("gender", inputField.gender);
+    formData.append("phone", inputField.phone);
+    formData.append("password", inputField.password);
+    formData.append("password_confirmation", inputField.password_confirmation);
+    formData.append("tos_accepted", inputField.tos_accepted);
+    formData.append("account_type", account_type);
+
+    // post formData to server
+    try {
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/create/with-phone-number",
+        formData
+      );
+      setIsButtonDisabled(false);
+      console.log("registered new user with phone number");
+
+      // client received a success response (2xx)
+      localStorage.setItem("authToken", response.data.data.auth_token);
+      navigate("/dashboard", { replace: true });
+
+      setInputField({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "male",
+        password: "",
+        password_confirmation: "",
+      });
+      setIsValid({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "",
+        password: "",
+        password_confirmation: "",
+      });
+      setInputErrorMessage({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "male",
+        password: "",
+        password_confirmation: "",
+        tos_accepted: "",
+      });
+    } catch (err) {
+      // --- form validation from the frontend
+      // if (err.response) {
+      //   // client received an error response (5xx, 4xx)
+      //   let dataErrorMessage;
+      //   if (err.response.data.data.errors.email) {
+      //     dataErrorMessage = err.response.data.data.errors.email[0];
+      //     setAlertProps((prev) => ({
+      //       ...prev,
+      //       type: "fail",
+      //       title: "Ooops! Sorry",
+      //       subtitle: dataErrorMessage,
+      //     }));
+      //     setIsModalOpen(true);
+      //   } else if (err.response.data.data.errors.phone) {
+      //     dataErrorMessage = err.response.data.data.errors.phone[0];
+      //     setAlertProps((prev) => ({
+      //       ...prev,
+      //       type: "fail",
+      //       title: "Ooops! Sorry",
+      //       subtitle: dataErrorMessage,
+      //     }));
+      //     setIsModalOpen(true);
+      //   } else {
+      //     setAlertProps((prev) => ({
+      //       ...prev,
+      //       type: "fail",
+      //       title: "Ooops! Sorry",
+      //       subtitle: err.response.data.flash_message,
+      //     }));
+      //     setIsModalOpen(true);
+      //   }
+      // }
+      setIsButtonDisabled(false);
+      console.log(err.response.data);
+      setInputErrorMessage({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        gender: "male",
+        password: "",
+        password_confirmation: "",
+        tos_accepted: "",
+      });
+      setIsValid({
+        first_name: "valid",
+        last_name: "valid",
+        phone: "valid",
+        gender: "valid",
+        password: "valid",
+        password_confirmation: "valid",
+      });
+      for (const key in err.response.data.data.errors) {
+        // console.log(err.response.data.data.errors[key][0]);
+        console.log(key);
+        setInputErrorMessage((prev) => ({
+          ...prev,
+          [key]: err.response.data.data.errors[key][0],
+        }));
+        setIsValid((prev) => ({
+          ...prev,
+          [key]: "invalid",
+        }));
+      }
+
+      if (
+        inputErrorMessage.first_name ||
+        inputErrorMessage.last_name ||
+        inputErrorMessage.phone
+      ) {
+        navigate("/register/details", { replace: true });
+      } else {
+        setIsModalOpen(true);
+        setAlertProps((prev) => ({
+          ...prev,
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.response.data.data.flash_message,
+        }));
+      }
+    }
+  };
+
   useEffect(() => {
     setSidebarImage("image2");
   }, [setSidebarImage]);
@@ -125,98 +281,110 @@ const OtherDetails = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputField({ ...inputField, [name]: value });
-    validateInputChange(e, inputField);
+
+    // --- form validation on the frontend ---
+    // validateInputChange(e, inputField);
   };
 
   // control input fields on submit
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsButtonDisabled(true);
 
-    const newIsValid = {
-      password: isValid.password,
-      password_confirmation: isValid.password_confirmation,
-      tos_accepted: isValid.tos_accepted,
-    };
-    const prevIsValid = {
-      first_name: isValid.first_name,
-      last_name: isValid.last_name,
-      email: isValid.email,
-      phone: isValid.phone,
-    };
-    if (
-      Object.values(newIsValid).includes("") ||
-      Object.values(newIsValid).includes("invalid")
-    ) {
-      validateInputSubmit();
-      return;
-    } else if (
-      Object.values(prevIsValid).includes("") ||
-      Object.values(prevIsValid).includes("invalid")
-    ) {
-      navigate("/register/details", { replace: true });
+    // --- form validation on the frontend ---
+
+    // const newIsValid = {
+    //   password: isValid.password,
+    //   password_confirmation: isValid.password_confirmation,
+    //   tos_accepted: isValid.tos_accepted,
+    // };
+    // const prevIsValid = {
+    //   first_name: isValid.first_name,
+    //   last_name: isValid.last_name,
+    //   email: isValid.email,
+    //   phone: isValid.phone,
+    // };
+    // if (
+    //   Object.values(newIsValid).includes("") ||
+    //   Object.values(newIsValid).includes("invalid")
+    // ) {
+    //   validateInputSubmit();
+    //   return;
+    // } else if (
+    //   Object.values(prevIsValid).includes("") ||
+    //   Object.values(prevIsValid).includes("invalid")
+    // ) {
+    //   navigate("/register/details", { replace: true });
+    // } else {
+    //   // navigate("/login", { replace: true });
+
+    //   registerUserWithEmail();
+    // }
+
+    if (inputField.email.length === 0) {
+      registerUserWithPhone();
     } else {
-      // navigate("/login", { replace: true });
-
-      registerNewUser();
+      registerUserWithEmail();
+      console.log("hurray");
     }
   };
 
-  // validate input fields on change
-  const validateInputChange = (e, inputField) => {
-    const { name, value } = e.target;
+  // ---- validate input fields on change (validation on the frontend) ----
+  // const validateInputChange = (e, inputField) => {
+  //   const { name, value } = e.target;
 
-    // handle error onChange
-    if (name === "password_confirmation") {
-      if (value !== inputField.password) {
-        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length === 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "" }));
-      } else {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      }
-    } else if (name === "password") {
-      if (!value.match(passwordRegex) && value.length !== 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length === 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "" }));
-      } else if (
-        value !== inputField.password_confirmation &&
-        inputField.password_confirmation.length !== 0
-      ) {
-        setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
-      } else if (value.match(passwordRegex)) {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      } else {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      }
-    } else {
-      if (value.length !== 0 && value.length < 3) {
-        setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-      } else if (value.length === 0) {
-        setIsValid((prev) => ({ ...prev, [name]: "" }));
-      } else {
-        setIsValid((prev) => ({ ...prev, [name]: "valid" }));
-      }
-    }
-  };
+  //   // handle error onChange
+  //   if (name === "password_confirmation") {
+  //     if (value !== inputField.password) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+  //     } else if (value.length === 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "" }));
+  //     } else {
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     }
+  //   } else if (name === "password") {
+  //     if (!value.match(passwordRegex) && value.length !== 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+  //     } else if (value.length === 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "" }));
+  //     } else if (
+  //       value !== inputField.password_confirmation &&
+  //       inputField.password_confirmation.length !== 0
+  //     ) {
+  //       setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
+  //     } else if (value.match(passwordRegex)) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     } else {
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     }
+  //   } else {
+  //     if (value.length !== 0 && value.length < 3) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
+  //     } else if (value.length === 0) {
+  //       setIsValid((prev) => ({ ...prev, [name]: "" }));
+  //     } else {
+  //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
+  //     }
+  //   }
+  // };
 
-  // ----- handle error on submit -----
-  const validateInputSubmit = () => {
-    const { gender, password, password_confirmation } = inputField;
-    if (!password.match(passwordRegex) || password.length === 0) {
-      setIsValid((prev) => ({ ...prev, password: "invalid" }));
-    } else {
-      setIsValid((prev) => ({ ...prev, password: "valid" }));
-    }
-    if (
-      password_confirmation !== password ||
-      password_confirmation.length === 0
-    ) {
-      setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
-    } else {
-      setIsValid((prev) => ({ ...prev, password_confirmation: "valid" }));
-    }
-  };
+  // ----- handle error on submit (validation on frontend) -----
+  // const validateInputSubmit = () => {
+  //   const { gender, password, password_confirmation } = inputField;
+  //   if (!password.match(passwordRegex) || password.length === 0) {
+  //     setIsValid((prev) => ({ ...prev, password: "invalid" }));
+  //   } else {
+  //     setIsValid((prev) => ({ ...prev, password: "valid" }));
+  //   }
+  //   if (
+  //     password_confirmation !== password ||
+  //     password_confirmation.length === 0
+  //   ) {
+  //     setIsValid((prev) => ({ ...prev, password_confirmation: "invalid" }));
+  //   } else {
+  //     setIsValid((prev) => ({ ...prev, password_confirmation: "valid" }));
+  //   }
+  // };
 
   return (
     <>
@@ -285,7 +453,7 @@ const OtherDetails = () => {
 
             <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 className={`registration-input ${
                   isValid.password === "invalid" && "invalid"
                 } ${isValid.password === "valid" && "valid"}`}
@@ -294,6 +462,86 @@ const OtherDetails = () => {
                 onChange={handleInputChange}
               />
 
+              {/* show password/ hide password icons */}
+              <svg
+                onClick={() => setShowPassword(!showPassword)}
+                className={`show-hide-password ${
+                  !showPassword ? "hidden" : "visible"
+                }`}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.58 11.9999C15.58 13.9799 13.98 15.5799 12 15.5799C10.02 15.5799 8.42004 13.9799 8.42004 11.9999C8.42004 10.0199 10.02 8.41992 12 8.41992C13.98 8.41992 15.58 10.0199 15.58 11.9999Z"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M12 20.27C15.53 20.27 18.82 18.19 21.11 14.59C22.01 13.18 22.01 10.81 21.11 9.39997C18.82 5.79997 15.53 3.71997 12 3.71997C8.46997 3.71997 5.17997 5.79997 2.88997 9.39997C1.98997 10.81 1.98997 13.18 2.88997 14.59C5.17997 18.19 8.46997 20.27 12 20.27Z"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+
+              <svg
+                onClick={() => setShowPassword(!showPassword)}
+                className={`show-hide-password ${
+                  showPassword ? "hidden" : "visible"
+                }`}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M14.53 9.46992L9.47004 14.5299C8.82004 13.8799 8.42004 12.9899 8.42004 11.9999C8.42004 10.0199 10.02 8.41992 12 8.41992C12.99 8.41992 13.88 8.81992 14.53 9.46992Z"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M17.82 5.76998C16.07 4.44998 14.07 3.72998 12 3.72998C8.46997 3.72998 5.17997 5.80998 2.88997 9.40998C1.98997 10.82 1.98997 13.19 2.88997 14.6C3.67997 15.84 4.59997 16.91 5.59997 17.77"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M8.42004 19.5299C9.56004 20.0099 10.77 20.2699 12 20.2699C15.53 20.2699 18.82 18.1899 21.11 14.5899C22.01 13.1799 22.01 10.8099 21.11 9.39993C20.78 8.87993 20.42 8.38993 20.05 7.92993"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M15.5099 12.7C15.2499 14.11 14.0999 15.26 12.6899 15.52"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M9.47 14.53L2 22"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M22 2L14.53 9.47"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+
+              {/* check/error icons */}
               <img
                 src={AlertIcon}
                 alt=""
@@ -309,19 +557,22 @@ const OtherDetails = () => {
                 }`}
               />
             </div>
-            {isValid.password === "invalid" && (
-              <p className="registration-input-error ">
-                *The password should contain at least: 8 characters, one
-                uppercase, one number and one special character
-              </p>
-            )}
+            <p
+              className={
+                inputErrorMessage.password
+                  ? "registration-input-error"
+                  : "hidden"
+              }
+            >
+              {inputErrorMessage.password}
+            </p>
           </label>
           <label className="mb-5 block">
             <p className="registration-input-label">Repeat Password</p>
 
             <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
               <input
-                type="password"
+                type={showRepeatPassword ? "text" : "password"}
                 className={`registration-input ${
                   isValid.password_confirmation === "invalid" && "invalid"
                 } ${isValid.password_confirmation === "valid" && "valid"}`}
@@ -330,6 +581,87 @@ const OtherDetails = () => {
                 onChange={handleInputChange}
               />
 
+              {/* show password/ hide password icons */}
+
+              <svg
+                onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+                className={`show-hide-password ${
+                  !showRepeatPassword ? "hidden" : "visible"
+                }`}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.58 11.9999C15.58 13.9799 13.98 15.5799 12 15.5799C10.02 15.5799 8.42004 13.9799 8.42004 11.9999C8.42004 10.0199 10.02 8.41992 12 8.41992C13.98 8.41992 15.58 10.0199 15.58 11.9999Z"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M12 20.27C15.53 20.27 18.82 18.19 21.11 14.59C22.01 13.18 22.01 10.81 21.11 9.39997C18.82 5.79997 15.53 3.71997 12 3.71997C8.46997 3.71997 5.17997 5.79997 2.88997 9.39997C1.98997 10.81 1.98997 13.18 2.88997 14.59C5.17997 18.19 8.46997 20.27 12 20.27Z"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+
+              <svg
+                onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+                className={`show-hide-password ${
+                  showRepeatPassword ? "hidden" : "visible"
+                }`}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M14.53 9.46992L9.47004 14.5299C8.82004 13.8799 8.42004 12.9899 8.42004 11.9999C8.42004 10.0199 10.02 8.41992 12 8.41992C12.99 8.41992 13.88 8.81992 14.53 9.46992Z"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M17.82 5.76998C16.07 4.44998 14.07 3.72998 12 3.72998C8.46997 3.72998 5.17997 5.80998 2.88997 9.40998C1.98997 10.82 1.98997 13.19 2.88997 14.6C3.67997 15.84 4.59997 16.91 5.59997 17.77"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M8.42004 19.5299C9.56004 20.0099 10.77 20.2699 12 20.2699C15.53 20.2699 18.82 18.1899 21.11 14.5899C22.01 13.1799 22.01 10.8099 21.11 9.39993C20.78 8.87993 20.42 8.38993 20.05 7.92993"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M15.5099 12.7C15.2499 14.11 14.0999 15.26 12.6899 15.52"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M9.47 14.53L2 22"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M22 2L14.53 9.47"
+                  stroke="#B3B3B3"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+
+              {/* check/error icons */}
               <img
                 src={AlertIcon}
                 alt=""
@@ -349,13 +681,17 @@ const OtherDetails = () => {
                 }`}
               />
             </div>
-            {isValid.password_confirmation === "invalid" && (
-              <p className="registration-input-error ">
-                *The password does not match
-              </p>
-            )}
+            <p
+              className={
+                inputErrorMessage.password_confirmation
+                  ? "registration-input-error"
+                  : "hidden"
+              }
+            >
+              {inputErrorMessage.password_confirmation}
+            </p>
           </label>
-          <label className="my-8  block">
+          <label className="mt-8 mb-3  block">
             <div className="relative flex justify-start items-start sm:w-[400px] sm:mx-auto lg:mx-0 ">
               <input
                 type="checkbox"
@@ -408,8 +744,49 @@ const OtherDetails = () => {
               </p>
             </div>
           </label>
+          <p
+            className={
+              inputErrorMessage.tos_accepted
+                ? "registration-input-error mb-2 flex gap-2 items-center"
+                : "hidden"
+            }
+          >
+            <svg
+              className="w-5 h-5 inline-block"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="11"
+                stroke="#FF0000"
+                stroke-width="2"
+              />
+              <path
+                d="M12 7V12"
+                stroke="#FF0000"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 16V16.5"
+                stroke="#FF0000"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            {inputErrorMessage.tos_accepted}
+          </p>
           <div className="mt-10 mb-5">
-            <PrimaryButton handle={handleSubmit}>
+            <PrimaryButton
+              handle={handleSubmit}
+              isButtonDisabled={isButtonDisabled}
+            >
               Create My Account
             </PrimaryButton>
           </div>

@@ -19,8 +19,11 @@ const ForgotPassword = () => {
 
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState("");
+  const [inputErrorMessage, setInputErrorMessage] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [isResetEmail, setIsResetEmail] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const [alertProps, setAlertProps] = useState({
     type: "",
     title: "",
@@ -28,49 +31,55 @@ const ForgotPassword = () => {
     buttonText: "",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleInputChange = (e) => {
-    setEmail(e.target.value);
-    if (!e.target.value.match(emailRegex) && e.target.value.length !== 0) {
-      setIsEmailValid("invalid");
-    } else if (e.target.value.length === 0) {
-      setIsEmailValid("");
-    } else {
-      setIsEmailValid("valid");
-    }
-  };
-  const requestPasswordReset = async () => {
-    if (isEmailValid === "valid") {
-      let formData = new FormData();
-      formData.append("identifier", email);
 
-      // post formData to server
-      try {
-        const response = await Axios.post(
-          "https://api.arteri.tk/api/account/password/request-reset",
-          formData
-        );
-        console.log("reset email sent");
+  // form validation from the frontend
+  // const handleInputChange = (e) => {
+  //   setEmail(e.target.value);
+  //   if (!e.target.value.match(emailRegex) && e.target.value.length !== 0) {
+  //     setIsEmailValid("invalid");
+  //   } else if (e.target.value.length === 0) {
+  //     setIsEmailValid("");
+  //   } else {
+  //     setIsEmailValid("valid");
+  //   }
+  // };
 
-        // setEmail(() => "");
-        setIsResetEmail(() => email);
-      } catch (err) {
-        if (err.response) {
-          // client received an error response (5xx, 4xx)
-          setAlertProps((prev) => ({
-            ...prev,
-            type: "fail",
-            title: "Ooops! Sorry",
-            subtitle: err.response.data.data.flash_message,
-          }));
-          setIsModalOpen(true);
-        }
-      }
-    } else {
-      console.log("email is invalid");
+  // ---
+  // const requestPasswordReset = async () => {
+  //   if (isEmailValid === "valid") {
+  //     let formData = new FormData();
+  //     formData.append("identifier", email);
 
-      setIsEmailValid("invalid");
-    }
-  };
+  //     // post formData to server
+  //     try {
+  //       const response = await Axios.post(
+  //         "https://api.arteri.tk/api/account/password/request-reset",
+  //         formData
+  //       );
+  //       console.log("reset email sent");
+
+  //       // setEmail(() => "");
+  //       setIsResetEmail(() => email);
+  //     } catch (err) {
+  //       if (err.response) {
+  //         // client received an error response (5xx, 4xx)
+  //         setAlertProps((prev) => ({
+  //           ...prev,
+  //           type: "fail",
+  //           title: "Ooops! Sorry",
+  //           subtitle: err.response.data.data.flash_message,
+  //         }));
+  //         setIsModalOpen(true);
+  //       }
+  //     }
+  //   } else {
+  //     console.log("email is invalid");
+
+  //     setIsEmailValid("invalid");
+  //   }
+  // };
+
+  // ----
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
 
@@ -80,6 +89,45 @@ const ForgotPassword = () => {
 
   // };
 
+  const requestPasswordReset = async () => {
+    let formData = new FormData();
+    formData.append("identifier", email);
+
+    // post formData to server
+    try {
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/password/request-reset",
+        formData
+      );
+      setIsButtonDisabled(false);
+      console.log("reset email sent");
+      // setIsEmailValid("valid");
+      setIsResetEmail(() => email);
+    } catch (err) {
+      setIsButtonDisabled(false);
+      if (err.response) {
+        // setIsEmailValid("invalid");
+
+        // client received an error response (5xx, 4xx)
+        setAlertProps((prev) => ({
+          ...prev,
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.response.data.data.flash_message,
+
+          // function () {
+          //   if (err.response.data.data.errors.identifier) {
+          //     return err.response.data.data.errors.identifier[0];
+          //   } else {
+          //     return err.response.data.data.flash_message;
+          //   }
+          // },
+        }));
+
+        setIsModalOpen(true);
+      }
+    }
+  };
   // Regex for email validation
   let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
@@ -129,10 +177,10 @@ const ForgotPassword = () => {
                       className={`registration-input ${
                         isEmailValid === "invalid" && "invalid"
                       } ${isEmailValid === "valid" && "valid"}`}
-                      name="email"
+                      name="identifier"
                       placeholder="Enter your email address"
                       value={email}
-                      onChange={handleInputChange}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
 
                     <img
@@ -150,18 +198,29 @@ const ForgotPassword = () => {
                       }`}
                     />
                   </div>
-                  {isEmailValid === "invalid" && (
+                  {/* {isEmailValid === "invalid" && (
                     <p className="registration-input-error ">
                       *The email you entered is invalid
                     </p>
-                  )}
+                  )} */}
+                  <p
+                    className={
+                      inputErrorMessage ? "registration-input-error" : "hidden"
+                    }
+                  >
+                    {inputErrorMessage}
+                  </p>
                 </label>
                 <div className="my-8">
                   <PrimaryButton
                     handle={(e) => {
                       e.preventDefault();
-                      requestPasswordReset();
+                      setIsButtonDisabled(true);
+                      if (email) {
+                        requestPasswordReset();
+                      }
                     }}
+                    isButtonDisabled={isButtonDisabled}
                   >
                     Send Instructions
                   </PrimaryButton>
@@ -172,10 +231,12 @@ const ForgotPassword = () => {
           ) : (
             <>
               <h1 className="font-semibold text-3xl text-left text-gray-900 mb-6 sm:text-center  lg:text-left">
-                Check your mail
+                Code Verification
               </h1>
               <h3 className="text-left mb-16 sm:text-center  lg:text-left md:w-[400px] md:mx-auto lg:mx-0">
-                We have sent password recovery instructions to your mail
+                {/* We have sent password recovery instructions to your mail */}
+                We have sent password recovery instructions to your mail and
+                phone number
               </h3>
               <form>
                 <label className="mb-5 block">
@@ -213,7 +274,6 @@ const ForgotPassword = () => {
                   <PrimaryButton
                     handle={(e) => {
                       e.preventDefault();
-                      console.log(verificationCode.length);
                       if (verificationCode.length > 0) {
                         // setIsVerified(true);
                         console.log("Verified");
@@ -245,7 +305,13 @@ const ForgotPassword = () => {
                 <div className="lg:flex lg:items-center lg:justify-center lg:gap-3 ">
                   <p className="text-black font-medium mt-2 mb-2">Or</p>
                   <p
-                    onClick={requestPasswordReset}
+                    onClick={() => {
+                      if (email) {
+                        requestPasswordReset();
+                      } else {
+                        setIsResetEmail("");
+                      }
+                    }}
                     className="text-secondary font-medium cursor-pointer"
                   >
                     Resend Instructions

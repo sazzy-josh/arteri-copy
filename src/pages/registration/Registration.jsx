@@ -35,6 +35,16 @@ const Registration = () => {
     password_confirmation: "",
     tos_accepted: "invalid",
   });
+  const [inputErrorMessage, setInputErrorMessage] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    gender: "male",
+    password: "",
+    password_confirmation: "",
+    tos_accepted: "",
+  });
   let navigate = useNavigate();
 
   return (
@@ -48,6 +58,8 @@ const Registration = () => {
           setIsValid,
           inputField,
           setInputField,
+          inputErrorMessage,
+          setInputErrorMessage,
         }}
       >
         <div className=" md:flex">
