@@ -13,10 +13,12 @@ import image3 from "../../assets/images/image-1.jpg";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
+import Preloader from "../../components/Preloader";
 
 const ForgotPassword = () => {
   let navigate = useNavigate();
 
+  const [isContentLoading, setIsContentLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState("");
   const [inputErrorMessage, setInputErrorMessage] = useState("");
@@ -90,6 +92,7 @@ const ForgotPassword = () => {
   // };
 
   const requestPasswordReset = async () => {
+    setIsContentLoading(true);
     let formData = new FormData();
     formData.append("identifier", email);
 
@@ -99,11 +102,15 @@ const ForgotPassword = () => {
         "https://api.arteri.tk/api/account/password/request-reset",
         formData
       );
+      setIsContentLoading(false);
+
       setIsButtonDisabled(false);
       console.log("reset email sent");
       // setIsEmailValid("valid");
       setIsResetEmail(() => email);
     } catch (err) {
+      setIsContentLoading(false);
+
       setIsButtonDisabled(false);
       if (err.response) {
         // setIsEmailValid("invalid");
@@ -215,8 +222,8 @@ const ForgotPassword = () => {
                   <PrimaryButton
                     handle={(e) => {
                       e.preventDefault();
-                      setIsButtonDisabled(true);
                       if (email) {
+                        setIsButtonDisabled(true);
                         requestPasswordReset();
                       }
                     }}
@@ -321,6 +328,8 @@ const ForgotPassword = () => {
             </>
           )}
         </section>
+
+        {isContentLoading && <Preloader />}
         <Alert
           type={alertProps.type}
           title={alertProps.title}
