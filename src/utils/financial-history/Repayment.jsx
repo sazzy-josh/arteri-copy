@@ -4,9 +4,11 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
 import SearchSort from "../../components/history/SearchSort";
 import Pagination from "../../components/Pagination";
+import TableV2 from "../../components/tables/TableV2";
 
 const Repayment = () => {
   let navigate = useNavigate();
+  const [test, setTest] = useState(true);
   const Data = [
     {
       id: 1,
@@ -41,7 +43,9 @@ const Repayment = () => {
       status: "declined",
     },
   ];
-
+  if (test) {
+    return <TableV2 />;
+  }
   return (
     <>
       <HistoryPageNavigation />
