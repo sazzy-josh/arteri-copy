@@ -32,6 +32,8 @@ const Alert = ({
             viewBox="0 0 28 28"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className="absolute  top-5 right-5 w-6 h-6  cursor-pointer p-1"
+            onClick={() => setModalTrigger(false)}
           >
             <path
               d="M25.9999 25.7598L2.23438 2"

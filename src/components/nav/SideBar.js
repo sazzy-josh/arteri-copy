@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../Logo";
 import axios from "axios";
 import Alert from "../Alert";
+import LogOutAlert from "../custom-alerts/LogOutAlert";
 
 const SideMenu = ({
   selectDash,
@@ -21,6 +22,7 @@ const SideMenu = ({
     subtitle: "",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
   const logOutUser = async () => {
     let loggedInToken;
     // post formData to server
@@ -177,6 +179,11 @@ const SideMenu = ({
         buttonText={alertProps.buttonText}
         modalTrigger={isModalOpen}
         setModalTrigger={setIsModalOpen}
+      />
+      <LogOutAlert
+        title={"Are ypu sure you want to logout?"}
+        modalTrigger={isLogOutModalOpen}
+        setModalTrigger={setIsLogOutModalOpen}
       />
     </div>
   );
