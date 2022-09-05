@@ -20,7 +20,7 @@ import RecoverPassword from "../pages/registration/RecoverPassword";
 import Help from "../pages/dashboard/Help";
 import Notifications from "../pages/dashboard/Notifications";
 import History from "../pages/dashboard/History";
-import AuthenticatedPrivateRoutes from "../layouts/AuthenticatedPrivateRoutes";
+import AuthenticatedConsumerRoutes from "../layouts/AuthenticatedConsumerRoutes";
 import UnauthenticatedPrivateRoutes from "../layouts/UnauthenticatedPrivateRoutes";
 import Loans from "../utils/financial-history/Loans";
 import BNPL from "../utils/financial-history/BNPL";
@@ -58,7 +58,7 @@ const ArteriRoutes = () => {
 
         {/* Routes available to users that are logged in but are consumers */}
 
-        <Route element={<AuthenticatedPrivateRoutes />}>
+        <Route element={<AuthenticatedConsumerRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/application" element={<Application />} />
           <Route path="/my-account" element={<Account />} />
