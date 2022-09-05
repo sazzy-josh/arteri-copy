@@ -4,7 +4,7 @@ import SearchIcon from "../../assets/icons/search-icon.svg";
 const SearchSort = () => {
   return (
     <div className="md:flex justify-end items-center gap-6 mb-5 md:pr-5">
-      <div className="relative  w-full  h-12 border-2 border-gray-300 rounded-lg p-1 md:w-80">
+      <div className=" relative -z-10  w-full  h-12 border-2 border-gray-300 rounded-lg p-1 md:w-80">
         <input
           type="text"
           name="search"

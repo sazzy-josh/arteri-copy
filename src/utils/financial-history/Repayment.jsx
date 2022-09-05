@@ -8,7 +8,7 @@ import TableV2 from "../../components/tables/TableV2";
 
 const Repayment = () => {
   let navigate = useNavigate();
-  const [test, setTest] = useState(true);
+  const [test, setTest] = useState(false);
   const Data = [
     {
       id: 1,
