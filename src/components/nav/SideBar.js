@@ -6,6 +6,7 @@ import Logo from "../Logo";
 import axios from "axios";
 import Alert from "../Alert";
 import LogOutAlert from "../custom-alerts/LogOutAlert";
+import Preloader from "../Preloader";
 
 const SideMenu = ({
   selectDash,
@@ -21,9 +22,12 @@ const SideMenu = ({
     title: "",
     subtitle: "",
   });
+  const [isContentLoading, setIsContentLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
   const logOutUser = async () => {
+    setIsLogOutModalOpen(false);
+    setIsContentLoading(true);
     let loggedInToken;
     // post formData to server
     try {
@@ -37,6 +41,7 @@ const SideMenu = ({
         {},
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
+      setIsContentLoading(false);
 
       // client received a success response (2xx)
       localStorage.removeItem("authToken");
@@ -44,6 +49,8 @@ const SideMenu = ({
 
       navigate("/login", { replace: true });
     } catch (err) {
+      setIsContentLoading(false);
+
       if (err.response) {
         // client received an error response (5xx, 4xx)
         setAlertProps((prev) => ({
@@ -162,7 +169,7 @@ const SideMenu = ({
             <span>Switch Account</span>
           </div> */}
           <div
-            onClick={logOutUser}
+            onClick={() => setIsLogOutModalOpen(true)}
             className="flex flex-row whitespace-nowrap lg:text-base text-sm justify-start items-center border rounded-md border-white bg-transparent px-5 py-2 my-5 cursor-pointer"
           >
             <span className="mr-5">
@@ -172,6 +179,7 @@ const SideMenu = ({
           </div>
         </div>
       </div>
+      {isContentLoading && <Preloader />}
       <Alert
         type={alertProps.type}
         title={alertProps.title}
@@ -181,9 +189,9 @@ const SideMenu = ({
         setModalTrigger={setIsModalOpen}
       />
       <LogOutAlert
-        title={"Are ypu sure you want to logout?"}
         modalTrigger={isLogOutModalOpen}
         setModalTrigger={setIsLogOutModalOpen}
+        buttonHandle={logOutUser}
       />
     </div>
   );
