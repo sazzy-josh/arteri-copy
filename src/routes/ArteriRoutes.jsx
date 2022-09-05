@@ -27,6 +27,7 @@ import BNPL from "../utils/financial-history/BNPL";
 import HistoryDetails from "../pages/dashboard/HistroryDetails";
 import ProviderDashboard from "../pages/admin/Dashboard";
 import AccountVerification from "../pages/dashboard/AccountVerification";
+import AuthenticatedProviderRoutes from "../layouts/AuthenticatedProviderRoutes";
 
 const ArteriRoutes = () => {
   // const [authToken, setAuthToken] = useState(null);
@@ -55,6 +56,8 @@ const ArteriRoutes = () => {
           }
         />
 
+        {/* Routes available to users that are logged in but are consumers */}
+
         <Route element={<AuthenticatedPrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/application" element={<Application />} />
@@ -78,8 +81,13 @@ const ArteriRoutes = () => {
           <Route path="/help" element={<Help />} />
         </Route>
 
-        <Route path="/provider-dashboard" element={<ProviderDashboard />} />
+        {/* Routes available to users that are logged in but are providers */}
 
+        <Route element={<AuthenticatedProviderRoutes />}>
+          <Route path="/provider-dashboard" element={<ProviderDashboard />} />
+        </Route>
+
+        {/* Routes available to users that are not logged in */}
         <Route element={<UnauthenticatedPrivateRoutes />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Registration />}>

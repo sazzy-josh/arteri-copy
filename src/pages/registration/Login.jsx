@@ -117,7 +117,12 @@ const Login = () => {
         identifier: "",
         password: "",
       });
-      navigate("/dashboard", { replace: true });
+      if (response.data.data.account_type === "personal") {
+        navigate("/dashboard", { replace: true });
+      }
+      if (response.data.data.account_type === "provider") {
+        navigate("/provider-dashboard", { replace: true });
+      }
     } catch (err) {
       setIsButtonDisabled(false);
       setIsContentLoading(false);

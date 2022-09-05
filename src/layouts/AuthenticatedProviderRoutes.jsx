@@ -4,11 +4,13 @@ import { Navigate, Outlet } from "react-router-dom";
 const AuthenticatedProviderRoutes = () => {
   return (
     <>
-      {localStorage.getItem("authToken") ||
-      sessionStorage.getItem("authToken") ? (
+      {(localStorage.getItem("authToken") ||
+        sessionStorage.getItem("authToken")) &&
+      (localStorage.getItem("accountType") === "provider" ||
+        sessionStorage.getItem("accountType") === "provider") ? (
         <Outlet />
       ) : (
-        <Navigate to="/login" replace={true} />
+        <Navigate to="/back" replace={true} />
       )}
     </>
   );
