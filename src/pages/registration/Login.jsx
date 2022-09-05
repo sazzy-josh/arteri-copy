@@ -96,7 +96,6 @@ const Login = () => {
       } else {
         sessionStorage.setItem("authToken", response.data.data.auth_token);
         sessionStorage.setItem("accountType", response.data.data.account_type);
-        localStorage.setItem("accountType", response.data.data.account_type);
       }
 
       setIsButtonDisabled(false);

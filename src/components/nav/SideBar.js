@@ -44,8 +44,11 @@ const SideMenu = ({
       setIsContentLoading(false);
 
       // client received a success response (2xx)
+      // clear browser storage
       localStorage.removeItem("authToken");
       sessionStorage.removeItem("authToken");
+      localStorage.removeItem("accountType");
+      sessionStorage.removeItem("accountType");
 
       navigate("/login", { replace: true });
     } catch (err) {
