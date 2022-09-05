@@ -60,7 +60,7 @@ const Pagination = ({ data }) => {
           <span className="font-medium mr-[5px]">10 Results</span> |{" "}
           <span className="font-medium mx-[5px]">Show:</span>{" "}
           <select
-            disabled={true}
+            // disabled={true}
             className="outline-none border border-gray-700 py-1 px-2 mr-2 rounded-sm"
           >
             <option value="3" className="text-gray-700">

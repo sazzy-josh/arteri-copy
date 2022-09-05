@@ -119,7 +119,16 @@ const Login = () => {
     } catch (err) {
       setIsButtonDisabled(false);
       setIsContentLoading(false);
-
+      console.log(err.message);
+      if (err.message) {
+        setAlertProps((prev) => ({
+          ...prev,
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.message,
+        }));
+        setIsModalOpen(true);
+      }
       if (err.response) {
         // client received an error response (5xx, 4xx)
         console.log(err.response.data);
