@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import MobileNavbar from "../../components/MobileNavbar";
@@ -9,16 +9,17 @@ import Axios from "axios";
 // images
 import LogoWhite from "../../assets/logo-white.svg";
 import image1 from "../../assets/images/image-1.jpg";
-// import icons
-import AlertIcon from "../../assets/icons/alert-info.svg";
-import CheckIcon from "../../assets/icons/check.svg";
+
 import Alert from "../../components/Alert";
-import Preloader from "../../components/Preloader";
+import { PreloaderContext } from "../../contexts/PreloaderContext";
 
 const Login = () => {
+  // contexts
+  const { setIsContentLoading } = useContext(PreloaderContext);
   let navigate = useNavigate();
+
+  // states
   const [authToken, setAuthToken] = useState("");
-  const [isContentLoading, setIsContentLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [alertProps, setAlertProps] = useState({
@@ -430,7 +431,7 @@ const Login = () => {
           </section>
         </div>
       </div>
-      {isContentLoading && <Preloader />}
+      {/* {isContentLoading && <Preloader />} */}
       <Alert
         type={alertProps.type}
         title={alertProps.title}

@@ -28,21 +28,21 @@ import HistoryDetails from "../pages/dashboard/HistroryDetails";
 import ProviderDashboard from "../pages/admin/Dashboard";
 import AccountVerification from "../pages/dashboard/AccountVerification";
 import AuthenticatedProviderRoutes from "../layouts/AuthenticatedProviderRoutes";
+import Preloader from "../components/Preloader";
+
+// Contexts
+import { PreloaderContext } from "../contexts/PreloaderContext";
 
 const ArteriRoutes = () => {
-  // const [authToken, setAuthToken] = useState(null);
-  // useEffect(() => {
-  //   if (
-  //     localStorage.getItem("authToken") ||
-  //     sessionStorage.getItem("authToken")
-  //   ) {
-  //     setAuthToken(localStorage.getItem("authToken"));
-  //   } else {
-  //     setAuthToken(null);
-  //   }
-  // });
+  const [isContentLoading, setIsContentLoading] = useState(false);
   return (
-    <>
+    <PreloaderContext.Provider
+      value={{
+        isContentLoading,
+        setIsContentLoading,
+      }}
+    >
+      {isContentLoading && <Preloader />}
       <Routes>
         <Route
           path="/"
@@ -103,7 +103,7 @@ const ArteriRoutes = () => {
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </>
+    </PreloaderContext.Provider>
   );
 };
 

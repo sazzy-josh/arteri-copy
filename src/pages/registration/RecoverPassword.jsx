@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import MobileNavbar from "../../components/MobileNavbar";
@@ -12,15 +12,17 @@ import image3 from "../../assets/images/image-1.jpg";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
-import Preloader from "../../components/Preloader";
+import { PreloaderContext } from "../../contexts/PreloaderContext";
 
 const RecoverPassword = () => {
+  // contexts
+  const { setIsContentLoading } = useContext(PreloaderContext);
+
   let navigate = useNavigate();
   let { code } = useParams();
   let passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,20})/;
 
-  const [isContentLoading, setIsContentLoading] = useState(false);
   const [recoverInputField, setRecoverInputField] = useState({
     password: "",
     password_confirmation: "",
@@ -487,7 +489,6 @@ const RecoverPassword = () => {
           </form>
         </section>
       </div>
-      {isContentLoading && <Preloader />}
       <Alert
         type={alertProps.type}
         title={alertProps.title}
