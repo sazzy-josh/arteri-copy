@@ -84,7 +84,7 @@ const ProviderSideMenu = ({
           {dash && (
             <div>
               <div
-                onClick={() => navigate("/dashboard")}
+                onClick={() => navigate("/provider-dashboard")}
                 className={
                   selectDash
                     ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -123,7 +123,7 @@ const ProviderSideMenu = ({
                 <span>Repay Loan</span>
               </div>
               <div
-                onClick={() => navigate("/my-account")}
+                onClick={() => navigate("/provider-account")}
                 className={
                   selectAccount
                     ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -260,9 +260,8 @@ const ProviderSideMenu = ({
           </div>
           {others && (
             <div>
-              
               <div
-                onClick={() => navigate("/history/repayment")}
+                onClick={() => navigate("/provider-history/repayment")}
                 className={
                   selectHistory
                     ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -275,7 +274,7 @@ const ProviderSideMenu = ({
                 <span>History</span>
               </div>
               <div
-                onClick={() => navigate("/notifications")}
+                onClick={() => navigate("/provider-notifications")}
                 className={
                   selectNot
                     ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -294,7 +293,7 @@ const ProviderSideMenu = ({
                 <span>Settings</span>
               </div>
               <div
-                onClick={() => navigate("/help")}
+                onClick={() => navigate("/provider-help")}
                 className={
                   selectHelp
                     ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`

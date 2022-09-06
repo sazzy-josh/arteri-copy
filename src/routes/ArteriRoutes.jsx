@@ -27,6 +27,10 @@ import BNPL from "../utils/financial-history/BNPL";
 import HistoryDetails from "../pages/dashboard/HistroryDetails";
 import ProviderDashboard from "../pages/admin/Dashboard";
 import AccountVerification from "../pages/dashboard/AccountVerification";
+import ProviderAccount from "../pages/admin/MyAccount";
+import ProviderHelp from "../pages/admin/Help";
+import ProviderHistory from "../pages/admin/History";
+import ProviderNotifications from "../pages/admin/Notification";
 
 const ArteriRoutes = () => {
   // const [authToken, setAuthToken] = useState(null);
@@ -46,9 +50,16 @@ const ArteriRoutes = () => {
         <Route
           path="/"
           element={
-            localStorage.getItem("authToken") ||
-            sessionStorage.getItem("authToken") ? (
+            (localStorage.getItem("authToken") &&
+              localStorage.getItem("account_type") == "personal") ||
+            (sessionStorage.getItem("authToken") &&
+              localStorage.getItem("account_type") == "personal") ? (
               <Navigate to="/dashboard" replace={true} />
+            ) : (localStorage.getItem("authToken") &&
+                localStorage.getItem("account_type") == "provider") ||
+              (sessionStorage.getItem("authToken") &&
+                localStorage.getItem("account_type") == "provider") ? (
+              <Navigate to="/provider-dashboard" replace={true} />
             ) : (
               <Navigate to="/login" replace={true} />
             )
@@ -76,9 +87,25 @@ const ArteriRoutes = () => {
           </Route>
           <Route path="/history/details/:id" element={<HistoryDetails />} />
           <Route path="/help" element={<Help />} />
+
+          {/* Provider Routes */}
+          <Route path="/provider-dashboard" element={<ProviderDashboard />} />
+          <Route path="provider-account" element={<ProviderAccount />} />
+          <Route path="provider-help" element={<ProviderHelp />} />
+          <Route path="provider-notifications" element={<ProviderNotifications />} />
+          <Route
+            path="/provider-history"
+            // element={<Navigate to="/history/repayment" replace={true} />}
+            element={<ProviderHistory />}
+          >
+            <Route path="repayment" element={<Repayment />} />
+            <Route path="loans" element={<Loans />} />
+            <Route path="bnpl" element={<BNPL />} />
+            {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
+          </Route>
         </Route>
 
-        <Route path="/provider-dashboard" element={<ProviderDashboard />} />
+        
 
         <Route element={<UnauthenticatedPrivateRoutes />}>
           <Route path="login" element={<Login />} />

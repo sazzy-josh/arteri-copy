@@ -92,8 +92,10 @@ const Login = () => {
       // setAuthToken(response.data.data.auth_token);
       if (longLiveAuthToken) {
         localStorage.setItem("authToken", response.data.data.auth_token);
+        localStorage.setItem("account_type", response.data.data.account_type);
       } else {
         sessionStorage.setItem("authToken", response.data.data.auth_token);
+        localStorage.setItem("account_type", response.data.data.account_type);
       }
 
       setIsButtonDisabled(false);
@@ -115,7 +117,12 @@ const Login = () => {
         identifier: "",
         password: "",
       });
-      navigate("/dashboard", { replace: true });
+
+      if (response.data.data.account_type === "personal") {
+        navigate("/dashboard", { replace: true });
+      } else {
+        navigate("/provider-dashboard", { replace: true });
+      }
     } catch (err) {
       setIsButtonDisabled(false);
       setIsContentLoading(false);

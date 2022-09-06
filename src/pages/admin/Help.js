@@ -6,6 +6,8 @@ import SenderBar from "../../components/chats/SenderBar";
 import Container from "../../components/container/Container";
 import Header from "../../components/head/Header";
 import MobileHeader from "../../components/head/MobileHeader";
+import ProviderMobileHeader from "../../components/head/ProviderMobileHeader";
+import ProviderSideMenu from "../../components/nav/ProviderSideBar";
 import SideMenu from "../../components/nav/SideBar";
 
 const ProviderHelp = () => {
@@ -14,7 +16,7 @@ const ProviderHelp = () => {
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
         <div className="w-1/5 hidden lg:flex md:flex h-screen fixed mr-auto">
-          <SideMenu selectHelp={true} />
+          <ProviderSideMenu selectHelp={true} />
         </div>
         <div className="lg:w-4/5 w-full ml-auto">
           <Container>
@@ -22,7 +24,7 @@ const ProviderHelp = () => {
               <Header />
             </div>
             <div className="w-screen lg:hidden md:hidden flex">
-              <MobileHeader
+              <ProviderMobileHeader
                 selectDash={true}
                 open={isOpen}
                 setOpen={() => setIsOpen(!isOpen)}
