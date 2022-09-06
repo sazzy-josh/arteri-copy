@@ -31,6 +31,7 @@ import ProviderAccount from "../pages/admin/MyAccount";
 import ProviderHelp from "../pages/admin/Help";
 import ProviderHistory from "../pages/admin/History";
 import ProviderNotifications from "../pages/admin/Notification";
+import ProviderSettings from "../pages/admin/Settings";
 
 const ArteriRoutes = () => {
   // const [authToken, setAuthToken] = useState(null);
@@ -93,6 +94,7 @@ const ArteriRoutes = () => {
           <Route path="provider-account" element={<ProviderAccount />} />
           <Route path="provider-help" element={<ProviderHelp />} />
           <Route path="provider-notifications" element={<ProviderNotifications />} />
+          <Route path="provider-settings" element={<ProviderSettings />} />
           <Route
             path="/provider-history"
             // element={<Navigate to="/history/repayment" replace={true} />}
