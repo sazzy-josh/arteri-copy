@@ -10,18 +10,17 @@ const UnauthenticatedPrivateRoutes = () => {
   const consumerAccountType =
     localStorage.getItem("accountType") === "personal" ||
     sessionStorage.getItem("accountType") === "personal";
+
+  if (authToken && consumerAccountType) {
+    return <Navigate to="/dashboard" replace={true} />;
+  }
+  if (authToken && providerAccountType) {
+    return <Navigate to="/provider-dashboard" replace={true} />;
+  }
+
   return (
     <>
-      {authToken && consumerAccountType ? (
-        <Navigate to="/dashboard" replace={true} />
-      ) : (
-        <Outlet />
-      )}
-      {authToken && providerAccountType ? (
-        <Navigate to="/provider-dashboard" replace={true} />
-      ) : (
-        <Outlet />
-      )}
+      <Outlet />
     </>
   );
 };
