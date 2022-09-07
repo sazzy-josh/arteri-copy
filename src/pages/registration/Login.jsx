@@ -14,7 +14,7 @@ import Alert from "../../components/Alert";
 import { PreloaderContext } from "../../contexts/PreloaderContext";
 
 const Login = () => {
-  // contexts
+  // preloader contexts
   const { setIsContentLoading } = useContext(PreloaderContext);
   let navigate = useNavigate();
 

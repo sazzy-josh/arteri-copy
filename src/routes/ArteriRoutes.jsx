@@ -84,8 +84,10 @@ const ArteriRoutes = () => {
           </Route>
           <Route path="/history/details/:id" element={<HistoryDetails />} />
           <Route path="/help" element={<Help />} />
+        </Route>
 
-          {/* Provider Routes */}
+        {/* Routes available to users that are logged in but are providers */}
+        <Route element={<AuthenticatedProviderRoutes />}>
           <Route path="/provider-dashboard" element={<ProviderDashboard />} />
           <Route path="provider-account" element={<ProviderAccount />} />
           <Route path="provider-help" element={<ProviderHelp />} />
@@ -104,12 +106,6 @@ const ArteriRoutes = () => {
             <Route path="bnpl" element={<BNPL />} />
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
           </Route>
-        </Route>
-
-        {/* Routes available to users that are logged in but are providers */}
-
-        <Route element={<AuthenticatedProviderRoutes />}>
-          <Route path="/provider-dashboard" element={<ProviderDashboard />} />
         </Route>
 
         {/* Routes available to users that are not logged in */}
