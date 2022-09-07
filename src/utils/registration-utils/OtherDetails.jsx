@@ -12,9 +12,12 @@ import RegistrationRedirect from "./RegistrationRedirect";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
-import Preloader from "../../components/Preloader";
+import { PreloaderContext } from "../../contexts/PreloaderContext";
 
 const OtherDetails = () => {
+  // contexts
+  const { setIsContentLoading } = useContext(PreloaderContext);
+
   let navigate = useNavigate();
   const [alertProps, setAlertProps] = useState({
     type: "",
@@ -23,7 +26,6 @@ const OtherDetails = () => {
     buttonText: "",
   });
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [isContentLoading, setIsContentLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -816,7 +818,6 @@ const OtherDetails = () => {
           <span className="text-primary capitalize ml-1">{account_type} </span>
         </p>
       </div>
-      {isContentLoading && <Preloader />}
       <Alert
         type={alertProps.type}
         title={alertProps.title}

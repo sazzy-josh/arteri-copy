@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import MobileNavbar from "../../components/MobileNavbar";
@@ -13,12 +13,14 @@ import image3 from "../../assets/images/image-1.jpg";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
-import Preloader from "../../components/Preloader";
+import { PreloaderContext } from "../../contexts/PreloaderContext";
 
 const ForgotPassword = () => {
+  // contexts
+  const { setIsContentLoading } = useContext(PreloaderContext);
+
   let navigate = useNavigate();
 
-  const [isContentLoading, setIsContentLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState("");
   const [inputErrorMessage, setInputErrorMessage] = useState("");
@@ -329,7 +331,6 @@ const ForgotPassword = () => {
           )}
         </section>
 
-        {isContentLoading && <Preloader />}
         <Alert
           type={alertProps.type}
           title={alertProps.title}

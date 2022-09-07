@@ -20,7 +20,7 @@ import RecoverPassword from "../pages/registration/RecoverPassword";
 import Help from "../pages/dashboard/Help";
 import Notifications from "../pages/dashboard/Notifications";
 import History from "../pages/dashboard/History";
-import AuthenticatedPrivateRoutes from "../layouts/AuthenticatedPrivateRoutes";
+import AuthenticatedConsumerRoutes from "../layouts/AuthenticatedConsumerRoutes";
 import UnauthenticatedPrivateRoutes from "../layouts/UnauthenticatedPrivateRoutes";
 import Loans from "../utils/financial-history/Loans";
 import BNPL from "../utils/financial-history/BNPL";
@@ -32,42 +32,38 @@ import ProviderHelp from "../pages/admin/Help";
 import ProviderHistory from "../pages/admin/History";
 import ProviderNotifications from "../pages/admin/Notification";
 import ProviderSettings from "../pages/admin/Settings";
+import AuthenticatedProviderRoutes from "../layouts/AuthenticatedProviderRoutes";
+import Preloader from "../components/Preloader";
+
+// Contexts
+import { PreloaderContext } from "../contexts/PreloaderContext";
 
 const ArteriRoutes = () => {
-  // const [authToken, setAuthToken] = useState(null);
-  // useEffect(() => {
-  //   if (
-  //     localStorage.getItem("authToken") ||
-  //     sessionStorage.getItem("authToken")
-  //   ) {
-  //     setAuthToken(localStorage.getItem("authToken"));
-  //   } else {
-  //     setAuthToken(null);
-  //   }
-  // });
+  const [isContentLoading, setIsContentLoading] = useState(false);
   return (
-    <>
+    <PreloaderContext.Provider
+      value={{
+        isContentLoading,
+        setIsContentLoading,
+      }}
+    >
+      {isContentLoading && <Preloader />}
       <Routes>
         <Route
           path="/"
           element={
-            (localStorage.getItem("authToken") &&
-              localStorage.getItem("account_type") == "personal") ||
-            (sessionStorage.getItem("authToken") &&
-              localStorage.getItem("account_type") == "personal") ? (
+            localStorage.getItem("authToken") ||
+            sessionStorage.getItem("authToken") ? (
               <Navigate to="/dashboard" replace={true} />
-            ) : (localStorage.getItem("authToken") &&
-                localStorage.getItem("account_type") == "provider") ||
-              (sessionStorage.getItem("authToken") &&
-                localStorage.getItem("account_type") == "provider") ? (
-              <Navigate to="/provider-dashboard" replace={true} />
             ) : (
               <Navigate to="/login" replace={true} />
             )
           }
         />
 
-        <Route element={<AuthenticatedPrivateRoutes />}>
+        {/* Routes available to users that are logged in but are consumers */}
+
+        <Route element={<AuthenticatedConsumerRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/application" element={<Application />} />
           <Route path="/my-account" element={<Account />} />
@@ -88,12 +84,17 @@ const ArteriRoutes = () => {
           </Route>
           <Route path="/history/details/:id" element={<HistoryDetails />} />
           <Route path="/help" element={<Help />} />
+        </Route>
 
-          {/* Provider Routes */}
+        {/* Routes available to users that are logged in but are providers */}
+        <Route element={<AuthenticatedProviderRoutes />}>
           <Route path="/provider-dashboard" element={<ProviderDashboard />} />
           <Route path="provider-account" element={<ProviderAccount />} />
           <Route path="provider-help" element={<ProviderHelp />} />
-          <Route path="provider-notifications" element={<ProviderNotifications />} />
+          <Route
+            path="provider-notifications"
+            element={<ProviderNotifications />}
+          />
           <Route path="provider-settings" element={<ProviderSettings />} />
           <Route
             path="/provider-history"
@@ -107,8 +108,7 @@ const ArteriRoutes = () => {
           </Route>
         </Route>
 
-        
-
+        {/* Routes available to users that are not logged in */}
         <Route element={<UnauthenticatedPrivateRoutes />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Registration />}>
@@ -124,7 +124,7 @@ const ArteriRoutes = () => {
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </>
+    </PreloaderContext.Provider>
   );
 };
 

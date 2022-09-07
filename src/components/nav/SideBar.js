@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import * as Icon from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import axios from "axios";
 import Alert from "../Alert";
 import LogOutAlert from "../custom-alerts/LogOutAlert";
 import Preloader from "../Preloader";
+import { PreloaderContext } from "../../contexts/PreloaderContext";
 
 const SideMenu = ({
   selectDash,
@@ -16,13 +17,15 @@ const SideMenu = ({
   selectHelp,
   selectHistory,
 }) => {
+  // preloader contexts
+  const { setIsContentLoading } = useContext(PreloaderContext);
   const navigate = useNavigate();
   const [alertProps, setAlertProps] = useState({
     type: "",
     title: "",
     subtitle: "",
   });
-  const [isContentLoading, setIsContentLoading] = useState(false);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
   const logOutUser = async () => {
@@ -44,8 +47,11 @@ const SideMenu = ({
       setIsContentLoading(false);
 
       // client received a success response (2xx)
+      // clear browser storage
       localStorage.removeItem("authToken");
       sessionStorage.removeItem("authToken");
+      localStorage.removeItem("accountType");
+      sessionStorage.removeItem("accountType");
 
       navigate("/login", { replace: true });
     } catch (err) {
@@ -179,7 +185,6 @@ const SideMenu = ({
           </div>
         </div>
       </div>
-      {isContentLoading && <Preloader />}
       <Alert
         type={alertProps.type}
         title={alertProps.title}
