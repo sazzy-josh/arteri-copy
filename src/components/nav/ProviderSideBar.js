@@ -14,6 +14,7 @@ const ProviderSideMenu = ({
   selectNot,
   selectHelp,
   selectHistory,
+  selectSettings,
 }) => {
   const navigate = useNavigate();
   const [alertProps, setAlertProps] = useState({
@@ -84,7 +85,7 @@ const ProviderSideMenu = ({
           {dash && (
             <div>
               <div
-                onClick={() => navigate("/dashboard")}
+                onClick={() => navigate("/provider-dashboard")}
                 className={
                   selectDash
                     ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -123,7 +124,7 @@ const ProviderSideMenu = ({
                 <span>Repay Loan</span>
               </div>
               <div
-                onClick={() => navigate("/my-account")}
+                onClick={() => navigate("/provider-account")}
                 className={
                   selectAccount
                     ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -260,9 +261,8 @@ const ProviderSideMenu = ({
           </div>
           {others && (
             <div>
-              
               <div
-                onClick={() => navigate("/history/repayment")}
+                onClick={() => navigate("/provider-history/repayment")}
                 className={
                   selectHistory
                     ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -275,7 +275,7 @@ const ProviderSideMenu = ({
                 <span>History</span>
               </div>
               <div
-                onClick={() => navigate("/notifications")}
+                onClick={() => navigate("/provider-notifications")}
                 className={
                   selectNot
                     ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -287,14 +287,21 @@ const ProviderSideMenu = ({
                 </span>
                 <span>Notifications</span>
               </div>
-              <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
+              <div 
+               onClick={() => navigate("/provider-settings")}
+               className={
+                 selectSettings
+                   ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                   : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+               }
+               >
                 <span className="mr-4 pl-3">
                   <Icon.BsGearFill />
                 </span>
                 <span>Settings</span>
               </div>
               <div
-                onClick={() => navigate("/help")}
+                onClick={() => navigate("/provider-help")}
                 className={
                   selectHelp
                     ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`

@@ -27,6 +27,11 @@ import BNPL from "../utils/financial-history/BNPL";
 import HistoryDetails from "../pages/dashboard/HistroryDetails";
 import ProviderDashboard from "../pages/admin/Dashboard";
 import AccountVerification from "../pages/dashboard/AccountVerification";
+import ProviderAccount from "../pages/admin/MyAccount";
+import ProviderHelp from "../pages/admin/Help";
+import ProviderHistory from "../pages/admin/History";
+import ProviderNotifications from "../pages/admin/Notification";
+import ProviderSettings from "../pages/admin/Settings";
 import AuthenticatedProviderRoutes from "../layouts/AuthenticatedProviderRoutes";
 import Preloader from "../components/Preloader";
 
@@ -79,6 +84,26 @@ const ArteriRoutes = () => {
           </Route>
           <Route path="/history/details/:id" element={<HistoryDetails />} />
           <Route path="/help" element={<Help />} />
+
+          {/* Provider Routes */}
+          <Route path="/provider-dashboard" element={<ProviderDashboard />} />
+          <Route path="provider-account" element={<ProviderAccount />} />
+          <Route path="provider-help" element={<ProviderHelp />} />
+          <Route
+            path="provider-notifications"
+            element={<ProviderNotifications />}
+          />
+          <Route path="provider-settings" element={<ProviderSettings />} />
+          <Route
+            path="/provider-history"
+            // element={<Navigate to="/history/repayment" replace={true} />}
+            element={<ProviderHistory />}
+          >
+            <Route path="repayment" element={<Repayment />} />
+            <Route path="loans" element={<Loans />} />
+            <Route path="bnpl" element={<BNPL />} />
+            {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
+          </Route>
         </Route>
 
         {/* Routes available to users that are logged in but are providers */}

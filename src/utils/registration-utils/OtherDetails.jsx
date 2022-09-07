@@ -72,7 +72,13 @@ const OtherDetails = () => {
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
-      navigate("/dashboard", { replace: true });
+      localStorage.setItem("account_type", response.data.data.account_type);
+      //navigate("/dashboard", { replace: true });
+      if (response.data.data.account_type === "personal") {
+        navigate("/dashboard", { replace: true });
+      } else {
+        navigate("/provider-dashboard", { replace: true });
+      }
 
       setInputField({
         first_name: "",
