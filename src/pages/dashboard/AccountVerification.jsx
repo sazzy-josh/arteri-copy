@@ -63,8 +63,7 @@ const AccountVerification = () => {
       }
     } catch (err) {
       setIsFetching(false);
-      navigate("/dashboard");
-      console.log(err);
+
       console.log(err.response);
       // if (err.response) {
       // }
@@ -95,7 +94,6 @@ const AccountVerification = () => {
       setAlertProps((prev) => ({
         ...alertProps,
         type: "fail",
-
         title: "Oops!",
         subtitle: err?.response?.data?.data?.flash_message,
       }));
@@ -125,6 +123,85 @@ const AccountVerification = () => {
     } catch (err) {
       console.log(err.response);
       setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "fail",
+        title: "Oops!",
+        subtitle: err?.response?.data?.data?.flash_message,
+      }));
+    }
+  };
+  const resendPhoneCode = async () => {
+    setIsFetching(true);
+
+    try {
+      if (localStorage.getItem("authToken")) {
+        loggedInToken = localStorage.getItem("authToken");
+      } else {
+        loggedInToken = sessionStorage.getItem("authToken");
+      }
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/phone-number/resend-verification-code",
+        {},
+        { headers: { Authorization: `Bearer ${loggedInToken}` } }
+      );
+      setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "success",
+        title: "Congratulations!",
+        subtitle: response?.data?.data?.flash_message,
+      }));
+
+      console.log(response);
+    } catch (err) {
+      console.log(err.response);
+      setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "fail",
+        title: "Oops!",
+        subtitle: err?.response?.data?.data?.flash_message,
+      }));
+    }
+  };
+  const resendEmailCode = async () => {
+    setIsFetching(true);
+
+    try {
+      if (localStorage.getItem("authToken")) {
+        loggedInToken = localStorage.getItem("authToken");
+      } else {
+        loggedInToken = sessionStorage.getItem("authToken");
+      }
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/email-address/resend-verification-code",
+        {},
+        { headers: { Authorization: `Bearer ${loggedInToken}` } }
+      );
+      setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "success",
+        title: "Congratulations!",
+        subtitle: response?.data?.data?.flash_message,
+      }));
+
+      console.log(response);
+    } catch (err) {
+      console.log(err.response);
+      setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "fail",
+        title: "Oops!",
+        subtitle: err?.response?.data?.data?.flash_message,
+      }));
     }
   };
 
@@ -199,10 +276,7 @@ const AccountVerification = () => {
                         </p>
                         <p
                           className="text-secondary font-medium cursor-pointer"
-                          //   onClick={() => {
-                          //     setIsResetEmail("");
-                          //     setEmail("");
-                          //   }}
+                          onClick={resendPhoneCode}
                         >
                           Resend verification code
                         </p>
@@ -249,10 +323,7 @@ const AccountVerification = () => {
                             </p>
                             <p
                               className="text-secondary font-medium cursor-pointer"
-                              //   onClick={() => {
-                              //     setIsResetEmail("");
-                              //     setEmail("");
-                              //   }}
+                              onClick={resendEmailCode}
                             >
                               Resend verification code
                             </p>
