@@ -19,7 +19,7 @@ const Login = () => {
   let navigate = useNavigate();
 
   // states
-  const [authToken, setAuthToken] = useState("");
+  // const [authToken, setAuthToken] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [alertProps, setAlertProps] = useState({
@@ -239,14 +239,16 @@ const Login = () => {
             </h1>
             <form>
               <label className="mb-5 block">
-                <p className="registration-input-label">Email Address</p>
+                <p className="registration-input-label">
+                  Email Address / Phone Number
+                </p>
 
                 <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
                   <input
                     type="email"
                     className="registration-input"
                     name="identifier"
-                    placeholder="Yourmail@mail.com"
+                    placeholder="Enter phone number or email address"
                     value={loginInputField.identifier}
                     onChange={handleInputChange}
                   />
