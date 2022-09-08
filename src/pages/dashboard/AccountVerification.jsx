@@ -270,12 +270,12 @@ const AccountVerification = () => {
                       </div>
                     </form>
                     <div className="mb-6 lg:w-[450px]">
-                      <div className="lg:flex lg:items-center lg:gap-3">
-                        <p className="text-black font-medium mt-2 mb-2">
+                      <div className="flex flex-col justify-center items-center gap-2 lg:flex-row lg:justify-start lg:gap-3">
+                        <p className=" inline-block text-black font-medium mt-2 mb-2">
                           Didn't receive any code?
                         </p>
                         <p
-                          className="text-secondary font-medium cursor-pointer"
+                          className=" inline-block text-secondary font-medium cursor-pointer"
                           onClick={resendPhoneCode}
                         >
                           Resend verification code
@@ -317,12 +317,12 @@ const AccountVerification = () => {
                           </div>
                         </form>
                         <div className="mb-6 lg:w-[450px]">
-                          <div className="lg:flex lg:items-center lg:gap-3">
-                            <p className="text-black font-medium mt-2 mb-2">
+                          <div className="flex flex-col justify-center items-center gap-2 lg:flex-row lg:justify-start lg:gap-3">
+                            <p className=" text-black font-medium mt-2 mb-2">
                               Didn't receive any code?
                             </p>
                             <p
-                              className="text-secondary font-medium cursor-pointer"
+                              className=" text-secondary font-medium cursor-pointer"
                               onClick={resendEmailCode}
                             >
                               Resend verification code
