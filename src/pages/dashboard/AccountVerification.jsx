@@ -14,6 +14,7 @@ import SideMenu from "../../components/nav/SideBar";
 import "../../styles/registration.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import Preloader from "../../components/Preloader";
+import Alert from "../../components/Alert";
 
 const AccountVerification = () => {
   let navigate = useNavigate();
@@ -23,6 +24,13 @@ const AccountVerification = () => {
   const [isUserEmail, setIsUserEmail] = useState(null);
   const [isUserVerified, setIsUserVerified] = useState(null);
 
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    type: "",
+    title: "",
+    subtitle: "",
+    buttonText: "",
+  });
   const [phoneVerificationCode, setPhoneVerificationCode] = useState("");
   const [emailVerificationCode, setEmailVerificationCode] = useState("");
   let loggedInToken;
@@ -83,6 +91,14 @@ const AccountVerification = () => {
       console.log(response);
     } catch (err) {
       setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "fail",
+
+        title: "Oops!",
+        subtitle: err?.response?.data?.data?.flash_message,
+      }));
 
       console.log(err.response);
     }
@@ -251,6 +267,13 @@ const AccountVerification = () => {
           </div>
         </div>
       )}
+      <Alert
+        type={alertProps.type}
+        title={alertProps.title}
+        subtitle={alertProps.subtitle}
+        modalTrigger={isAlertOpen}
+        setModalTrigger={setIsAlertOpen}
+      />
     </>
   );
 };
