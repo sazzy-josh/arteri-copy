@@ -12,12 +12,11 @@ import SideMenu from "../../components/nav/SideBar";
 
 // import styles
 import "../../styles/registration.css";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Preloader from "../../components/Preloader";
 
 const AccountVerification = () => {
-  // preloader contexts
-  // const { setIsContentLoading } = useContext(PreloaderContext);
+  let navigate = useNavigate();
   const [isFetching, setIsFetching] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [isUserPhone, setIsUserPhone] = useState(null);
@@ -26,8 +25,8 @@ const AccountVerification = () => {
 
   const [phoneVerificationCode, setPhoneVerificationCode] = useState("");
   const [emailVerificationCode, setEmailVerificationCode] = useState("");
+  let loggedInToken;
   const getUserDetails = async () => {
-    let loggedInToken;
     try {
       if (localStorage.getItem("authToken")) {
         loggedInToken = localStorage.getItem("authToken");
@@ -56,10 +55,60 @@ const AccountVerification = () => {
       }
     } catch (err) {
       setIsFetching(false);
+      navigate("/dashboard");
       console.log(err);
       console.log(err.response);
       // if (err.response) {
       // }
+    }
+  };
+
+  const verifyUserPhone = async () => {
+    setIsFetching(true);
+    let formData = new FormData();
+    formData.append("verification_code", phoneVerificationCode);
+    try {
+      if (localStorage.getItem("authToken")) {
+        loggedInToken = localStorage.getItem("authToken");
+      } else {
+        loggedInToken = sessionStorage.getItem("authToken");
+      }
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/phone-number/verify",
+        formData,
+        { headers: { Authorization: `Bearer ${loggedInToken}` } }
+      );
+      setIsFetching(false);
+
+      console.log(response);
+    } catch (err) {
+      setIsFetching(false);
+
+      console.log(err.response);
+    }
+  };
+  const verifyUserEmail = async () => {
+    setIsFetching(true);
+
+    let formData = new FormData();
+    formData.append("verification_code", emailVerificationCode);
+    try {
+      if (localStorage.getItem("authToken")) {
+        loggedInToken = localStorage.getItem("authToken");
+      } else {
+        loggedInToken = sessionStorage.getItem("authToken");
+      }
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/email-address/verify",
+        formData,
+        { headers: { Authorization: `Bearer ${loggedInToken}` } }
+      );
+      setIsFetching(false);
+
+      console.log(response);
+    } catch (err) {
+      console.log(err.response);
+      setIsFetching(false);
     }
   };
 
@@ -117,9 +166,10 @@ const AccountVerification = () => {
                       </label>
                       <div className="my-8">
                         <PrimaryButton
+                          isButtonDisabled={!phoneVerificationCode}
                           handle={(e) => {
                             e.preventDefault();
-                            console.log("verify phone number");
+                            verifyUserPhone();
                           }}
                         >
                           Verify Phone Number
@@ -166,9 +216,10 @@ const AccountVerification = () => {
                           </label>
                           <div className="my-8">
                             <PrimaryButton
+                              isButtonDisabled={!emailVerificationCode}
                               handle={(e) => {
                                 e.preventDefault();
-                                console.log("verify phone number");
+                                verifyUserEmail();
                               }}
                             >
                               Verify Email
