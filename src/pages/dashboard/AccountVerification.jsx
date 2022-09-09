@@ -35,6 +35,7 @@ const AccountVerification = () => {
   const [emailVerificationCode, setEmailVerificationCode] = useState("");
   let loggedInToken;
   const getUserDetails = async () => {
+    console.log("fetching user details");
     try {
       if (localStorage.getItem("authToken")) {
         loggedInToken = localStorage.getItem("authToken");
@@ -46,8 +47,6 @@ const AccountVerification = () => {
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
       console.log(response.data);
-      console.log(response.data.data.user_profile.email);
-      console.log(response.data.data.user_profile.phone);
       setIsFetching(false);
       if (response.data.data.user_profile.email) {
         setIsUserEmail(true);
