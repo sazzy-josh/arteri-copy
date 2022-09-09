@@ -59,7 +59,7 @@ const AccountVerification = () => {
         response.data.data.user_profile.phone_verified_at ||
         response.data.data.user_profile.email_verified_at
       ) {
-        setIsUserVerified(true);
+        navigate("/dashboard", { replace: true });
       }
     } catch (err) {
       setIsFetching(false);
@@ -86,6 +86,7 @@ const AccountVerification = () => {
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
       setIsFetching(false);
+      navigate("/dashboard", { replace: true });
 
       console.log(response);
     } catch (err) {
@@ -118,6 +119,7 @@ const AccountVerification = () => {
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
       setIsFetching(false);
+      navigate("/dashboard", { replace: true });
 
       console.log(response);
     } catch (err) {
