@@ -248,10 +248,10 @@ const AccountVerification = () => {
                         <p className="registration-input-label ">
                           Phone Number
                         </p>
-                        <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+                        <div className=" sm:w-[400px] sm:mx-auto lg:mx-0">
                           <input
                             type="text"
-                            className={`registration-input`}
+                            className="w-full ml-0 h-14  text-sm border-2 rounded-xl my-3 block mx-auto pl-4 pr-10 font-normal border-gray-300 outline-none sm:w-[400px] sm:mx-auto md:pr-14 md:text-base lg:mx-0 focus:border-blue-500 "
                             name="tel"
                             placeholder="Enter code here"
                             value={phoneVerificationCode}
@@ -295,10 +295,10 @@ const AccountVerification = () => {
                             <p className="registration-input-label">
                               Email Address (Optional)
                             </p>
-                            <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
+                            <div className=" sm:w-[400px] sm:mx-auto lg:mx-0">
                               <input
                                 type="text"
-                                className={`registration-input`}
+                                className="w-full ml-0 h-14  text-sm border-2 rounded-xl my-3 block mx-auto pl-4 pr-10 font-normal border-gray-300 outline-none sm:w-[400px] sm:mx-auto md:pr-14 md:text-base lg:mx-0 focus:border-blue-500"
                                 name="email"
                                 placeholder="Enter code here"
                                 value={emailVerificationCode}
