@@ -34,40 +34,6 @@ const AccountVerification = () => {
   const [phoneVerificationCode, setPhoneVerificationCode] = useState("");
   const [emailVerificationCode, setEmailVerificationCode] = useState("");
   let loggedInToken;
-  const getUserDetails = async () => {
-    console.log("fetching user details");
-    try {
-      if (localStorage.getItem("authToken")) {
-        loggedInToken = localStorage.getItem("authToken");
-      } else {
-        loggedInToken = sessionStorage.getItem("authToken");
-      }
-      const response = await Axios.get(
-        "https://api.arteri.tk/api/user/profile/get",
-        { headers: { Authorization: `Bearer ${loggedInToken}` } }
-      );
-      console.log(response.data);
-      setIsFetching(false);
-      if (response.data.data.user_profile.email) {
-        setIsUserEmail(true);
-      }
-      if (response.data.data.user_profile.phone) {
-        setIsUserPhone(true);
-      }
-      if (
-        response.data.data.user_profile.phone_verified_at ||
-        response.data.data.user_profile.email_verified_at
-      ) {
-        navigate("/dashboard", { replace: true });
-      }
-    } catch (err) {
-      setIsFetching(false);
-
-      console.log(err.response);
-      // if (err.response) {
-      // }
-    }
-  };
 
   const verifyUserPhone = async () => {
     setIsFetching(true);
@@ -206,7 +172,44 @@ const AccountVerification = () => {
     }
   };
 
-  useEffect(() => getUserDetails, []);
+  useEffect(() => {
+    const getUserDetails = async () => {
+      console.log("fetching user details");
+      try {
+        if (localStorage.getItem("authToken")) {
+          loggedInToken = localStorage.getItem("authToken");
+        } else {
+          loggedInToken = sessionStorage.getItem("authToken");
+        }
+        const response = await Axios.get(
+          "https://api.arteri.tk/api/user/profile/get",
+          { headers: { Authorization: `Bearer ${loggedInToken}` } }
+        );
+        console.log("fetch successful");
+        setIsFetching(false);
+        if (response.data.data.user_profile.email) {
+          setIsUserEmail(true);
+        }
+        if (response.data.data.user_profile.phone) {
+          setIsUserPhone(true);
+        }
+        if (
+          response.data.data.user_profile.phone_verified_at ||
+          response.data.data.user_profile.email_verified_at
+        ) {
+          navigate("/dashboard", { replace: true });
+        }
+      } catch (err) {
+        setIsFetching(false);
+
+        console.log(err.response);
+        // if (err.response) {
+        // }
+      }
+    };
+    getUserDetails();
+  }, []);
+  // useEffect(() => getUserDetails, []);
 
   return (
     <>
