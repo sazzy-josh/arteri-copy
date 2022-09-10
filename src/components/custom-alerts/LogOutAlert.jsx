@@ -14,7 +14,7 @@ const LogOutAlert = ({
         }`}
       >
         <div className=" opacity-50 bg-black w-screen h-screen"></div>
-        <div className="absolute  bg-white rounded-lg py-10 px-5 w-11/12 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:w-[450px] md:w-[600px] md:py-28 md:px-10">
+        <div className="absolute z-50 bg-red-100 rounded-lg py-10 px-5 w-11/12 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:w-[450px] md:w-[600px] md:py-28 md:px-10">
           <p className="text-black font-semibold capitalize text-[22px]  mb-9  text-center md:text-3xl md:mb-12">
             Are you sure you want <br /> to logout?
           </p>
