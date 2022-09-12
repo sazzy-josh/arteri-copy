@@ -6,7 +6,7 @@ import Logo from "../Logo";
 import axios from "axios";
 import Alert from "../Alert";
 import { FaChevronCircleUp, FaChevronCircleDown } from "react-icons/fa";
-import { PreloaderContext } from "../../contexts/PreloaderContext";
+import { ModalContext } from "../../contexts/ModalContext";
 import LogOutAlert from "../custom-alerts/LogOutAlert";
 
 const ProviderSideMenu = ({
@@ -20,7 +20,7 @@ const ProviderSideMenu = ({
 }) => {
   // preloader contexts
 
-  const { setIsContentLoading } = useContext(PreloaderContext);
+  const { setIsContentLoading } = useContext(ModalContext);
 
   const navigate = useNavigate();
   const [alertProps, setAlertProps] = useState({

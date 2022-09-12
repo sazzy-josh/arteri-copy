@@ -12,23 +12,17 @@ import RegistrationRedirect from "./RegistrationRedirect";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
-import { PreloaderContext } from "../../contexts/PreloaderContext";
+import { ModalContext } from "../../contexts/ModalContext";
 
 const OtherDetails = () => {
   // contexts
-  const { setIsContentLoading } = useContext(PreloaderContext);
+  const { setIsContentLoading } = useContext(ModalContext);
 
   let navigate = useNavigate();
-  const [alertProps, setAlertProps] = useState({
-    type: "",
-    title: "",
-    subtitle: "",
-    buttonText: "",
-  });
+
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     account_type,
     setSidebarImage,
@@ -38,6 +32,9 @@ const OtherDetails = () => {
     setInputField,
     inputErrorMessage,
     setInputErrorMessage,
+    setAlertProps,
+
+    setIsModalOpen,
   } = useContext(RegistrationContext);
 
   // regular expressions for password validation from the frontend
@@ -72,11 +69,11 @@ const OtherDetails = () => {
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
-      localStorage.setItem("account_type", response.data.data.account_type);
+      localStorage.setItem("accountType", response.data.data.account_type);
       //navigate("/dashboard", { replace: true });
       if (response.data.data.account_type === "personal") {
         navigate("/dashboard", { replace: true });
-      } else {
+      } else if (response.data.data.account_type === "provider") {
         navigate("/provider-dashboard", { replace: true });
       }
 
@@ -101,7 +98,31 @@ const OtherDetails = () => {
     } catch (err) {
       setIsButtonDisabled(false);
       setIsContentLoading(false);
-
+      for (const key in err.response?.data?.data?.errors) {
+        if (
+          key === "phone" ||
+          key === "first_name" ||
+          key === "last_name" ||
+          key === "email"
+        ) {
+          setIsModalOpen(true);
+          setAlertProps((prev) => ({
+            ...prev,
+            type: "fail",
+            title: "Ooops! Sorry",
+            subtitle: err.response.data.data.flash_message,
+          }));
+          navigate("/register/details", { replace: true });
+        } else {
+          setIsModalOpen(true);
+          setAlertProps((prev) => ({
+            ...prev,
+            type: "fail",
+            title: "Ooops! Sorry",
+            subtitle: err.response.data.data.flash_message,
+          }));
+        }
+      }
       setInputErrorMessage({
         first_name: "",
         last_name: "",
@@ -133,22 +154,6 @@ const OtherDetails = () => {
           [key]: "invalid",
         }));
       }
-      if (
-        inputErrorMessage.first_name ||
-        inputErrorMessage.last_name ||
-        inputErrorMessage.email ||
-        inputErrorMessage.phone
-      ) {
-        navigate("/register/details", { replace: true });
-      } else {
-        setIsModalOpen(true);
-        setAlertProps((prev) => ({
-          ...prev,
-          type: "fail",
-          title: "Ooops! Sorry",
-          subtitle: err.response.data.data.flash_message,
-        }));
-      }
     }
   };
 
@@ -177,6 +182,7 @@ const OtherDetails = () => {
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
+      localStorage.setItem("accountType", response.data.data.account_type);
       navigate("/dashboard", { replace: true });
 
       setInputField({
@@ -242,7 +248,32 @@ const OtherDetails = () => {
       // }
       setIsButtonDisabled(false);
       setIsContentLoading(false);
-      console.log(err.response.data);
+      console.log(err.response.data.data.errors);
+      for (const key in err.response?.data?.data?.errors) {
+        if (
+          key === "phone" ||
+          key === "first_name" ||
+          key === "last_name" ||
+          key === "email"
+        ) {
+          setIsModalOpen(true);
+          setAlertProps((prev) => ({
+            ...prev,
+            type: "fail",
+            title: "Ooops! Sorry",
+            subtitle: err.response.data.data.flash_message,
+          }));
+          navigate("/register/details", { replace: true });
+        } else {
+          setIsModalOpen(true);
+          setAlertProps((prev) => ({
+            ...prev,
+            type: "fail",
+            title: "Ooops! Sorry",
+            subtitle: err.response.data.data.flash_message,
+          }));
+        }
+      }
       setInputErrorMessage({
         first_name: "",
         last_name: "",
@@ -262,8 +293,6 @@ const OtherDetails = () => {
         password_confirmation: "valid",
       });
       for (const key in err.response.data.data.errors) {
-        // console.log(err.response.data.data.errors[key][0]);
-        console.log(key);
         setInputErrorMessage((prev) => ({
           ...prev,
           [key]: err.response.data.data.errors[key][0],
@@ -271,22 +300,6 @@ const OtherDetails = () => {
         setIsValid((prev) => ({
           ...prev,
           [key]: "invalid",
-        }));
-      }
-
-      if (
-        inputErrorMessage.first_name ||
-        inputErrorMessage.last_name ||
-        inputErrorMessage.phone
-      ) {
-        navigate("/register/details", { replace: true });
-      } else {
-        setIsModalOpen(true);
-        setAlertProps((prev) => ({
-          ...prev,
-          type: "fail",
-          title: "Ooops! Sorry",
-          subtitle: err.response.data.data.flash_message,
         }));
       }
     }
@@ -776,26 +789,20 @@ const OtherDetails = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle
-                cx="12"
-                cy="12"
-                r="11"
-                stroke="#FF0000"
-                stroke-width="2"
-              />
+              <circle cx="12" cy="12" r="11" stroke="#FF0000" strokeWidth="2" />
               <path
                 d="M12 7V12"
                 stroke="#FF0000"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M12 16V16.5"
                 stroke="#FF0000"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
 
@@ -818,7 +825,7 @@ const OtherDetails = () => {
           <span className="text-primary capitalize ml-1">{account_type} </span>
         </p>
       </div>
-      <Alert
+      {/* <Alert
         type={alertProps.type}
         title={alertProps.title}
         subtitle={alertProps.subtitle}
@@ -826,7 +833,7 @@ const OtherDetails = () => {
         buttonHandle={() => navigate("/dashboard", { replace: true })}
         modalTrigger={isModalOpen}
         setModalTrigger={setIsModalOpen}
-      />
+      /> */}
     </>
   );
 };
