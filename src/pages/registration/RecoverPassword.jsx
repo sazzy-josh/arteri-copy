@@ -12,11 +12,11 @@ import image3 from "../../assets/images/image-1.jpg";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
-import { PreloaderContext } from "../../contexts/PreloaderContext";
+import { ModalContext } from "../../contexts/ModalContext";
 
 const RecoverPassword = () => {
   // contexts
-  const { setIsContentLoading } = useContext(PreloaderContext);
+  const { setIsContentLoading } = useContext(ModalContext);
 
   let navigate = useNavigate();
   let { code } = useParams();

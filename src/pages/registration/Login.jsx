@@ -11,11 +11,11 @@ import LogoWhite from "../../assets/logo-white.svg";
 import image1 from "../../assets/images/image-1.jpg";
 
 import Alert from "../../components/Alert";
-import { PreloaderContext } from "../../contexts/PreloaderContext";
+import { ModalContext } from "../../contexts/ModalContext";
 
 const Login = () => {
   // preloader contexts
-  const { setIsContentLoading } = useContext(PreloaderContext);
+  const { setIsContentLoading } = useContext(ModalContext);
   let navigate = useNavigate();
 
   // states

@@ -36,18 +36,21 @@ import AuthenticatedProviderRoutes from "../layouts/AuthenticatedProviderRoutes"
 import Preloader from "../components/Preloader";
 
 // Contexts
-import { PreloaderContext } from "../contexts/PreloaderContext";
+import { ModalContext } from "../contexts/ModalContext";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
+  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
+
   return (
-    <PreloaderContext.Provider
+    <ModalContext.Provider
       value={{
         isContentLoading,
         setIsContentLoading,
       }}
     >
       {isContentLoading && <Preloader />}
+
       <Routes>
         <Route
           path="/"
@@ -124,7 +127,7 @@ const ArteriRoutes = () => {
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </PreloaderContext.Provider>
+    </ModalContext.Provider>
   );
 };
 

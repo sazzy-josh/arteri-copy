@@ -7,7 +7,7 @@ import axios from "axios";
 import Alert from "../Alert";
 import LogOutAlert from "../custom-alerts/LogOutAlert";
 import Preloader from "../Preloader";
-import { PreloaderContext } from "../../contexts/PreloaderContext";
+import { ModalContext } from "../../contexts/ModalContext";
 
 const SideMenu = ({
   selectDash,
@@ -18,8 +18,9 @@ const SideMenu = ({
   selectHistory,
 }) => {
   // preloader contexts
-  const { setIsContentLoading } = useContext(PreloaderContext);
+  const { setIsContentLoading } = useContext(ModalContext);
   const navigate = useNavigate();
+  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
   const [alertProps, setAlertProps] = useState({
     type: "",
     title: "",
@@ -27,7 +28,6 @@ const SideMenu = ({
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
   const logOutUser = async () => {
     setIsLogOutModalOpen(false);
     setIsContentLoading(true);

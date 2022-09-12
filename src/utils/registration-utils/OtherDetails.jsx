@@ -12,11 +12,11 @@ import RegistrationRedirect from "./RegistrationRedirect";
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import Alert from "../../components/Alert";
-import { PreloaderContext } from "../../contexts/PreloaderContext";
+import { ModalContext } from "../../contexts/ModalContext";
 
 const OtherDetails = () => {
   // contexts
-  const { setIsContentLoading } = useContext(PreloaderContext);
+  const { setIsContentLoading } = useContext(ModalContext);
 
   let navigate = useNavigate();
 
@@ -32,9 +32,8 @@ const OtherDetails = () => {
     setInputField,
     inputErrorMessage,
     setInputErrorMessage,
-    alertProps,
     setAlertProps,
-    isModalOpen,
+
     setIsModalOpen,
   } = useContext(RegistrationContext);
 
@@ -183,7 +182,6 @@ const OtherDetails = () => {
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
-
       localStorage.setItem("accountType", response.data.data.account_type);
       navigate("/dashboard", { replace: true });
 
