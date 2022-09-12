@@ -11,6 +11,7 @@ import image3 from "../../assets/images/image-3.jpg";
 
 // context
 import { RegistrationContext } from "../../contexts/authContext/RegistrationContext";
+import Alert from "../../components/Alert";
 
 const Registration = () => {
   const [account_type, setaccount_type] = useState("personal");
@@ -45,6 +46,14 @@ const Registration = () => {
     password_confirmation: "",
     tos_accepted: "",
   });
+  const [alertProps, setAlertProps] = useState({
+    type: "",
+    title: "",
+    subtitle: "",
+    buttonText: "",
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   let navigate = useNavigate();
 
   return (
@@ -60,6 +69,10 @@ const Registration = () => {
           setInputField,
           inputErrorMessage,
           setInputErrorMessage,
+          alertProps,
+          setAlertProps,
+          isModalOpen,
+          setIsModalOpen,
         }}
       >
         <div className=" md:flex">
@@ -114,6 +127,15 @@ const Registration = () => {
             </div>
             <Outlet />
           </section>
+          <Alert
+            type={alertProps.type}
+            title={alertProps.title}
+            subtitle={alertProps.subtitle}
+            buttonText={alertProps.buttonText}
+            buttonHandle={() => navigate("/dashboard", { replace: true })}
+            modalTrigger={isModalOpen}
+            setModalTrigger={setIsModalOpen}
+          />
         </div>
       </RegistrationContext.Provider>
     </>
