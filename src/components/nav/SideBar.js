@@ -73,8 +73,8 @@ const SideMenu = ({
     console.log("log out");
   };
   return (
-    <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-10 overflow-y-auto">
-      <div className="w-full mt-20 mb-10">
+    <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-5 overflow-y-auto">
+      <div className="w-full mt-10 mb-8">
         <Logo />
       </div>
       <div className="flex flex-col justify-between items-center h-screen">
@@ -150,12 +150,12 @@ const SideMenu = ({
             </span>
             <span>Notifications</span>
           </div>
-          <div className="flex flex-row whitespace-nowrap lg:text-base text-sm justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 lg:px-5 px-2 hover:py-2 hover:rounded-md my-5">
+          {/* <div className="flex flex-row whitespace-nowrap lg:text-base text-sm justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 lg:px-5 px-2 hover:py-2 hover:rounded-md my-5">
             <span className="mr-4 pl-3">
               <Icon.BsGearFill />
             </span>
             <span>Settings</span>
-          </div>
+          </div> */}
           <div
             onClick={() => navigate("/help")}
             className={
