@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import TextField from "../forms/text/TextField";
 import StatusBar from "../status/StatusBar";
+import SelectField from "../forms/text/SelectField";
 
 const Profile = () => {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState({});
+  const [provinces, setProvinces] = useState([]);
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
   const [street, setStreet] = useState(
@@ -77,7 +79,7 @@ const Profile = () => {
       : sessionStorage.getItem("authToken");
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URI}/user/profile/get`,
+        `${process.env.REACT_APP_BASE_URI}/fetch/provinces?country=NG`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -85,14 +87,14 @@ const Profile = () => {
           },
         }
       );
-      console.log("Profile", response);
+     
       const data = await response.json();
       if (data.status === "success") {
-        setUser(data.data.user_profile);
+        setProvinces(data.data.provinces);
       } else {
-        toast.error("User Profile cannot be fetched!");
+        toast.error("States cannot be fetched!");
       }
-      console.log("data", data);
+      console.log("states", data);
     } catch (error) {
       console.log(error);
     }
@@ -127,7 +129,31 @@ const Profile = () => {
 
   useEffect(() => {
     profile();
+    states();
   }, []);
+
+  const genders = [
+    {
+      name: 'Male',
+      value: 'male'
+    },
+    {
+      name: 'Female',
+      value: 'female'
+    }
+  ]
+
+  const genderList = genders.length > 0 && genders.map((item, i) => {
+    return (
+      <option value={item.value}>{item.name}</option>
+    )
+  })
+
+  const statesList = provinces.length > 0 && provinces.map((item, i) => {
+    return (
+      <option value={item.province_code}>{item.province_name}</option>
+    )
+  })
 
   return (
     <>
@@ -239,13 +265,14 @@ const Profile = () => {
               </div>
               <div className="lg:mr-5 lg:w-1/3 w-full">
                 <span>Gender</span>
-                <TextField
+                <SelectField
                   changeText={(e) => setGender(e.target.value)}
                   value={
                     user.extended_details &&
                     user.extended_details.personal_information.gender
                   }
                   type="text"
+                  optionList={genderList}
                 />
               </div>
               <div className="lg:w-1/3 w-full">
@@ -285,13 +312,14 @@ const Profile = () => {
               </div>
               <div className="lg:w-1/3 w-full">
                 <span>State</span>
-                <TextField
+                <SelectField
                   changeText={(e) => setProvince(e.target.value)}
                   value={
                     user.extended_details &&
                     user.extended_details.address_information.province_name
                   }
                   type="text"
+                  optionList={statesList}
                 />
               </div>
             </div>
