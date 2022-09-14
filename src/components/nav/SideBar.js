@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../Logo";
 import axios from "axios";
 import Alert from "../Alert";
-import LogOutAlert from "../custom-alerts/LogOutAlert";
-import Preloader from "../Preloader";
 import { ModalContext } from "../../contexts/ModalContext";
 
 const SideMenu = ({
@@ -20,13 +18,13 @@ const SideMenu = ({
   // contexts
   const { setIsLogOutModalOpen } = useContext(ModalContext);
   const navigate = useNavigate();
-  const [alertProps, setAlertProps] = useState({
-    type: "",
-    title: "",
-    subtitle: "",
-  });
+  // const [alertProps, setAlertProps] = useState({
+  //   type: "",
+  //   title: "",
+  //   subtitle: "",
+  // });
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-10 overflow-y-auto">
@@ -141,14 +139,6 @@ const SideMenu = ({
           </div>
         </div>
       </div>
-      <Alert
-        type={alertProps.type}
-        title={alertProps.title}
-        subtitle={alertProps.subtitle}
-        buttonText={alertProps.buttonText}
-        modalTrigger={isModalOpen}
-        setModalTrigger={setIsModalOpen}
-      />
     </div>
   );
 };

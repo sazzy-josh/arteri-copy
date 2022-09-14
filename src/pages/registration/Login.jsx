@@ -15,20 +15,21 @@ import { ModalContext } from "../../contexts/ModalContext";
 
 const Login = () => {
   // preloader contexts
-  const { setIsContentLoading } = useContext(ModalContext);
+  const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
+    useContext(ModalContext);
   let navigate = useNavigate();
 
   // states
   // const [authToken, setAuthToken] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [alertProps, setAlertProps] = useState({
-    type: "",
-    title: "",
-    subtitle: "",
-    buttonText: "",
-  });
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [alertProps, setAlertProps] = useState({
+  //   type: "",
+  //   title: "",
+  //   subtitle: "",
+  //   buttonText: "",
+  // });
+  // const [isModalOpen, setIsAlertOpen] = useState(false);
   const [isLoginValid, setIsLoginValid] = useState({
     identifier: "",
     password: "",
@@ -105,10 +106,10 @@ const Login = () => {
       setAlertProps((prev) => ({
         ...alertProps,
         type: "success",
-        // title: "Congratulations",
         title: "Logged in",
+        subtitle: "",
       }));
-      setIsModalOpen(true);
+      setIsAlertOpen(true);
 
       setLoginInputField({
         identifier: "",
@@ -135,7 +136,7 @@ const Login = () => {
           title: "Ooops! Sorry",
           subtitle: err.message,
         }));
-        setIsModalOpen(true);
+        setIsAlertOpen(true);
       }
       if (err.response) {
         // client received an error response (5xx, 4xx)
@@ -167,7 +168,7 @@ const Login = () => {
           title: "Ooops! Sorry",
           subtitle: err.response.data.data.flash_message,
         }));
-        setIsModalOpen(true);
+        setIsAlertOpen(true);
       }
     }
   };
@@ -434,15 +435,15 @@ const Login = () => {
         </div>
       </div>
       {/* {isContentLoading && <Preloader />} */}
-      <Alert
+      {/* <Alert
         type={alertProps.type}
         title={alertProps.title}
         subtitle={alertProps.subtitle}
         buttonText={alertProps.buttonText}
         buttonHandle={() => navigate("/dashboard", { replace: true })}
         modalTrigger={isModalOpen}
-        setModalTrigger={setIsModalOpen}
-      />
+        setModalTrigger={setIsAlertOpen}
+      /> */}
     </>
   );
 };
