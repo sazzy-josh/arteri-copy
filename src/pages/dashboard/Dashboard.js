@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import LargeCard from "../../components/cards/LargeCard";
 import SmallCard from "../../components/cards/SmallCard";
 import Chart from "../../components/chart/HalfPie";

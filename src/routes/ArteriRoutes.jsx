@@ -37,19 +37,23 @@ import Preloader from "../components/Preloader";
 
 // Contexts
 import { ModalContext } from "../contexts/ModalContext";
+import LogOutAlert from "../components/custom-alerts/LogOutAlert";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
-  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
+  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(true);
 
   return (
     <ModalContext.Provider
       value={{
         isContentLoading,
         setIsContentLoading,
+        isLogOutModalOpen,
+        setIsLogOutModalOpen,
       }}
     >
       {isContentLoading && <Preloader />}
+      {isLogOutModalOpen && <LogOutAlert />}
 
       <Routes>
         <Route
