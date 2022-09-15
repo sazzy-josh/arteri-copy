@@ -63,35 +63,26 @@ const RecoverPassword = () => {
       }
     } else if (name === "password") {
       if (!value.match(passwordRegex) && value.length !== 0) {
-        console.log("mismatch");
         setIsRecoverValid((prev) => ({ ...prev, [name]: "invalid" }));
       } else if (value.length === 0) {
-        console.log("empty");
-
         setIsRecoverValid((prev) => ({ ...prev, [name]: "" }));
       } else if (
         value !== recoverInputField.password_confirmation &&
         recoverInputField.password_confirmation.length !== 0
       ) {
-        console.log("mutated");
-
         setIsRecoverValid((prev) => ({
           ...prev,
           password_confirmation: "invalid",
         }));
       } else if (value.match(passwordRegex)) {
         setIsRecoverValid((prev) => ({ ...prev, [name]: "valid" }));
-        console.log("match");
       } else {
-        console.log("success");
-
         setIsRecoverValid((prev) => ({ ...prev, [name]: "valid" }));
       }
     }
   };
   // control input fields on submit
   const handleSubmit = async (e) => {
-    console.log("eweee", recoverInputField);
     e.preventDefault();
 
     if (

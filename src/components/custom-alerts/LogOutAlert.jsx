@@ -37,12 +37,10 @@ const LogOutAlert = ({ modalTrigger, setModalTrigger, buttonHandle }) => {
 
       navigate("/login", { replace: true });
     } catch (err) {
-      console.log("error");
       setIsContentLoading(false);
 
       if (err.response) {
         // client received an error response (5xx, 4xx)
-
         // setAlertProps((prev) => ({
         //   ...prev,
         //   type: "fail",
@@ -50,8 +48,6 @@ const LogOutAlert = ({ modalTrigger, setModalTrigger, buttonHandle }) => {
         //   subtitle: err.response.data.data.flash_message,
         // }));
         // setIsModalOpen(true);
-
-        console.log(err.response);
       }
     }
   };

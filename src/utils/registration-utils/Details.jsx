@@ -71,7 +71,6 @@ const Details = () => {
   // --- validate input fields on change (validation on the frontend) ---
   // const validateInputChange = (e, inputField) => {
   //   const { name, value } = e.target;
-  //   console.log(isValid);
 
   //   // handle error onChange
   //   if (name === "email") {
@@ -95,11 +94,9 @@ const Details = () => {
   //   } else {
   //     if (value.length !== 0 && value.length < 3) {
   //       setIsValid((prev) => ({ ...prev, [name]: "invalid" }));
-  //       console.log("short");
   //     } else if (value.length === 0) {
   //       setIsValid((prev) => ({ ...prev, [name]: "" }));
   //     } else {
-  //       console.log("ok");
   //       setIsValid((prev) => ({ ...prev, [name]: "valid" }));
   //     }
   //   }
@@ -324,7 +321,6 @@ const Details = () => {
                   } else if (val.length > 10 && val.length < 16) {
                     setInputField({ ...inputField, phone: val });
                     setIsValid((prev) => ({ ...prev, phone: "valid" }));
-                    console.log("value", val);
                   } else {
                     setIsValid((prev) => ({ ...prev, phone: "invalid" }));
                   }

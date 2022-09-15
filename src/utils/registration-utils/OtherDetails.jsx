@@ -11,7 +11,6 @@ import RegistrationRedirect from "./RegistrationRedirect";
 // import icons
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
-import Alert from "../../components/Alert";
 import { ModalContext } from "../../contexts/ModalContext";
 
 const OtherDetails = () => {
@@ -63,7 +62,6 @@ const OtherDetails = () => {
       setIsContentLoading(false);
 
       setIsButtonDisabled(false);
-      console.log("registered new user with email address");
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
@@ -108,7 +106,7 @@ const OtherDetails = () => {
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: err.response.data.data.flash_message,
+            subtitle: err.response?.data?.data?.flash_message,
           }));
           navigate("/register/details", { replace: true });
         } else {
@@ -117,7 +115,7 @@ const OtherDetails = () => {
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: err.response.data.data.flash_message,
+            subtitle: err.response?.data?.data?.flash_message,
           }));
         }
       }
@@ -140,9 +138,7 @@ const OtherDetails = () => {
         password: "valid",
         password_confirmation: "valid",
       });
-      for (const key in err.response.data.data.errors) {
-        // console.log(err.response.data.data.errors[key][0]);
-        console.log(key);
+      for (const key in err.response?.data?.data?.errors) {
         setInputErrorMessage((prev) => ({
           ...prev,
           [key]: err.response.data.data.errors[key][0],
@@ -176,7 +172,6 @@ const OtherDetails = () => {
       );
       setIsContentLoading(false);
       setIsButtonDisabled(false);
-      console.log("registered new user with phone number");
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
@@ -246,7 +241,6 @@ const OtherDetails = () => {
       // }
       setIsButtonDisabled(false);
       setIsContentLoading(false);
-      console.log(err.response.data.data.errors);
       for (const key in err.response?.data?.data?.errors) {
         if (
           key === "phone" ||
@@ -259,7 +253,7 @@ const OtherDetails = () => {
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: err.response.data.data.flash_message,
+            subtitle: err.response?.data?.data?.flash_message,
           }));
           navigate("/register/details", { replace: true });
         } else {
@@ -268,7 +262,7 @@ const OtherDetails = () => {
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: err.response.data.data.flash_message,
+            subtitle: err.response?.data?.data?.flash_message,
           }));
         }
       }
@@ -290,7 +284,7 @@ const OtherDetails = () => {
         password: "valid",
         password_confirmation: "valid",
       });
-      for (const key in err.response.data.data.errors) {
+      for (const key in err.response?.data?.data?.errors) {
         setInputErrorMessage((prev) => ({
           ...prev,
           [key]: err.response.data.data.errors[key][0],
@@ -355,7 +349,6 @@ const OtherDetails = () => {
       registerUserWithPhone();
     } else {
       registerUserWithEmail();
-      console.log("hurray");
     }
   };
 

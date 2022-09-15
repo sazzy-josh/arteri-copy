@@ -10,7 +10,6 @@ const UnauthenticatedPrivateRoutes = () => {
   const consumerAccountType =
     localStorage.getItem("accountType") === "personal" ||
     sessionStorage.getItem("accountType") === "personal";
-  console.log("account type is: ", localStorage.getItem("accountType"));
   if (authToken && consumerAccountType) {
     return <Navigate to="/dashboard" replace={true} />;
   }

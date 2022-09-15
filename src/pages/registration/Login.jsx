@@ -10,7 +10,6 @@ import Axios from "axios";
 import LogoWhite from "../../assets/logo-white.svg";
 import image1 from "../../assets/images/image-1.jpg";
 
-import Alert from "../../components/Alert";
 import { ModalContext } from "../../contexts/ModalContext";
 
 const Login = () => {
@@ -127,7 +126,6 @@ const Login = () => {
     } catch (err) {
       setIsButtonDisabled(false);
       setIsContentLoading(false);
-      console.log(err.message);
       if (err.message) {
         setAlertProps((prev) => ({
           ...prev,
@@ -139,7 +137,6 @@ const Login = () => {
       }
       if (err.response) {
         // client received an error response (5xx, 4xx)
-        console.log(err.response.data);
 
         setLoginErrorMessage({
           identifier: "",
@@ -150,8 +147,6 @@ const Login = () => {
           password: "",
         });
         for (const key in err.response.data.data.errors) {
-          // console.log(err.response.data.data.errors[key][0]);
-          console.log(key);
           setLoginErrorMessage((prev) => ({
             ...prev,
             [key]: err.response.data.data.errors[key][0],

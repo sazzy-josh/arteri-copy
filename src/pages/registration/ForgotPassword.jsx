@@ -52,7 +52,6 @@ const ForgotPassword = () => {
   //         "https://api.arteri.tk/api/account/password/request-reset",
   //         formData
   //       );
-  //       console.log("reset email sent");
 
   //       // setEmail(() => "");
   //       setIsResetEmail(() => email);
@@ -69,7 +68,6 @@ const ForgotPassword = () => {
   //       }
   //     }
   //   } else {
-  //     console.log("email is invalid");
 
   //     setIsEmailValid("invalid");
   //   }
@@ -99,7 +97,6 @@ const ForgotPassword = () => {
       setIsContentLoading(false);
 
       setIsButtonDisabled(false);
-      console.log("reset email sent");
       // setIsEmailValid("valid");
       setIsResetEmail(() => email);
     } catch (err) {
@@ -277,7 +274,6 @@ const ForgotPassword = () => {
                       e.preventDefault();
                       if (verificationCode.length > 0) {
                         // setIsVerified(true);
-                        console.log("Verified");
                         navigate(`/create-new-password/${verificationCode}`, {
                           replace: true,
                         });
