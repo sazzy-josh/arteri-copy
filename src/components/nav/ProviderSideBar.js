@@ -31,7 +31,7 @@ const ProviderSideMenu = ({
 
   return (
     <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-10 overflow-y-auto">
-      <div className="w-full mt-20 mb-10">
+      <div className="w-full mt-10 mb-8">
         <Logo />
       </div>
       <div className="flex flex-col justify-between items-center h-screen">
@@ -43,7 +43,7 @@ const ProviderSideMenu = ({
                 setTool(false);
                 setOthers(false);
               }}
-              className="text-white font-semibold text-left px-5"
+              className="text-white font-semibold text-left px-5 whitespace-nowrap"
             >
               Dashboard
             </p>
@@ -55,8 +55,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/provider-dashboard")}
                 className={
                   selectDash
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -68,8 +68,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/application")}
                 className={
                   selectApplication
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -81,8 +81,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/history/repayment")}
                 className={
                   selectHistory
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -94,8 +94,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/provider-account")}
                 className={
                   selectAccount
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -115,7 +115,7 @@ const ProviderSideMenu = ({
                 setTool(!tool);
                 setOthers(false);
               }}
-              className="text-white font-semibold text-left px-5"
+              className="text-white font-semibold text-left px-5 my-5 whitespace-nowrap"
             >
               My Tools
             </p>
@@ -127,8 +127,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/dashboard")}
                 className={
                   selectDash
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -140,8 +140,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/application")}
                 className={
                   selectApplication
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -153,8 +153,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/my-account")}
                 className={
                   selectAccount
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -167,8 +167,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/history/repayment")}
                 className={
                   selectHistory
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -180,8 +180,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/notifications")}
                 className={
                   selectNot
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -189,7 +189,7 @@ const ProviderSideMenu = ({
                 </span>
                 <span>Notifications</span>
               </div>
-              <div className="flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
+              <div className="flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5">
                 <span className="mr-4 pl-3">
                   <Icon.BsGearFill />
                 </span>
@@ -199,8 +199,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/help")}
                 className={
                   selectHelp
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -220,7 +220,7 @@ const ProviderSideMenu = ({
                 setTool(false);
                 setOthers(!others);
               }}
-              className="text-white font-semibold text-left px-5"
+              className="text-white font-semibold text-left px-5 whitespace-nowrap"
             >
               Others
             </p>
@@ -232,8 +232,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/provider-history/repayment")}
                 className={
                   selectHistory
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -245,8 +245,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/provider-notifications")}
                 className={
                   selectNot
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -258,8 +258,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/provider-settings")}
                 className={
                   selectSettings
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
@@ -271,8 +271,8 @@ const ProviderSideMenu = ({
                 onClick={() => navigate("/provider-help")}
                 className={
                   selectHelp
-                    ? `flex flex-row justify-start items-center font-semibold text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
-                    : `flex flex-row justify-start items-center font-semibold text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
+                    ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
+                    : `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-white cursor-pointer hover:transition-all ease-in-out hover:bg-white hover:text-sky-600 hover:px-0 px-5 hover:py-2 hover:rounded-md my-5`
                 }
               >
                 <span className="mr-4 pl-3">
