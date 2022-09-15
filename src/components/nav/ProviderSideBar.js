@@ -18,65 +18,17 @@ const ProviderSideMenu = ({
   selectHistory,
   selectSettings,
 }) => {
-  // preloader contexts
+  // contexts
 
-  const { setIsContentLoading } = useContext(ModalContext);
+  const { setIsLogOutModalOpen } = useContext(ModalContext);
 
   const navigate = useNavigate();
-  const [alertProps, setAlertProps] = useState({
-    type: "",
-    title: "",
-    subtitle: "",
-  });
+
   const [dash, setDash] = useState(true);
   const [tool, setTool] = useState(false);
   const [others, setOthers] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
+  // const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
 
-  const logOutUser = async () => {
-    setIsLogOutModalOpen(false);
-    setIsContentLoading(true);
-    let loggedInToken;
-    // post formData to server
-    try {
-      if (localStorage.getItem("authToken")) {
-        loggedInToken = localStorage.getItem("authToken");
-      } else {
-        loggedInToken = sessionStorage.getItem("authToken");
-      }
-      const response = await axios.post(
-        "https://api.arteri.tk/api/account/log-out/here",
-        {},
-        { headers: { Authorization: `Bearer ${loggedInToken}` } }
-      );
-      setIsContentLoading(false);
-
-      // client received a success response (2xx)
-      // clear browser storage
-      localStorage.removeItem("authToken");
-      sessionStorage.removeItem("authToken");
-      localStorage.removeItem("accountType");
-      sessionStorage.removeItem("accountType");
-
-      navigate("/login", { replace: true });
-    } catch (err) {
-      setIsContentLoading(false);
-      if (err.response) {
-        // client received an error response (5xx, 4xx)
-        setAlertProps((prev) => ({
-          ...prev,
-          type: "fail",
-          title: "Ooops! Sorry",
-          subtitle: err.response.data.data.flash_message,
-        }));
-        setIsModalOpen(true);
-
-        console.log(err.response);
-      }
-    }
-    console.log("log out");
-  };
   return (
     <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-10 overflow-y-auto">
       <div className="w-full mt-10 mb-8">
@@ -346,19 +298,6 @@ const ProviderSideMenu = ({
           </div>
         </div>
       </div>
-      <Alert
-        type={alertProps.type}
-        title={alertProps.title}
-        subtitle={alertProps.subtitle}
-        buttonText={alertProps.buttonText}
-        modalTrigger={isModalOpen}
-        setModalTrigger={setIsModalOpen}
-      />
-      <LogOutAlert
-        modalTrigger={isLogOutModalOpen}
-        setModalTrigger={setIsLogOutModalOpen}
-        buttonHandle={logOutUser}
-      />
     </div>
   );
 };

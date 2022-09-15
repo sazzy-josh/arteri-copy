@@ -10,25 +10,25 @@ import Axios from "axios";
 import LogoWhite from "../../assets/logo-white.svg";
 import image1 from "../../assets/images/image-1.jpg";
 
-import Alert from "../../components/Alert";
 import { ModalContext } from "../../contexts/ModalContext";
 
 const Login = () => {
   // preloader contexts
-  const { setIsContentLoading } = useContext(ModalContext);
+  const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
+    useContext(ModalContext);
   let navigate = useNavigate();
 
   // states
   // const [authToken, setAuthToken] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [alertProps, setAlertProps] = useState({
-    type: "",
-    title: "",
-    subtitle: "",
-    buttonText: "",
-  });
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [alertProps, setAlertProps] = useState({
+  //   type: "",
+  //   title: "",
+  //   subtitle: "",
+  //   buttonText: "",
+  // });
+  // const [isModalOpen, setIsAlertOpen] = useState(false);
   const [isLoginValid, setIsLoginValid] = useState({
     identifier: "",
     password: "",
@@ -59,7 +59,6 @@ const Login = () => {
 
   // control input fields on submit
   const handleSubmit = (e) => {
-    console.log("login button clicked");
     setIsButtonDisabled(true);
     e.preventDefault();
 
@@ -102,13 +101,13 @@ const Login = () => {
       setIsButtonDisabled(false);
       setIsContentLoading(false);
       // client received a success response (2xx)
-      setAlertProps((prev) => ({
-        ...alertProps,
-        type: "success",
-        // title: "Congratulations",
-        title: "Logged in",
-      }));
-      setIsModalOpen(true);
+      // setAlertProps((prev) => ({
+      //   ...alertProps,
+      //   type: "success",
+      //   title: "Logged in",
+      //   subtitle: "",
+      // }));
+      // setIsAlertOpen(true);
 
       setLoginInputField({
         identifier: "",
@@ -127,7 +126,6 @@ const Login = () => {
     } catch (err) {
       setIsButtonDisabled(false);
       setIsContentLoading(false);
-      console.log(err.message);
       if (err.message) {
         setAlertProps((prev) => ({
           ...prev,
@@ -135,11 +133,10 @@ const Login = () => {
           title: "Ooops! Sorry",
           subtitle: err.message,
         }));
-        setIsModalOpen(true);
+        setIsAlertOpen(true);
       }
       if (err.response) {
         // client received an error response (5xx, 4xx)
-        console.log(err.response.data);
 
         setLoginErrorMessage({
           identifier: "",
@@ -150,8 +147,6 @@ const Login = () => {
           password: "",
         });
         for (const key in err.response.data.data.errors) {
-          // console.log(err.response.data.data.errors[key][0]);
-          console.log(key);
           setLoginErrorMessage((prev) => ({
             ...prev,
             [key]: err.response.data.data.errors[key][0],
@@ -167,7 +162,7 @@ const Login = () => {
           title: "Ooops! Sorry",
           subtitle: err.response.data.data.flash_message,
         }));
-        setIsModalOpen(true);
+        setIsAlertOpen(true);
       }
     }
   };
@@ -434,15 +429,15 @@ const Login = () => {
         </div>
       </div>
       {/* {isContentLoading && <Preloader />} */}
-      <Alert
+      {/* <Alert
         type={alertProps.type}
         title={alertProps.title}
         subtitle={alertProps.subtitle}
         buttonText={alertProps.buttonText}
         buttonHandle={() => navigate("/dashboard", { replace: true })}
         modalTrigger={isModalOpen}
-        setModalTrigger={setIsModalOpen}
-      />
+        setModalTrigger={setIsAlertOpen}
+      /> */}
     </>
   );
 };

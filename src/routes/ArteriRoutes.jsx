@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Application from "../pages/dashboard/Application";
 
@@ -33,23 +33,48 @@ import ProviderHistory from "../pages/admin/History";
 import ProviderNotifications from "../pages/admin/Notification";
 import ProviderSettings from "../pages/admin/Settings";
 import AuthenticatedProviderRoutes from "../layouts/AuthenticatedProviderRoutes";
-import Preloader from "../components/Preloader";
 
 // Contexts
 import { ModalContext } from "../contexts/ModalContext";
+import Preloader from "../components/Preloader";
+import LogOutAlert from "../components/custom-alerts/LogOutAlert";
+import Alert from "../components/Alert";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
   const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    type: "",
+    title: "",
+    subtitle: "",
+    buttonText: "",
+    buttonHandle: "",
+  });
 
   return (
     <ModalContext.Provider
       value={{
         isContentLoading,
         setIsContentLoading,
+        isLogOutModalOpen,
+        setIsLogOutModalOpen,
+        isAlertOpen,
+        setIsAlertOpen,
+        alertProps,
+        setAlertProps,
       }}
     >
       {isContentLoading && <Preloader />}
+      {isLogOutModalOpen && <LogOutAlert />}
+      {isAlertOpen && (
+        <Alert
+          type={alertProps.type}
+          title={alertProps.title}
+          subtitle={alertProps.subtitle}
+          buttonText={alertProps.buttonText}
+        />
+      )}
 
       <Routes>
         <Route

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import MobileNavbar from "../../components/MobileNavbar";
 import "../../styles/registration.css";
@@ -12,12 +12,12 @@ import image3 from "../../assets/images/image-1.jpg";
 // import icons
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
-import Alert from "../../components/Alert";
 import { ModalContext } from "../../contexts/ModalContext";
 
 const ForgotPassword = () => {
   // contexts
-  const { setIsContentLoading } = useContext(ModalContext);
+  const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
+    useContext(ModalContext);
 
   let navigate = useNavigate();
 
@@ -27,14 +27,6 @@ const ForgotPassword = () => {
   const [verificationCode, setVerificationCode] = useState("");
   const [isResetEmail, setIsResetEmail] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  const [alertProps, setAlertProps] = useState({
-    type: "",
-    title: "",
-    subtitle: "",
-    buttonText: "",
-  });
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // form validation from the frontend
   // const handleInputChange = (e) => {
@@ -60,7 +52,6 @@ const ForgotPassword = () => {
   //         "https://api.arteri.tk/api/account/password/request-reset",
   //         formData
   //       );
-  //       console.log("reset email sent");
 
   //       // setEmail(() => "");
   //       setIsResetEmail(() => email);
@@ -73,11 +64,10 @@ const ForgotPassword = () => {
   //           title: "Ooops! Sorry",
   //           subtitle: err.response.data.data.flash_message,
   //         }));
-  //         setIsModalOpen(true);
+  //         setIsAlertOpen(true);
   //       }
   //     }
   //   } else {
-  //     console.log("email is invalid");
 
   //     setIsEmailValid("invalid");
   //   }
@@ -107,7 +97,6 @@ const ForgotPassword = () => {
       setIsContentLoading(false);
 
       setIsButtonDisabled(false);
-      console.log("reset email sent");
       // setIsEmailValid("valid");
       setIsResetEmail(() => email);
     } catch (err) {
@@ -133,7 +122,7 @@ const ForgotPassword = () => {
           // },
         }));
 
-        setIsModalOpen(true);
+        setIsAlertOpen(true);
       }
     }
   };
@@ -285,7 +274,6 @@ const ForgotPassword = () => {
                       e.preventDefault();
                       if (verificationCode.length > 0) {
                         // setIsVerified(true);
-                        console.log("Verified");
                         navigate(`/create-new-password/${verificationCode}`, {
                           replace: true,
                         });
@@ -331,13 +319,13 @@ const ForgotPassword = () => {
           )}
         </section>
 
-        <Alert
+        {/* <Alert
           type={alertProps.type}
           title={alertProps.title}
           subtitle={alertProps.subtitle}
           modalTrigger={isModalOpen}
-          setModalTrigger={setIsModalOpen}
-        />
+          setModalTrigger={setIsAlertOpen}
+        /> */}
       </div>
     </div>
   );

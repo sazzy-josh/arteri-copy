@@ -11,12 +11,12 @@ import image3 from "../../assets/images/image-1.jpg";
 // import icons
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
-import Alert from "../../components/Alert";
 import { ModalContext } from "../../contexts/ModalContext";
 
 const RecoverPassword = () => {
   // contexts
-  const { setIsContentLoading } = useContext(ModalContext);
+  const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
+    useContext(ModalContext);
 
   let navigate = useNavigate();
   let { code } = useParams();
@@ -34,13 +34,7 @@ const RecoverPassword = () => {
   const [isPasswordMatch, setIsPasswordMatch] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [alertProps, setAlertProps] = useState({
-    type: "",
-    title: "",
-    subtitle: "",
-  });
 
   // control input fields on change
   const handleInputChange = (e) => {
@@ -65,35 +59,26 @@ const RecoverPassword = () => {
       }
     } else if (name === "password") {
       if (!value.match(passwordRegex) && value.length !== 0) {
-        console.log("mismatch");
         setIsRecoverValid((prev) => ({ ...prev, [name]: "invalid" }));
       } else if (value.length === 0) {
-        console.log("empty");
-
         setIsRecoverValid((prev) => ({ ...prev, [name]: "" }));
       } else if (
         value !== recoverInputField.password_confirmation &&
         recoverInputField.password_confirmation.length !== 0
       ) {
-        console.log("mutated");
-
         setIsRecoverValid((prev) => ({
           ...prev,
           password_confirmation: "invalid",
         }));
       } else if (value.match(passwordRegex)) {
         setIsRecoverValid((prev) => ({ ...prev, [name]: "valid" }));
-        console.log("match");
       } else {
-        console.log("success");
-
         setIsRecoverValid((prev) => ({ ...prev, [name]: "valid" }));
       }
     }
   };
   // control input fields on submit
   const handleSubmit = async (e) => {
-    console.log("eweee", recoverInputField);
     e.preventDefault();
 
     if (
@@ -144,7 +129,7 @@ const RecoverPassword = () => {
             title: "Ooops! Sorry",
             subtitle: err.response.data.data.flash_message,
           }));
-          setIsModalOpen(true);
+          setIsAlertOpen(true);
         }
       }
     }
@@ -489,13 +474,6 @@ const RecoverPassword = () => {
           </form>
         </section>
       </div>
-      <Alert
-        type={alertProps.type}
-        title={alertProps.title}
-        subtitle={alertProps.subtitle}
-        modalTrigger={isModalOpen}
-        setModalTrigger={setIsModalOpen}
-      />
     </div>
   );
 };

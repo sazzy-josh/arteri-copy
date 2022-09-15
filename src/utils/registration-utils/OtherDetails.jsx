@@ -11,12 +11,11 @@ import RegistrationRedirect from "./RegistrationRedirect";
 // import icons
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
-import Alert from "../../components/Alert";
 import { ModalContext } from "../../contexts/ModalContext";
 
 const OtherDetails = () => {
   // contexts
-  const { setIsContentLoading } = useContext(ModalContext);
+  const { setIsContentLoading, setIsAlertOpen } = useContext(ModalContext);
 
   let navigate = useNavigate();
 
@@ -33,8 +32,6 @@ const OtherDetails = () => {
     inputErrorMessage,
     setInputErrorMessage,
     setAlertProps,
-
-    setIsModalOpen,
   } = useContext(RegistrationContext);
 
   // regular expressions for password validation from the frontend
@@ -65,7 +62,6 @@ const OtherDetails = () => {
       setIsContentLoading(false);
 
       setIsButtonDisabled(false);
-      console.log("registered new user with email address");
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
@@ -105,21 +101,21 @@ const OtherDetails = () => {
           key === "last_name" ||
           key === "email"
         ) {
-          setIsModalOpen(true);
+          setIsAlertOpen(true);
           setAlertProps((prev) => ({
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: err.response.data.data.flash_message,
+            subtitle: err.response?.data?.data?.flash_message,
           }));
           navigate("/register/details", { replace: true });
         } else {
-          setIsModalOpen(true);
+          setIsAlertOpen(true);
           setAlertProps((prev) => ({
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: err.response.data.data.flash_message,
+            subtitle: err.response?.data?.data?.flash_message,
           }));
         }
       }
@@ -142,9 +138,7 @@ const OtherDetails = () => {
         password: "valid",
         password_confirmation: "valid",
       });
-      for (const key in err.response.data.data.errors) {
-        // console.log(err.response.data.data.errors[key][0]);
-        console.log(key);
+      for (const key in err.response?.data?.data?.errors) {
         setInputErrorMessage((prev) => ({
           ...prev,
           [key]: err.response.data.data.errors[key][0],
@@ -178,7 +172,6 @@ const OtherDetails = () => {
       );
       setIsContentLoading(false);
       setIsButtonDisabled(false);
-      console.log("registered new user with phone number");
 
       // client received a success response (2xx)
       localStorage.setItem("authToken", response.data.data.auth_token);
@@ -226,7 +219,7 @@ const OtherDetails = () => {
       //       title: "Ooops! Sorry",
       //       subtitle: dataErrorMessage,
       //     }));
-      //     setIsModalOpen(true);
+      //     setIsAlertOpen(true);
       //   } else if (err.response.data.data.errors.phone) {
       //     dataErrorMessage = err.response.data.data.errors.phone[0];
       //     setAlertProps((prev) => ({
@@ -235,7 +228,7 @@ const OtherDetails = () => {
       //       title: "Ooops! Sorry",
       //       subtitle: dataErrorMessage,
       //     }));
-      //     setIsModalOpen(true);
+      //     setIsAlertOpen(true);
       //   } else {
       //     setAlertProps((prev) => ({
       //       ...prev,
@@ -243,12 +236,11 @@ const OtherDetails = () => {
       //       title: "Ooops! Sorry",
       //       subtitle: err.response.data.flash_message,
       //     }));
-      //     setIsModalOpen(true);
+      //     setIsAlertOpen(true);
       //   }
       // }
       setIsButtonDisabled(false);
       setIsContentLoading(false);
-      console.log(err.response.data.data.errors);
       for (const key in err.response?.data?.data?.errors) {
         if (
           key === "phone" ||
@@ -256,21 +248,21 @@ const OtherDetails = () => {
           key === "last_name" ||
           key === "email"
         ) {
-          setIsModalOpen(true);
+          setIsAlertOpen(true);
           setAlertProps((prev) => ({
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: err.response.data.data.flash_message,
+            subtitle: err.response?.data?.data?.flash_message,
           }));
           navigate("/register/details", { replace: true });
         } else {
-          setIsModalOpen(true);
+          setIsAlertOpen(true);
           setAlertProps((prev) => ({
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: err.response.data.data.flash_message,
+            subtitle: err.response?.data?.data?.flash_message,
           }));
         }
       }
@@ -292,7 +284,7 @@ const OtherDetails = () => {
         password: "valid",
         password_confirmation: "valid",
       });
-      for (const key in err.response.data.data.errors) {
+      for (const key in err.response?.data?.data?.errors) {
         setInputErrorMessage((prev) => ({
           ...prev,
           [key]: err.response.data.data.errors[key][0],
@@ -357,7 +349,6 @@ const OtherDetails = () => {
       registerUserWithPhone();
     } else {
       registerUserWithEmail();
-      console.log("hurray");
     }
   };
 
@@ -832,7 +823,7 @@ const OtherDetails = () => {
         buttonText={alertProps.buttonText}
         buttonHandle={() => navigate("/dashboard", { replace: true })}
         modalTrigger={isModalOpen}
-        setModalTrigger={setIsModalOpen}
+        setModalTrigger={setIsAlertOpen}
       /> */}
     </>
   );
