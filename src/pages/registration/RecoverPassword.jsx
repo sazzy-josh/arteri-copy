@@ -15,7 +15,8 @@ import { ModalContext } from "../../contexts/ModalContext";
 
 const RecoverPassword = () => {
   // contexts
-  const { setIsContentLoading, setIsAlertOpen } = useContext(ModalContext);
+  const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
+    useContext(ModalContext);
 
   let navigate = useNavigate();
   let { code } = useParams();
@@ -34,11 +35,6 @@ const RecoverPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [alertProps, setAlertProps] = useState({
-    type: "",
-    title: "",
-    subtitle: "",
-  });
 
   // control input fields on change
   const handleInputChange = (e) => {
