@@ -16,7 +16,7 @@ import { ModalContext } from "../../contexts/ModalContext";
 
 const OtherDetails = () => {
   // contexts
-  const { setIsContentLoading } = useContext(ModalContext);
+  const { setIsContentLoading, setIsAlertOpen } = useContext(ModalContext);
 
   let navigate = useNavigate();
 
@@ -33,8 +33,6 @@ const OtherDetails = () => {
     inputErrorMessage,
     setInputErrorMessage,
     setAlertProps,
-
-    setIsModalOpen,
   } = useContext(RegistrationContext);
 
   // regular expressions for password validation from the frontend
@@ -105,7 +103,7 @@ const OtherDetails = () => {
           key === "last_name" ||
           key === "email"
         ) {
-          setIsModalOpen(true);
+          setIsAlertOpen(true);
           setAlertProps((prev) => ({
             ...prev,
             type: "fail",
@@ -114,7 +112,7 @@ const OtherDetails = () => {
           }));
           navigate("/register/details", { replace: true });
         } else {
-          setIsModalOpen(true);
+          setIsAlertOpen(true);
           setAlertProps((prev) => ({
             ...prev,
             type: "fail",
@@ -226,7 +224,7 @@ const OtherDetails = () => {
       //       title: "Ooops! Sorry",
       //       subtitle: dataErrorMessage,
       //     }));
-      //     setIsModalOpen(true);
+      //     setIsAlertOpen(true);
       //   } else if (err.response.data.data.errors.phone) {
       //     dataErrorMessage = err.response.data.data.errors.phone[0];
       //     setAlertProps((prev) => ({
@@ -235,7 +233,7 @@ const OtherDetails = () => {
       //       title: "Ooops! Sorry",
       //       subtitle: dataErrorMessage,
       //     }));
-      //     setIsModalOpen(true);
+      //     setIsAlertOpen(true);
       //   } else {
       //     setAlertProps((prev) => ({
       //       ...prev,
@@ -243,7 +241,7 @@ const OtherDetails = () => {
       //       title: "Ooops! Sorry",
       //       subtitle: err.response.data.flash_message,
       //     }));
-      //     setIsModalOpen(true);
+      //     setIsAlertOpen(true);
       //   }
       // }
       setIsButtonDisabled(false);
@@ -256,7 +254,7 @@ const OtherDetails = () => {
           key === "last_name" ||
           key === "email"
         ) {
-          setIsModalOpen(true);
+          setIsAlertOpen(true);
           setAlertProps((prev) => ({
             ...prev,
             type: "fail",
@@ -265,7 +263,7 @@ const OtherDetails = () => {
           }));
           navigate("/register/details", { replace: true });
         } else {
-          setIsModalOpen(true);
+          setIsAlertOpen(true);
           setAlertProps((prev) => ({
             ...prev,
             type: "fail",
@@ -832,7 +830,7 @@ const OtherDetails = () => {
         buttonText={alertProps.buttonText}
         buttonHandle={() => navigate("/dashboard", { replace: true })}
         modalTrigger={isModalOpen}
-        setModalTrigger={setIsModalOpen}
+        setModalTrigger={setIsAlertOpen}
       /> */}
     </>
   );

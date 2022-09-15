@@ -11,12 +11,11 @@ import image3 from "../../assets/images/image-1.jpg";
 // import icons
 import AlertIcon from "../../assets/icons/alert-info.svg";
 import CheckIcon from "../../assets/icons/check.svg";
-import Alert from "../../components/Alert";
 import { ModalContext } from "../../contexts/ModalContext";
 
 const RecoverPassword = () => {
   // contexts
-  const { setIsContentLoading } = useContext(ModalContext);
+  const { setIsContentLoading, setIsAlertOpen } = useContext(ModalContext);
 
   let navigate = useNavigate();
   let { code } = useParams();
@@ -34,7 +33,6 @@ const RecoverPassword = () => {
   const [isPasswordMatch, setIsPasswordMatch] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [alertProps, setAlertProps] = useState({
     type: "",
@@ -144,7 +142,7 @@ const RecoverPassword = () => {
             title: "Ooops! Sorry",
             subtitle: err.response.data.data.flash_message,
           }));
-          setIsModalOpen(true);
+          setIsAlertOpen(true);
         }
       }
     }
@@ -489,13 +487,6 @@ const RecoverPassword = () => {
           </form>
         </section>
       </div>
-      <Alert
-        type={alertProps.type}
-        title={alertProps.title}
-        subtitle={alertProps.subtitle}
-        modalTrigger={isModalOpen}
-        setModalTrigger={setIsModalOpen}
-      />
     </div>
   );
 };

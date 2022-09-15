@@ -13,8 +13,8 @@ import CheckIcon from "../../assets/icons/check.svg";
 
 const Details = () => {
   let navigate = useNavigate();
-  const [countries, setCountries] = useState("");
-  const [countryValue, setCountryValue] = useState("");
+  // const [countries, setCountries] = useState("");
+  // const [countryValue, setCountryValue] = useState("");
 
   // Regex for email validation
   let emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -264,7 +264,7 @@ const Details = () => {
             </p>
           </label>
           <label className="mb-5 block">
-            <p className="registration-input-label">Email Address</p>
+            <p className="registration-input-label">Email Address(Optional)</p>
 
             <div className="relative sm:w-[400px] sm:mx-auto lg:mx-0">
               <input

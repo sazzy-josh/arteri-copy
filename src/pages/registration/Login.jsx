@@ -60,7 +60,6 @@ const Login = () => {
 
   // control input fields on submit
   const handleSubmit = (e) => {
-    console.log("login button clicked");
     setIsButtonDisabled(true);
     e.preventDefault();
 

@@ -11,9 +11,15 @@ import image3 from "../../assets/images/image-3.jpg";
 
 // context
 import { RegistrationContext } from "../../contexts/authContext/RegistrationContext";
-import Alert from "../../components/Alert";
+// import Alert from "../../components/Alert";
+import { useContext } from "react";
+import { ModalContext } from "../../contexts/ModalContext";
 
 const Registration = () => {
+  // modal contexts
+  const { setIsAlertOpen, alertProps, setAlertProps } =
+    useContext(ModalContext);
+
   const [account_type, setaccount_type] = useState("personal");
   const [sidebarImage, setSidebarImage] = useState("");
   const [isValid, setIsValid] = useState({
@@ -46,13 +52,13 @@ const Registration = () => {
     password_confirmation: "",
     tos_accepted: "",
   });
-  const [alertProps, setAlertProps] = useState({
-    type: "",
-    title: "",
-    subtitle: "",
-    buttonText: "",
-  });
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [alertProps, setAlertProps] = useState({
+  //   type: "",
+  //   title: "",
+  //   subtitle: "",
+  //   buttonText: "",
+  // });
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   let navigate = useNavigate();
 
@@ -71,8 +77,6 @@ const Registration = () => {
           setInputErrorMessage,
           alertProps,
           setAlertProps,
-          isModalOpen,
-          setIsModalOpen,
         }}
       >
         <div className=" md:flex">
@@ -127,7 +131,7 @@ const Registration = () => {
             </div>
             <Outlet />
           </section>
-          <Alert
+          {/* <Alert
             type={alertProps.type}
             title={alertProps.title}
             subtitle={alertProps.subtitle}
@@ -135,7 +139,7 @@ const Registration = () => {
             buttonHandle={() => navigate("/dashboard", { replace: true })}
             modalTrigger={isModalOpen}
             setModalTrigger={setIsModalOpen}
-          />
+          /> */}
         </div>
       </RegistrationContext.Provider>
     </>
