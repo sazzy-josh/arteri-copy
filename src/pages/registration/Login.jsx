@@ -101,13 +101,13 @@ const Login = () => {
       setIsButtonDisabled(false);
       setIsContentLoading(false);
       // client received a success response (2xx)
-      setAlertProps((prev) => ({
-        ...alertProps,
-        type: "success",
-        title: "Logged in",
-        subtitle: "",
-      }));
-      setIsAlertOpen(true);
+      // setAlertProps((prev) => ({
+      //   ...alertProps,
+      //   type: "success",
+      //   title: "Logged in",
+      //   subtitle: "",
+      // }));
+      // setIsAlertOpen(true);
 
       setLoginInputField({
         identifier: "",
