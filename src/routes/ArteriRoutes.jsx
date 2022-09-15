@@ -26,7 +26,7 @@ import Loans from "../utils/financial-history/Loans";
 import BNPL from "../utils/financial-history/BNPL";
 import HistoryDetails from "../pages/dashboard/HistroryDetails";
 import ProviderDashboard from "../pages/admin/Dashboard";
-import AccountVerification from "../pages/dashboard/AccountVerification";
+import AccountVerification from "../pages/registration/AccountVerification";
 import ProviderAccount from "../pages/admin/MyAccount";
 import ProviderHelp from "../pages/admin/Help";
 import ProviderHistory from "../pages/admin/History";
@@ -89,16 +89,13 @@ const ArteriRoutes = () => {
           }
         />
 
+        <Route path="/account/verification" element={<AccountVerification />} />
         {/* Routes available to users that are logged in but are consumers */}
 
         <Route element={<AuthenticatedConsumerRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/application" element={<Application />} />
           <Route path="/my-account" element={<Account />} />
-          <Route
-            path="/account/verification"
-            element={<AccountVerification />}
-          />
           <Route path="/notifications" element={<Notifications />} />
           <Route
             path="/history"

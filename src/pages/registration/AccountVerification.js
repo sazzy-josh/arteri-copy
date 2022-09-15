@@ -1,0 +1,332 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Axios from "axios";
+
+// import components
+import Preloader from "../../components/Preloader";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
+
+// import styles
+import "../../styles/registration.css";
+
+// images
+import LogoWhite from "../../assets/logo-white.svg";
+import image1 from "../../assets/images/image-1.jpg";
+
+const AccountVerification = () => {
+  let navigate = useNavigate();
+  const [isFetching, setIsFetching] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isUserPhone, setIsUserPhone] = useState(null);
+  const [isUserEmail, setIsUserEmail] = useState(null);
+  const [isUserVerified, setIsUserVerified] = useState(null);
+
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    type: "",
+    title: "",
+    subtitle: "",
+    buttonText: "",
+  });
+  const [phoneVerificationCode, setPhoneVerificationCode] = useState("");
+  const [emailVerificationCode, setEmailVerificationCode] = useState("");
+  let loggedInToken;
+
+  const verifyUserPhone = async () => {
+    setIsFetching(true);
+    let formData = new FormData();
+    formData.append("verification_code", phoneVerificationCode);
+    try {
+      if (localStorage.getItem("authToken")) {
+        loggedInToken = localStorage.getItem("authToken");
+      } else {
+        loggedInToken = sessionStorage.getItem("authToken");
+      }
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/phone-number/verify",
+        formData,
+        { headers: { Authorization: `Bearer ${loggedInToken}` } }
+      );
+      setIsFetching(false);
+      navigate("/dashboard", { replace: true });
+
+      console.log(response);
+    } catch (err) {
+      setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "fail",
+        title: "Oops!",
+        subtitle: err?.response?.data?.data?.flash_message,
+      }));
+
+      console.log(err.response);
+    }
+  };
+  const verifyUserEmail = async () => {
+    setIsFetching(true);
+
+    let formData = new FormData();
+    formData.append("verification_code", emailVerificationCode);
+    try {
+      if (localStorage.getItem("authToken")) {
+        loggedInToken = localStorage.getItem("authToken");
+      } else {
+        loggedInToken = sessionStorage.getItem("authToken");
+      }
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/email-address/verify",
+        formData,
+        { headers: { Authorization: `Bearer ${loggedInToken}` } }
+      );
+      setIsFetching(false);
+      navigate("/dashboard", { replace: true });
+
+      console.log(response);
+    } catch (err) {
+      console.log(err.response);
+      setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "fail",
+        title: "Oops!",
+        subtitle: err?.response?.data?.data?.flash_message,
+      }));
+    }
+  };
+  const resendPhoneCode = async () => {
+    setIsFetching(true);
+
+    try {
+      if (localStorage.getItem("authToken")) {
+        loggedInToken = localStorage.getItem("authToken");
+      } else {
+        loggedInToken = sessionStorage.getItem("authToken");
+      }
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/phone-number/resend-verification-code",
+        {},
+        { headers: { Authorization: `Bearer ${loggedInToken}` } }
+      );
+      setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "success",
+        title: "Congratulations!",
+        subtitle: response?.data?.data?.flash_message,
+      }));
+
+      console.log(response);
+    } catch (err) {
+      console.log(err.response);
+      setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "fail",
+        title: "Oops!",
+        subtitle: err?.response?.data?.data?.flash_message,
+      }));
+    }
+  };
+  const resendEmailCode = async () => {
+    setIsFetching(true);
+
+    try {
+      if (localStorage.getItem("authToken")) {
+        loggedInToken = localStorage.getItem("authToken");
+      } else {
+        loggedInToken = sessionStorage.getItem("authToken");
+      }
+      const response = await Axios.post(
+        "https://api.arteri.tk/api/account/email-address/resend-verification-code",
+        {},
+        { headers: { Authorization: `Bearer ${loggedInToken}` } }
+      );
+      setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "success",
+        title: "Congratulations!",
+        subtitle: response?.data?.data?.flash_message,
+      }));
+
+      console.log(response);
+    } catch (err) {
+      console.log(err.response);
+      setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "fail",
+        title: "Oops!",
+        subtitle: err?.response?.data?.data?.flash_message,
+      }));
+    }
+  };
+
+  useEffect(() => {
+    const getUserDetails = async () => {
+      console.log("fetching user details");
+      try {
+        if (localStorage.getItem("authToken")) {
+          loggedInToken = localStorage.getItem("authToken");
+        } else {
+          loggedInToken = sessionStorage.getItem("authToken");
+        }
+        const response = await Axios.get(
+          "https://api.arteri.tk/api/user/profile/get",
+          { headers: { Authorization: `Bearer ${loggedInToken}` } }
+        );
+        console.log("fetch successful");
+        setIsFetching(false);
+        if (response.data.data.user_profile.email) {
+          setIsUserEmail(true);
+        }
+        if (response.data.data.user_profile.phone) {
+          setIsUserPhone(true);
+        }
+        if (
+          response.data.data.user_profile.phone_verified_at ||
+          response.data.data.user_profile.email_verified_at
+        ) {
+          navigate("/dashboard", { replace: true });
+        }
+      } catch (err) {
+        setIsFetching(false);
+
+        console.log(err.response);
+        // if (err.response) {
+        // }
+      }
+    };
+    getUserDetails();
+  }, []);
+  // useEffect(() => getUserDetails, []);
+
+  return (
+    <>
+      {isFetching ? (
+        <Preloader />
+      ) : (
+        <main className=" md:flex">
+          <div className=" w-[350px]  h-auto fixed hidden md:block lg:w-[440px] md:h-screen">
+            <div className="w-full h-full absolute z-10 bg-primary opacity-75 "></div>
+            <div className="w-full h-full absolute z-30 pl-6 pr-3 py-10 md:flex md:flex-col md:items-start md:justify-between lg:pl-10">
+              <img src={LogoWhite} alt="" className="relative z-20" />
+              <h1 className="text-white text-4xl font-bold text-left mb-10 w-full relative z-20 lg:text-5xl lg:leading-tight">
+                Welcome <br /> Back To Arteri
+              </h1>
+            </div>
+            {<img src={image1} alt="" className="object-cover  h-full" />}
+          </div>
+          <section className="flex-1 lg:pl-10 md:pr-10 md:py-10 md:ml-[350px] lg:ml-[440px]">
+            <h1 className="font-semibold text-3xl text-left text-gray-900 mb-6 sm:text-center  lg:text-left">
+              Account Verification
+            </h1>
+            <h3 className="text-left mb-8 sm:text-center  lg:text-left md:w-[400px] md:mx-auto lg:mx-0">
+              Verification codes have been sent to your email address and phone
+              number. Enter them in the respective boxes below.
+            </h3>
+            <form>
+              <label className="mb-5 block">
+                <p className="registration-input-label ">Phone Number</p>
+                <div className=" sm:w-[400px] sm:mx-auto lg:mx-0">
+                  <input
+                    type="text"
+                    className="w-full ml-0 h-14  text-sm border-2 rounded-xl my-3 block mx-auto pl-4 pr-10 font-normal border-gray-300 outline-none sm:w-[400px] sm:mx-auto md:pr-14 md:text-base lg:mx-0 focus:border-blue-500 "
+                    name="tel"
+                    placeholder="Enter code here"
+                    value={phoneVerificationCode}
+                    onChange={(e) => {
+                      setPhoneVerificationCode(e.target.value);
+                    }}
+                  />
+                </div>
+              </label>
+              <div className="my-8">
+                <PrimaryButton
+                  isButtonDisabled={!phoneVerificationCode}
+                  handle={(e) => {
+                    e.preventDefault();
+                    verifyUserPhone();
+                  }}
+                >
+                  Verify Phone Number
+                </PrimaryButton>
+              </div>
+            </form>
+            <div className="mb-6 lg:w-[450px]">
+              <div className="flex flex-col justify-center items-center gap-2 lg:flex-row lg:justify-start lg:gap-3">
+                <p className=" inline-block text-black font-medium mt-2 mb-2">
+                  Didn't receive any code?
+                </p>
+                <p
+                  className=" inline-block text-secondary font-medium cursor-pointer"
+                  onClick={resendPhoneCode}
+                >
+                  Resend verification code
+                </p>
+              </div>
+            </div>
+
+            {/* verify user email address */}
+            {isUserEmail && (
+              <>
+                <form className="mt-10">
+                  <label className="mb-5 block">
+                    <p className="registration-input-label">
+                      Email Address (Optional)
+                    </p>
+                    <div className=" sm:w-[400px] sm:mx-auto lg:mx-0">
+                      <input
+                        type="text"
+                        className="w-full ml-0 h-14  text-sm border-2 rounded-xl my-3 block mx-auto pl-4 pr-10 font-normal border-gray-300 outline-none sm:w-[400px] sm:mx-auto md:pr-14 md:text-base lg:mx-0 focus:border-blue-500"
+                        name="email"
+                        placeholder="Enter code here"
+                        value={emailVerificationCode}
+                        onChange={(e) => {
+                          setEmailVerificationCode(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </label>
+                  <div className="my-8">
+                    <PrimaryButton
+                      isButtonDisabled={!emailVerificationCode}
+                      handle={(e) => {
+                        e.preventDefault();
+                        verifyUserEmail();
+                      }}
+                    >
+                      Verify Email
+                    </PrimaryButton>
+                  </div>
+                </form>
+                <div className="mb-6 lg:w-[450px]">
+                  <div className="flex flex-col justify-center items-center gap-2 lg:flex-row lg:justify-start lg:gap-3">
+                    <p className=" text-black font-medium mt-2 mb-2">
+                      Didn't receive any code?
+                    </p>
+                    <p
+                      className=" text-secondary font-medium cursor-pointer"
+                      onClick={resendEmailCode}
+                    >
+                      Resend verification code
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
+          </section>
+        </main>
+      )}
+    </>
+  );
+};
+
+export default AccountVerification;
