@@ -57,30 +57,62 @@ const AccountVerification = () => {
         //   setIsUserPhone(true);
         // }
         console.log(loggedInToken);
+
+        // checks if the signed-in user is verified or not
         if (
-          (response.data?.data?.user_profile?.phone_verified_at ||
-            response.data?.data?.user_profile?.email_verified_at) &&
-          keepLoggedIn
+          response.data?.data?.user_profile?.phone_verified_at ||
+          response.data?.data?.user_profile?.email_verified_at
         ) {
-          localStorage.setItem("authToken", loggedInToken);
-          localStorage.setItem(
-            "accountType",
-            response.data.data.user_profile.account_type
-          );
+          if (
+            keepLoggedIn &&
+            response.data?.data?.user_profile?.account_type === "personal"
+          ) {
+            // if the user ticks the  "keep-me-loggedIn" checkbox and user is a consumer
+            localStorage.setItem("authToken", loggedInToken);
+            localStorage.setItem(
+              "accountType",
+              response.data.data.user_profile.account_type
+            );
+            navigate("/dashboard", { replace: true });
+          } else if (
+            keepLoggedIn &&
+            response.data?.data?.user_profile?.account_type === "provider"
+          ) {
+            // if the user ticks the  "keep-me-loggedIn" checkbox and user is a provider
+            localStorage.setItem("authToken", loggedInToken);
+            localStorage.setItem(
+              "accountType",
+              response.data.data.user_profile.account_type
+            );
+            navigate("/provider-dashboard", { replace: true });
+          } else if (
+            !keepLoggedIn &&
+            response.data?.data?.user_profile?.account_type === "personal"
+          ) {
+            // if the user does not tick the  "keep-me-loggedIn" checkbox and user is a consumer
+
+            sessionStorage.setItem("authToken", loggedInToken);
+            sessionStorage.setItem(
+              "accountType",
+              response.data.data.user_profile.account_type
+            );
+            navigate("/dashboard", { replace: true });
+          } else if (
+            !keepLoggedIn &&
+            response.data?.data?.user_profile?.account_type === "provider"
+          ) {
+            // if the user does not tick the  "keep-me-loggedIn" checkbox and user is a provider
+
+            sessionStorage.setItem("authToken", loggedInToken);
+            sessionStorage.setItem(
+              "accountType",
+              response.data.data.user_profile.account_type
+            );
+            navigate("/provider-dashboard", { replace: true });
+          } else {
+            console.log("error in the logic");
+          }
           console.log("user is verified and is longlive");
-          navigate("/provider-dashboard", { replace: true });
-        } else if (
-          (response.data?.data?.user_profile?.phone_verified_at ||
-            response.data?.data?.user_profile?.email_verified_at) &&
-          !keepLoggedIn
-        ) {
-          sessionStorage.setItem("authToken", loggedInToken);
-          sessionStorage.setItem(
-            "accountType",
-            response.data.data.user_profile.account_type
-          );
-          console.log("user is verified and is shortlive");
-          navigate("/provider-dashboard", { replace: true });
         } else {
           // navigate("/dashboard", { replace: true });
           console.log("user is not verified");
@@ -93,8 +125,8 @@ const AccountVerification = () => {
         // sessionStorage.removeItem("accountType");
         // navigate("/login", { replace: true });
         console.log("error fetching with token");
-
         console.log(err);
+        navigate("/login", { replace: true });
       }
     };
     getUserDetails();
