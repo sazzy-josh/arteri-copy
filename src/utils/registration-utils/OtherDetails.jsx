@@ -174,9 +174,14 @@ const OtherDetails = () => {
       setIsButtonDisabled(false);
 
       // client received a success response (2xx)
-      localStorage.setItem("authToken", response.data.data.auth_token);
-      localStorage.setItem("accountType", response.data.data.account_type);
-      navigate("/dashboard", { replace: true });
+
+      // localStorage.setItem("authToken", response.data.data.auth_token);
+      // localStorage.setItem("accountType", response.data.data.account_type);
+
+      navigate("/account/verification", {
+        replace: true,
+        state: { token: response?.data?.data?.auth_token },
+      });
 
       setInputField({
         first_name: "",
