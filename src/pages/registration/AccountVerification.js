@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
 // import components
@@ -14,28 +14,30 @@ import LogoWhite from "../../assets/logo-white.svg";
 import image1 from "../../assets/images/image-1.jpg";
 import MobileNavbar from "../../components/MobileNavbar";
 
-const AccountVerification = () => {
-  let navigate = useNavigate();
-  const { token: loggedInToken, keepLoggedIn } = useLocation().state;
+// context
+import { useContext } from "react";
+import { ModalContext } from "../../contexts/ModalContext";
 
+const AccountVerification = () => {
+  // contexts
+  const { setIsAlertOpen, alertProps, setAlertProps } =
+    useContext(ModalContext);
+
+  let navigate = useNavigate();
+  const loggedInToken = sessionStorage.getItem("identifier");
+  const keepLoggedIn = JSON.parse(sessionStorage.getItem("keepLoggedIn"));
+  console.log("uid", loggedInToken);
+  console.log("span", keepLoggedIn);
   const [isFetching, setIsFetching] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   // const [isUserPhone, setIsUserPhone] = useState(null);
   const [isUserEmail, setIsUserEmail] = useState(null);
   const [isUserVerified, setIsUserVerified] = useState(null);
 
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [alertProps, setAlertProps] = useState({
-    type: "",
-    title: "",
-    subtitle: "",
-    buttonText: "",
-  });
   const [phoneVerificationCode, setPhoneVerificationCode] = useState("");
   const [emailVerificationCode, setEmailVerificationCode] = useState("");
 
   useEffect(() => {
-    console.log("how many times");
     const getUserDetails = async () => {
       console.log("fetching user details");
       try {
@@ -63,10 +65,13 @@ const AccountVerification = () => {
           response.data?.data?.user_profile?.phone_verified_at ||
           response.data?.data?.user_profile?.email_verified_at
         ) {
+          console.log("span2", keepLoggedIn);
+
           if (
             keepLoggedIn &&
             response.data?.data?.user_profile?.account_type === "personal"
           ) {
+            console.log("consumer checks longlive");
             // if the user ticks the  "keep-me-loggedIn" checkbox and user is a consumer
             localStorage.setItem("authToken", loggedInToken);
             localStorage.setItem(
@@ -78,6 +83,8 @@ const AccountVerification = () => {
             keepLoggedIn &&
             response.data?.data?.user_profile?.account_type === "provider"
           ) {
+            console.log("provider checks longlive");
+
             // if the user ticks the  "keep-me-loggedIn" checkbox and user is a provider
             localStorage.setItem("authToken", loggedInToken);
             localStorage.setItem(
@@ -89,6 +96,8 @@ const AccountVerification = () => {
             !keepLoggedIn &&
             response.data?.data?.user_profile?.account_type === "personal"
           ) {
+            console.log("consumer unchecks longlive");
+
             // if the user does not tick the  "keep-me-loggedIn" checkbox and user is a consumer
 
             sessionStorage.setItem("authToken", loggedInToken);
@@ -101,6 +110,8 @@ const AccountVerification = () => {
             !keepLoggedIn &&
             response.data?.data?.user_profile?.account_type === "provider"
           ) {
+            console.log("provider checks longlive");
+
             // if the user does not tick the  "keep-me-loggedIn" checkbox and user is a provider
 
             sessionStorage.setItem("authToken", loggedInToken);
@@ -113,6 +124,9 @@ const AccountVerification = () => {
             console.log("error in the logic");
           }
           console.log("user is verified and is longlive");
+
+          sessionStorage.removeItem("identifier");
+          sessionStorage.removeItem("keepLoggedIn");
         } else {
           // navigate("/dashboard", { replace: true });
           console.log("user is not verified");
@@ -129,8 +143,9 @@ const AccountVerification = () => {
         navigate("/login", { replace: true });
       }
     };
-    getUserDetails();
+    loggedInToken ? getUserDetails() : navigate("/login", { replace: true });
   }, []);
+
   const verifyUserPhone = async () => {
     setIsFetching(true);
     let formData = new FormData();

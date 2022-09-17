@@ -110,18 +110,11 @@ const Login = () => {
         identifier: "",
         password: "",
       });
+      sessionStorage.setItem("identifier", response?.data?.data?.auth_token);
+      sessionStorage.setItem("keepLoggedIn", longLiveAuthToken);
       navigate("/account/verification", {
         replace: true,
-        state: {
-          token: response?.data?.data?.auth_token,
-          keepLoggedIn: longLiveAuthToken,
-        },
       });
-      // if (response.data.data.account_type === "personal") {
-      // }
-      // if (response.data.data.account_type === "provider") {
-      //   navigate("/provider-dashboard", { replace: true });
-      // }
     } catch (err) {
       setIsButtonDisabled(false);
       setIsContentLoading(false);

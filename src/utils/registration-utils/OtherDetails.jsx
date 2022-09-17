@@ -64,14 +64,14 @@ const OtherDetails = () => {
       setIsButtonDisabled(false);
 
       // client received a success response (2xx)
-      localStorage.setItem("authToken", response.data.data.auth_token);
-      localStorage.setItem("accountType", response.data.data.account_type);
-      //navigate("/dashboard", { replace: true });
-      if (response.data.data.account_type === "personal") {
-        navigate("/dashboard", { replace: true });
-      } else if (response.data.data.account_type === "provider") {
-        navigate("/provider-dashboard", { replace: true });
-      }
+      // localStorage.setItem("authToken", response.data.data.auth_token);
+      // localStorage.setItem("accountType", response.data.data.account_type);
+      // //navigate("/dashboard", { replace: true });
+      // if (response.data.data.account_type === "personal") {
+      //   navigate("/dashboard", { replace: true });
+      // } else if (response.data.data.account_type === "provider") {
+      //   navigate("/provider-dashboard", { replace: true });
+      // }
 
       setInputField({
         first_name: "",
@@ -90,6 +90,11 @@ const OtherDetails = () => {
         gender: "",
         password: "",
         password_confirmation: "",
+      });
+
+      sessionStorage.setItem("identifier", response?.data?.data?.auth_token);
+      navigate("/account/verification", {
+        replace: true,
       });
     } catch (err) {
       setIsButtonDisabled(false);
@@ -175,14 +180,6 @@ const OtherDetails = () => {
 
       // client received a success response (2xx)
 
-      // localStorage.setItem("authToken", response.data.data.auth_token);
-      // localStorage.setItem("accountType", response.data.data.account_type);
-
-      navigate("/account/verification", {
-        replace: true,
-        state: { token: response?.data?.data?.auth_token },
-      });
-
       setInputField({
         first_name: "",
         last_name: "",
@@ -210,6 +207,15 @@ const OtherDetails = () => {
         password: "",
         password_confirmation: "",
         tos_accepted: "",
+      });
+
+      // navigate("/account/verification", {
+      //   replace: true,
+      //   state: { token: response?.data?.data?.auth_token },
+      // });
+      sessionStorage.setItem("identifier", response?.data?.data?.auth_token);
+      navigate("/account/verification", {
+        replace: true,
       });
     } catch (err) {
       // --- form validation from the frontend
