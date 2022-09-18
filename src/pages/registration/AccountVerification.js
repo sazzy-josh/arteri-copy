@@ -67,8 +67,6 @@ const AccountVerification = () => {
 
           sessionStorage.removeItem("identifier");
           sessionStorage.removeItem("keepLoggedIn");
-        } else {
-          console.log("user is not verified");
         }
       } catch (err) {
         setIsFetching(false);
@@ -386,7 +384,7 @@ const AccountVerification = () => {
                 </>
               )}
             </div>
-            <div className="sm:w-[400px] sm:mx-auto lg:mx-0 ">
+            <div className="mb-3 sm:w-[400px] sm:mx-auto md:mb-0 lg:mx-0 ">
               <p className="py-2 px-3 mb-3 inline-block rounded-xl bg-blue-100 text-gray-400 font-medium">
                 Account Type:
                 <span className="text-primary capitalize ml-1">
