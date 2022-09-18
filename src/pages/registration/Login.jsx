@@ -90,24 +90,17 @@ const Login = () => {
       );
 
       // setAuthToken(response.data.data.auth_token);
-      if (longLiveAuthToken) {
-        localStorage.setItem("authToken", response.data.data.auth_token);
-        localStorage.setItem("accountType", response.data.data.account_type);
-      } else {
-        sessionStorage.setItem("authToken", response.data.data.auth_token);
-        sessionStorage.setItem("accountType", response.data.data.account_type);
-      }
+      // if (longLiveAuthToken) {
+      //   localStorage.setItem("authToken", response.data.data.auth_token);
+      //   localStorage.setItem("accountType", response.data.data.account_type);
+      // } else {
+      //   sessionStorage.setItem("authToken", response.data.data.auth_token);
+      //   sessionStorage.setItem("accountType", response.data.data.account_type);
+      // }
 
       setIsButtonDisabled(false);
       setIsContentLoading(false);
       // client received a success response (2xx)
-      // setAlertProps((prev) => ({
-      //   ...alertProps,
-      //   type: "success",
-      //   title: "Logged in",
-      //   subtitle: "",
-      // }));
-      // setIsAlertOpen(true);
 
       setLoginInputField({
         identifier: "",
@@ -117,12 +110,11 @@ const Login = () => {
         identifier: "",
         password: "",
       });
-      if (response.data.data.account_type === "personal") {
-        navigate("/dashboard", { replace: true });
-      }
-      if (response.data.data.account_type === "provider") {
-        navigate("/provider-dashboard", { replace: true });
-      }
+      sessionStorage.setItem("identifier", response?.data?.data?.auth_token);
+      sessionStorage.setItem("keepLoggedIn", longLiveAuthToken);
+      navigate("/account/verification", {
+        replace: true,
+      });
     } catch (err) {
       setIsButtonDisabled(false);
       setIsContentLoading(false);
