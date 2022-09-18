@@ -286,7 +286,7 @@ const AccountVerification = () => {
               Go back to Homepage
             </p>
             <MobileNavbar />
-            <div className="p-7">
+            <div className="p-7 ">
               <h1 className="font-semibold text-3xl text-left text-gray-900 mb-6 sm:text-center  lg:text-left">
                 Account Verification
               </h1>
@@ -370,7 +370,7 @@ const AccountVerification = () => {
                       </PrimaryButton>
                     </div>
                   </form>
-                  <div className="mb-6 lg:w-[450px]">
+                  <div className="mb-4 lg:w-[450px]">
                     <div className="flex flex-col justify-center items-center gap-2 lg:flex-row lg:justify-start lg:gap-3">
                       <p className=" text-black font-medium mt-2 mb-2">
                         Didn't receive any code?
@@ -385,6 +385,14 @@ const AccountVerification = () => {
                   </div>
                 </>
               )}
+            </div>
+            <div className="sm:w-[400px] sm:mx-auto lg:mx-0 ">
+              <p className="py-2 px-3 mb-3 inline-block rounded-xl bg-blue-100 text-gray-400 font-medium">
+                Account Type:
+                <span className="text-primary capitalize ml-1">
+                  {userAccountType}{" "}
+                </span>
+              </p>
             </div>
           </section>
         </main>
