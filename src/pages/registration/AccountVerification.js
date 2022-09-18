@@ -29,10 +29,9 @@ const AccountVerification = () => {
   console.log("uid", loggedInToken);
   console.log("span", keepLoggedIn);
   const [isFetching, setIsFetching] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
   // const [isUserPhone, setIsUserPhone] = useState(null);
   const [isUserEmail, setIsUserEmail] = useState(null);
-  const [isUserVerified, setIsUserVerified] = useState(null);
+  const [userAccountType, setUserAccountType] = useState(null);
 
   const [phoneVerificationCode, setPhoneVerificationCode] = useState("");
   const [emailVerificationCode, setEmailVerificationCode] = useState("");
@@ -50,8 +49,9 @@ const AccountVerification = () => {
           "https://api.arteri.tk/api/user/profile/get",
           { headers: { Authorization: `Bearer ${loggedInToken}` } }
         );
-        console.log("fetch successful");
+        console.log("fetch successful", response);
         setIsFetching(false);
+        setUserAccountType(response.data.data.user_profile.account_type);
         if (response.data.data.user_profile.email) {
           setIsUserEmail(true);
         }
@@ -67,68 +67,15 @@ const AccountVerification = () => {
         ) {
           console.log("span2", keepLoggedIn);
 
-          if (
-            keepLoggedIn &&
-            response.data?.data?.user_profile?.account_type === "personal"
-          ) {
-            console.log("consumer checks longlive");
-            // if the user ticks the  "keep-me-loggedIn" checkbox and user is a consumer
-            localStorage.setItem("authToken", loggedInToken);
-            localStorage.setItem(
-              "accountType",
-              response.data.data.user_profile.account_type
-            );
-            navigate("/dashboard", { replace: true });
-          } else if (
-            keepLoggedIn &&
-            response.data?.data?.user_profile?.account_type === "provider"
-          ) {
-            console.log("provider checks longlive");
-
-            // if the user ticks the  "keep-me-loggedIn" checkbox and user is a provider
-            localStorage.setItem("authToken", loggedInToken);
-            localStorage.setItem(
-              "accountType",
-              response.data.data.user_profile.account_type
-            );
-            navigate("/provider-dashboard", { replace: true });
-          } else if (
-            !keepLoggedIn &&
-            response.data?.data?.user_profile?.account_type === "personal"
-          ) {
-            console.log("consumer unchecks longlive");
-
-            // if the user does not tick the  "keep-me-loggedIn" checkbox and user is a consumer
-
-            sessionStorage.setItem("authToken", loggedInToken);
-            sessionStorage.setItem(
-              "accountType",
-              response.data.data.user_profile.account_type
-            );
-            navigate("/dashboard", { replace: true });
-          } else if (
-            !keepLoggedIn &&
-            response.data?.data?.user_profile?.account_type === "provider"
-          ) {
-            console.log("provider checks longlive");
-
-            // if the user does not tick the  "keep-me-loggedIn" checkbox and user is a provider
-
-            sessionStorage.setItem("authToken", loggedInToken);
-            sessionStorage.setItem(
-              "accountType",
-              response.data.data.user_profile.account_type
-            );
-            navigate("/provider-dashboard", { replace: true });
-          } else {
-            console.log("error in the logic");
-          }
+          saveAndRedirectUser(
+            keepLoggedIn,
+            response.data?.data?.user_profile?.account_type
+          );
           console.log("user is verified and is longlive");
 
           sessionStorage.removeItem("identifier");
           sessionStorage.removeItem("keepLoggedIn");
         } else {
-          // navigate("/dashboard", { replace: true });
           console.log("user is not verified");
         }
       } catch (err) {
@@ -146,6 +93,42 @@ const AccountVerification = () => {
     loggedInToken ? getUserDetails() : navigate("/login", { replace: true });
   }, []);
 
+  // save users to browser storage and navigate them to their corresponding
+  const saveAndRedirectUser = (keepLoggedIn, accountType) => {
+    if (keepLoggedIn && accountType === "personal") {
+      console.log("consumer checks longlive");
+      // if the user ticks the  "keep-me-loggedIn" checkbox and user is a consumer
+      localStorage.setItem("authToken", loggedInToken);
+      localStorage.setItem("accountType", accountType);
+      navigate("/dashboard", { replace: true });
+    } else if (keepLoggedIn && accountType === "provider") {
+      console.log("provider checks longlive");
+
+      // if the user ticks the  "keep-me-loggedIn" checkbox and user is a provider
+      localStorage.setItem("authToken", loggedInToken);
+      localStorage.setItem("accountType", accountType);
+      navigate("/provider-dashboard", { replace: true });
+    } else if (!keepLoggedIn && accountType === "personal") {
+      console.log("consumer unchecks longlive");
+
+      // if the user does not tick the  "keep-me-loggedIn" checkbox and user is a consumer
+
+      sessionStorage.setItem("authToken", loggedInToken);
+      sessionStorage.setItem("accountType", accountType);
+      navigate("/dashboard", { replace: true });
+    } else if (!keepLoggedIn && accountType === "provider") {
+      console.log("provider checks longlive");
+
+      // if the user does not tick the  "keep-me-loggedIn" checkbox and user is a provider
+
+      sessionStorage.setItem("authToken", loggedInToken);
+      sessionStorage.setItem("accountType", accountType);
+      navigate("/provider-dashboard", { replace: true });
+    } else {
+      console.log("error in the logic");
+    }
+  };
+
   const verifyUserPhone = async () => {
     setIsFetching(true);
     let formData = new FormData();
@@ -161,8 +144,20 @@ const AccountVerification = () => {
         formData,
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
+      saveAndRedirectUser(keepLoggedIn, userAccountType);
       setIsFetching(false);
-      navigate("/dashboard", { replace: true });
+      sessionStorage.removeItem("identifier");
+      sessionStorage.removeItem("keepLoggedIn");
+      // if (userAccountType === "personal") {
+      //   localStorage.setItem("authToken", loggedInToken);
+      //   localStorage.setItem(
+      //     "accountType",
+      //     response.data.data.user_profile.account_type
+      //   );
+      //   navigate("/dashboard", { replace: true });
+      // } else if (userAccountType === "provider") {
+      //   navigate("/provider-dashboard", { replace: true });
+      // }
 
       console.log(response);
     } catch (err) {
@@ -194,8 +189,11 @@ const AccountVerification = () => {
         formData,
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
+      saveAndRedirectUser(keepLoggedIn, userAccountType);
+
       setIsFetching(false);
-      navigate("/dashboard", { replace: true });
+      sessionStorage.removeItem("identifier");
+      sessionStorage.removeItem("keepLoggedIn");
 
       console.log(response);
     } catch (err) {
