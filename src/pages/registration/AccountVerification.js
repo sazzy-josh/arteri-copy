@@ -263,17 +263,19 @@ const AccountVerification = () => {
         <Preloader />
       ) : (
         <main className=" md:flex">
-          <div className=" w-[350px]  h-auto fixed hidden md:block lg:w-[440px] md:h-screen">
+          <div className=" w-[320px]  h-auto fixed hidden md:block lg:w-[440px] md:h-screen">
             <div className="w-full h-full absolute z-10 bg-primary opacity-75 "></div>
             <div className="w-full h-full absolute z-30 pl-6 pr-3 py-10 md:flex md:flex-col md:items-start md:justify-between lg:pl-10">
               <img src={LogoWhite} alt="" className="relative z-20" />
-              <h1 className="text-white text-4xl font-bold text-left mb-10 w-full relative z-20 lg:text-5xl lg:leading-tight">
-                Welcome <br /> Back To Arteri
+              <h1 className="text-white text-[32px] leading-[45px] font-bold text-left mb-10 w-full lg:text-4xl">
+                Verify your <br /> account to <br /> access{" "}
+                <span className="text-secondary ">loans </span>and other
+                <span className="text-secondary "> features</span>
               </h1>
             </div>
             {<img src={image1} alt="" className="object-cover  h-full" />}
           </div>
-          <section className=" flex-1 lg:pl-10 md:pr-10 md:py-10 md:ml-[350px] lg:ml-[440px]">
+          <section className=" flex-1 lg:pl-10 md:pr-10 md:py-10 md:ml-[320px] lg:ml-[440px]">
             <p
               className="text-right mb-10 hidden font-semibold cursor-pointer text-secondary md:mt-2 md:block "
               onClick={() => {
