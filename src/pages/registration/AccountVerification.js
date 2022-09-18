@@ -26,8 +26,6 @@ const AccountVerification = () => {
   let navigate = useNavigate();
   const loggedInToken = sessionStorage.getItem("identifier");
   const keepLoggedIn = JSON.parse(sessionStorage.getItem("keepLoggedIn"));
-  console.log("uid", loggedInToken);
-  console.log("span", keepLoggedIn);
   const [isFetching, setIsFetching] = useState(true);
   // const [isUserPhone, setIsUserPhone] = useState(null);
   const [isUserEmail, setIsUserEmail] = useState(null);
@@ -38,7 +36,6 @@ const AccountVerification = () => {
 
   useEffect(() => {
     const getUserDetails = async () => {
-      console.log("fetching user details");
       try {
         // if (localStorage.getItem("authToken")) {
         //   loggedInToken = localStorage.getItem("authToken");
@@ -49,7 +46,6 @@ const AccountVerification = () => {
           "https://api.arteri.tk/api/user/profile/get",
           { headers: { Authorization: `Bearer ${loggedInToken}` } }
         );
-        console.log("fetch successful", response);
         setIsFetching(false);
         setUserAccountType(response.data.data.user_profile.account_type);
         if (response.data.data.user_profile.email) {
@@ -58,20 +54,16 @@ const AccountVerification = () => {
         // if (response.data.data.user_profile.phone) {
         //   setIsUserPhone(true);
         // }
-        console.log(loggedInToken);
 
         // checks if the signed-in user is verified or not
         if (
           response.data?.data?.user_profile?.phone_verified_at ||
           response.data?.data?.user_profile?.email_verified_at
         ) {
-          console.log("span2", keepLoggedIn);
-
           saveAndRedirectUser(
             keepLoggedIn,
             response.data?.data?.user_profile?.account_type
           );
-          console.log("user is verified and is longlive");
 
           sessionStorage.removeItem("identifier");
           sessionStorage.removeItem("keepLoggedIn");
@@ -85,8 +77,6 @@ const AccountVerification = () => {
         // localStorage.removeItem("accountType");
         // sessionStorage.removeItem("accountType");
         // navigate("/login", { replace: true });
-        console.log("error fetching with token");
-        console.log(err);
         navigate("/login", { replace: true });
       }
     };
@@ -96,29 +86,22 @@ const AccountVerification = () => {
   // save users to browser storage and navigate them to their corresponding
   const saveAndRedirectUser = (keepLoggedIn, accountType) => {
     if (keepLoggedIn && accountType === "personal") {
-      console.log("consumer checks longlive");
       // if the user ticks the  "keep-me-loggedIn" checkbox and user is a consumer
       localStorage.setItem("authToken", loggedInToken);
       localStorage.setItem("accountType", accountType);
       navigate("/dashboard", { replace: true });
     } else if (keepLoggedIn && accountType === "provider") {
-      console.log("provider checks longlive");
-
       // if the user ticks the  "keep-me-loggedIn" checkbox and user is a provider
       localStorage.setItem("authToken", loggedInToken);
       localStorage.setItem("accountType", accountType);
       navigate("/provider-dashboard", { replace: true });
     } else if (!keepLoggedIn && accountType === "personal") {
-      console.log("consumer unchecks longlive");
-
       // if the user does not tick the  "keep-me-loggedIn" checkbox and user is a consumer
 
       sessionStorage.setItem("authToken", loggedInToken);
       sessionStorage.setItem("accountType", accountType);
       navigate("/dashboard", { replace: true });
     } else if (!keepLoggedIn && accountType === "provider") {
-      console.log("provider checks longlive");
-
       // if the user does not tick the  "keep-me-loggedIn" checkbox and user is a provider
 
       sessionStorage.setItem("authToken", loggedInToken);
@@ -146,6 +129,14 @@ const AccountVerification = () => {
       );
       saveAndRedirectUser(keepLoggedIn, userAccountType);
       setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "success",
+        title: "Congratulations!",
+        subtitle: response?.data?.data?.flash_message,
+      }));
+
       sessionStorage.removeItem("identifier");
       sessionStorage.removeItem("keepLoggedIn");
       // if (userAccountType === "personal") {
@@ -158,8 +149,6 @@ const AccountVerification = () => {
       // } else if (userAccountType === "provider") {
       //   navigate("/provider-dashboard", { replace: true });
       // }
-
-      console.log(response);
     } catch (err) {
       setIsFetching(false);
       setIsAlertOpen(true);
@@ -169,8 +158,6 @@ const AccountVerification = () => {
         title: "Oops!",
         subtitle: err?.response?.data?.data?.flash_message,
       }));
-
-      console.log(err.response);
     }
   };
   const verifyUserEmail = async () => {
@@ -179,11 +166,6 @@ const AccountVerification = () => {
     let formData = new FormData();
     formData.append("verification_code", emailVerificationCode);
     try {
-      // if (localStorage.getItem("authToken")) {
-      //   loggedInToken = localStorage.getItem("authToken");
-      // } else {
-      //   loggedInToken = sessionStorage.getItem("authToken");
-      // }
       const response = await Axios.post(
         "https://api.arteri.tk/api/account/email-address/verify",
         formData,
@@ -192,12 +174,17 @@ const AccountVerification = () => {
       saveAndRedirectUser(keepLoggedIn, userAccountType);
 
       setIsFetching(false);
+      setIsAlertOpen(true);
+      setAlertProps((prev) => ({
+        ...alertProps,
+        type: "success",
+        title: "Congratulations!",
+        subtitle: response?.data?.data?.flash_message,
+      }));
+
       sessionStorage.removeItem("identifier");
       sessionStorage.removeItem("keepLoggedIn");
-
-      console.log(response);
     } catch (err) {
-      console.log(err.response);
       setIsFetching(false);
       setIsAlertOpen(true);
       setAlertProps((prev) => ({
@@ -212,11 +199,6 @@ const AccountVerification = () => {
     setIsFetching(true);
 
     try {
-      // if (localStorage.getItem("authToken")) {
-      //   loggedInToken = localStorage.getItem("authToken");
-      // } else {
-      //   loggedInToken = sessionStorage.getItem("authToken");
-      // }
       const response = await Axios.post(
         "https://api.arteri.tk/api/account/phone-number/resend-verification-code",
         {},
@@ -230,10 +212,7 @@ const AccountVerification = () => {
         title: "Congratulations!",
         subtitle: response?.data?.data?.flash_message,
       }));
-
-      console.log(response);
     } catch (err) {
-      console.log(err.response);
       setIsFetching(false);
       setIsAlertOpen(true);
       setAlertProps((prev) => ({
@@ -266,10 +245,7 @@ const AccountVerification = () => {
         title: "Congratulations!",
         subtitle: response?.data?.data?.flash_message,
       }));
-
-      console.log(response);
     } catch (err) {
-      console.log(err.response);
       setIsFetching(false);
       setIsAlertOpen(true);
       setAlertProps((prev) => ({
