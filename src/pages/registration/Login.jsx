@@ -235,7 +235,7 @@ const Login = () => {
                     type="email"
                     className="registration-input"
                     name="identifier"
-                    placeholder="Enter phone number or email address"
+                    placeholder="Enter email address or phone"
                     value={loginInputField.identifier}
                     onChange={handleInputChange}
                   />
