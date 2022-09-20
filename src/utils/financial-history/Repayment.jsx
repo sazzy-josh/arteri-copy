@@ -6,6 +6,10 @@ import SearchSort from "../../components/history/SearchSort";
 import Pagination from "../../components/Pagination";
 import TableV2 from "../../components/tables/TableV2";
 
+// skeleton for table data loading
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 const Repayment = () => {
   let navigate = useNavigate();
   const [test, setTest] = useState(false);
@@ -52,43 +56,44 @@ const Repayment = () => {
 
       <section className=" px-3 py-5 sm:shadow-2xl sm:shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0">
         <SearchSort />
-        <table className="w-full">
-          <thead className="">
-            <tr className="mb-5 border-b-2 border-gray-100">
-              <th className="py-3 px-3 whitespace-nowrap font-semibold">
-                Application
-              </th>
-              <th className="py-3 px-3  whitespace-nowrap font-semibold hidden lg:table-cell">
-                Collection Date and Time
-              </th>
-              <th className="py-3 px-3 whitespace-nowrap font-semibold hidden lg:table-cell">
-                Due Date and Time
-              </th>
-              <th className="py-3 px-3 w-48 whitespace-nowrap font-semibold hidden lg:table-cell">
-                Amount
-              </th>
-              <th className="py-3 px-3  whitespace-nowrap font-semibold ">
-                Status
-              </th>
-              {/* <th className="py-3 px-3 w-16 whitespace-nowrap hidden lg:table-cell "></th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {Data.map((item, index) => (
-              <tr
-                key={index}
-                onClick={() =>
-                  navigate(
-                    `/history/details/${item.application_id.slice(
-                      1,
-                      item.application_id.length
-                    )}`
-                  )
-                }
-                className="odd:bg-[#F6FAFD] cursor-pointer"
-              >
-                <td className="py-[18px] px-[0px]   whitespace-nowrap font-medium ">
-                  {/* <Link
+        <SkeletonTheme width={"80%"} borderRadius={"1rem"}>
+          <table className="w-full">
+            <thead className="">
+              <tr className="mb-5 border-b-2 border-gray-100">
+                <th className="py-3 px-3 whitespace-nowrap font-semibold">
+                  Application
+                </th>
+                <th className="py-3 px-3  whitespace-nowrap font-semibold hidden lg:table-cell">
+                  Collection Date and Time
+                </th>
+                <th className="py-3 px-3 whitespace-nowrap font-semibold hidden lg:table-cell">
+                  Due Date and Time
+                </th>
+                <th className="py-3 px-3 w-48 whitespace-nowrap font-semibold hidden lg:table-cell">
+                  Amount
+                </th>
+                <th className="py-3 px-3  whitespace-nowrap font-semibold ">
+                  Status
+                </th>
+                {/* <th className="py-3 px-3 w-16 whitespace-nowrap hidden lg:table-cell "></th> */}
+              </tr>
+            </thead>
+            <tbody>
+              {Data.map((item, index) => (
+                <tr
+                  key={index}
+                  onClick={() =>
+                    navigate(
+                      `/history/details/${item.application_id.slice(
+                        1,
+                        item.application_id.length
+                      )}`
+                    )
+                  }
+                  className="odd:bg-[#F6FAFD] cursor-pointer"
+                >
+                  <td className="py-[18px] px-[0px]   whitespace-nowrap font-medium ">
+                    {/* <Link
                     className="inline-block h-full w-full"
                     to="/history/details/repayment-${item.application_id.slice(
                       1,
@@ -96,30 +101,30 @@ const Repayment = () => {
                     )}"
                   >
                   </Link> */}
-                  {item.application_id}
-                </td>
-                <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
-                  {item.collection_date}
-                </td>
-                <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
-                  {item.due_date}
-                </td>
-                <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
-                  {item.amount}
-                </td>
-                <td className="  py-[18px] px-[0px] whitespace-nowrap font-medium  ">
-                  <p
-                    className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
-                      item.status === "payed" && "text-[#00A03E] bg-[#E5FFEF]"
-                    } ${
-                      item.status === "declined" &&
-                      "text-[#DE4307] bg-[#FEEDE6]"
-                    }`}
-                  >
-                    {item.status}
-                  </p>
-                </td>
-                {/* <td className="py-[18px] px-[0px] whitespace-nowrap hidden lg:table-cell">
+                    {item.application_ide || <Skeleton />}
+                  </td>
+                  <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
+                    {item.collection_datee || <Skeleton />}
+                  </td>
+                  <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
+                    {item.due_datee || <Skeleton />}
+                  </td>
+                  <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
+                    {item.amounte || <Skeleton />}
+                  </td>
+                  <td className="  py-[18px] px-[0px] whitespace-nowrap font-medium  ">
+                    <p
+                      className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
+                        item.status === "payed" && "text-[#00A03E] bg-[#E5FFEF]"
+                      } ${
+                        item.status === "declined" &&
+                        "text-[#DE4307] bg-[#FEEDE6]"
+                      }`}
+                    >
+                      {item.statuse || <Skeleton />}
+                    </p>
+                  </td>
+                  {/* <td className="py-[18px] px-[0px] whitespace-nowrap hidden lg:table-cell">
         <svg
           width="24"
           height="24"
@@ -141,10 +146,11 @@ const Repayment = () => {
           />
         </svg>
       </td> */}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </SkeletonTheme>
       </section>
       <div className=" flex flex-col justify-center items-center my-7">
         <Pagination data={Data} />
