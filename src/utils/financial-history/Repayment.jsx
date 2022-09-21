@@ -101,23 +101,24 @@ const Repayment = () => {
                     )}"
                   >
                   </Link> */}
-                    {item.application_ide || <Skeleton />}
+                    {item.application_id$ || <Skeleton />}
                   </td>
                   <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
-                    {item.collection_datee || <Skeleton />}
+                    {item.collection_date$ || <Skeleton />}
                   </td>
                   <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
-                    {item.due_datee || <Skeleton />}
+                    {item.due_date$ || <Skeleton />}
                   </td>
                   <td className="py-[18px] px-[0px] whitespace-nowrap font-medium hidden lg:table-cell">
-                    {item.amounte || <Skeleton />}
+                    {item.amount$ || <Skeleton />}
                   </td>
                   <td className="  py-[18px] px-[0px] whitespace-nowrap font-medium  ">
                     <p
                       className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
-                        item.status === "payed" && "text-[#00A03E] bg-[#E5FFEF]"
+                        item.status === "payed$" &&
+                        "text-[#00A03E] bg-[#E5FFEF]"
                       } ${
-                        item.status === "declined" &&
+                        item.status === "declined$" &&
                         "text-[#DE4307] bg-[#FEEDE6]"
                       }`}
                     >
