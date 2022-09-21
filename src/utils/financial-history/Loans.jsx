@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 
 import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
 
@@ -110,7 +111,7 @@ const Loans = () => {
           </tbody>
         </table>
         <div className="w-full">
-          <div className="bg-[#F6FAFD] w-32 h-32 mt-10 mx-auto rounded-full flex justify-center items-center">
+          <div className="bg-[#F6FAFD] w-32 h-32 mt-5 mb-2 mx-auto rounded-full flex justify-center items-center">
             <svg
               width="65"
               height="65"
@@ -163,6 +164,14 @@ const Loans = () => {
           <p className="text-[#B3B3B3]">
             Tap the button below to apply for a new loan
           </p>
+          <div className=" ">
+            <button
+              onClick={() => alert("service unavailable")}
+              className=" w-44 h-12 border-none outline-none font-medium  text-white text-center rounded-xl mx-auto text-lg my-4 block  bg-secondary"
+            >
+              Appy for Loan
+            </button>
+          </div>
         </div>
       </section>
       <div className=" flex flex-col justify-center items-center my-7">
