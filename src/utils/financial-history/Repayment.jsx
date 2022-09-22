@@ -13,7 +13,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 const Repayment = () => {
   let navigate = useNavigate();
   const [test, setTest] = useState(false);
-  const Data = [
+  const [data, setData] = useState([
     {
       id: 1,
       application_id: "#74563890",
@@ -46,7 +46,41 @@ const Repayment = () => {
       amount: "35000",
       status: "declined",
     },
-  ];
+  ]);
+  // const Data = [
+  //   {
+  //     id: 1,
+  //     application_id: "#74563890",
+  //     collection_date: "22 Jun, 2022 - 10:39PM",
+  //     due_date: "22 Jun, 2022 - 10:39PM",
+  //     amount: "35000",
+  //     status: "payed",
+  //   },
+  //   {
+  //     id: 2,
+  //     application_id: "#84953890",
+  //     collection_date: "22 Jun, 2022 - 10:39PM",
+  //     due_date: "22 Jun, 2022 - 10:39PM",
+  //     amount: "35000",
+  //     status: "payed",
+  //   },
+  //   {
+  //     id: 3,
+  //     application_id: "#22583890",
+  //     collection_date: "22 Jun, 2022 - 10:39PM",
+  //     due_date: "22 Jun, 2022 - 10:39PM",
+  //     amount: "35000",
+  //     status: "declined",
+  //   },
+  //   {
+  //     id: 4,
+  //     application_id: "#54003890",
+  //     collection_date: "22 Jun, 2022 - 10:39PM",
+  //     due_date: "22 Jun, 2022 - 10:39PM",
+  //     amount: "35000",
+  //     status: "declined",
+  //   },
+  // ];
   if (test) {
     return <TableV2 />;
   }
@@ -79,7 +113,7 @@ const Repayment = () => {
               </tr>
             </thead>
             <tbody>
-              {Data.map((item, index) => (
+              {data.map((item, index) => (
                 <tr
                   key={index}
                   onClick={() =>
@@ -115,14 +149,14 @@ const Repayment = () => {
                   <td className="  py-[18px] px-[0px] whitespace-nowrap font-medium  ">
                     <p
                       className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
-                        item.status === "payed$" &&
+                        item.status$ === "payed" &&
                         "text-[#00A03E] bg-[#E5FFEF]"
                       } ${
-                        item.status === "declined$" &&
+                        item.status$ === "declined" &&
                         "text-[#DE4307] bg-[#FEEDE6]"
                       }`}
                     >
-                      {item.statuse || <Skeleton />}
+                      {item.status$ || <Skeleton />}
                     </p>
                   </td>
                   {/* <td className="py-[18px] px-[0px] whitespace-nowrap hidden lg:table-cell">
@@ -154,7 +188,7 @@ const Repayment = () => {
         </SkeletonTheme>
       </section>
       <div className=" flex flex-col justify-center items-center my-7">
-        <Pagination data={Data} />
+        {/* <Pagination data={Data} /> */}
       </div>
     </>
   );
