@@ -80,7 +80,7 @@ const HistoryEdit = () => {
                   <h3 className="text-left font-bold mb-7">
                     Employment and Bank Details
                   </h3>
-                  <div className="flex flex-col gap-7 sm:flex-row sm:gap-5 flex-wrap ">
+                  <div className="flex flex-col gap-x-7 gap-y-8 sm:flex-row sm:gap-5 flex-wrap ">
                     <label className="edit-loan-label">
                       <p className="edit-loan-label-text">
                         Employer or Business Name
@@ -144,6 +144,26 @@ const HistoryEdit = () => {
                         name="four"
                         className="edit-loan-input "
                         value={data.four}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text">Type of Employment</p>
+                      <input
+                        type="text"
+                        name="five"
+                        className="edit-loan-input "
+                        value={data.five}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text">BVN</p>
+                      <input
+                        type="text"
+                        name="six"
+                        className="edit-loan-input "
+                        value={data.six}
                         onChange={handleInputChange}
                       />
                     </label>
