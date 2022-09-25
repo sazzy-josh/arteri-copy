@@ -18,15 +18,20 @@ const HistoryEdit = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [data, setData] = useState({
-    name: "",
-    one: "",
+    one: "Consumer",
     two: "",
     three: "",
-    four: "",
-    five: "",
-    six: "",
-    seven: "",
-    eight: "",
+    four: "237*****934",
+    five: "Self Employed",
+    six: "237*****976",
+    seven: "Consumer",
+    eight: "Director",
+    nine: "3 Years",
+    ten: "Lagos",
+    eleven: "Muhammed",
+    twelve: "237***97",
+    thirteen: "Brother",
+    fourteen: "Myaccount@yahoo.com",
   });
   const handleInputChange = (e) => {
     console.log(e.target.value);
@@ -77,10 +82,10 @@ const HistoryEdit = () => {
                   </p>
                 </div>
                 <section className="p-5">
-                  <h3 className="text-left font-bold mb-7">
+                  <h3 className="text-left text-lg font-bold mb-7">
                     Employment and Bank Details
                   </h3>
-                  <div className="flex flex-col gap-x-7 gap-y-8 sm:flex-row sm:gap-5 flex-wrap ">
+                  <div className="mb-10 flex flex-col gap-7  sm:flex-row  flex-wrap sm:gap-x-5 sm:gap-y-7">
                     <label className="edit-loan-label">
                       <p className="edit-loan-label-text">
                         Employer or Business Name
@@ -167,6 +172,107 @@ const HistoryEdit = () => {
                         onChange={handleInputChange}
                       />
                     </label>
+                  </div>
+                  <h3 className="text-left text-lg font-bold mb-7">
+                    Work Details
+                  </h3>
+                  <div className="mb-10 flex flex-col gap-7  sm:flex-row  flex-wrap sm:gap-x-5 sm:gap-y-7">
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text">Work Industry</p>
+                      <input
+                        type="text"
+                        name="seven"
+                        className="edit-loan-input "
+                        value={data.seven}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text">Position at Work</p>
+                      <input
+                        type="text"
+                        name="eight"
+                        className="edit-loan-input "
+                        value={data.eight}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text">Employment Length</p>
+                      <input
+                        type="text"
+                        name="nine"
+                        className="edit-loan-input "
+                        value={data.nine}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text">Work Address</p>
+                      <input
+                        type="text"
+                        name="ten"
+                        className="edit-loan-input "
+                        value={data.ten}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                  </div>
+                  <h3 className="text-left text-lg font-bold mb-7">
+                    Next of Kin
+                  </h3>
+                  <div className="mb-10 flex flex-col gap-7  sm:flex-row  flex-wrap sm:gap-x-5 sm:gap-y-7">
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text">Next of kin Name </p>
+                      <input
+                        type="text"
+                        name="eleven"
+                        className="edit-loan-input "
+                        value={data.eleven}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text">
+                        {" "}
+                        Next of kin Phone Number
+                      </p>
+                      <input
+                        type="text"
+                        name="twelve"
+                        className="edit-loan-input "
+                        value={data.twelve}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text"> Relationship</p>
+                      <input
+                        type="text"
+                        name="thirteen"
+                        className="edit-loan-input "
+                        value={data.thirteen}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text"> Relationship</p>
+                      <input
+                        type="text"
+                        name="fourteen"
+                        className="edit-loan-input "
+                        value={data.fourteen}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="mb-5 md:w-72 lg:text-right">
+                    <button className="w-full h-14 rounded-lg border-none outline-none bg-secondary font-medium text-white ">
+                      {" "}
+                      Save Changes
+                    </button>
                   </div>
                 </section>
               </>
