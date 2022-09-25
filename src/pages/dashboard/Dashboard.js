@@ -29,6 +29,9 @@ const Dashboard = () => {
             </div>
             {!isOpen && (
               <div className="w-full px-5 lg:px-0 md:px-0 flex flex-col justify-start items-start">
+                <div>
+                  <p className="font-bold text-left text-2xl text-black mt-2 mb-5">Consumer Health Financing Dashboard</p>
+                </div>
                 <div className="w-full flex lg:flex-row md:flex-col flex-col justify-start items-start">
                   <div className="my-5 block lg:hidden md:hidden">
                     <p className="font-bold text-left text-2xl text-black my-2">

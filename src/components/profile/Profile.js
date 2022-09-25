@@ -7,9 +7,11 @@ import { toast } from "react-toastify";
 import TextField from "../forms/text/TextField";
 import StatusBar from "../status/StatusBar";
 import SelectField from "../forms/text/SelectField";
+import Preloader from "../Preloader";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState({});
   const [provinces, setProvinces] = useState([]);
@@ -34,6 +36,7 @@ const Profile = () => {
   );
 
   const updateProfile = async () => {
+    setLoading(true);
     const accessToken = localStorage.getItem("authToken")
       ? localStorage.getItem("authToken")
       : sessionStorage.getItem("authToken");
@@ -65,15 +68,19 @@ const Profile = () => {
       if (data.status === "success") {
         toast.success(data.message);
         setEdit(!edit);
+        setLoading(false);
       } else {
         toast.error(data.flash_message);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
   const states = async () => {
+    setLoading(true);
     const accessToken = localStorage.getItem("authToken")
       ? localStorage.getItem("authToken")
       : sessionStorage.getItem("authToken");
@@ -91,16 +98,20 @@ const Profile = () => {
       const data = await response.json();
       if (data.status === "success") {
         setProvinces(data.data.provinces);
+        setLoading(false);
       } else {
         toast.error("States cannot be fetched!");
+        setLoading(false);
       }
       console.log("states", data);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
   const profile = async () => {
+    setLoading(true);
     const accessToken = localStorage.getItem("authToken")
       ? localStorage.getItem("authToken")
       : sessionStorage.getItem("authToken");
@@ -118,12 +129,15 @@ const Profile = () => {
       const data = await response.json();
       if (data.status === "success") {
         setUser(data.data.user_profile);
+        setLoading(false)
       } else {
         toast.error("User Profile cannot be fetched!");
+        setLoading(false)
       }
       console.log("data", data);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -157,7 +171,8 @@ const Profile = () => {
 
   return (
     <>
-      <div className="w-full my-5">
+    {loading && <Preloader />}
+      {!loading && <div className="w-full my-5">
         <div className="w-full flex flex-col lg:flex-row justify-start items-center">
           <div className="lg:w-1/4 w-full lg:block lg:flex-col lg:justify-start lg:items-center flex flex-col justify-center items-center">
             <img
@@ -438,7 +453,7 @@ const Profile = () => {
             </div> */}
           </div>
         ) : null}
-      </div>
+      </div>}
     </>
   );
 };
