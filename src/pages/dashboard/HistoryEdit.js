@@ -114,6 +114,39 @@ const HistoryEdit = () => {
                         </p>
                       </div>
                     </label>
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text">
+                        Employment Confirmation Letter
+                      </p>
+                      <input
+                        type="file"
+                        name="three"
+                        accept="image/*, pdf, doc,docx"
+                        id=""
+                        className="hidden"
+                        onChange={handleFileInputChange}
+                      />
+                      <div className="edit-loan-file-input">
+                        <button className="bg-primary text-white text-xs rounded-sm w-[86px] h-7">
+                          Choose
+                        </button>
+                        <p className="text-[#808080] font-medium">
+                          No file selected
+                        </p>
+                      </div>
+                    </label>
+                    <label className="edit-loan-label">
+                      <p className="edit-loan-label-text">
+                        Business Registration Number
+                      </p>
+                      <input
+                        type="text"
+                        name="four"
+                        className="edit-loan-input "
+                        value={data.four}
+                        onChange={handleInputChange}
+                      />
+                    </label>
                   </div>
                 </section>
               </>
