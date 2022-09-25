@@ -1,0 +1,12 @@
+.edit-loan-label {
+  @apply sm:w-72;
+}
+.edit-loan-label-text {
+  @apply text-left mb-3 font-medium;
+}
+.edit-loan-input {
+  @apply w-full h-14 px-4 rounded-lg border-2 border-[#808080] outline-none;
+}
+.edit-loan-file-input {
+  @apply w-full h-14 px-6 rounded-lg border-2 border-[#808080] flex justify-start items-center gap-2;
+}
