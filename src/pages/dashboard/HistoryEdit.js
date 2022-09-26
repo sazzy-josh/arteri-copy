@@ -29,7 +29,7 @@ const HistoryEdit = () => {
     nine: "3 Years",
     ten: "Lagos",
     eleven: "Muhammed",
-    twelve: "237***97",
+    twelve: "237***9677",
     thirteen: "Brother",
     fourteen: "Myaccount@yahoo.com",
   });
@@ -59,10 +59,10 @@ const HistoryEdit = () => {
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
-        <div className="w-1/5 hidden lg:flex md:flex">
+        <div className="w-1/5 hidden lg:flex md:flex h-screen fixed mr-auto">
           <SideMenu selectHistory={true} />
         </div>
-        <div className="lg:w-4/5 w-full">
+        <div className="lg:w-4/5 w-full ml-auto">
           <Container>
             <div className="w-full my-5 lg:flex md:flex hidden">
               <Header />
@@ -111,9 +111,9 @@ const HistoryEdit = () => {
                         onChange={handleFileInputChange}
                       />
                       <div className="edit-loan-file-input">
-                        <button className="bg-primary text-white text-xs rounded-sm w-[86px] h-7">
+                        <p className="bg-primary text-white text-xs rounded-sm w-[86px] h-7 leading-7">
                           Choose
-                        </button>
+                        </p>
                         <p className="text-[#808080] font-medium">
                           No file selected
                         </p>
@@ -131,10 +131,10 @@ const HistoryEdit = () => {
                         className="hidden"
                         onChange={handleFileInputChange}
                       />
-                      <div className="edit-loan-file-input">
-                        <button className="bg-primary text-white text-xs rounded-sm w-[86px] h-7">
+                      <div className="edit-loan-file-input ">
+                        <p className="bg-primary text-white text-xs rounded-sm w-[86px] h-7 leading-7">
                           Choose
-                        </button>
+                        </p>
                         <p className="text-[#808080] font-medium">
                           No file selected
                         </p>
@@ -268,7 +268,7 @@ const HistoryEdit = () => {
                       />
                     </label>
                   </div>
-                  <div className="mb-5 md:w-72 lg:text-right">
+                  <div className="mb-5 md:w-72 lg:text-center">
                     <button className="w-full h-14 rounded-lg border-none outline-none bg-secondary font-medium text-white ">
                       {" "}
                       Save Changes
