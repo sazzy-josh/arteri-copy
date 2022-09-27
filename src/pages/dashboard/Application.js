@@ -10,6 +10,9 @@ import NextOfKin from "../../components/terms/NextOfKin";
 import Terms from "../../components/terms/Terms";
 import Work from "../../components/terms/Work";
 
+// contexts
+import { LoanContext } from "../../contexts/dashboardContext/loanContext";
+
 const Application = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showTerms, setShowTerms] = useState(true);
@@ -17,134 +20,147 @@ const Application = () => {
   const [showCosts, setShowCosts] = useState(false);
   const [showWork, setShowWork] = useState(false);
   const [showNok, setShowNok] = useState(false);
+
+  // test context
+  const [testContext1, setTestContext1] = useState("test1");
+  const [testContext2, setTestContext2] = useState("test2");
+  const [testContext3, setTestContext3] = useState("test3");
   return (
-    <div className="w-screen">
-      <div className="w-full flex flex-row justify-start items-start">
-        <div className="w-1/5 hidden lg:flex md:flex h-screen fixed mr-auto">
-          <SideMenu selectApplication={true} />
-        </div>
-        <div className="lg:w-4/5 w-full ml-auto">
-          <Container>
-            <div className="w-full my-5 lg:flex md:flex hidden">
-              <Header />
-            </div>
-            <div className="w-screen lg:hidden md:hidden flex">
-              <MobileHeader
-                selectApplication={true}
-                open={isOpen}
-                setOpen={() => setIsOpen(!isOpen)}
-              />
-            </div>
-            {!isOpen && (
-              <div className="w-full flex flex-col justify-start items-start">
-                <div className="w-full lg:px-0 md:px-0 px-5">
-                  <div className="w-full flex flex-row justify-between items-center my-5">
-                    <p className="mr-auto text-2xl font-bold">
-                      Financing Application
-                    </p>
-                    <p className="ml-auto text-2xl font-bold text-gray-600">
-                      <span>1</span>/<span className="text-sky-600">7</span>
-                    </p>
-                  </div>
-                  <div className="">
-                    {showDetails && (
-                      <Details
-                        handleDecline={() => {
-                          setShowTerms(false);
-                          setShowDetails(true);
-                          setShowCosts(false);
-                          setShowWork(false);
-                          setShowNok(false);
-                        }}
-                        handleAccept={() => {
-                          setShowTerms(true);
-                          setShowDetails(false);
-                          setShowCosts(false);
-                          setShowWork(false);
-                          setShowNok(false);
-                        }}
-                      />
-                    )}
-                    {showTerms && (
-                      <Terms
-                        handleDecline={() => {
-                          setShowTerms(false);
-                          setShowDetails(true);
-                          setShowCosts(false);
-                          setShowWork(false);
-                          setShowNok(false);
-                        }}
-                        handleAccept={() => {
-                          setShowTerms(false);
-                          setShowDetails(false);
-                          setShowCosts(true);
-                          setShowWork(false);
-                          setShowNok(false);
-                        }}
-                      />
-                    )}
-                    {showCosts && (
-                      <Cost
-                        handleDecline={() => {
-                          setShowTerms(false);
-                          setShowDetails(true);
-                          setShowCosts(false);
-                          setShowWork(false);
-                          setShowNok(false);
-                        }}
-                        handleAccept={() => {
-                          setShowTerms(false);
-                          setShowDetails(false);
-                          setShowCosts(false);
-                          setShowWork(true);
-                          setShowNok(false);
-                        }}
-                      />
-                    )}
-                    {showWork && (
-                      <Work
-                        handleDecline={() => {
-                          setShowTerms(false);
-                          setShowDetails(false);
-                          setShowCosts(true);
-                          setShowWork(false);
-                          setShowNok(false);
-                        }}
-                        handleAccept={() => {
-                          setShowTerms(false);
-                          setShowDetails(false);
-                          setShowCosts(false);
-                          setShowWork(false);
-                          setShowNok(true);
-                        }}
-                      />
-                    )}
-                    {showNok && (
-                      <NextOfKin
-                        handleDecline={() => {
-                          setShowTerms(false);
-                          setShowDetails(false);
-                          setShowCosts(false);
-                          setShowWork(true);
-                          setShowNok(false);
-                        }}
-                        handleAccept={() => {
-                          setShowTerms(false);
-                          setShowDetails(false);
-                          setShowCosts(false);
-                          setShowWork(false);
-                          setShowNok(true);
-                        }}
-                      />
-                    )}
+    <LoanContext.Provider
+      value={{
+        testContext1,
+        testContext2,
+        testContext3,
+      }}
+    >
+      <div className="w-screen">
+        <div className="w-full flex flex-row justify-start items-start">
+          <div className="w-1/5 hidden lg:flex md:flex h-screen fixed mr-auto">
+            <SideMenu selectApplication={true} />
+          </div>
+          <div className="lg:w-4/5 w-full ml-auto">
+            <Container>
+              <div className="w-full my-5 lg:flex md:flex hidden">
+                <Header />
+              </div>
+              <div className="w-screen lg:hidden md:hidden flex">
+                <MobileHeader
+                  selectApplication={true}
+                  open={isOpen}
+                  setOpen={() => setIsOpen(!isOpen)}
+                />
+              </div>
+              {!isOpen && (
+                <div className="w-full flex flex-col justify-start items-start">
+                  <div className="w-full lg:px-0 md:px-0 px-5">
+                    <div className="w-full flex flex-row justify-between items-center my-5">
+                      <p className="mr-auto text-2xl font-bold">
+                        Financing Application
+                      </p>
+                      <p className="ml-auto text-2xl font-bold text-gray-600">
+                        <span>1</span>/<span className="text-sky-600">7</span>
+                      </p>
+                    </div>
+                    <div className="">
+                      {showDetails && (
+                        <Details
+                          handleDecline={() => {
+                            setShowTerms(false);
+                            setShowDetails(true);
+                            setShowCosts(false);
+                            setShowWork(false);
+                            setShowNok(false);
+                          }}
+                          handleAccept={() => {
+                            setShowTerms(true);
+                            setShowDetails(false);
+                            setShowCosts(false);
+                            setShowWork(false);
+                            setShowNok(false);
+                          }}
+                        />
+                      )}
+                      {showTerms && (
+                        <Terms
+                          handleDecline={() => {
+                            setShowTerms(false);
+                            setShowDetails(true);
+                            setShowCosts(false);
+                            setShowWork(false);
+                            setShowNok(false);
+                          }}
+                          handleAccept={() => {
+                            setShowTerms(false);
+                            setShowDetails(false);
+                            setShowCosts(true);
+                            setShowWork(false);
+                            setShowNok(false);
+                          }}
+                        />
+                      )}
+                      {showCosts && (
+                        <Cost
+                          handleDecline={() => {
+                            setShowTerms(false);
+                            setShowDetails(true);
+                            setShowCosts(false);
+                            setShowWork(false);
+                            setShowNok(false);
+                          }}
+                          handleAccept={() => {
+                            setShowTerms(false);
+                            setShowDetails(false);
+                            setShowCosts(false);
+                            setShowWork(true);
+                            setShowNok(false);
+                          }}
+                        />
+                      )}
+                      {showWork && (
+                        <Work
+                          handleDecline={() => {
+                            setShowTerms(false);
+                            setShowDetails(false);
+                            setShowCosts(true);
+                            setShowWork(false);
+                            setShowNok(false);
+                          }}
+                          handleAccept={() => {
+                            setShowTerms(false);
+                            setShowDetails(false);
+                            setShowCosts(false);
+                            setShowWork(false);
+                            setShowNok(true);
+                          }}
+                        />
+                      )}
+                      {showNok && (
+                        <NextOfKin
+                          handleDecline={() => {
+                            setShowTerms(false);
+                            setShowDetails(false);
+                            setShowCosts(false);
+                            setShowWork(true);
+                            setShowNok(false);
+                          }}
+                          handleAccept={() => {
+                            setShowTerms(false);
+                            setShowDetails(false);
+                            setShowCosts(false);
+                            setShowWork(false);
+                            setShowNok(true);
+                          }}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </Container>
+              )}
+            </Container>
+          </div>
         </div>
       </div>
-    </div>
+    </LoanContext.Provider>
   );
 };
 
