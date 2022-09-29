@@ -4,7 +4,7 @@ import SecondaryButton from "../buttons/SecondaryButton";
 import LargeCard from "../cards/LargeCard";
 import PrimaryButton2 from "../forms/buttons/PrimaryButton";
 
-const Terms = ({handleAccept, handleDecline}) => {
+const Terms = ({handleAccept, handleDecline, acceptTerms, accept}) => {
   return (
     <div className="w-full">
       <div className="w-full">
@@ -37,7 +37,7 @@ const Terms = ({handleAccept, handleDecline}) => {
             </div>
             <div className="w-full flex lg:flex-row flex-col justify-between items-center mt-20">
               <div className="flex flex-row justify-start items-center lg:w-2/3 w-full">
-                <input className="focus:bg-secondary border-green-200 text-secondary mr-2" type="checkbox" />{" "}
+                <input checked={accept} onChange={acceptTerms} className="focus:bg-secondary border-green-200 text-secondary mr-2" type="checkbox" />{" "}
                 <p>I agree to Arteri Terms of Service and Privacy Policy</p>
               </div>
               <div className="flex lg:flex-row md:flex-row flex-col justify-start items-center lg:w-1/3 w-full">
