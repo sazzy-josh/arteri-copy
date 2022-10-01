@@ -29,7 +29,9 @@ const Notification = () => {
     <div>
       <section className=" px-3 py-5 sm:shadow-2xl sm:shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0">
         <SearchSort />
+        <div className="bg-white py-5 rounded-md">
         <TableWithoutHead Data={Data} />
+        </div>
       </section>
       <div className=" flex flex-col justify-center items-center my-10">
         <Pagination />
