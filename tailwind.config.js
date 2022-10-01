@@ -6,13 +6,15 @@ module.exports = {
       colors: {
         primary: "#3385D7",
         secondary: "#8BC34A",
-        background: '#F5F5F5',
-        shade: '#808080'
+        background: "#F5F5F5",
+        shade: "#808080",
       },
       fontFamily: {
         Montserrat: ["Montserrat", "sans-serif"],
       },
     },
   },
-  plugins: [/* require("@tailwindcss/forms") */],
+  plugins: [
+    /* require("@tailwindcss/forms") */
+  ],
 };

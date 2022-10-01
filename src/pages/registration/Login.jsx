@@ -209,7 +209,7 @@ const Login = () => {
           </div>
           {<img src={image1} alt="" className="object-cover  h-full" />}
         </div>
-        <div className="flex-1 lg:pl-10 md:pr-10 md:py-10 md:ml-[350px] lg:ml-[440px]">
+        <div className="bg-white flex-1 lg:pl-10 md:pr-10 md:py-10 md:ml-[350px] lg:ml-[440px]">
           <p
             className="text-right mb-10 hidden font-semibold cursor-pointer text-secondary md:mt-2 md:block "
             onClick={() => {
