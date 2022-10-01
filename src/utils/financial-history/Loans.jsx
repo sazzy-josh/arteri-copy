@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import Axios from "axios";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 
 import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
@@ -7,8 +8,25 @@ import HistoryPageNavigation from "../../components/history/HistoryPageNavigatio
 import SearchSort from "../../components/history/SearchSort";
 import Pagination from "../../components/Pagination";
 
+// skeleton for table data loading
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 const Loans = () => {
+  const loggedInToken =
+    sessionStorage.getItem("authToken") || localStorage.getItem("authToken");
+
   let navigate = useNavigate();
+  // implement useCallback for asynchronous function
+  const [historyData, setHistoryData] = useState({});
+
+  const [currentURL, setCurrentURL] = useState(
+    "https://api.arteri.tk/api/loan/history/get?page=1"
+  );
+  const [isTableLoading, setIsTableLoading] = useState(true);
+  useEffect(() => {
+    fetchHistory(currentURL);
+  }, [currentURL]);
   const Data = [
     {
       id: 1,
@@ -35,15 +53,26 @@ const Loans = () => {
       status: "declined",
     },
   ];
+  const fetchHistory = async (url) => {
+    try {
+      const response = await Axios.get(url, {
+        headers: { Authorization: `Bearer ${loggedInToken}` },
+      });
+      console.log(response);
+      setIsTableLoading(false);
+    } catch (err) {
+      // catch errors
+    }
+  };
   return (
     <>
       <HistoryPageNavigation />
 
-      <section className=" px-3 py-5 sm:shadow-2xl sm:shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0">
+      <section className=" mb-8 px-3 py-5 sm:shadow-2xl sm:shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0 md:mb-12">
         <SearchSort />
         <table className="w-full ">
           <thead className="">
-            <tr className="mb-5 border-b-2 border-gray-100">
+            <tr className="mb-5 border-b border-gray-300">
               <th className="py-3 px-3 whitespace-nowrap font-semibold">
                 Application
               </th>
@@ -64,7 +93,43 @@ const Loans = () => {
             <tr className="bg-red-300 h-5"></tr>
           </thead>
           <tbody>
-            {Data.map((item, index) => (
+            {isTableLoading &&
+              [1, 2, 3, 4, 5].map((item, index) => (
+                <tr
+                  onClick={() =>
+                    navigate(
+                      `/history/details/${item.application_id.slice(
+                        1,
+                        item.application_id.length
+                      )}`
+                    )
+                  }
+                  key={index}
+                  className="odd:bg-[#F6FAFD] cursor-pointer"
+                >
+                  <td className="p-[18px] whitespace-nowrap font-medium ">
+                    <Skeleton />
+                  </td>
+                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                    <Skeleton />
+                  </td>
+                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                    <Skeleton />
+                  </td>
+                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                    <Skeleton />
+                  </td>
+                  <td className="p-[18px] whitespace-nowrap font-medium  ">
+                    <p
+                      className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium `}
+                    >
+                      <Skeleton />
+                    </p>
+                  </td>
+                </tr>
+              ))}
+
+            {/* {historyData.map((item, index) => (
               <tr
                 onClick={() =>
                   navigate(
@@ -106,13 +171,15 @@ const Loans = () => {
                   </p>
                 </td>
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </table>
       </section>
-      <div className=" flex flex-col justify-center items-center my-7">
-        <Pagination data={Data} />
-      </div>
+      {!isTableLoading && (
+        <div className=" flex flex-col justify-center items-center my-7">
+          <Pagination data={Data} />
+        </div>
+      )}
     </>
   );
 };
