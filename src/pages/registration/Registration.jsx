@@ -79,7 +79,7 @@ const Registration = () => {
           setAlertProps,
         }}
       >
-        <div className=" md:flex">
+        <div className=" md:flex bg-white">
           <div className=" w-[350px]  h-auto fixed hidden md:block lg:w-[440px] md:h-screen">
             {sidebarImage === "image1" && (
               <>
@@ -116,7 +116,7 @@ const Registration = () => {
               <img src={image3} alt="" className="object-cover  h-full" />
             )}
           </div>
-          <section className="flex-1 lg:pl-10 md:py-10 md:ml-[350px] lg:ml-[440px] bg-white">
+          <section className="flex-1 lg:pl-10 md:py-10 md:ml-[350px] lg:ml-[440px] min-h-screen ">
             <MobileNavbar />
             <div className="lg:flex md:justify-between md:items-start md:px-5 md:mb-4">
               <NumberPagination />
