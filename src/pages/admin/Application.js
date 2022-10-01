@@ -6,11 +6,12 @@ import MobileHeader from "../../components/head/MobileHeader";
 import ProviderMobileHeader from "../../components/head/ProviderMobileHeader";
 import ProviderSideMenu from "../../components/nav/ProviderSideBar";
 import SideMenu from "../../components/nav/SideBar";
-import Cost from "../../components/terms/Cost";
-import Details from "../../components/terms/Details";
-import NextOfKin from "../../components/terms/NextOfKin";
-import Terms from "../../components/terms/Terms";
-import Work from "../../components/terms/Work";
+import Cost from "../../components/pro-loan/Cost";
+import Details from "../../components/pro-loan/Details";
+import NextOfKin from "../../components/pro-loan/NextOfKin";
+import Terms from "../../components/pro-loan/Terms";
+import Work from "../../components/pro-loan/Work";
+import ReviewPage from "../../components/pro-loan/ReviewPage";
 
 const ProviderApplication = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,8 @@ const ProviderApplication = () => {
   const [showCosts, setShowCosts] = useState(false);
   const [showWork, setShowWork] = useState(false);
   const [showNok, setShowNok] = useState(false);
+  const [showReview, setShowReview] = useState(false);
+
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
@@ -51,91 +54,104 @@ const ProviderApplication = () => {
                   <div className="">
                     {showDetails && (
                       <Details
+                        button={true}
                         handleDecline={() => {
-                          setShowTerms(false);
-                          setShowDetails(true);
-                          setShowCosts(false);
-                          setShowWork(false);
-                          setShowNok(false);
-                        }}
-                        handleAccept={() => {
                           setShowTerms(true);
                           setShowDetails(false);
                           setShowCosts(false);
                           setShowWork(false);
-                          setShowNok(false);
+
+                          setShowReview(false);
+                        }}
+                        handleAccept={() => {
+                          setShowTerms(false);
+                          setShowDetails(false);
+                          setShowCosts(true);
+                          setShowWork(false);
+
+                          setShowReview(false);
                         }}
                       />
                     )}
                     {showTerms && (
                       <Terms
                         handleDecline={() => {
+                          setShowTerms(true);
+                          setShowDetails(false);
+                          setShowCosts(false);
+                          setShowWork(false);
+
+                          setShowReview(false);
+                        }}
+                        handleAccept={() => {
                           setShowTerms(false);
                           setShowDetails(true);
                           setShowCosts(false);
                           setShowWork(false);
-                          setShowNok(false);
-                        }}
-                        handleAccept={() => {
-                          setShowTerms(false);
-                          setShowDetails(false);
-                          setShowCosts(true);
-                          setShowWork(false);
-                          setShowNok(false);
+
+                          setShowReview(false);
                         }}
                       />
                     )}
                     {showCosts && (
                       <Cost
+                        button={true}
                         handleDecline={() => {
                           setShowTerms(false);
                           setShowDetails(true);
                           setShowCosts(false);
                           setShowWork(false);
-                          setShowNok(false);
+
+                          setShowReview(false);
                         }}
                         handleAccept={() => {
                           setShowTerms(false);
                           setShowDetails(false);
                           setShowCosts(false);
                           setShowWork(true);
-                          setShowNok(false);
+
+                          setShowReview(false);
                         }}
                       />
                     )}
                     {showWork && (
                       <Work
+                        button={true}
                         handleDecline={() => {
                           setShowTerms(false);
                           setShowDetails(false);
                           setShowCosts(true);
                           setShowWork(false);
-                          setShowNok(false);
+
+                          setShowReview(false);
                         }}
                         handleAccept={() => {
                           setShowTerms(false);
                           setShowDetails(false);
                           setShowCosts(false);
                           setShowWork(false);
-                          setShowNok(true);
+                          setShowReview(true);
                         }}
                       />
                     )}
-                    {showNok && (
-                      <NextOfKin
+
+                    {showReview && (
+                      <ReviewPage
                         handleDecline={() => {
                           setShowTerms(false);
                           setShowDetails(false);
                           setShowCosts(false);
-                          setShowWork(true);
-                          setShowNok(false);
+                          setShowWork(false);
+                          setShowNok(true);
+                          setShowReview(false);
                         }}
                         handleAccept={() => {
                           setShowTerms(false);
                           setShowDetails(false);
                           setShowCosts(false);
                           setShowWork(false);
-                          setShowNok(true);
+
+                          setShowReview(true);
                         }}
                       />
                     )}

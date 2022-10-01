@@ -65,7 +65,7 @@ const ProviderSideMenu = ({
                 <span>Overview</span>
               </div>
               <div
-                onClick={() => navigate("/application")}
+                onClick={() => navigate("/provider-loan")}
                 className={
                   selectApplication
                     ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`

@@ -40,6 +40,7 @@ import { ModalContext } from "../contexts/ModalContext";
 import Preloader from "../components/Preloader";
 import LogOutAlert from "../components/custom-alerts/LogOutAlert";
 import Alert from "../components/Alert";
+import ProviderApplication from "../pages/admin/Application";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
@@ -123,6 +124,7 @@ const ArteriRoutes = () => {
             element={<ProviderNotifications />}
           />
           <Route path="provider-settings" element={<ProviderSettings />} />
+          <Route path="provider-loan" element={<ProviderApplication />} />
           <Route
             path="/provider-history"
             // element={<Navigate to="/history/repayment" replace={true} />}
