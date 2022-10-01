@@ -12,12 +12,7 @@
 }
 body {
   overflow-x: hidden;
-<<<<<<< HEAD
   background-color: #f5f5f5;
-=======
-  background: #F5F5F5;
-  /* Nothing here */
->>>>>>> a397371a88cc59fd87da5e311c5c8387dbfadf06
 }
 
 .custom-file-input::-webkit-file-upload-button {
