@@ -39,7 +39,7 @@ const ProviderSideMenu = ({
           <div className="flex flex-row justify-between items-center text-white cursor-pointer">
             <p
               onClick={() => {
-                setDash(!dash);
+                setDash(true);
                 setTool(false);
                 setOthers(false);
               }}
@@ -52,7 +52,12 @@ const ProviderSideMenu = ({
           {dash && (
             <div>
               <div
-                onClick={() => navigate("/provider-dashboard")}
+                onClick={() => {
+                  setDash(true);
+                  setTool(false);
+                  setOthers(false);
+                  navigate("/provider-dashboard");
+                }}
                 className={
                   selectDash
                     ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -65,7 +70,12 @@ const ProviderSideMenu = ({
                 <span>Overview</span>
               </div>
               <div
-                onClick={() => navigate("/provider-loan")}
+                onClick={() => {
+                  setDash(true);
+                  setTool(false);
+                  setOthers(false);
+                  navigate("/provider-loan");
+                }}
                 className={
                   selectApplication
                     ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -78,7 +88,12 @@ const ProviderSideMenu = ({
                 <span>Apply for loan</span>
               </div>
               <div
-                onClick={() => navigate("/history/repayment")}
+                onClick={() => {
+                  setDash(true);
+                  setTool(false);
+                  setOthers(false);
+                  navigate("/history/repayment");
+                }}
                 className={
                   selectHistory
                     ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -91,7 +106,12 @@ const ProviderSideMenu = ({
                 <span>Repay Loan</span>
               </div>
               <div
-                onClick={() => navigate("/provider-account")}
+                onClick={() => {
+                  setDash(true);
+                  setTool(false);
+                  setOthers(false);
+                  navigate("/provider-account");
+                }}
                 className={
                   selectAccount
                     ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -112,7 +132,7 @@ const ProviderSideMenu = ({
             <p
               onClick={() => {
                 setDash(false);
-                setTool(!tool);
+                setTool(true);
                 setOthers(false);
               }}
               className="text-white font-semibold text-left px-5 my-5 whitespace-nowrap"
@@ -218,7 +238,7 @@ const ProviderSideMenu = ({
               onClick={() => {
                 setDash(false);
                 setTool(false);
-                setOthers(!others);
+                setOthers(true);
               }}
               className="text-white font-semibold text-left px-5 whitespace-nowrap"
             >
@@ -229,7 +249,12 @@ const ProviderSideMenu = ({
           {others && (
             <div>
               <div
-                onClick={() => navigate("/provider-history/repayment")}
+                onClick={() => {
+                  setDash(false);
+                  setTool(false);
+                  setOthers(true);
+                  navigate("/provider-history/repayment");
+                }}
                 className={
                   selectHistory
                     ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -242,7 +267,12 @@ const ProviderSideMenu = ({
                 <span>History</span>
               </div>
               <div
-                onClick={() => navigate("/provider-notifications")}
+                onClick={() => {
+                  setDash(false);
+                  setTool(false);
+                  setOthers(true);
+                  navigate("/provider-notifications");
+                }}
                 className={
                   selectNot
                     ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -255,7 +285,12 @@ const ProviderSideMenu = ({
                 <span>Notifications</span>
               </div>
               <div
-                onClick={() => navigate("/provider-settings")}
+                onClick={() => {
+                  setDash(false);
+                  setTool(false);
+                  setOthers(true);
+                  navigate("/provider-settings");
+                }}
                 className={
                   selectSettings
                     ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
@@ -268,7 +303,12 @@ const ProviderSideMenu = ({
                 <span>Settings</span>
               </div>
               <div
-                onClick={() => navigate("/provider-help")}
+                onClick={() => {
+                  setDash(false);
+                  setTool(false);
+                  setOthers(true);
+                  navigate("/provider-help");
+                }}
                 className={
                   selectHelp
                     ? `flex flex-row justify-start items-center font-semibold whitespace-nowrap text-sky-600 cursor-pointer hover:transition-all ease-in-out bg-white px-0 py-2 rounded-md my-5`
