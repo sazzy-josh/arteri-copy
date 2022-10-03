@@ -13,6 +13,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 const Repayment = () => {
   let navigate = useNavigate();
   const [isTableLoading, setIsTableLoading] = useState(true);
+  // show preloader
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsTableLoading(false);

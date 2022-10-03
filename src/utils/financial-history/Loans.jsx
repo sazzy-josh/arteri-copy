@@ -24,11 +24,19 @@ const Loans = () => {
     "https://api.arteri.tk/api/loan/history/get?page=14"
   );
   const [isTableLoading, setIsTableLoading] = useState(true);
+  // show preloader
   useEffect(() => {
-    console.log("useEffect");
-    fetchHistory(currentURL);
-    console.log("Data is:", historyData, historyData.length);
-  }, [currentURL]);
+    const timer = setTimeout(() => {
+      setIsTableLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   fetchHistory(currentURL);
+  //   console.log("Data is:", historyData, historyData.length);
+  // }, [currentURL]);
   const Data = [
     {
       id: 1,
@@ -141,7 +149,7 @@ const Loans = () => {
                 </tr>
               ))}
 
-            {historyData?.loan_applications?.data.length
+            {/* {historyData?.loan_applications?.data.length
               ? historyData?.loan_applications?.data.map((item, index) => (
                   <tr
                     // onClick={() =>
@@ -191,11 +199,11 @@ const Loans = () => {
                     </td>
                   </tr>
                 ))
-              : null}
+              : null} */}
           </tbody>
         </table>
-        {historyData?.loan_applications?.data.length === 0 &&
-        !isTableLoading ? (
+        {/* {historyData?.loan_applications?.data.length === 0 && */}
+        {!isTableLoading ? (
           <div className="w-full">
             <div className="bg-[#F6FAFD] w-32 h-32 mt-5 mb-2 mx-auto rounded-full flex justify-center items-center">
               <svg
