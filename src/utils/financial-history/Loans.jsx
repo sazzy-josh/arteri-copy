@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
@@ -18,14 +18,16 @@ const Loans = () => {
 
   let navigate = useNavigate();
   // implement useCallback for asynchronous function
-  const [historyData, setHistoryData] = useState([]);
+  const [historyData, setHistoryData] = useState({});
 
   const [currentURL, setCurrentURL] = useState(
-    "https://api.arteri.tk/api/loan/history/get?page=1"
+    "https://api.arteri.tk/api/loan/history/get?page=14"
   );
   const [isTableLoading, setIsTableLoading] = useState(true);
   useEffect(() => {
+    console.log("useEffect");
     fetchHistory(currentURL);
+    console.log("Data is:", historyData, historyData.length);
   }, [currentURL]);
   const Data = [
     {
@@ -53,27 +55,33 @@ const Loans = () => {
       status: "declined",
     },
   ];
-  const fetchHistory = async (url) => {
+  const fetchHistory = useCallback(async (url) => {
+    setHistoryData({});
+    setIsTableLoading(true);
     try {
       const response = await Axios.get(url, {
         headers: { Authorization: `Bearer ${loggedInToken}` },
       });
-      // console.log(response.data?.data?.loan_applications?.data);
-      setHistoryData(response.data?.data?.loan_applications?.data);
+      // setHistoryData(response.data?.data);
+      setHistoryData({});
       setIsTableLoading(false);
-      console.log("Data is:", historyData, historyData.length);
     } catch (err) {
       // catch errors
       setIsTableLoading(false);
       setHistoryData([]);
     }
-  };
+  }, []);
   return (
     <>
       <HistoryPageNavigation />
 
       <section className=" mb-8 px-3 py-5 sm:shadow-2xl sm:shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0 md:mb-12">
         <SearchSort />
+
+        {/* <p className="font-medium">
+          current page is: {historyData?.loan_applications?.current_page}
+        </p> */}
+
         <table className="w-full ">
           <thead className="">
             <tr className="mb-5 border-b border-gray-300">
@@ -133,8 +141,8 @@ const Loans = () => {
                 </tr>
               ))}
 
-            {historyData.length
-              ? historyData.map((item, index) => (
+            {historyData?.loan_applications?.data.length
+              ? historyData?.loan_applications?.data.map((item, index) => (
                   <tr
                     // onClick={() =>
                     //   navigate(`/history/details/${item.application_id}`)
@@ -186,7 +194,8 @@ const Loans = () => {
               : null}
           </tbody>
         </table>
-        {historyData.length === 0 && !isTableLoading ? (
+        {historyData?.loan_applications?.data.length === 0 &&
+        !isTableLoading ? (
           <div className="w-full">
             <div className="bg-[#F6FAFD] w-32 h-32 mt-5 mb-2 mx-auto rounded-full flex justify-center items-center">
               <svg
@@ -252,9 +261,15 @@ const Loans = () => {
           </div>
         ) : null}
       </section>
-      {historyData.length && (
+      {historyData?.loan_applications?.data.length && (
         <div className=" flex flex-col justify-center items-center my-7">
-          <Pagination data={Data} />
+          <Pagination
+            data={Data}
+            setCurrentURL={setCurrentURL}
+            links={historyData?.loan_applications?.links}
+            prevPageUrl={historyData?.loan_applications?.prev_page_url}
+            nextPageUrl={historyData?.loan_applications?.next_page_url}
+          />
         </div>
       )}
     </>
