@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-const Pagination = ({ data }) => {
+const TablePagination = ({
+  data,
+  links,
+  prevPageUrl,
+  nextPageUrl,
+  setCurrentURL,
+}) => {
   // const [currentPage, setCurrentPage] = useState(2);
   // const [itemsPerPage, setItemsPerPage] = useState(3);
   // const pages = [];
@@ -11,6 +17,10 @@ const Pagination = ({ data }) => {
   // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   // const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
   // console.log(currentItems);
+
+  // const handleUrlChange=()=>{
+
+  // }
   return (
     <>
       <div className="w-full flex flex-col gap-5 lg:hidden">
@@ -93,10 +103,16 @@ const Pagination = ({ data }) => {
           <p className="w-6 h-6 leading-6 text-center border  border-gray-500 rounded-[5px] text-sm  text-gray-600 inline-block mr-4  ">
             20
           </p>
-          <button className="w-[85px] h-12 text-lg  outline-none font-medium border-2 border-secondary text-secondary text-center rounded-lg mr-3 my-3 inline-block">
+          <button
+            onClick={() => setCurrentURL(() => prevPageUrl)}
+            className="w-[85px] h-12 text-lg  outline-none font-medium border-2 border-secondary text-secondary text-center rounded-lg mr-3 my-3 inline-block"
+          >
             Back
           </button>
-          <button className="w-[85px] h-12 text-lg  outline-none font-medium  bg-secondary text-white text-center rounded-lg  my-3 inline-block">
+          <button
+            onClick={() => setCurrentURL(() => nextPageUrl)}
+            className="w-[85px] h-12 text-lg  outline-none font-medium  bg-secondary text-white text-center rounded-lg  my-3 inline-block"
+          >
             Next
           </button>
         </div>
@@ -105,4 +121,4 @@ const Pagination = ({ data }) => {
   );
 };
 
-export default Pagination;
+export default TablePagination;
