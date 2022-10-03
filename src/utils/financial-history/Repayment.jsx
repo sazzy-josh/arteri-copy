@@ -203,7 +203,7 @@ const Repayment = () => {
             </p>
             <div className=" ">
               <button
-                onClick={() => alert("service unavailable")}
+                onClick={() => navigate("/application", { replace: true })}
                 className=" w-44 h-12 border-none outline-none font-medium  text-white text-center rounded-xl mx-auto text-lg my-4 block  bg-secondary"
               >
                 Appy for Loan
