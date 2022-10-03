@@ -380,7 +380,7 @@ const Login = () => {
                     }}
                   />
                   <div
-                    className={` min-w-[24px] h-6 flex justify-center items-center rounded-md mr-2 ${
+                    className={` min-w-[24px] w-6 h-6 flex justify-center items-center rounded-md mr-2 ${
                       longLiveAuthToken
                         ? "bg-secondary"
                         : "bg-none border-2 border-gray-400"
