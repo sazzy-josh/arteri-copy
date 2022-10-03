@@ -59,11 +59,13 @@ const Loans = () => {
         headers: { Authorization: `Bearer ${loggedInToken}` },
       });
       // console.log(response.data?.data?.loan_applications?.data);
+      setHistoryData(response.data?.data?.loan_applications?.data);
       setIsTableLoading(false);
-      // setHistoryData(response.data?.data?.loan_applications?.data);
-      console.log("Data is:", historyData);
+      console.log("Data is:", historyData, historyData.length);
     } catch (err) {
       // catch errors
+      setIsTableLoading(false);
+      setHistoryData([]);
     }
   };
   return (
@@ -131,53 +133,60 @@ const Loans = () => {
                 </tr>
               ))}
 
-            {historyData.length &&
-              historyData.map((item, index) => (
-                <tr
-                  // onClick={() =>
-                  //   navigate(`/history/details/${item.application_id}`)
-                  // }
-                  key={index}
-                  className="odd:bg-[#F6FAFD] cursor-pointer"
-                >
-                  <td className="p-[18px] whitespace-nowrap font-medium ">
-                    {item.application_id}
-
-                    {/* vh;ms */}
-                  </td>
-                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                    {item.collection_date ?? "- - -"}
-                  </td>
-                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                    {item.due_date ?? "- - -"}
-                  </td>
-                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                    {item?.extended_details?.loan_information
-                      ?.amount_requested ?? "- - -"}
-                  </td>
-                  <td className="p-[18px] whitespace-nowrap font-medium  ">
-                    <p
-                      className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
-                        item.application_status === "approved" &&
-                        "text-[#00A03E] bg-[#E5FFEF]"
-                      } ${
-                        item.application_status === "pending" &&
-                        "text-[#F29C2B] bg-[#FDEDD9]"
-                      } ${
-                        item.application_status === "declined" &&
-                        "text-[#DE4307] bg-[#FEEDE6]"
-                      }`}
-                    >
-                      {item.application_status === "approved"
-                        ? "accepted"
-                        : item.application_status}
-                    </p>
-                  </td>
-                </tr>
-              ))}
+            {historyData.length
+              ? historyData.map((item, index) => (
+                  <tr
+                    // onClick={() =>
+                    //   navigate(`/history/details/${item.application_id}`)
+                    // }
+                    key={index}
+                    className="odd:bg-[#F6FAFD] cursor-pointer "
+                  >
+                    <td className="p-[18px] whitespace-nowrap font-medium ">
+                      {item.application_id}
+                    </td>
+                    <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                      {item?.extended_details?.loan_information
+                        ?.request_date === ""
+                        ? "- - -"
+                        : item?.extended_details?.loan_information
+                            ?.request_date}
+                    </td>
+                    <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                      {item?.extended_details?.loan_information
+                        ?.approval_date === ""
+                        ? "- - -"
+                        : item?.extended_details?.loan_information
+                            ?.approval_date}
+                    </td>
+                    <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                      {item?.extended_details?.loan_information
+                        ?.amount_requested ?? "- - -"}
+                    </td>
+                    <td className="p-[18px] whitespace-nowrap font-medium  ">
+                      <p
+                        className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
+                          item.application_status === "approved" &&
+                          "text-[#00A03E] bg-[#E5FFEF]"
+                        } ${
+                          item.application_status === "pending" &&
+                          "text-[#F29C2B] bg-[#FDEDD9]"
+                        } ${
+                          item.application_status === "declined" &&
+                          "text-[#DE4307] bg-[#FEEDE6]"
+                        }`}
+                      >
+                        {item.application_status === "approved"
+                          ? "accepted"
+                          : item.application_status}
+                      </p>
+                    </td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </table>
-        {historyData.length === 0 && (
+        {historyData.length === 0 && !isTableLoading ? (
           <div className="w-full">
             <div className="bg-[#F6FAFD] w-32 h-32 mt-5 mb-2 mx-auto rounded-full flex justify-center items-center">
               <svg
@@ -241,9 +250,9 @@ const Loans = () => {
               </button>
             </div>
           </div>
-        )}
+        ) : null}
       </section>
-      {!isTableLoading && (
+      {historyData.length && (
         <div className=" flex flex-col justify-center items-center my-7">
           <Pagination data={Data} />
         </div>
