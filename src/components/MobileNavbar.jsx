@@ -4,11 +4,11 @@ import menu from "../assets/icons/menu.svg";
 
 const MobileNavbar = () => {
   return (
-    <nav className="flex justify-between w-full p-5 mb-2 md:hidden ">
+    <nav className="flex justify-between items-start w-full px-5 py-8 mb-2 md:hidden ">
       <img src={BlueLogo} alt="" />
-      <div className="p-2 bg-primary rounded-md">
+      {/* <div className="p-2 bg-primary rounded-md">
         <img src={menu} alt="" />
-      </div>
+      </div> */}
     </nav>
   );
 };
