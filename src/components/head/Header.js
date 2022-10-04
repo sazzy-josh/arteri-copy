@@ -1,8 +1,11 @@
 import React from "react";
 import * as Icon from "react-icons/bs";
 import { RiSettings2Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
-const     Header = () => {
+const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="my-3 w-full">
       <div className="flex flex-row justify-start items-center w-full">
@@ -20,10 +23,28 @@ const     Header = () => {
         </div>
         <div className="w-1/3 ml-auto flex flex-row justify-end items-center">
           <div className="flex flex-row justify-end items-center w-full">
-            <div className=" bg-gray-200 p-2 rounded-full h-8 w-8 cursor-pointer flex flex-col justify-center items-center mr-2">
+            <div
+              onClick={() =>
+                navigate(
+                  localStorage.getItem("accountType") == "provider"
+                    ? "/provider-notifications"
+                    : "/notifications"
+                )
+              }
+              className=" bg-gray-200 p-2 rounded-full h-8 w-8 cursor-pointer flex flex-col justify-center items-center mr-2"
+            >
               <Icon.BsEnvelope />
             </div>
-            <div className=" bg-gray-200 p-2 rounded-full h-8 w-8 cursor-pointer flex flex-col justify-center items-center mr-2">
+            <div
+              onClick={() =>
+                navigate(
+                  localStorage.getItem("accountType") == "provider"
+                    ? "/provider-notifications"
+                    : "/notifications"
+                )
+              }
+              className=" bg-gray-200 p-2 rounded-full h-8 w-8 cursor-pointer flex flex-col justify-center items-center mr-2"
+            >
               <Icon.BsBell />
             </div>
             <div className=" bg-gray-200 p-2 rounded-full h-8 w-8 cursor-pointer flex flex-col justify-center items-center mr-2">
@@ -33,6 +54,13 @@ const     Header = () => {
           <div>
             <div className="flex flex-col justify-center cursor-pointer items-center ml-5 pr-2">
               <img
+                onClick={() =>
+                  navigate(
+                    localStorage.getItem("accountType") == "provider"
+                      ? "/provider-account"
+                      : "/my-account"
+                  )
+                }
                 src="https://res.cloudinary.com/vtu-tech-solutions/image/upload/v1658069397/isedowo/Ellipse_40_ptkvzp.svg"
                 height="44px"
                 width="44px"

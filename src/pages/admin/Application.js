@@ -12,8 +12,10 @@ import NextOfKin from "../../components/pro-loan/NextOfKin";
 import Terms from "../../components/pro-loan/Terms";
 import Work from "../../components/pro-loan/Work";
 import ReviewPage from "../../components/pro-loan/ReviewPage";
+import {useNavigate} from 'react-router-dom'
 
 const ProviderApplication = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [showTerms, setShowTerms] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
@@ -75,14 +77,7 @@ const ProviderApplication = () => {
                     )}
                     {showTerms && (
                       <Terms
-                        handleDecline={() => {
-                          setShowTerms(true);
-                          setShowDetails(false);
-                          setShowCosts(false);
-                          setShowWork(false);
-
-                          setShowReview(false);
-                        }}
+                        handleDecline={() => navigate('/provider-dashboard')}
                         handleAccept={() => {
                           setShowTerms(false);
                           setShowDetails(true);
