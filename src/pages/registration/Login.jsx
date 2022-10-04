@@ -209,7 +209,7 @@ const Login = () => {
           </div>
           {<img src={image1} alt="" className="object-cover  h-full" />}
         </div>
-        <div className="flex-1 lg:pl-10 md:pr-10 md:py-10 md:ml-[350px] lg:ml-[440px]">
+        <div className="bg-white flex-1 lg:pl-10 md:pr-10 md:py-10 md:ml-[350px] lg:ml-[440px]">
           <p
             className="text-right mb-10 hidden font-semibold cursor-pointer text-secondary md:mt-2 md:block "
             onClick={() => {
@@ -235,7 +235,7 @@ const Login = () => {
                     type="email"
                     className="registration-input"
                     name="identifier"
-                    placeholder="Enter email address or phone"
+                    placeholder="Enter Email or Phone Number"
                     value={loginInputField.identifier}
                     onChange={handleInputChange}
                   />
@@ -380,7 +380,7 @@ const Login = () => {
                     }}
                   />
                   <div
-                    className={` min-w-[24px] h-6 flex justify-center items-center rounded-md mr-2 ${
+                    className={` min-w-[24px] w-6 h-6 flex justify-center items-center rounded-md mr-2 ${
                       longLiveAuthToken
                         ? "bg-secondary"
                         : "bg-none border-2 border-gray-400"
