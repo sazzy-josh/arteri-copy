@@ -572,6 +572,7 @@ const Application = () => {
                           }}
                           handleAccept={stageTwo}
                         />
+                        
                       )}
                       {showTerms && (
                         <Terms
