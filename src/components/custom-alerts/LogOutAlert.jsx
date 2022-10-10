@@ -71,7 +71,7 @@ const LogOutAlert = ({ modalTrigger, setModalTrigger, buttonHandle }) => {
               Yes, Logout
             </button>
             <button
-              className=" text-white bg-primary font-medium w-full h-14 rounded-lg  cursor-pointer md:w-44"
+              className=" text-white bg-secondary font-medium w-full h-14 rounded-lg  cursor-pointer md:w-44"
               onClick={() => setIsLogOutModalOpen(false)}
             >
               Cancel

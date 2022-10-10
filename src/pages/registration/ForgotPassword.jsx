@@ -26,7 +26,7 @@ const ForgotPassword = () => {
   const [inputErrorMessage, setInputErrorMessage] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [isResetEmail, setIsResetEmail] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   // form validation from the frontend
   // const handleInputChange = (e) => {
@@ -178,7 +178,14 @@ const ForgotPassword = () => {
                       name="identifier"
                       placeholder="Enter your email address"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (e.target.value) {
+                          setIsButtonDisabled(false);
+                        } else {
+                          setIsButtonDisabled(true);
+                        }
+                      }}
                     />
 
                     <img
