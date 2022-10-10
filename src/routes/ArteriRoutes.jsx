@@ -25,7 +25,7 @@ import UnauthenticatedPrivateRoutes from "../layouts/UnauthenticatedPrivateRoute
 import Loans from "../utils/financial-history/Loans";
 import BNPL from "../utils/financial-history/BNPL";
 import HistoryDetails from "../pages/dashboard/HistroryDetails";
-import HistoryEdit from "../pages/dashboard/HistoryEdit";
+import EditLoan from "../pages/dashboard/EditLoan";
 import ProviderDashboard from "../pages/admin/Dashboard";
 import AccountVerification from "../pages/registration/AccountVerification";
 import ProviderAccount from "../pages/admin/MyAccount";
@@ -110,7 +110,7 @@ const ArteriRoutes = () => {
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
           </Route>
           <Route path="/history/details/:id" element={<HistoryDetails />} />
-          <Route path="/history/edit/:id" element={<HistoryEdit />} />
+          <Route path="/history/edit/:id" element={<EditLoan />} />
           <Route path="/help" element={<Help />} />
         </Route>
 

@@ -1,3 +1,15 @@
+@tailwind base;
+
+@layer base {
+  .registration-input:-webkit-autofill,
+  .registration-input:-webkit-autofill:hover,
+  .registration-input:-webkit-autofill:focus,
+  .registration-input:-webkit-autofill:active {
+    -webkit-text-fill-color: #000000 !important;
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  }
+}
+
 .registration-input-label {
   @apply font-semibold capitalize mb-[6px] text-left sm:w-[400px] sm:mx-auto  lg:mx-0;
 }
