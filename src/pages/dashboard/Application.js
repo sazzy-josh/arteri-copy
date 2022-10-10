@@ -96,7 +96,7 @@ const Application = () => {
       myHeaders.append("Accept", "application/json");
       myHeaders.append(
         "Authorization",
-        "Bearer " + localStorage.getItem("authToken")
+        "Bearer " + localStorage.getItem("authToken") != null
           ? localStorage.getItem("authToken")
           : sessionStorage.getItem("authToken")
       );
@@ -132,7 +132,7 @@ const Application = () => {
       myHeaders.append("Accept", "application/json");
       myHeaders.append(
         "Authorization",
-        "Bearer " + localStorage.getItem("authToken")
+        "Bearer " + localStorage.getItem("authToken") != null
           ? localStorage.getItem("authToken")
           : sessionStorage.getItem("authToken")
       );
@@ -172,7 +172,7 @@ const Application = () => {
       myHeaders.append("Accept", "application/json");
       myHeaders.append(
         "Authorization",
-        "Bearer " + localStorage.getItem("authToken")
+        "Bearer " + localStorage.getItem("authToken") != null
           ? localStorage.getItem("authToken")
           : sessionStorage.getItem("authToken")
       );
@@ -212,7 +212,7 @@ const Application = () => {
       myHeaders.append("Accept", "application/json");
       myHeaders.append(
         "Authorization",
-        "Bearer " + localStorage.getItem("authToken")
+        "Bearer " + localStorage.getItem("authToken") != null
           ? localStorage.getItem("authToken")
           : sessionStorage.getItem("authToken")
       );
@@ -252,7 +252,7 @@ const Application = () => {
       myHeaders.append("Accept", "application/json");
       myHeaders.append(
         "Authorization",
-        "Bearer " + localStorage.getItem("authToken")
+        "Bearer " + localStorage.getItem("authToken") != null
           ? localStorage.getItem("authToken")
           : sessionStorage.getItem("authToken")
       );
@@ -292,7 +292,7 @@ const Application = () => {
       myHeaders.append("Accept", "application/json");
       myHeaders.append(
         "Authorization",
-        "Bearer " + localStorage.getItem("authToken")
+        "Bearer " + localStorage.getItem("authToken") != null
           ? localStorage.getItem("authToken")
           : sessionStorage.getItem("authToken")
       );
@@ -330,7 +330,7 @@ const Application = () => {
       myHeaders.append("Accept", "application/json");
       myHeaders.append(
         "Authorization",
-        "Bearer " + localStorage.getItem("authToken")
+        "Bearer " + localStorage.getItem("authToken") != null
           ? localStorage.getItem("authToken")
           : sessionStorage.getItem("authToken")
       );
@@ -456,7 +456,7 @@ const Application = () => {
       myHeaders.append("Accept", "application/json");
       myHeaders.append(
         "Authorization",
-        "Bearer " + localStorage.getItem("authToken")
+        "Bearer " + localStorage.getItem("authToken") != null
           ? localStorage.getItem("authToken")
           : sessionStorage.getItem("authToken")
       );
