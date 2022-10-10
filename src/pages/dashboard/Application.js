@@ -14,7 +14,7 @@ import Connect from "@mono.co/connect.js";
 
 import { ModalContext } from "../../contexts/ModalContext";
 
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 // contexts
 import { LoanContext } from "../../contexts/dashboardContext/loanContext";
@@ -27,7 +27,7 @@ const Application = () => {
   const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
     useContext(ModalContext);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const [showTerms, setShowTerms] = useState(true);
@@ -97,6 +97,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var requestOptions = {
@@ -131,6 +133,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -169,6 +173,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -207,6 +213,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -245,6 +253,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -283,6 +293,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -319,6 +331,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -443,6 +457,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
       const linkToDb = async () => {
         var formdata = new FormData();
@@ -561,7 +577,7 @@ const Application = () => {
                         <Terms
                           accept={acceptTerm}
                           acceptTerms={() => setAcceptTerm(!acceptTerm)}
-                          handleDecline={() => navigate('/dashboard')}
+                          handleDecline={() => navigate("/dashboard")}
                           handleAccept={createLoan}
                         />
                       )}
