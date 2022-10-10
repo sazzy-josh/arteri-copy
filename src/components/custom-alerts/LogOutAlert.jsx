@@ -6,8 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const LogOutAlert = ({ modalTrigger, setModalTrigger, buttonHandle }) => {
   // contexts
-  const { setIsContentLoading, setIsLogOutModalOpen } =
-    useContext(ModalContext);
+  const {
+    setIsContentLoading,
+    setIsLogOutModalOpen,
+    setAlertProps,
+    setIsAlertOpen,
+  } = useContext(ModalContext);
   let navigate = useNavigate();
 
   const logOutUser = async () => {
@@ -40,14 +44,14 @@ const LogOutAlert = ({ modalTrigger, setModalTrigger, buttonHandle }) => {
       setIsContentLoading(false);
 
       if (err.response) {
+        console.log("data", err.response?.data?.data?.flash_message);
         // client received an error response (5xx, 4xx)
-        // setAlertProps((prev) => ({
-        //   ...prev,
-        //   type: "fail",
-        //   title: "Ooops! Sorry",
-        //   subtitle: err.response.data.data.flash_message,
-        // }));
-        // setIsModalOpen(true);
+        setAlertProps((prev) => ({
+          type: "fail",
+          title: "Ooops! Sorry",
+          subtitle: err.response.data.data.flash_message,
+        }));
+        setIsAlertOpen(true);
       }
     }
   };
