@@ -14,17 +14,20 @@ import Connect from "@mono.co/connect.js";
 
 import { ModalContext } from "../../contexts/ModalContext";
 
+import { useNavigate } from "react-router-dom";
+
 // contexts
 import { LoanContext } from "../../contexts/dashboardContext/loanContext";
 import Upload from "../../components/terms/Upload";
 import ReviewPage from "../../components/terms/ReviewPage";
 import Preloader from "../../components/Preloader";
+import { Navigate } from "react-router-dom";
 
 const Application = () => {
-
   const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
-  useContext(ModalContext);
+    useContext(ModalContext);
 
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const [showTerms, setShowTerms] = useState(true);
@@ -74,11 +77,8 @@ const Application = () => {
 
   const [medicalDoc, setMedicalDoc] = useState("");
 
- 
-  
-
   const createLoan = async () => {
-    if (localStorage.getItem('loanId')) {
+    if (localStorage.getItem("loanId")) {
       setShowTerms(false);
       setShowDetails(true);
       setShowCosts(false);
@@ -87,7 +87,7 @@ const Application = () => {
       setShowUpload(false);
       setShowReview(false);
       setPageNumber(2);
-     }
+    }
     try {
       if (acceptTerm === false) {
         return toast.error("You must click accept box to proceed");
@@ -97,6 +97,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var requestOptions = {
@@ -131,6 +133,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -169,6 +173,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -207,6 +213,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -245,6 +253,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -283,6 +293,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -319,6 +331,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
 
       var formdata = new FormData();
@@ -443,6 +457,8 @@ const Application = () => {
       myHeaders.append(
         "Authorization",
         "Bearer " + localStorage.getItem("authToken")
+          ? localStorage.getItem("authToken")
+          : sessionStorage.getItem("authToken")
       );
       const linkToDb = async () => {
         var formdata = new FormData();
@@ -469,8 +485,7 @@ const Application = () => {
             ...prev,
             type: "success",
             title: "Hurray!",
-            subtitle: 
-            data?.message,
+            subtitle: data?.message,
           }));
         } else {
           setLoading(false);
@@ -482,7 +497,6 @@ const Application = () => {
             subtitle: data?.flash_message,
           }));
         }
-        
       };
       linkToDb();
     },
@@ -530,12 +544,7 @@ const Application = () => {
                         <span className="text-sky-600">7</span>
                       </p>
                     </div>
-                    {/* <div>
-                    
-      <button onClick={() => {connect.open()}}>
-        Link account with Mono
-      </button>
-                    </div> */}
+
                     <div className="">
                       {showDetails && (
                         <Details
@@ -568,13 +577,7 @@ const Application = () => {
                         <Terms
                           accept={acceptTerm}
                           acceptTerms={() => setAcceptTerm(!acceptTerm)}
-                          handleDecline={() => {
-                            setShowTerms(false);
-                            setShowDetails(true);
-                            setShowCosts(false);
-                            setShowWork(false);
-                            setShowNok(false);
-                          }}
+                          handleDecline={() => navigate("/dashboard")}
                           handleAccept={createLoan}
                         />
                       )}
