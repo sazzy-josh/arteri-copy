@@ -41,6 +41,7 @@ import Preloader from "../components/Preloader";
 import LogOutAlert from "../components/custom-alerts/LogOutAlert";
 import Alert from "../components/Alert";
 import ProviderApplication from "../pages/admin/Application";
+import Claims from "../pages/admin/Claims";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
@@ -135,6 +136,7 @@ const ArteriRoutes = () => {
             <Route path="bnpl" element={<BNPL />} />
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
           </Route>
+          <Route path="/provider-claims" element={<Claims />}></Route>
         </Route>
 
         {/* Routes available to users that are not logged in */}
