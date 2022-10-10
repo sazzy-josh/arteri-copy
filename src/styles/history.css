@@ -1,5 +1,5 @@
 .history-tab {
-  @apply cursor-pointer inline-block font-medium pb-3 w-[100px] text-center sm:w-48 lg:w-56;
+  @apply cursor-pointer inline-block font-medium pb-3  w-[100px] sm:text-center sm:w-48 lg:w-56;
 }
 .history-tab.active {
   @apply border-b-4 border-primary;

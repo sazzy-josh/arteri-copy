@@ -105,7 +105,7 @@ const ArteriRoutes = () => {
             // element={<Navigate to="/history/repayment" replace={true} />}
             element={<History />}
           >
-            <Route path="repayment" element={<Repayment />} />
+            {/* <Route path="repayment" element={<Repayment />} /> */}
             <Route path="loans" element={<Loans />} />
             <Route path="bnpl" element={<BNPL />} />
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
@@ -136,7 +136,11 @@ const ArteriRoutes = () => {
             <Route path="bnpl" element={<BNPL />} />
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
           </Route>
-          <Route path="/provider-claims" element={<Claims />}></Route>
+          <Route path="/provider-claims" element={<Claims />}>
+            <Route path="/provider-claims/received" element={<p>received</p>} />
+            <Route path="/provider-claims/accepted" element={<p>accepted</p>} />
+            <Route path="/provider-claims/declined" element={<p>declined</p>} />
+          </Route>
         </Route>
 
         {/* Routes available to users that are not logged in */}

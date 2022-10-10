@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 
 // import components
@@ -47,6 +47,26 @@ const Claims = () => {
                     New Claim
                   </button>
                 </section>
+                <div className="px-5 flex justify-between items-center md:justify-start mb-8 border-b border-gray-200">
+                  <NavLink
+                    to="/provider-claims/received"
+                    className="history-tab"
+                  >
+                    Received
+                  </NavLink>
+                  <NavLink
+                    to="/provider-claims/accepted"
+                    className="history-tab"
+                  >
+                    Accepted
+                  </NavLink>
+                  <NavLink
+                    to="/provider-claims/declined"
+                    className="history-tab"
+                  >
+                    Declined
+                  </NavLink>
+                </div>
                 <Outlet />
               </>
             )}
