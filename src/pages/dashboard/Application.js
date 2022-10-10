@@ -78,6 +78,11 @@ const Application = () => {
   const [medicalDoc, setMedicalDoc] = useState("");
 
   const createLoan = async () => {
+    const userToken =
+      localStorage.getItem("authToken") != null
+        ? localStorage.getItem("authToken")
+        : sessionStorage.getItem("authToken");
+    console.log("User token", userToken);
     if (localStorage.getItem("loanId")) {
       setShowTerms(false);
       setShowDetails(true);
@@ -94,12 +99,7 @@ const Application = () => {
       }
       var myHeaders = new Headers();
       myHeaders.append("Accept", "application/json");
-      myHeaders.append(
-        "Authorization",
-        "Bearer " + localStorage.getItem("authToken") != null
-          ? localStorage.getItem("authToken")
-          : sessionStorage.getItem("authToken")
-      );
+      myHeaders.append("Authorization", "Bearer " + userToken);
 
       var requestOptions = {
         method: "POST",
