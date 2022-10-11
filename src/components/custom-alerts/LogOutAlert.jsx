@@ -65,13 +65,13 @@ const LogOutAlert = ({ modalTrigger, setModalTrigger, buttonHandle }) => {
           </p>
           <div className="flex flex-col items-center gap-6 md:flex-row md:justify-center">
             <button
-              className="border border-[#DE4307] text-[#DE4307] font-medium w-full h-14 rounded-lg  cursor-pointer md:w-44"
+              className="border-2 border-[#DE4307] text-[#DE4307] font-medium w-full h-14 rounded-lg  cursor-pointer md:w-44 hover:bg-[#FEEDE6] transition duration-200"
               onClick={logOutUser}
             >
               Yes, Logout
             </button>
             <button
-              className=" text-white bg-secondary font-medium w-full h-14 rounded-lg  cursor-pointer md:w-44"
+              className=" text-white bg-secondary font-medium w-full h-14 rounded-lg  cursor-pointer md:w-44 hover:bg-[#577E2A] transition duration-200"
               onClick={() => setIsLogOutModalOpen(false)}
             >
               Cancel

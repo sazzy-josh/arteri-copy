@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {   useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 
 // import components
 import Container from "../../components/container/Container";
@@ -17,10 +18,10 @@ const HistoryDetails = () => {
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
-        <div className="w-1/5 hidden lg:flex md:flex">
+        <div className="w-1/5 hidden lg:flex md:flex h-screen fixed mr-auto">
           <SideMenu selectHistory={true} />
         </div>
-        <div className="lg:w-4/5 w-full">
+        <div className="lg:w-4/5 w-full ml-auto">
           <Container>
             <div className="w-full my-5 lg:flex md:flex hidden">
               <Header />
@@ -39,7 +40,7 @@ const HistoryDetails = () => {
                     Financing History
                   </p>
                 </section>
-                <section className="px-10  py-10 lg:rounded-md lg:shadow-2xl lg:shadow-[#EAF2FB] lg:h-96">
+                <section className="px-5  py-10 lg:rounded-md lg:shadow-2xl lg:shadow-[#EAF2FB]">
                   <div className="  flex flex-col items-start gap-10  mb-14 lg:flex-row lg:items-center">
                     <div className=" w-full flex justify-between items-center">
                       <div>
@@ -91,7 +92,7 @@ const HistoryDetails = () => {
                       </span>
                     </p>
                   </div>
-                  <div className="flex flex-col gap-7 items-start lg:flex-row lg:gap-10">
+                  <div className="flex flex-col gap-7 items-start mb-8 md:mb-10 lg:flex-row lg:gap-12">
                     <div className="text-start">
                       <p className="font-semibold mb-3">Issued By</p>
                       <p>Arteri</p>
@@ -109,6 +110,49 @@ const HistoryDetails = () => {
                     <div className="text-start">
                       <p className="font-semibold mb-3">Amount</p>
                       <p>35,000</p>
+                    </div>
+                  </div>
+
+                  {/* comment section to be displayed dynamically */}
+                  <div className="text-start mb-10 md:w-10/12">
+                    <p className="font-semibold mb-3">Comment</p>
+                    <p>
+                      Aliqua id fugiat nostrud irure ex duis ea quis id quis ad
+                      et. Sunt qui esse pariatur duis deserunt mollit dolore
+                      cillum minim tempor enim. Elit aute irure tempor cupidatat
+                      incididunt sint deserunt ut voluptate aute id deserunt
+                      nisi.
+                    </p>
+                  </div>
+
+                  {/*repayment section  */}
+                  <div>
+                    <h3 className="text-2xl text-left font-semibold mb-10">
+                      Repayment Details
+                    </h3>
+
+                    <div className="flex flex-col gap-7 items-start mb-8 md:mb-10 lg:flex-row lg:gap-12">
+                      <div className="text-start">
+                        <p className="font-semibold mb-3">Repayment Amount</p>
+                        <p>35,000</p>
+                      </div>
+                      <div className="text-start">
+                        <p className="font-semibold mb-3">Repayment Date</p>
+                        <p>22 Jun, 2022 - 10:39PM</p>
+                      </div>
+
+                      <div className="text-start">
+                        <p className="font-semibold mb-3">Days Left</p>
+                        <p>22 Days</p>
+                      </div>
+                    </div>
+                    {/* <div className="w-10">
+                      <PrimaryButton>Repay Loan</PrimaryButton>
+                    </div> */}
+                    <div className="w-full md:text-right">
+                      <button className=" text-white bg-secondary font-medium w-full h-14 rounded-lg  cursor-pointer md:w-44 hover:bg-[#577E2A] transition duration-200 ">
+                        Repay Loan
+                      </button>
                     </div>
                   </div>
                 </section>

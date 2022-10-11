@@ -41,6 +41,7 @@ import Preloader from "../components/Preloader";
 import LogOutAlert from "../components/custom-alerts/LogOutAlert";
 import Alert from "../components/Alert";
 import ProviderApplication from "../pages/admin/Application";
+import Claims from "../pages/admin/Claims";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
@@ -104,7 +105,7 @@ const ArteriRoutes = () => {
             // element={<Navigate to="/history/repayment" replace={true} />}
             element={<History />}
           >
-            <Route path="repayment" element={<Repayment />} />
+            {/* <Route path="repayment" element={<Repayment />} /> */}
             <Route path="loans" element={<Loans />} />
             <Route path="bnpl" element={<BNPL />} />
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
@@ -134,6 +135,11 @@ const ArteriRoutes = () => {
             <Route path="loans" element={<Loans />} />
             <Route path="bnpl" element={<BNPL />} />
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
+          </Route>
+          <Route path="/provider-claims" element={<Claims />}>
+            <Route path="/provider-claims/received" element={<p>received</p>} />
+            <Route path="/provider-claims/accepted" element={<p>accepted</p>} />
+            <Route path="/provider-claims/declined" element={<p>declined</p>} />
           </Route>
         </Route>
 
