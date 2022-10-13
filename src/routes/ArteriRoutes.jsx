@@ -102,10 +102,9 @@ const ArteriRoutes = () => {
           <Route path="/notifications" element={<Notifications />} />
           <Route
             path="/history"
-            // element={<Navigate to="/history/repayment" replace={true} />}
-            element={<History />}
+            element={<Navigate to="/history/loans" replace={true} />}
+            // element={<History />}
           >
-            {/* <Route path="repayment" element={<Repayment />} /> */}
             <Route path="loans" element={<Loans />} />
             <Route path="bnpl" element={<BNPL />} />
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
