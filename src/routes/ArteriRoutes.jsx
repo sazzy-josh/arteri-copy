@@ -42,6 +42,9 @@ import LogOutAlert from "../components/custom-alerts/LogOutAlert";
 import Alert from "../components/Alert";
 import ProviderApplication from "../pages/admin/Application";
 import Claims from "../pages/admin/Claims";
+import ReceivedClaims from "../utils/provider-dashboard/ReceivedClaims";
+import AcceptedClaims from "../utils/provider-dashboard/AcceptedClaims";
+import DeclinedClaims from "../utils/provider-dashboard/DeclinedClaims";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
@@ -102,8 +105,8 @@ const ArteriRoutes = () => {
           <Route path="/notifications" element={<Notifications />} />
           <Route
             path="/history"
-            element={<Navigate to="/history/loans" replace={true} />}
-            // element={<History />}
+            // element={<Navigate to="/history/loans" replace={true} />}
+            element={<History />}
           >
             <Route path="loans" element={<Loans />} />
             <Route path="bnpl" element={<BNPL />} />
@@ -136,7 +139,18 @@ const ArteriRoutes = () => {
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
           </Route>
           <Route path="/provider-claims" element={<Claims />}>
-            <Route path="/provider-claims/received" element={<p>received</p>} />
+            <Route
+              path="/provider-claims/received"
+              element={<ReceivedClaims />}
+            />
+            <Route
+              path="/provider-claims/accepted"
+              element={<AcceptedClaims />}
+            />
+            <Route
+              path="/provider-claims/declined"
+              element={<DeclinedClaims />}
+            />
             <Route path="/provider-claims/accepted" element={<p>accepted</p>} />
             <Route path="/provider-claims/declined" element={<p>declined</p>} />
           </Route>
