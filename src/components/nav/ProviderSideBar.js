@@ -93,7 +93,7 @@ const ProviderSideMenu = ({
                   setDash(true);
                   setTool(false);
                   setOthers(false);
-                  navigate("/history/repayment");
+                  navigate("/history/loans");
                 }}
                 className={
                   selectHistory
