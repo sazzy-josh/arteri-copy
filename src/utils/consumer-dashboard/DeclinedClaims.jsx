@@ -14,7 +14,7 @@ const DeclinedClaims = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsTableLoading(false);
-    }, 2000);
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -130,17 +130,6 @@ const DeclinedClaims = () => {
             <h3 className="text-2xl text-black font-semibold my-4">
               No claim request yet
             </h3>
-            <p className="text-[#B3B3B3]">
-              Tap the button below to apply for a new claim
-            </p>
-            <div className=" ">
-              <button
-                onClick={() => navigate("/application", { replace: true })}
-                className=" w-44 h-12 border-none outline-none font-medium  text-white text-center rounded-xl mx-auto text-lg my-4 block  bg-secondary"
-              >
-                New Claim
-              </button>
-            </div>
           </div>
         )}
       </section>
