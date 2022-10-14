@@ -34,7 +34,7 @@ const Claims = () => {
             </div>
             {!isOpen && (
               <>
-                <section className="my-5 px-5 flex justify-between items-center">
+                <section className="mt-5 mb-10 px-5 flex justify-between items-center">
                   <p className="text-3xl font-bold text-left ">
                     Claims History
                   </p>
