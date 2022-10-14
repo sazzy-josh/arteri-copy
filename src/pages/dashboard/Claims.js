@@ -38,13 +38,6 @@ const Claims = () => {
                   <p className="text-3xl font-bold text-left ">
                     Claims History
                   </p>
-
-                  <button
-                    //   onClick={handle}
-                    className=" w-40 h-14 border-none outline-none font-medium  text-white  text-center rounded-xl mx-auto text-lg my-3 block  md:mx-auto lg:mx-0 transition duration-200 bg-secondary hover:bg-[#354D19] active:bg-[#354D19] active:border-2 active:border-[#8BC34A]"
-                  >
-                    New Claim
-                  </button>
                 </section>
 
                 <Outlet />
