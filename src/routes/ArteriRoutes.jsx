@@ -41,10 +41,14 @@ import Preloader from "../components/Preloader";
 import LogOutAlert from "../components/custom-alerts/LogOutAlert";
 import Alert from "../components/Alert";
 import ProviderApplication from "../pages/admin/Application";
-import Claims from "../pages/admin/Claims";
-import ReceivedClaims from "../utils/provider-dashboard/ReceivedClaims";
-import AcceptedClaims from "../utils/provider-dashboard/AcceptedClaims";
-import DeclinedClaims from "../utils/provider-dashboard/DeclinedClaims";
+import ProviderClaims from "../pages/admin/Claims";
+import ConsumerClaims from "../pages/dashboard/Claims";
+import ProviderReceivedClaims from "../utils/provider-dashboard/ReceivedClaims";
+import ProviderAcceptedClaims from "../utils/provider-dashboard/AcceptedClaims";
+import ProviderDeclinedClaims from "../utils/provider-dashboard/DeclinedClaims";
+import ConsumerReceivedClaims from "../utils/consumer-dashboard/ReceivedClaims";
+import ConsumerAcceptedClaims from "../utils/consumer-dashboard/AcceptedClaims";
+import ConsumerDeclinedClaims from "../utils/consumer-dashboard/DeclinedClaims";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
@@ -112,6 +116,20 @@ const ArteriRoutes = () => {
             <Route path="bnpl" element={<BNPL />} />
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
           </Route>
+          <Route path="/consumer-claims" element={<ConsumerClaims />}>
+            <Route
+              path="/consumer-claims/received"
+              element={<ConsumerReceivedClaims />}
+            />
+            <Route
+              path="/consumer-claims/accepted"
+              element={<ConsumerAcceptedClaims />}
+            />
+            <Route
+              path="/consumer-claims/declined"
+              element={<ConsumerDeclinedClaims />}
+            />
+          </Route>
           <Route path="/history/details/:id" element={<HistoryDetails />} />
           <Route path="/history/edit/:id" element={<EditLoan />} />
           <Route path="/help" element={<Help />} />
@@ -138,21 +156,19 @@ const ArteriRoutes = () => {
             <Route path="bnpl" element={<BNPL />} />
             {/* <Route path="details/:id" element={<HistoryDetails />} /> */}
           </Route>
-          <Route path="/provider-claims" element={<Claims />}>
+          <Route path="/provider-claims" element={<ProviderClaims />}>
             <Route
               path="/provider-claims/received"
-              element={<ReceivedClaims />}
+              element={<ProviderReceivedClaims />}
             />
             <Route
               path="/provider-claims/accepted"
-              element={<AcceptedClaims />}
+              element={<ProviderAcceptedClaims />}
             />
             <Route
               path="/provider-claims/declined"
-              element={<DeclinedClaims />}
+              element={<ProviderDeclinedClaims />}
             />
-            <Route path="/provider-claims/accepted" element={<p>accepted</p>} />
-            <Route path="/provider-claims/declined" element={<p>declined</p>} />
           </Route>
         </Route>
 
