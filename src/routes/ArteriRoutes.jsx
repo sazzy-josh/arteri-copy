@@ -49,6 +49,7 @@ import ProviderDeclinedClaims from "../utils/provider-dashboard/DeclinedClaims";
 import ConsumerReceivedClaims from "../utils/consumer-dashboard/ReceivedClaims";
 import ConsumerAcceptedClaims from "../utils/consumer-dashboard/AcceptedClaims";
 import ConsumerDeclinedClaims from "../utils/consumer-dashboard/DeclinedClaims";
+import NewClaim from "../pages/admin/NewClaim";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
@@ -170,6 +171,7 @@ const ArteriRoutes = () => {
               element={<ProviderDeclinedClaims />}
             />
           </Route>
+          <Route path="/provider-claim/create" element={<NewClaim />} />
         </Route>
 
         {/* Routes available to users that are not logged in */}

@@ -5,8 +5,8 @@
   @apply text-left mb-3 font-medium;
 }
 .edit-loan-input {
-  @apply w-full h-14 px-4 rounded-lg border-2 border-[#808080] outline-none;
+  @apply w-full h-14 px-4 rounded-lg border-2 border-[#808080] outline-none focus:border-primary;
 }
 .edit-loan-file-input {
-  @apply w-full h-14 px-6 rounded-lg border-2 border-[#808080] flex justify-start items-center gap-2 cursor-pointer;
+  @apply w-full h-14 px-6 rounded-lg border-2 border-[#808080] flex justify-start items-center gap-2 cursor-pointer focus:border-primary;
 }
