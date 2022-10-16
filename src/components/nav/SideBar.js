@@ -31,6 +31,7 @@ const SideMenu = ({
     <div className="bg-sky-600 h-screen flex flex-col justify-start items-start w-full px-5 overflow-y-auto">
       <div className="w-full mt-10 mb-8">
         <Logo />
+        test
       </div>
       <div className="flex flex-col justify-between items-center h-screen">
         <div className="mb-auto w-full">

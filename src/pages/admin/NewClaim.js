@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 // import { useParams } from "react-router-dom";
 
 // import components
 import Container from "../../components/container/Container";
 import Header from "../../components/head/Header";
 import ProviderMobileHeader from "../../components/head/ProviderMobileHeader";
+import TextField from "../../components/inputs/TextField";
 import ProviderSideMenu from "../../components/nav/ProviderSideBar";
 
 const NewClaim = () => {
@@ -20,7 +22,7 @@ const NewClaim = () => {
     five: "",
   });
   const handleInputChange = (e) => {
-    console.log(e.target.value);
+    console.log("typing");
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
@@ -65,9 +67,9 @@ const NewClaim = () => {
                 <div className="my-5 px-5">
                   <p className="text-2xl font-bold text-left mb-7">New Claim</p>
                 </div>
-                <section className="p-5  md:w-4/6">
-                  <div className="mb-10 flex flex-col gap-7  sm:flex-row sm:justify-between flex-wrap sm:gap-x-16 sm:gap-y-10">
-                    <label className="edit-loan-label">
+                <section className="p-5 md:w-[700px] lg:w-[900px]">
+                  <div className="mb-10 flex flex-col gap-7  sm:flex-row sm:justify-between flex-wrap sm:gap-x-0 sm:gap-y-10">
+                    {/* <label className="edit-loan-label">
                       <p className="edit-loan-label-text ">
                         Your Application ID
                       </p>
@@ -91,50 +93,57 @@ const NewClaim = () => {
                         value={data.two}
                         onChange={handleInputChange}
                       />
-                    </label>
+                    </label> */}
+                    <div className="w-full md:w-96">
+                      <TextField
+                        type={"text"}
+                        label={"Your Application ID"}
+                        name={"one"}
+                        value={data.one}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="w-full md:w-96">
+                      <TextField
+                        type={"text"}
+                        label={"Consumer Loan Application ID"}
+                        name={"two"}
+                        value={data.two}
+                        onChange={handleInputChange}
+                      />
+                    </div>
                   </div>
                   <div className="mb-10 flex flex-col gap-7  sm:flex-row sm:justify-between flex-wrap sm:gap-x-16 sm:gap-y-10">
-                    <label className="edit-loan-label">
-                      <p className="edit-loan-label-text">Type of Service</p>
-                      <input
-                        type="text"
-                        name="three"
-                        className="edit-loan-input "
+                    <div className="w-full md:w-96">
+                      <TextField
+                        type={"text"}
+                        label={"Type of Service"}
+                        name={"three"}
                         value={data.three}
                         onChange={handleInputChange}
                       />
-                    </label>
-                    <label className="edit-loan-label">
-                      <p className="edit-loan-label-text">Cost of Service</p>
-                      <input
-                        type="text"
-                        name="four"
-                        className="edit-loan-input "
+                    </div>
+                    <div className="w-full md:w-96">
+                      <TextField
+                        type={"text"}
+                        label={"Cost of Service"}
+                        name={"four"}
                         value={data.four}
                         onChange={handleInputChange}
                       />
-                    </label>
+                    </div>
                   </div>
-                  <div className="mb-10 w-full">
-                    {" "}
-                    <label className="edit-loan-label">
-                      <p className="edit-loan-label-text">
-                        Additional Comment{" "}
-                      </p>
-                      <input
-                        type="text"
-                        name="five"
-                        className="edit-loan-input "
-                        value={data.five}
-                        onChange={handleInputChange}
-                      />
-                    </label>
+                  <div className="w-full h-32 md:w-96 lg:w-full">
+                    <TextField
+                      type={"textarea"}
+                      label={"Additional Comment"}
+                      name={"five"}
+                      value={data.five}
+                      onChange={handleInputChange}
+                    />
                   </div>
-                  <div className="mb-5 md:w-72 lg:text-center">
-                    <button className="w-full h-14 rounded-lg border-none outline-none bg-secondary font-medium text-white ">
-                      {" "}
-                      Save Changes
-                    </button>
+                  <div className="my-7 md:flex md:justify-end">
+                    <PrimaryButton> Save Changes</PrimaryButton>
                   </div>
                 </section>
               </>
