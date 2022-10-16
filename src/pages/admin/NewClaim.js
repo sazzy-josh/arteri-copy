@@ -134,13 +134,15 @@ const NewClaim = () => {
                     </div>
                   </div>
                   <div className="w-full h-32 md:w-96 lg:w-full">
-                    <TextField
-                      type={"textarea"}
-                      label={"Additional Comment"}
-                      name={"five"}
-                      value={data.five}
-                      onChange={handleInputChange}
-                    />
+                    <label className="text-left mb-3 ">
+                      <textarea
+                        type="textarea"
+                        name="five"
+                        className="w-full px-4 py-2 rounded-lg border-2 border-[#808080] outline-none focus:border-primary resize-none "
+                        value={data.five}
+                        onChange={handleInputChange}
+                      />
+                    </label>
                   </div>
                   <div className="my-7 md:flex md:justify-end">
                     <PrimaryButton> Save Changes</PrimaryButton>
