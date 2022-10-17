@@ -13,7 +13,6 @@ import "../../styles/history.css";
 
 const History = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [activeTab, setActiveTab] = useState("tab2");
   return (
     <div className="w-screen">
       <div className="w-full flex flex-row justify-start items-start">
