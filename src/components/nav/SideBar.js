@@ -21,8 +21,8 @@ const SideMenu = ({
   const navigate = useNavigate();
 
   return (
-    <div className="bg-primary h-screen w-64 px-5">
-      <div className="w-full my-8">
+    <div className="bg-primary h-screen relative z-10 w-60 min-w-[240px] px-5 pt-7 overflow-auto">
+      <div className="w-full mb-8">
         <ArteriLogo />
       </div>
       <div className=" pt-1">

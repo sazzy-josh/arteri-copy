@@ -26,7 +26,7 @@ const Account = () => {
             </div>
             <div className="w-screen lg:hidden md:hidden flex">
               <MobileHeader
-                selectDash={true}
+                selectAccount={true}
                 open={isOpen}
                 setOpen={() => setIsOpen(!isOpen)}
               />
