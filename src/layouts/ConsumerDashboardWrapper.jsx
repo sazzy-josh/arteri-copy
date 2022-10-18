@@ -25,6 +25,7 @@ const ConsumerDashboardWrapper = ({ children }) => {
 
       <div className="w-full bg-green-200 lg:bg-blue-200 md:bg-red-300 md:ml-60 md:px-5  duration-500">
         <Header setIsSidebarOpen={setIsSidebarOpen} />
+        {/* dashboard content goes here */}
         {children}
       </div>
     </div>

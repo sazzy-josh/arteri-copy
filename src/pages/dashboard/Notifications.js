@@ -5,33 +5,18 @@ import Header from "../../components/head/Header";
 import MobileHeader from "../../components/head/MobileHeader";
 import SideMenu from "../../components/nav/SideBar";
 import Notification from "../../components/Notification";
+import ConsumerDashboardWrapper from "../../layouts/ConsumerDashboardWrapper";
 
 const Notifications = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="w-screen">
+    <ConsumerDashboardWrapper>
       <div className="w-full flex flex-row justify-start items-start">
-        <div className="w-1/5 hidden lg:flex md:flex h-screen fixed mr-auto">
-          <SideMenu selectNot={true} />
-        </div>
-        <div className="lg:w-4/5 w-full ml-auto">
-          <Container>
-            <div className="w-full my-5 lg:flex md:flex hidden">
-              <Header />
-            </div>
-            <div className="w-screen lg:hidden md:hidden flex">
-              <MobileHeader selectDash={true} open={isOpen} setOpen={() => setIsOpen(!isOpen)} />
-            </div>
-            {!isOpen && <div className="w-full flex flex-row justify-start items-start">
-              <div className="w-full">
-                <Notification />
-              </div>
-             
-            </div>}
-          </Container>
+        <div className="w-full">
+          <Notification />
         </div>
       </div>
-    </div>
+    </ConsumerDashboardWrapper>
   );
 };
 
