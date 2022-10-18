@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.e5f6913f.css",
-    "main.js": "/static/js/main.541e4481.js",
+    "main.css": "/static/css/main.d8f4e137.css",
+    "main.js": "/static/js/main.58d45d8f.js",
     "static/js/787.ca8e181c.chunk.js": "/static/js/787.ca8e181c.chunk.js",
     "static/media/image-1.jpg": "/static/media/image-1.4cd4baf12734103a64db.jpg",
     "static/media/image-2.jpg": "/static/media/image-2.8218099c679ca99f6363.jpg",
@@ -9,23 +9,28 @@
     "static/media/profile.png": "/static/media/profile.ae6999c291f2c520d511.png",
     "static/media/404-icon-mobile.svg": "/static/media/404-icon-mobile.31bb1939aaf2735b5c48f9b643b1f4c8.svg",
     "static/media/404-icon-desktop.svg": "/static/media/404-icon-desktop.1ad4d88a7a66b7a56abb4cfb390c6e35.svg",
+    "static/media/notification-bell.svg": "/static/media/notification-bell.7f5414fdcaa8e671deeda9dfffa9496b.svg",
     "static/media/logo-blue.svg": "/static/media/logo-blue.51a802a425df1b316e988aafd2303698.svg",
     "static/media/logo-white.svg": "/static/media/logo-white.5c5edff25fbaf878607fcbf1133e30a9.svg",
     "static/media/arteri-logo-white.svg": "/static/media/arteri-logo-white.e4c57e1d6102d2af4e8f6841f20214c4.svg",
+    "static/media/setting.svg": "/static/media/setting.37ffb28b14fe4ad729c153c9dea75f48.svg",
     "static/media/camera.svg": "/static/media/camera.10f8f3c8e6c129fa2ef8969949bbcfb5.svg",
     "index.html": "/index.html",
+    "static/media/sms.svg": "/static/media/sms.888ce22268eb8511895c4a94a018e511.svg",
     "static/media/search-icon.svg": "/static/media/search-icon.8ecdfd3deae1e2e9c6c83774fde4923b.svg",
     "static/media/404-blob.svg": "/static/media/404-blob.88973e8a04eee1df5a2ec435c03d833d.svg",
+    "static/media/mobile-hamburger.svg": "/static/media/mobile-hamburger.f3f0a550c163ab9685a840f027e9b2c4.svg",
     "static/media/close-btn.svg": "/static/media/close-btn.97c5ccc95bba352a10d46f891cb5e30f.svg",
     "static/media/alert-info.svg": "/static/media/alert-info.5a3cc44e7daa9357dfc4a7c212d00c60.svg",
     "static/media/menu.svg": "/static/media/menu.97ffcfd554a469f2be692f4879483815.svg",
+    "static/media/close-btn-blue.svg": "/static/media/close-btn-blue.9ca34f41ba061a501eb676331bfb23ff.svg",
     "static/media/check.svg": "/static/media/check.bd7c6d6425c852429ed3130fea752799.svg",
-    "main.e5f6913f.css.map": "/static/css/main.e5f6913f.css.map",
-    "main.541e4481.js.map": "/static/js/main.541e4481.js.map",
+    "main.d8f4e137.css.map": "/static/css/main.d8f4e137.css.map",
+    "main.58d45d8f.js.map": "/static/js/main.58d45d8f.js.map",
     "787.ca8e181c.chunk.js.map": "/static/js/787.ca8e181c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e5f6913f.css",
-    "static/js/main.541e4481.js"
+    "static/css/main.d8f4e137.css",
+    "static/js/main.58d45d8f.js"
   ]
 }
