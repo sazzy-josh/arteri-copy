@@ -15,13 +15,18 @@ const SideMenu = ({
   selectHelp,
   selectHistory,
   selectClaims,
+  isSidebarOpen,
 }) => {
   // contexts
   const { setIsLogOutModalOpen } = useContext(ModalContext);
   const navigate = useNavigate();
 
   return (
-    <div className="bg-primary h-screen relative z-10 w-60 min-w-[240px] px-5 pt-7 overflow-auto">
+    <div
+      className={`bg-primary h-screen fixed z-10 w-60 px-5 pt-7 overflow-auto duration-500 ${
+        isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      }`}
+    >
       <div className="w-full mb-8">
         <ArteriLogo />
       </div>
