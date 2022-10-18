@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import LargeCard from "../../components/cards/LargeCard";
 import SmallCard from "../../components/cards/SmallCard";
 import Chart from "../../components/chart/HalfPie";
-// import Container from "../../components/container/Container";
-import Header from "../../components/head/Header";
-// import MobileHeader from "../../components/head/MobileHeader";
-import SideMenu from "../../components/nav/SideBar";
 
-import { ReactComponent as Cancel } from "../../assets/icons/close-btn-blue.svg";
 import ConsumerDashboardWrapper from "../../layouts/ConsumerDashboardWrapper";
 
 const Dashboard = () => {
