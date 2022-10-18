@@ -22,6 +22,7 @@ import Upload from "../../components/terms/Upload";
 import ReviewPage from "../../components/terms/ReviewPage";
 import Preloader from "../../components/Preloader";
 import { Navigate } from "react-router-dom";
+import ConsumerDashboardWrapper from "../../layouts/ConsumerDashboardWrapper";
 
 const Application = () => {
   const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
@@ -514,176 +515,137 @@ const Application = () => {
         testContext3,
       }}
     >
-      <div className="w-screen">
-        {loading && <Preloader />}
-        <div className="w-full flex flex-row justify-start items-start">
-          <div className="w-1/5 hidden lg:flex md:flex h-screen fixed mr-auto">
-            <SideMenu selectApplication={true} />
-          </div>
-          <div className="lg:w-4/5 w-full ml-auto">
-            <Container>
-              <div className="w-full my-5 lg:flex md:flex hidden">
-                <Header />
-              </div>
-              <div className="w-screen lg:hidden md:hidden flex">
-                <MobileHeader
-                  selectApplication={true}
-                  open={isOpen}
-                  setOpen={() => setIsOpen(!isOpen)}
-                />
-              </div>
-              {!isOpen && (
-                <div className="w-full flex flex-col justify-start items-start">
-                  <div className="w-full lg:px-0 md:px-0 px-5">
-                    <div className="w-full flex flex-row justify-between items-center my-5">
-                      <p className="mr-auto text-2xl font-bold">
-                        Financing Application
-                      </p>
-                      <p className="ml-auto text-2xl font-bold text-gray-600">
-                        <span>{pageNumber}</span>/
-                        <span className="text-sky-600">7</span>
-                      </p>
-                    </div>
+      <ConsumerDashboardWrapper selectedSidebarLink={"application"}>
+        <div className="w-full flex flex-col justify-start items-start">
+          <div className="w-full lg:px-0 md:px-0 px-5">
+            <div className="w-full flex flex-row justify-between items-center my-5">
+              <p className="mr-auto text-2xl font-bold">
+                Financing Application
+              </p>
+              <p className="ml-auto text-2xl font-bold text-gray-600">
+                <span>{pageNumber}</span>/
+                <span className="text-sky-600">7</span>
+              </p>
+            </div>
 
-                    <div className="">
-                      {showDetails && (
-                        <Details
-                          button={true}
-                          changeEmployerName={(e) =>
-                            setEmployerName(e.target.value)
-                          }
-                          changeIdCard={(e) => setIdCard(e.target.value)}
-                          changeEmploymentLetter={(e) =>
-                            setEmploymentDoc(e.target.value)
-                          }
-                          changeBusinessDoc={(e) =>
-                            setEmploymentDoc(e.target.value)
-                          }
-                          changeBvn={(e) => setBvn(e.target.value)}
-                          changeEmploymentType={(e) =>
-                            setEmploymentType(e.target.value)
-                          }
-                          handleDecline={() => {
-                            setShowTerms(true);
-                            setShowDetails(false);
-                            setShowCosts(false);
-                            setShowWork(false);
-                            setShowNok(false);
-                          }}
-                          handleAccept={stageTwo}
-                        />
-                        
-                      )}
-                      {showTerms && (
-                        <Terms
-                          accept={acceptTerm}
-                          acceptTerms={() => setAcceptTerm(!acceptTerm)}
-                          handleDecline={() => navigate("/dashboard")}
-                          handleAccept={createLoan}
-                        />
-                      )}
-                      {showCosts && (
-                        <Cost
-                          button={true}
-                          changeLoanReason={(e) =>
-                            setLoanReason(e.target.value)
-                          }
-                          changeLoanAmount={(e) =>
-                            setLoanAmount(e.target.value)
-                          }
-                          changeMedicalProvider={(e) =>
-                            setMedicalProvider(e.target.value)
-                          }
-                          handleDecline={() => {
-                            setShowTerms(false);
-                            setShowDetails(true);
-                            setShowCosts(false);
-                            setShowWork(false);
-                            setShowNok(false);
-                          }}
-                          handleAccept={stageThree}
-                        />
-                      )}
-                      {showWork && (
-                        <Work
-                          button={true}
-                          changeWorkIndustry={(e) =>
-                            setIndustry(e.target.value)
-                          }
-                          changeWorkPosition={(e) =>
-                            setPosition(e.target.value)
-                          }
-                          changeWorkLength={(e) =>
-                            setYearlength(e.target.value)
-                          }
-                          changeWorkAddress={(e) => setAddress(e.target.value)}
-                          handleDecline={() => {
-                            setShowTerms(false);
-                            setShowDetails(false);
-                            setShowCosts(true);
-                            setShowWork(false);
-                            setShowNok(false);
-                          }}
-                          handleAccept={stageFour}
-                        />
-                      )}
-                      {showNok && (
-                        <NextOfKin
-                          button={true}
-                          changeNokName={(e) => setNokName(e.target.value)}
-                          changeNokRelationship={(e) =>
-                            setnokRelationship(e.target.value)
-                          }
-                          changeNokPhone={(e) => setNokPhone(e.target.value)}
-                          changeNokEmail={(e) => setNokEmail(e.target.value)}
-                          handleDecline={() => {
-                            setShowTerms(false);
-                            setShowDetails(false);
-                            setShowCosts(false);
-                            setShowWork(true);
-                            setShowNok(false);
-                          }}
-                          handleAccept={stageFive}
-                        />
-                      )}
-                      {showUpload && (
-                        <Upload
-                          changeMedicalDoc={(e) =>
-                            setMedicalDoc(e.target.value)
-                          }
-                          handleAccept={stageSix}
-                        />
-                      )}
-                      {showReview && (
-                        <ReviewPage
-                          employerNameValue={employerName}
-                          idCardValue={idCard}
-                          employmentLetterValue={employmentDoc}
-                          businessDocValue={employmentDoc}
-                          bvnValue={bvn}
-                          employementTypeValue={employmentType}
-                          reasonValue={loanReason}
-                          amountValue={loanAmount}
-                          providerValue={medicalProvider}
-                          industryValue={industry}
-                          positionValue={position}
-                          yearlengthValue={yearlength}
-                          addressValue={address}
-                          nokNameValue={nokName}
-                          nokRelationshipValue={nokRelationship}
-                          nokPhoneValue={nokPhone}
-                          nokEmailValue={nokEmail}
-                          handleAccept={stageSeven}
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
+            <div className="">
+              {showDetails && (
+                <Details
+                  button={true}
+                  changeEmployerName={(e) => setEmployerName(e.target.value)}
+                  changeIdCard={(e) => setIdCard(e.target.value)}
+                  changeEmploymentLetter={(e) =>
+                    setEmploymentDoc(e.target.value)
+                  }
+                  changeBusinessDoc={(e) => setEmploymentDoc(e.target.value)}
+                  changeBvn={(e) => setBvn(e.target.value)}
+                  changeEmploymentType={(e) =>
+                    setEmploymentType(e.target.value)
+                  }
+                  handleDecline={() => {
+                    setShowTerms(true);
+                    setShowDetails(false);
+                    setShowCosts(false);
+                    setShowWork(false);
+                    setShowNok(false);
+                  }}
+                  handleAccept={stageTwo}
+                />
               )}
-            </Container>
+              {showTerms && (
+                <Terms
+                  accept={acceptTerm}
+                  acceptTerms={() => setAcceptTerm(!acceptTerm)}
+                  handleDecline={() => navigate("/dashboard")}
+                  handleAccept={createLoan}
+                />
+              )}
+              {showCosts && (
+                <Cost
+                  button={true}
+                  changeLoanReason={(e) => setLoanReason(e.target.value)}
+                  changeLoanAmount={(e) => setLoanAmount(e.target.value)}
+                  changeMedicalProvider={(e) =>
+                    setMedicalProvider(e.target.value)
+                  }
+                  handleDecline={() => {
+                    setShowTerms(false);
+                    setShowDetails(true);
+                    setShowCosts(false);
+                    setShowWork(false);
+                    setShowNok(false);
+                  }}
+                  handleAccept={stageThree}
+                />
+              )}
+              {showWork && (
+                <Work
+                  button={true}
+                  changeWorkIndustry={(e) => setIndustry(e.target.value)}
+                  changeWorkPosition={(e) => setPosition(e.target.value)}
+                  changeWorkLength={(e) => setYearlength(e.target.value)}
+                  changeWorkAddress={(e) => setAddress(e.target.value)}
+                  handleDecline={() => {
+                    setShowTerms(false);
+                    setShowDetails(false);
+                    setShowCosts(true);
+                    setShowWork(false);
+                    setShowNok(false);
+                  }}
+                  handleAccept={stageFour}
+                />
+              )}
+              {showNok && (
+                <NextOfKin
+                  button={true}
+                  changeNokName={(e) => setNokName(e.target.value)}
+                  changeNokRelationship={(e) =>
+                    setnokRelationship(e.target.value)
+                  }
+                  changeNokPhone={(e) => setNokPhone(e.target.value)}
+                  changeNokEmail={(e) => setNokEmail(e.target.value)}
+                  handleDecline={() => {
+                    setShowTerms(false);
+                    setShowDetails(false);
+                    setShowCosts(false);
+                    setShowWork(true);
+                    setShowNok(false);
+                  }}
+                  handleAccept={stageFive}
+                />
+              )}
+              {showUpload && (
+                <Upload
+                  changeMedicalDoc={(e) => setMedicalDoc(e.target.value)}
+                  handleAccept={stageSix}
+                />
+              )}
+              {showReview && (
+                <ReviewPage
+                  employerNameValue={employerName}
+                  idCardValue={idCard}
+                  employmentLetterValue={employmentDoc}
+                  businessDocValue={employmentDoc}
+                  bvnValue={bvn}
+                  employementTypeValue={employmentType}
+                  reasonValue={loanReason}
+                  amountValue={loanAmount}
+                  providerValue={medicalProvider}
+                  industryValue={industry}
+                  positionValue={position}
+                  yearlengthValue={yearlength}
+                  addressValue={address}
+                  nokNameValue={nokName}
+                  nokRelationshipValue={nokRelationship}
+                  nokPhoneValue={nokPhone}
+                  nokEmailValue={nokEmail}
+                  handleAccept={stageSeven}
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </ConsumerDashboardWrapper>
     </LoanContext.Provider>
   );
 };
