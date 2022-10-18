@@ -12,7 +12,7 @@ import ConsumerDashboardWrapper from "../../layouts/ConsumerDashboardWrapper";
 const Help = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <ConsumerDashboardWrapper>
+    <ConsumerDashboardWrapper selectedSidebarLink="help">
       <div className="w-full flex lg:flex-row flex-col justify-start items-start">
         <div className="lg:w-2/3 w-full lg:px-0 px-5 h-full flex flex-col justify-between items-start">
           <h1 className="font-bold text-2xl text-left">Customer Care</h1>

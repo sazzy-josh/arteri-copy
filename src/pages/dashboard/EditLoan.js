@@ -57,7 +57,7 @@ const HistoryEdit = () => {
     };
   };
   return (
-    <ConsumerDashboardWrapper>
+    <ConsumerDashboardWrapper selectedSidebarLink={"history"}>
       <div className="my-5 px-5">
         <p className="text-2xl font-bold text-left mb-7">Financing History</p>
       </div>

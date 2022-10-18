@@ -515,7 +515,7 @@ const Application = () => {
         testContext3,
       }}
     >
-      <ConsumerDashboardWrapper>
+      <ConsumerDashboardWrapper selectedSidebarLink={"application"}>
         <div className="w-full flex flex-col justify-start items-start">
           <div className="w-full lg:px-0 md:px-0 px-5">
             <div className="w-full flex flex-row justify-between items-center my-5">

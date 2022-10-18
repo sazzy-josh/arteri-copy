@@ -10,7 +10,7 @@ import ConsumerDashboardWrapper from "../../layouts/ConsumerDashboardWrapper";
 const Notifications = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <ConsumerDashboardWrapper>
+    <ConsumerDashboardWrapper selectedSidebarLink={"notification"}>
       <div className="w-full flex flex-row justify-start items-start">
         <div className="w-full">
           <Notification />

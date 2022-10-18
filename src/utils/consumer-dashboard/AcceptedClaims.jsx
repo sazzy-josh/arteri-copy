@@ -65,7 +65,7 @@ const AcceptedClaims = () => {
                   <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
                     <Skeleton />
                   </td>
-                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                  <td className="p-[18px] whitespace-nowrap font-medium ">
                     <Skeleton />
                   </td>
                   {/* <td className="p-[18px] whitespace-nowrap font-medium  ">

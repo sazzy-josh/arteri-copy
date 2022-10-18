@@ -11,7 +11,7 @@ const Header = ({ setIsSidebarOpen }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="my-5 w-full px-6 ">
+    <div className="mt-5 mb-8 w-full px-6 ">
       {/* tablet/desktop view  */}
       <div className="hidden w-full md:flex md:gap-4  md:justify-end md:items-center ">
         <div

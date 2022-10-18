@@ -4,7 +4,7 @@ import Header from "../components/head/Header";
 
 import { ReactComponent as Cancel } from "../assets/icons/close-btn-blue.svg";
 
-const ConsumerDashboardWrapper = ({ children }) => {
+const ConsumerDashboardWrapper = ({ selectedSidebarLink, children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
@@ -21,9 +21,13 @@ const ConsumerDashboardWrapper = ({ children }) => {
           </div>
         </>
       )}
-      <SideMenu selectDash={true} isSidebarOpen={isSidebarOpen} />
+      <SideMenu
+        selectDash={true}
+        isSidebarOpen={isSidebarOpen}
+        selectedSidebarLink={selectedSidebarLink}
+      />
 
-      <div className="w-full bg-green-200 lg:bg-blue-200 md:bg-red-300 md:ml-60 md:px-5  duration-500">
+      <div className="w-full md:ml-60 md:px-5  duration-500">
         <Header setIsSidebarOpen={setIsSidebarOpen} />
         {/* dashboard content goes here */}
         {children}

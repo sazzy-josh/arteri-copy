@@ -16,7 +16,7 @@ const Claims = () => {
   const [isOpen, setIsOpen] = useState(false);
   // const [activeTab, setActiveTab] = useState("tab2");
   return (
-    <ConsumerDashboardWrapper>
+    <ConsumerDashboardWrapper selectedSidebarLink={"claim"}>
       <section className="mt-5 px-5 ">
         <p className="text-3xl font-bold text-left mb-10 ">Claims History</p>
         <Outlet />

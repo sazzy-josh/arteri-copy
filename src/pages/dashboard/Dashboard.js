@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <ConsumerDashboardWrapper>
+    <ConsumerDashboardWrapper selectedSidebarLink={"dashboard"}>
       <div className="w-full px-5 lg:px-0 md:px-0 flex flex-col justify-start items-start">
         <p className="hidden md:block font-semibold text-left text-2xl text-black mt-2 mb-10">
           Consumer Health Financing Dashboard

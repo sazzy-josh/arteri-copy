@@ -15,7 +15,7 @@ import "../../styles/history.css";
 const History = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <ConsumerDashboardWrapper>
+    <ConsumerDashboardWrapper selectedSidebarLink={"history"}>
       <section className="my-5 px-5">
         <p className="text-2xl font-bold text-left mb-10">Financing History</p>
       </section>
