@@ -27,7 +27,7 @@ body {
   background-color: #fbfefc;
 }
 .dashboard-title {
-  @apply font-semibold bg-red-400 text-3xl;
+  @apply font-semibold text-left text-3xl text-[#333333] mb-6;
 }
 
 .custom-file-input::-webkit-file-upload-button {

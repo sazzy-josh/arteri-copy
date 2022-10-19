@@ -9,7 +9,7 @@ const ConsumerDashboardWrapper = ({ selectedSidebarLink, children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="w-full flex flex-row justify-start items-start">
+    <div className="w-full h-full flex flex-row justify-start items-start">
       {isSidebarOpen && (
         <>
           {" "}
@@ -28,7 +28,7 @@ const ConsumerDashboardWrapper = ({ selectedSidebarLink, children }) => {
         selectedSidebarLink={selectedSidebarLink}
       />
 
-      <div className="w-full bg-green-200 lg:bg-white md:bg-red-300 md:ml-60 md:px-5  duration-500">
+      <div className="w-full  md:ml-60 md:px-5 lg:px-10  duration-500">
         <Header setIsSidebarOpen={setIsSidebarOpen} />
         {/* dashboard content goes here */}
         {children}

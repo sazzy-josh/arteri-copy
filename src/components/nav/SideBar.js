@@ -14,7 +14,7 @@ const SideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
 
   return (
     <div
-      className={`bg-primary h-screen fixed z-10 w-60 px-5 pt-7 overflow-auto duration-500 ${
+      className={`bg-primary h-full fixed z-10 w-60 px-5 pt-7 overflow-auto duration-500 ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
       }`}
     >
