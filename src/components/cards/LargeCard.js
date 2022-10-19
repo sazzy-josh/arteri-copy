@@ -1,9 +1,13 @@
 import React from "react";
 
-const LargeCard = ({children, classNames}) => {
+const LargeCard = ({ children, classNames }) => {
   return (
     <>
-      <div className={`rounded-md shadow-md bg-white mr-5 px-5 py-5 ${classNames}`}>{children}</div>
+      <div
+        className={`rounded-lg dashboard-custom-shadow bg-white mr-5 p-7 ${classNames}`}
+      >
+        {children}
+      </div>
     </>
   );
 };
