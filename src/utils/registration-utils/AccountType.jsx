@@ -83,7 +83,7 @@ const AccountType = () => {
             />
           </label>
         </div>
-        <div className="mt-10 ">
+        <div className="mt-10 sm:w-[400px] h-14 mx-auto md:mx-auto lg:mx-0 ">
           <PrimaryButton
             handle={() => navigate("/register/details", { replace: true })}
           >

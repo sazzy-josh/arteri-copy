@@ -250,16 +250,16 @@ const Dashboard = () => {
                   ))}
                 </div>
 
-                <div className="flex flex-col justify-center items-center text-white mt-20">
-                  <div
-                    onClick={() =>
-                      navigate("/history/loans", { replace: true })
-                    }
-                    className="w-48 h-14 flex justify-center items-center bg-secondary rounded-lg hover:bg-[#354D19] cursor-pointer text-lg font-medium"
+                <div className="mt-20 mb-8 w-48 h-14 mx-auto ">
+                  <PrimaryButton
+                    handle={() => navigate("/history/loans", { replace: true })}
                   >
-                    <span>See all history</span>
-                  </div>
+                    See all history
+                  </PrimaryButton>
                 </div>
+
+                {/* no history component */}
+
                 {/* <div className="w-full">
                   <div className="bg-[#F6FAFD] w-32 h-32 mt-12 mb-2 mx-auto rounded-full flex justify-center items-center">
                     <svg
@@ -314,15 +314,13 @@ const Dashboard = () => {
                   <p className="text-[#B3B3B3]">
                     Tap the button below to apply for a new loan
                   </p>
-                  <div className=" ">
-                    <button
-                      onClick={() =>
-                        navigate("/application", { replace: true })
-                      }
-                      className=" w-44 h-12 border-none outline-none font-medium  text-white text-center rounded-xl mx-auto text-lg my-4 block  bg-secondary"
+
+                  <div className="my-8 w-44 h-12 mx-auto ">
+                    <PrimaryButton
+                      handle={() => navigate("/application", { replace: true })}
                     >
-                      Appy for Loan
-                    </button>
+                      Apply for loan
+                    </PrimaryButton>
                   </div>
                 </div> */}
               </LargeCard>

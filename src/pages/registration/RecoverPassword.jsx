@@ -54,7 +54,6 @@ const RecoverPassword = () => {
         setIsRecoverValid((prev) => ({ ...prev, [name]: "" }));
       } else {
         setIsPasswordMatch((prev) => "true");
-
         setIsRecoverValid((prev) => ({ ...prev, [name]: "valid" }));
       }
     } else if (name === "password") {
@@ -463,7 +462,7 @@ const RecoverPassword = () => {
                 </p>
               </div>
             )} */}
-            <div className="my-8">
+            <div className="my-8 sm:w-[400px] h-14 mx-auto md:mx-auto lg:mx-0">
               <PrimaryButton
                 handle={handleSubmit}
                 isButtonDisabled={isButtonDisabled}

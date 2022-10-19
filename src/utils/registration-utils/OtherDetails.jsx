@@ -810,7 +810,7 @@ const OtherDetails = () => {
 
             {inputErrorMessage.tos_accepted}
           </p>
-          <div className="mt-10 mb-5">
+          <div className="mt-10 mb-5 sm:w-[400px] h-14 mx-auto md:mx-auto lg:mx-0">
             <PrimaryButton
               handle={handleSubmit}
               isButtonDisabled={isButtonDisabled}
