@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SideMenu from "../components/nav/SideBar";
 import Header from "../components/head/Header";
+import PropTypes from "prop-types";
 
 import { ReactComponent as Cancel } from "../assets/icons/close-btn-blue.svg";
 
@@ -8,7 +9,7 @@ const ConsumerDashboardWrapper = ({ selectedSidebarLink, children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="w-full flex flex-row justify-start items-start">
+    <div className="w-full h-full flex flex-row justify-start items-start">
       {isSidebarOpen && (
         <>
           {" "}
@@ -27,13 +28,24 @@ const ConsumerDashboardWrapper = ({ selectedSidebarLink, children }) => {
         selectedSidebarLink={selectedSidebarLink}
       />
 
-      <div className="w-full md:ml-60 md:px-5  duration-500">
+      <div className="w-full  md:ml-60 md:px-5 lg:px-10  duration-500">
         <Header setIsSidebarOpen={setIsSidebarOpen} />
         {/* dashboard content goes here */}
         {children}
       </div>
     </div>
   );
+};
+ConsumerDashboardWrapper.propTypes = {
+  selectedSidebarLink: PropTypes.oneOf([
+    "dashboard",
+    "application",
+    "account",
+    "history",
+    "claim",
+    "notification",
+    "help",
+  ]),
 };
 
 export default ConsumerDashboardWrapper;

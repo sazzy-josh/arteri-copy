@@ -16,12 +16,18 @@
     -webkit-text-fill-color: #000000 !important;
     -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
   }
+  .dashboard-custom-shadow {
+    box-shadow: 0px 0px 35px 18px rgba(234, 242, 251, 0.5);
+  }
 }
 
 body {
   overflow-x: hidden;
   /* background-color: #f5f5f5; */
   background-color: #fbfefc;
+}
+.dashboard-title {
+  @apply font-semibold text-left text-3xl text-[#333333] mb-6;
 }
 
 .custom-file-input::-webkit-file-upload-button {

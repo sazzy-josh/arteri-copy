@@ -4,7 +4,7 @@ const SmallCard = ({ children, classNames }) => {
   return (
     <>
       <div
-        className={`rounded-md shadow-sm text-center px-5 py-5 font-bold flex flex-col justify-center items-center text-2xl ${classNames}`}
+        className={`rounded-lg shadow-sm  p-5 font-bold flex flex-col justify-center items-center gap-2  ${classNames}`}
       >
         {children}
       </div>

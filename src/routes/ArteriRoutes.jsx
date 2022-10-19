@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Application from "../pages/dashboard/Application";
+import Application from "../pages/consumer-dashboard/Application";
 
 // import Home from "../pages/Home";
-import Dashboard from "../pages/dashboard/Dashboard";
+import Dashboard from "../pages/consumer-dashboard/Dashboard";
 import Registration from "../pages/registration/Registration";
 import Login from "../pages/registration/Login";
 import ForgotPassword from "../pages/registration/ForgotPassword";
@@ -13,26 +13,26 @@ import AccountType from "../utils/registration-utils/AccountType";
 import Details from "../utils/registration-utils/Details";
 import OtherDetails from "../utils/registration-utils/OtherDetails";
 
-import Account from "../pages/dashboard/Account";
+import Account from "../pages/consumer-dashboard/Account";
 // financial history
 import Repayment from "../utils/financial-history/Repayment";
 import RecoverPassword from "../pages/registration/RecoverPassword";
-import Help from "../pages/dashboard/Help";
-import Notifications from "../pages/dashboard/Notifications";
-import History from "../pages/dashboard/History";
+import Help from "../pages/consumer-dashboard/Help";
+import Notifications from "../pages/consumer-dashboard/Notifications";
+import History from "../pages/consumer-dashboard/History";
 import AuthenticatedConsumerRoutes from "../layouts/AuthenticatedConsumerRoutes";
 import UnauthenticatedPrivateRoutes from "../layouts/UnauthenticatedPrivateRoutes";
 import Loans from "../utils/financial-history/Loans";
 import BNPL from "../utils/financial-history/BNPL";
-import HistoryDetails from "../pages/dashboard/HistroryDetails";
-import EditLoan from "../pages/dashboard/EditLoan";
-import ProviderDashboard from "../pages/admin/Dashboard";
+import HistoryDetails from "../pages/consumer-dashboard/HistroryDetails";
+import EditLoan from "../pages/consumer-dashboard/EditLoan";
+import ProviderDashboard from "../pages/provider-dashboard/Dashboard";
 import AccountVerification from "../pages/registration/AccountVerification";
-import ProviderAccount from "../pages/admin/MyAccount";
-import ProviderHelp from "../pages/admin/Help";
-import ProviderHistory from "../pages/admin/History";
-import ProviderNotifications from "../pages/admin/Notification";
-import ProviderSettings from "../pages/admin/Settings";
+import ProviderAccount from "../pages/provider-dashboard/MyAccount";
+import ProviderHelp from "../pages/provider-dashboard/Help";
+import ProviderHistory from "../pages/provider-dashboard/History";
+import ProviderNotifications from "../pages/provider-dashboard/Notification";
+import ProviderSettings from "../pages/provider-dashboard/Settings";
 import AuthenticatedProviderRoutes from "../layouts/AuthenticatedProviderRoutes";
 
 // Contexts
@@ -40,16 +40,16 @@ import { ModalContext } from "../contexts/ModalContext";
 import Preloader from "../components/Preloader";
 import LogOutAlert from "../components/custom-alerts/LogOutAlert";
 import Alert from "../components/Alert";
-import ProviderApplication from "../pages/admin/Application";
-import ProviderClaims from "../pages/admin/Claims";
-import ConsumerClaims from "../pages/dashboard/Claims";
+import ProviderApplication from "../pages/provider-dashboard/Application";
+import ProviderClaims from "../pages/provider-dashboard/Claims";
+import ConsumerClaims from "../pages/consumer-dashboard/Claims";
 import ProviderReceivedClaims from "../utils/provider-dashboard/ReceivedClaims";
 import ProviderAcceptedClaims from "../utils/provider-dashboard/AcceptedClaims";
 import ProviderDeclinedClaims from "../utils/provider-dashboard/DeclinedClaims";
 import ConsumerReceivedClaims from "../utils/consumer-dashboard/ReceivedClaims";
 import ConsumerAcceptedClaims from "../utils/consumer-dashboard/AcceptedClaims";
 import ConsumerDeclinedClaims from "../utils/consumer-dashboard/DeclinedClaims";
-import NewClaim from "../pages/admin/NewClaim";
+import NewClaim from "../pages/provider-dashboard/NewClaim";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
@@ -166,6 +166,7 @@ const ArteriRoutes = () => {
               path="/provider-claims/accepted"
               element={<ProviderAcceptedClaims />}
             />
+
             <Route
               path="/provider-claims/declined"
               element={<ProviderDeclinedClaims />}
