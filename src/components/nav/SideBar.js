@@ -124,7 +124,7 @@ const SideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
           <span>Apply for loan</span>
         </div>
         <div
-          onClick={() => navigate("/my-account")}
+          onClick={() => navigate("/my-account/profile")}
           className={`sidebar-links ${
             selectedSidebarLink === "account"
               ? " bg-white text-primary"

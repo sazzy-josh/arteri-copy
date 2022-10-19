@@ -50,6 +50,9 @@ import ConsumerReceivedClaims from "../utils/consumer-dashboard/ReceivedClaims";
 import ConsumerAcceptedClaims from "../utils/consumer-dashboard/AcceptedClaims";
 import ConsumerDeclinedClaims from "../utils/consumer-dashboard/DeclinedClaims";
 import NewClaim from "../pages/provider-dashboard/NewClaim";
+import Profile from "../components/profile/Profile";
+import Password from "../components/profile/Password";
+import Security from "../components/profile/Security";
 
 const ArteriRoutes = () => {
   const [isContentLoading, setIsContentLoading] = useState(false);
@@ -106,7 +109,11 @@ const ArteriRoutes = () => {
         <Route element={<AuthenticatedConsumerRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/application" element={<Application />} />
-          <Route path="/my-account" element={<Account />} />
+          <Route path="/my-account" element={<Account />}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="password" element={<Password />} />
+            <Route path="security" element={<Security />} />
+          </Route>
           <Route path="/notifications" element={<Notifications />} />
           <Route
             path="/history"

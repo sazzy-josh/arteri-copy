@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "../../styles/number-pagination.css";
+import "../../styles/navigation.css";
 
 const NumberPagination = () => {
   return (
