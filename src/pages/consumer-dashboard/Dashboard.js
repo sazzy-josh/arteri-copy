@@ -137,14 +137,14 @@ const Dashboard = () => {
                     Financing Summary
                   </p>
                   <p className="font-medium text-lg text-[#808080]">
-                    Application ID: 6377388
+                    Application ID: 0000000
                   </p>
                 </div>
                 <div className="w-full my-5 flex flex-row justify-start items-start gap-2">
                   <div className=" w-2/6">
                     <SmallCard classNames=" bg-[#FEF4E7] text-orange-600 w-full">
                       <p className="text-2xl font-semibold text-[#F29C2B]">
-                        25000
+                        {/* 25000 */}o
                       </p>
                     </SmallCard>
                     <p className="text-base mt-4 font-medium text-[#808080]">
@@ -154,7 +154,7 @@ const Dashboard = () => {
                   <div className=" w-2/6">
                     <SmallCard classNames=" bg-[#E5FFEF] text-orange-600 w-full">
                       <p className="text-2xl font-semibold text-[#00A03E]">
-                        10,000
+                        {/* 10,000 */}0
                       </p>
                     </SmallCard>
                     <p className="text-base mt-4 font-medium text-[#808080]">
@@ -165,7 +165,7 @@ const Dashboard = () => {
                   <div className=" w-2/6">
                     <SmallCard classNames=" bg-[#FEEDE6] text-orange-600 w-full">
                       <p className="text-2xl font-semibold text-[#FF0000]">
-                        15,000
+                        {/* 15,000 */}0
                       </p>
                     </SmallCard>
                     <p className="text-base mt-4 font-medium text-[#808080]">
@@ -198,10 +198,34 @@ const Dashboard = () => {
                           <li className="mx-2">Hours</li>
                         </ul>
                         <p className="font-semibold my-3 text-3xl">
-                          <span className="text-[#D65DB1]">25:</span>
-                          <span className="text-[#F29C2B]">06:</span>
-                          <span className="text-[#FFC75F]">21:</span>
-                          <span className="text-[#FF0000]">23</span>
+                          <span
+                            className={`${
+                              false ? "text-[#D65DB1]" : "text-[#333333]"
+                            }`}
+                          >
+                            25:
+                          </span>
+                          <span
+                            className={`${
+                              false ? "text-[#F29C2B]" : "text-[#333333]"
+                            }`}
+                          >
+                            06:
+                          </span>
+                          <span
+                            className={`${
+                              false ? "text-[#FFC75F]" : "text-[#333333]"
+                            }`}
+                          >
+                            21:
+                          </span>
+                          <span
+                            className={`${
+                              false ? "text-[#FF0000]" : "text-[#333333]"
+                            }`}
+                          >
+                            23
+                          </span>
                         </p>
                       </div>
                     </div>
@@ -211,7 +235,8 @@ const Dashboard = () => {
                           Collected Date
                         </h3>
                         <p className="text-base font-medium text-[#333333]">
-                          10 June, 2022
+                          {/* 10 June, 2022 */}
+                          ---- ---- ----
                         </p>
                       </div>
                       <div className="rounded-md shadow-sm bg-[#F6FAFD] my-2 py-2 px-1 text-center w-40">
@@ -219,7 +244,8 @@ const Dashboard = () => {
                           Payment Date
                         </h3>
                         <p className="text-base font-medium text-[#333333]">
-                          10 Aug, 2022
+                          {/* 10 Aug, 2022 */}
+                          ---- ---- ----
                         </p>
                       </div>
                       <div className="rounded-md shadow-sm bg-[#F6FAFD] my-2 py-2 px-1 text-center w-40">
@@ -227,7 +253,8 @@ const Dashboard = () => {
                           Financing Period
                         </h3>
                         <p className="text-base font-medium text-[#333333]">
-                          10 Months
+                          {/* 10 Months */}
+                          ---- ---- ----
                         </p>
                       </div>
                     </div>
@@ -244,23 +271,26 @@ const Dashboard = () => {
                     Financing History
                   </p>
                 </div>
-                <div className="w-full mt-5 mb-5">
+
+                {/* history's component  */}
+
+                {/* <div className="w-full mt-5 mb-5">
                   {historyList.map((item, index) => (
                     <SingleHistory key={index} date={item.date} id={item.id} />
                   ))}
                 </div>
 
-                <div className="flex flex-col justify-center items-center text-white mt-20">
-                  <div
-                    onClick={() =>
-                      navigate("/history/loans", { replace: true })
-                    }
-                    className="w-48 h-14 flex justify-center items-center bg-secondary rounded-lg hover:bg-[#354D19] cursor-pointer text-lg font-medium"
+                <div className="mt-20 mb-8 w-48 h-14 mx-auto ">
+                  <PrimaryButton
+                    handle={() => navigate("/history/loans", { replace: true })}
                   >
-                    <span>See all history</span>
-                  </div>
-                </div>
-                {/* <div className="w-full">
+                    See all history
+                  </PrimaryButton>
+                </div> */}
+
+                {/* no history component */}
+
+                <div className="w-full">
                   <div className="bg-[#F6FAFD] w-32 h-32 mt-12 mb-2 mx-auto rounded-full flex justify-center items-center">
                     <svg
                       width="65"
@@ -314,17 +344,15 @@ const Dashboard = () => {
                   <p className="text-[#B3B3B3]">
                     Tap the button below to apply for a new loan
                   </p>
-                  <div className=" ">
-                    <button
-                      onClick={() =>
-                        navigate("/application", { replace: true })
-                      }
-                      className=" w-44 h-12 border-none outline-none font-medium  text-white text-center rounded-xl mx-auto text-lg my-4 block  bg-secondary"
+
+                  <div className="my-8 w-44 h-12 mx-auto ">
+                    <PrimaryButton
+                      handle={() => navigate("/application", { replace: true })}
                     >
-                      Appy for Loan
-                    </button>
+                      Apply for loan
+                    </PrimaryButton>
                   </div>
-                </div> */}
+                </div>
               </LargeCard>
             </div>
           </div>

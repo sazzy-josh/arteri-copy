@@ -309,7 +309,7 @@ const AccountVerification = () => {
                     />
                   </div>
                 </label>
-                <div className="my-8">
+                <div className="my-8 sm:w-[400px] mx-auto md:mx-auto lg:mx-0">
                   <PrimaryButton
                     isButtonDisabled={!phoneVerificationCode}
                     handle={(e) => {
@@ -356,7 +356,7 @@ const AccountVerification = () => {
                         />
                       </div>
                     </label>
-                    <div className="my-8">
+                    <div className="my-8 sm:w-[400px] h-14 mx-auto md:mx-auto lg:mx-0">
                       <PrimaryButton
                         isButtonDisabled={!emailVerificationCode}
                         handle={(e) => {

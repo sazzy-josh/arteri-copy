@@ -362,7 +362,7 @@ const Details = () => {
             </p>
           </label>
 
-          <div className="mt-10 mb-5">
+          <div className="mt-10 mb-5 sm:w-[400px] h-14 mx-auto md:mx-auto lg:mx-0">
             <PrimaryButton handle={handleSubmit}>Next</PrimaryButton>
           </div>
         </form>

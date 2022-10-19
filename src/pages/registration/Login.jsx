@@ -409,12 +409,14 @@ const Login = () => {
                   </p>
                 </div>
               </label>
-              <PrimaryButton
-                handle={handleSubmit}
-                isButtonDisabled={isButtonDisabled}
-              >
-                Login into account
-              </PrimaryButton>
+              <div className="sm:w-[400px] h-14 mx-auto md:mx-auto lg:mx-0">
+                <PrimaryButton
+                  handle={handleSubmit}
+                  isButtonDisabled={isButtonDisabled}
+                >
+                  Login into account
+                </PrimaryButton>
+              </div>
             </form>
             <RegistrationRedirect2 />
           </section>
