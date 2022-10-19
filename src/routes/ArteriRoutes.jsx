@@ -166,6 +166,7 @@ const ArteriRoutes = () => {
               path="/provider-claims/accepted"
               element={<ProviderAcceptedClaims />}
             />
+
             <Route
               path="/provider-claims/declined"
               element={<ProviderDeclinedClaims />}
