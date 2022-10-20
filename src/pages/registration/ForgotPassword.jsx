@@ -111,7 +111,7 @@ const ForgotPassword = () => {
           ...prev,
           type: "fail",
           title: "Ooops! Sorry",
-          subtitle: err.response.data.data.flash_message,
+          subtitle: err.response.data?.data?.flash_message,
 
           // function () {
           //   if (err.response.data.data.errors.identifier) {

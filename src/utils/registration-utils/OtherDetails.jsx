@@ -146,7 +146,7 @@ const OtherDetails = () => {
       for (const key in err.response?.data?.data?.errors) {
         setInputErrorMessage((prev) => ({
           ...prev,
-          [key]: err.response.data.data.errors[key][0],
+          [key]: err.response.data?.data?.errors[key][0],
         }));
         setIsValid((prev) => ({
           ...prev,
@@ -298,7 +298,7 @@ const OtherDetails = () => {
       for (const key in err.response?.data?.data?.errors) {
         setInputErrorMessage((prev) => ({
           ...prev,
-          [key]: err.response.data.data.errors[key][0],
+          [key]: err.response.data?.data?.errors[key][0],
         }));
         setIsValid((prev) => ({
           ...prev,

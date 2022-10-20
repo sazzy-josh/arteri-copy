@@ -47,8 +47,8 @@ const AccountVerification = () => {
           { headers: { Authorization: `Bearer ${loggedInToken}` } }
         );
         setIsFetching(false);
-        setUserAccountType(response.data.data.user_profile.account_type);
-        if (response.data.data.user_profile.email) {
+        setUserAccountType(response.data?.data?.user_profile?.account_type);
+        if (response.data?.data?.user_profile.email) {
           setIsUserEmail(true);
         }
         // if (response.data.data.user_profile.phone) {
