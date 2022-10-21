@@ -56,7 +56,7 @@ const OtherDetails = () => {
     // post formData to server
     try {
       const response = await Axios.post(
-        "https://api.arteri.tk/api/account/create/with-email-address",
+        `${process.env.REACT_APP_BASE_URI}/account/create/with-email-address`,
         formData
       );
       setIsContentLoading(false);
@@ -172,7 +172,7 @@ const OtherDetails = () => {
     // post formData to server
     try {
       const response = await Axios.post(
-        "https://api.arteri.tk/api/account/create/with-phone-number",
+        `${process.env.REACT_APP_BASE_URI}/account/create/with-phone-number`,
         formData
       );
       setIsContentLoading(false);

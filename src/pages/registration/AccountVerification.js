@@ -43,7 +43,7 @@ const AccountVerification = () => {
         //   loggedInToken = sessionStorage.getItem("authToken");
         // }
         const response = await Axios.get(
-          "https://api.arteri.tk/api/user/profile/get",
+          `${process.env.REACT_APP_BASE_URI}/user/profile/get`,
           { headers: { Authorization: `Bearer ${loggedInToken}` } }
         );
         setIsFetching(false);
@@ -121,7 +121,7 @@ const AccountVerification = () => {
       //   loggedInToken = sessionStorage.getItem("authToken");
       // }
       const response = await Axios.post(
-        "https://api.arteri.tk/api/account/phone-number/verify",
+        `${process.env.REACT_APP_BASE_URI}/account/phone-number/verify`,
         formData,
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
@@ -165,7 +165,7 @@ const AccountVerification = () => {
     formData.append("verification_code", emailVerificationCode);
     try {
       const response = await Axios.post(
-        "https://api.arteri.tk/api/account/email-address/verify",
+        `${process.env.REACT_APP_BASE_URI}/account/email-address/verify`,
         formData,
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
@@ -198,7 +198,7 @@ const AccountVerification = () => {
 
     try {
       const response = await Axios.post(
-        "https://api.arteri.tk/api/account/phone-number/resend-verification-code",
+        `${process.env.REACT_APP_BASE_URI}/account/phone-number/resend-verification-code`,
         {},
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
@@ -231,7 +231,7 @@ const AccountVerification = () => {
       //   loggedInToken = sessionStorage.getItem("authToken");
       // }
       const response = await Axios.post(
-        "https://api.arteri.tk/api/account/email-address/resend-verification-code",
+        `${process.env.REACT_APP_BASE_URI}/account/email-address/resend-verification-code`,
         {},
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );
@@ -309,7 +309,7 @@ const AccountVerification = () => {
                     />
                   </div>
                 </label>
-                <div className="my-8 sm:w-[400px] mx-auto md:mx-auto lg:mx-0">
+                <div className="my-8 sm:w-[400px] h-14 mx-auto md:mx-auto lg:mx-0">
                   <PrimaryButton
                     isButtonDisabled={!phoneVerificationCode}
                     handle={(e) => {

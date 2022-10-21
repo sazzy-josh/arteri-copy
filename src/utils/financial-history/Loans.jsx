@@ -21,7 +21,7 @@ const Loans = () => {
   const [historyData, setHistoryData] = useState({});
 
   const [currentURL, setCurrentURL] = useState(
-    "https://api.arteri.tk/api/loan/history/get?page=14"
+    `${process.env.REACT_APP_BASE_URI}/loan/history/get?page=1`
   );
   const [isTableLoading, setIsTableLoading] = useState(true);
   // show preloader

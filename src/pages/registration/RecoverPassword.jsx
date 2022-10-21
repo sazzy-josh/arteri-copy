@@ -108,7 +108,7 @@ const RecoverPassword = () => {
       // post formData to server
       try {
         const response = await Axios.post(
-          "https://api.arteri.tk/api/account/password/reset",
+          `${process.env.REACT_APP_BASE_URI}/account/password/reset`,
           formData
         );
         setIsContentLoading(false);
