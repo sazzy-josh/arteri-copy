@@ -68,7 +68,7 @@ const Help = () => {
         <div className="lg:w-1/3 w-full px-5 lg:block hidden ">
           <div className="w-[365px] h-auto drop-shadow-sm rounded-[32px] dashboard-custom-shadow bg-white mr-5 p-7">
             <div className="my-10">
-              <h2 className="text-left font-bold text-2xl my-4">Quick Questions</h2>
+              <h2 className="text-left font-semibold text-2xl my-4">Quick Questions</h2>
               {questions.map((question, index) => {
                 return (
                   <QuestionCard key={index} {...question} />
