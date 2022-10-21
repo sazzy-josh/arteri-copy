@@ -10,8 +10,8 @@ const InputBox = ({ type, changeText, sendMessage }) => {
           onChange={changeText}
           autoComplete="off"
           autoFocus
-          placeholder="Type your message here"
-          className="custom-file-input focus:outline-none focus:border-0 border-0 h-full w-full placeholder:text-md placeholder:opacity-80 placeholder:mr-4"
+          placeholder="Type your message here..."
+          className="custom-file-input focus:outline-none py-4 focus:border-0 border-0 h-full w-full pl-8 placeholder:text-md"
         />
         <span onClick={sendMessage} className="h-full cursor-pointer bg-[#8BC34A] rounded-tr-lg rounded-br-lg overflow-y-hidden p-2 w-20 flex flex-row justify-center items-center text-white">
           <img src={sendSvg} alt="send-icon" />

@@ -50,7 +50,7 @@ const Help = () => {
 
           {/*Question section for Small screens and medium screens  */}
           <div className="mt-auto w-full lg:hidden block">
-            <h2 className="text-left text-gray-400 font-bold text-xl">
+            <h2 className="text-left text-gray-400 font-semibold text-2xl">
               Quick Questions
             </h2>
               {questions.map((question, index) => {
