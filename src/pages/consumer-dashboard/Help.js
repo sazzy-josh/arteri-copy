@@ -53,11 +53,13 @@ const Help = () => {
             <h2 className="text-left text-gray-400 font-semibold text-2xl">
               Quick Questions
             </h2>
-              {questions.map((question, index) => {
+              <>
+                {questions.map((question, index) => {
                 return (
                   <QuestionCard key={index} {...question} />
                 )
               })}
+              </>
           </div>
           <div className="h-1/4 w-full mb-4">
             <InputBox />
