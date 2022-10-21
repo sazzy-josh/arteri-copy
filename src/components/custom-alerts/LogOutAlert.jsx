@@ -26,7 +26,7 @@ const LogOutAlert = ({ modalTrigger, setModalTrigger, buttonHandle }) => {
         loggedInToken = sessionStorage.getItem("authToken");
       }
       const response = await axios.post(
-        "https://api.arteri.tk/api/account/log-out/here",
+        `${process.env.REACT_APP_BASE_URI}/account/log-out/here`,
         {},
         { headers: { Authorization: `Bearer ${loggedInToken}` } }
       );

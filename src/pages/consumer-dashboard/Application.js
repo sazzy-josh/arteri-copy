@@ -109,7 +109,7 @@ const Application = () => {
       };
 
       const response = await fetch(
-        "https://api.arteri.tk/api/personal/loan/create",
+        `${process.env.REACT_APP_BASE_URI}/personal/loan/create`,
         requestOptions
       );
 
@@ -153,7 +153,7 @@ const Application = () => {
       };
 
       const response = await fetch(
-        "https://api.arteri.tk/api/personal/loan/update",
+        `${process.env.REACT_APP_BASE_URI}/personal/loan/update`,
         requestOptions
       );
       const data = await response.json();
@@ -193,7 +193,7 @@ const Application = () => {
       };
 
       const response = await fetch(
-        "https://api.arteri.tk/api/personal/loan/update",
+        `${process.env.REACT_APP_BASE_URI}/personal/loan/update`,
         requestOptions
       );
       const data = await response.json();
@@ -233,7 +233,7 @@ const Application = () => {
       };
 
       const response = await fetch(
-        "https://api.arteri.tk/api/personal/loan/update",
+        `${process.env.REACT_APP_BASE_URI}/personal/loan/update`,
         requestOptions
       );
       const data = await response.json();
@@ -273,7 +273,7 @@ const Application = () => {
       };
 
       const response = await fetch(
-        "https://api.arteri.tk/api/personal/loan/update",
+        `${process.env.REACT_APP_BASE_URI}/personal/loan/update`,
         requestOptions
       );
       const data = await response.json();
@@ -310,7 +310,7 @@ const Application = () => {
       };
 
       const response = await fetch(
-        "https://api.arteri.tk/api/personal/loan/update",
+        `${process.env.REACT_APP_BASE_URI}/personal/loan/update`,
         requestOptions
       );
       const data = await response.json();
@@ -367,7 +367,7 @@ const Application = () => {
       };
 
       const response = await fetch(
-        "https://api.arteri.tk/api/personal/loan/update",
+        `${process.env.REACT_APP_BASE_URI}/personal/loan/update`,
         requestOptions
       );
       const data = await response.json();
@@ -474,7 +474,7 @@ const Application = () => {
         };
 
         const response = await fetch(
-          "https://api.arteri.tk/api/loan/link-mono",
+          `${process.env.REACT_APP_BASE_URI}/loan/link-mono`,
           requestOptions
         );
         const data = await response.json();

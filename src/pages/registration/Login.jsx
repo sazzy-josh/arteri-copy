@@ -85,7 +85,7 @@ const Login = () => {
     // post formData to server
     try {
       const response = await Axios.post(
-        "https://api.arteri.tk/api/account/log-in",
+        `${process.env.REACT_APP_BASE_URI}/account/log-in`,
         formData
       );
 

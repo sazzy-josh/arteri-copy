@@ -49,7 +49,7 @@ const ForgotPassword = () => {
   //     // post formData to server
   //     try {
   //       const response = await Axios.post(
-  //         "https://api.arteri.tk/api/account/password/request-reset",
+  //         `${process.env.REACT_APP_BASE_URI}/account/password/request-reset`,
   //         formData
   //       );
 
@@ -91,7 +91,7 @@ const ForgotPassword = () => {
     // post formData to server
     try {
       const response = await Axios.post(
-        "https://api.arteri.tk/api/account/password/request-reset",
+        `${process.env.REACT_APP_BASE_URI}/account/password/request-reset`,
         formData
       );
       setIsContentLoading(false);
