@@ -1,17 +1,33 @@
 import React from "react";
-import { PieChart, Pie, Sector, Cell, Tooltip } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Sector,
+  Cell,
+  Tooltip,
+  RadialBarChart,
+  Legend,
+  RadialBar,
+} from "recharts";
 
+// const data = [
+//   { name: "Group A", value: 10 },
+//   { name: "Group B", value: 20 },
+// ];
 const data = [
-  { name: "Group A", value: 10 },
-  { name: "Group B", value: 20 },
-  // { name: "Group C", value: 60 },
+  {
+    name: "18-24",
+    uv: 1.47,
+    pv: 2400,
+    fill: "#ff0000",
+  },
 ];
 const COLORS = ["#9C2BD4", "#F8F0FC", "#FFBB28", "#FF8042"];
 
 const Chart = () => {
   return (
     <div className="relative -z-10 md:z-0">
-      <PieChart width={250} height={200}>
+      {/* <PieChart width={250} height={200}>
         <Pie
           data={data}
           cx={"50%"}
@@ -28,8 +44,28 @@ const Chart = () => {
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
+      </PieChart
+      > */}
+      <RadialBarChart
+        width={450}
+        height={300}
+        innerRadius="40%"
+        outerRadius="90%"
+        data={data}
+        startAngle={180}
+        endAngle={0}
+      >
+        <RadialBar minAngle={15} background clockWise={true} dataKey="uv" />
+        {/* <Legend
+          iconSize={10}
+          width={120}
+          height={140}
+          layout="vertical"
+          verticalAlign="middle"
+          align="right"
+        /> */}
         {/* <Tooltip /> */}
-      </PieChart>
+      </RadialBarChart>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import SearchSort from "../../components/history/SearchSort";
 import EmptyConsumerClaim from "../../components/history/EmptyConsumerClaim";
+import Tabs from "../../components/nav/Tabs";
 
 const AcceptedClaims = () => {
   let navigate = useNavigate();
@@ -21,17 +22,13 @@ const AcceptedClaims = () => {
 
   return (
     <>
-      <div className="px-5 flex justify-between items-center md:justify-start mb-8 border-b border-gray-200">
-        <NavLink to="/consumer-claims/received" className="history-tab">
-          Received
-        </NavLink>
-        <NavLink to="/consumer-claims/accepted" className="history-tab">
-          Accepted
-        </NavLink>
-        <NavLink to="/consumer-claims/declined" className="history-tab">
-          Declined
-        </NavLink>
-      </div>
+      <Tabs
+        tabsArray={[
+          { name: "Received", path: "/consumer-claims/received" },
+          { name: "Accepted", path: "/consumer-claims/accepted" },
+          { name: "Declined", path: "/consumer-claims/declined" },
+        ]}
+      />
       <section className=" px-3 py-5 dashboard-custom-shadow md:overflow-auto md:w-[95%] md:mx-auto md:px-0">
         <SearchSort />
         <table className="w-full">

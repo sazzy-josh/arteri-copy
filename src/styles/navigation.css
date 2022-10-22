@@ -4,3 +4,9 @@
 .number-navigation.active {
   @apply bg-primary text-white border-none;
 }
+.tab {
+  @apply cursor-pointer inline-block font-medium pb-3 text-left sm:text-center w-auto min-w-[100px] translate-y-[3px] sm:w-48 lg:w-56;
+}
+.tab.active {
+  @apply border-b-4 border-primary;
+}

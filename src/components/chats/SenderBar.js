@@ -3,7 +3,7 @@ import React from 'react'
 const SenderBar = () => {
   return (
     <>
-        <div className="rounded-md bg-sky-300 p-5">
+        <div className="sender-card shadow-sm  p-5 drop-shadow-sm">
             <p>How are you?</p>
         </div>
     </>

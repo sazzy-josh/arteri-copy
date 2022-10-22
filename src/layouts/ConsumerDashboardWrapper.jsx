@@ -23,7 +23,6 @@ const ConsumerDashboardWrapper = ({ selectedSidebarLink, children }) => {
         </>
       )}
       <SideMenu
-        selectDash={true}
         isSidebarOpen={isSidebarOpen}
         selectedSidebarLink={selectedSidebarLink}
       />

@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 
-// import components
-import Container from "../../components/container/Container";
-import Header from "../../components/head/Header";
-import MobileHeader from "../../components/head/MobileHeader";
-import SideMenu from "../../components/nav/SideBar";
 import ConsumerDashboardWrapper from "../../layouts/ConsumerDashboardWrapper";
 
 // import styles
