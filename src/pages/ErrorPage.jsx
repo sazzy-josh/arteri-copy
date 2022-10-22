@@ -17,7 +17,7 @@ const ErrorPage = () => {
           Ooops!... <br />
           Page Not Found
         </p>
-        <div className="sm:w-[400px] h-14">
+        <div className="w-full h-14">
           <PrimaryButton handle={() => navigate("/login", { replace: true })}>
             Go to Homepage
           </PrimaryButton>
@@ -30,9 +30,11 @@ const ErrorPage = () => {
           <p className="text-2xl text-black text-center font-semibold mb-10 mt-8">
             Ooops!... Page Not Found
           </p>
-          <PrimaryButton handle={() => navigate("/login", { replace: true })}>
-            Go to Homepage
-          </PrimaryButton>
+          <div className="sm:w-[400px] h-14">
+            <PrimaryButton handle={() => navigate("/login", { replace: true })}>
+              Go to Homepage
+            </PrimaryButton>
+          </div>
         </div>
       </div>
     </div>
