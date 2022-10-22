@@ -138,10 +138,10 @@ const Login = () => {
           identifier: "",
           password: "",
         });
-        for (const key in err.response.data.data.errors) {
+        for (const key in err.response?.data?.data?.errors) {
           setLoginErrorMessage((prev) => ({
             ...prev,
-            [key]: err.response.data.data.errors[key][0],
+            [key]: err.response.data?.data?.errors[key][0],
           }));
           setIsLoginValid((prev) => ({
             ...prev,
@@ -152,7 +152,7 @@ const Login = () => {
           ...prev,
           type: "fail",
           title: "Ooops! Sorry",
-          subtitle: err.response.data.data.flash_message,
+          subtitle: err.response?.data?.data?.flash_message,
         }));
         setIsAlertOpen(true);
       }

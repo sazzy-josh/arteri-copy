@@ -11,6 +11,7 @@ import Pagination from "../../components/Pagination";
 // skeleton for table data loading
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Tabs from "../../components/nav/Tabs";
 
 const Loans = () => {
   const loggedInToken =
@@ -81,8 +82,12 @@ const Loans = () => {
   }, []);
   return (
     <>
-      <HistoryPageNavigation />
-
+      <Tabs
+        tabsArray={[
+          { name: "Loan", path: "/history/loans" },
+          { name: "BNPL", path: "/history/bnpl" },
+        ]}
+      />
       <section className=" mb-8 px-3 py-5 sm:shadow-2xl sm:shadow-[#EAF2FB] md:overflow-auto md:w-[95%] md:mx-auto md:px-0 md:mb-12">
         <SearchSort />
 

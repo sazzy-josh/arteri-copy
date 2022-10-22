@@ -126,7 +126,7 @@ const RecoverPassword = () => {
             ...prev,
             type: "fail",
             title: "Ooops! Sorry",
-            subtitle: err.response.data.data.flash_message,
+            subtitle: err.response.data?.data?.flash_message,
           }));
           setIsAlertOpen(true);
         }

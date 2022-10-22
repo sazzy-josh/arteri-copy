@@ -1,12 +1,28 @@
 import React from "react";
-import { PieChart, Pie, Sector, Cell, Tooltip } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Sector,
+  Cell,
+  Tooltip,
+  RadialBarChart,
+  Legend,
+  RadialBar,
+} from "recharts";
 
 const data = [
-  { name: "Group A", value: 10 },
-  { name: "Group B", value: 20 },
-  // { name: "Group C", value: 60 },
+  { name: "Group A", value: 0 },
+  { name: "Group B", value: 700 },
 ];
 const COLORS = ["#9C2BD4", "#F8F0FC", "#FFBB28", "#FF8042"];
+// const data = [
+//   {
+//     name: "18-24",
+//     uv: 1.47,
+//     pv: 2400,
+//     fill: "#ff0000",
+//   },
+// ];
 
 const Chart = () => {
   return (
@@ -28,8 +44,19 @@ const Chart = () => {
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        {/* <Tooltip /> */}
       </PieChart>
+      {/* <RadialBarChart
+        width={450}
+        height={300}
+        innerRadius="40%"
+        outerRadius="90%"
+        data={data}
+        startAngle={180}
+        endAngle={0}
+      >
+        <RadialBar minAngle={15} background clockWise={true} dataKey="uv" />
+      
+      </RadialBarChart> */}
     </div>
   );
 };

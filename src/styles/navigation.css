@@ -1,0 +1,12 @@
+.number-navigation {
+  @apply text-base text-gray-400 font-medium w-9 h-9 inline-block rounded-full border-2 border-gray-400 leading-9 mx-3;
+}
+.number-navigation.active {
+  @apply bg-primary text-white border-none;
+}
+.tab {
+  @apply cursor-pointer inline-block font-medium pb-3 text-left sm:text-center w-auto min-w-[100px] translate-y-[3px] sm:w-48 lg:w-56;
+}
+.tab.active {
+  @apply border-b-4 border-primary;
+}

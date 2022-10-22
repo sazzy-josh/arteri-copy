@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LargeCard from "../../components/cards/LargeCard";
+import { QuestionCard } from "../../components/cards/LargeQuestionCard";
 import InputBox from "../../components/chats/InputBox";
 import ReceiverBar from "../../components/chats/ReceiverBar";
 import SenderBar from "../../components/chats/SenderBar";
@@ -11,11 +12,32 @@ import ConsumerDashboardWrapper from "../../layouts/ConsumerDashboardWrapper";
 
 const Help = () => {
   const [isOpen, setIsOpen] = useState(false);
+   
+  const questions =[
+    { 
+      question: "How can I help?",
+    },
+    {
+      question: "How much interest do i pay?",
+    },
+    { 
+      question: "How long to repay a loan?",
+    },
+    {
+      question: "Do i requrie a Bvn to secure a loan?",
+    },
+    { 
+      question: "How long does it take to approve my loan?",
+    }, {
+      question: "What if i can't pay back within the specified period"
+    }
+  ] 
+
   return (
     <ConsumerDashboardWrapper selectedSidebarLink="help">
-      <div className="w-full flex lg:flex-row flex-col justify-start items-start">
+      <div className="w-full flex lg:flex-row flex-col justify-start items-start"> 
         <div className="lg:w-2/3 w-full lg:px-0 px-5 h-full flex flex-col justify-between items-start">
-          <h1 className="font-bold text-2xl text-left">Customer Care</h1>
+          <h1 className="dashboard-title">Customer Care</h1>
           <div className="w-full h-80 lg:mb-32 mb-auto">
             <div className="sender text-left flex flex-row justify-start items-start lg:w-1/3 w-1/2 my-3">
               <SenderBar />
@@ -25,48 +47,37 @@ const Help = () => {
               <ReceiverBar />
             </div>
           </div>
+
+          {/*Question section for Small screens and medium screens  */}
           <div className="mt-auto w-full lg:hidden block">
-            <h2 className="text-left text-gray-400 font-bold text-xl">
+            <h2 className="text-left text-gray-400 font-semibold text-2xl">
               Quick Questions
             </h2>
-            <div className="p-3 my-3 rounded-md bg-sky-50 text-primary font-semibold">
-              <p>How can I apply for a loan?</p>
-            </div>
-            <div className="p-3 my-3 rounded-md bg-sky-50 text-primary font-semibold">
-              <p>How can I apply for a loan?</p>
-            </div>
-            <div className="p-3 my-3 rounded-md bg-sky-50 text-primary font-semibold">
-              <p>How can I apply for a loan?</p>
-            </div>
+              <>
+                {questions.map((question, index) => {
+                return (
+                  <QuestionCard key={index} {...question} />
+                )
+              })}
+              </>
           </div>
-          <div className="h-1/4 w-full">
+          <div className="h-1/4 w-full mb-4">
             <InputBox />
           </div>
         </div>
-        <div className="lg:w-1/3 w-full px-5 lg:block hidden">
-          <LargeCard>
+
+        {/* Question section for large screens */}
+        <div className="lg:w-1/3 w-full px-5 lg:block hidden ">
+          <div className="w-[365px] h-auto drop-shadow-sm rounded-[32px] dashboard-custom-shadow bg-white mr-5 p-7">
             <div className="my-10">
-              <h2 className="text-left font-bold text-2xl">Quick Questions</h2>
-              <div className="p-3 my-3 rounded-md bg-sky-50 text-primary font-semibold">
-                <p>How can I apply for a loan?</p>
-              </div>
-              <div className="p-3 my-3 rounded-md bg-sky-50 text-primary font-semibold">
-                <p>How can I apply for a loan?</p>
-              </div>
-              <div className="p-3 my-3 rounded-md bg-sky-50 text-primary font-semibold">
-                <p>How can I apply for a loan?</p>
-              </div>
-              <div className="p-3 my-3 rounded-md bg-sky-50 text-primary font-semibold">
-                <p>How can I apply for a loan?</p>
-              </div>
-              <div className="p-3 my-3 rounded-md bg-sky-50 text-primary font-semibold">
-                <p>How can I apply for a loan?</p>
-              </div>
-              <div className="p-3 my-3 rounded-md bg-sky-50 text-primary font-semibold">
-                <p>How can I apply for a loan?</p>
-              </div>
+              <h2 className="text-left font-semibold text-2xl my-4">Quick Questions</h2>
+              {questions.map((question, index) => {
+                return (
+                  <QuestionCard key={index} {...question} />
+                )
+              })}
             </div>
-          </LargeCard>
+          </div>
         </div>
       </div>
     </ConsumerDashboardWrapper>

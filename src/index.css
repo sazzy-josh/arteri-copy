@@ -21,6 +21,18 @@
   }
 }
 
+@layer components {
+    .sender-card {
+      background: #F6FAFD;
+      border-radius: 15px 15px 0px 15px;
+    }
+
+    .reciever-card{
+      background: #FEF4E7;
+      border-radius: 15px 15px 0px 15px;
+    }
+}
+
 body {
   overflow-x: hidden;
   /* background-color: #f5f5f5; */

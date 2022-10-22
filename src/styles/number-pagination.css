@@ -1,6 +1,0 @@
-.number-navigation {
-  @apply text-base text-gray-400 font-medium w-9 h-9 inline-block rounded-full border-2 border-gray-400 leading-9 mx-3;
-}
-.number-navigation.active {
-  @apply bg-primary text-white border-none;
-}
