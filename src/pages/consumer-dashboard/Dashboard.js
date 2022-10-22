@@ -46,7 +46,7 @@ const Dashboard = () => {
               <div className="my-2">
                 <SmallCard classNames="bg-[#FEF4E7]  w-full h-36">
                   <p className="text-2xl font-semibold text-[#F29C2B]">
-                    25,000
+                    {/* 25,000 */} 0
                   </p>
                   <p className="text-lg font-medium text-[#808080]">
                     Loan amount
@@ -56,7 +56,7 @@ const Dashboard = () => {
               <div className="my-2">
                 <SmallCard classNames="bg-[#E5FFEF]  w-full h-36">
                   <p className="text-2xl font-semibold text-[#00A03E]">
-                    10,000
+                    {/* 10,000 */} 0
                   </p>
                   <p className="text-lg font-medium text-[#808080]">
                     Already repaid
@@ -66,7 +66,7 @@ const Dashboard = () => {
               <div className="my-2">
                 <SmallCard classNames="bg-[#FEEDE6]  w-full h-36">
                   <p className="text-2xl font-semibold text-[#FF0000]">
-                    15,000
+                    {/* 15,000 */} 0
                   </p>
                   <p className="text-lg font-medium text-[#808080]">
                     Reamaing to be repaid
@@ -84,20 +84,60 @@ const Dashboard = () => {
                 <Chart />
                 <div>
                   <ul className="flex flex-row justify-start items-center text-base font-medium">
-                    <li className="w-2 h-2 rounded-full bg-[#D65DB1]"></li>
+                    <li
+                      className={`w-2 h-2 rounded-full ${
+                        false ? "bg-[#D65DB1]" : "bg-[#333333]"
+                      }`}
+                    ></li>
                     <li className="mx-2">Days</li>
-                    <li className="w-2 h-2 rounded-full bg-[#F29C2B]"></li>
+                    <li
+                      className={`w-2 h-2 rounded-full ${
+                        false ? "bg-[#F29C2B]" : "bg-[#333333]"
+                      }`}
+                    ></li>
                     <li className="mx-2">Hours</li>
-                    <li className="w-2 h-2 rounded-full bg-[#FFC75F]"></li>
+                    <li
+                      className={`w-2 h-2 rounded-full ${
+                        false ? "bg-[#FFC75F]" : "bg-[#333333]"
+                      }`}
+                    ></li>
                     <li className="mx-2">Days</li>
-                    <li className="w-2 h-2 rounded-full bg-[#FF0000]"></li>
+                    <li
+                      className={`w-2 h-2 rounded-full ${
+                        false ? "bg-[#FF0000]" : "bg-[#333333]"
+                      }`}
+                    ></li>
                     <li className="mx-2">Hours</li>
                   </ul>
                   <p className="font-semibold my-3 text-3xl">
-                    <span className="text-[#D65DB1]">25:</span>
-                    <span className="text-[#F29C2B]">06:</span>
-                    <span className="text-[#FFC75F]">21:</span>
-                    <span className="text-[#FF0000]">23</span>
+                    <span
+                      className={`${
+                        false ? "text-[#D65DB1]" : "text-[#333333]"
+                      }`}
+                    >
+                      25:
+                    </span>
+                    <span
+                      className={`${
+                        false ? "text-[#F29C2B]" : "text-[#333333]"
+                      }`}
+                    >
+                      06:
+                    </span>
+                    <span
+                      className={`${
+                        false ? "text-[#FFC75F]" : "text-[#333333]"
+                      }`}
+                    >
+                      21:
+                    </span>
+                    <span
+                      className={`${
+                        false ? "text-[#FF0000]" : "text-[#333333]"
+                      }`}
+                    >
+                      23
+                    </span>
                   </p>
                 </div>
               </div>
@@ -107,7 +147,8 @@ const Dashboard = () => {
                     Collected Date
                   </h3>
                   <p className="text-[#333333] text-base font-medium">
-                    10 June, 2022
+                    {/* 10 June, 2022 */}
+                    ---- ---- ----
                   </p>
                 </div>
                 <div className="rounded-lg shadow-sm bg-[#F6FAFD] my-2 py-2 px-1 text-center w-40">
@@ -115,7 +156,8 @@ const Dashboard = () => {
                     Payment Date
                   </h3>
                   <p className="text-[#333333] text-base font-medium">
-                    10 Aug, 2022
+                    {/* 10 Aug, 2022 */}
+                    ---- ---- ----
                   </p>
                 </div>
                 <div className="rounded-lg shadow-sm bg-[#F6FAFD] my-2 py-2 px-1 text-center w-40">
@@ -123,7 +165,8 @@ const Dashboard = () => {
                     Financing Period
                   </h3>
                   <p className="text-[#333333] text-base font-medium">
-                    10 Months
+                    {/* 10 Months */}
+                    ---- ---- ----
                   </p>
                 </div>
               </div>
@@ -144,7 +187,7 @@ const Dashboard = () => {
                   <div className=" w-2/6">
                     <SmallCard classNames=" bg-[#FEF4E7] text-orange-600 w-full">
                       <p className="text-2xl font-semibold text-[#F29C2B]">
-                        {/* 25000 */}o
+                        {/* 25000 */}0
                       </p>
                     </SmallCard>
                     <p className="text-base mt-4 font-medium text-[#808080]">
@@ -188,13 +231,29 @@ const Dashboard = () => {
                       <Chart />
                       <div>
                         <ul className="flex flex-row justify-start items-center text-base font-medium">
-                          <li className="w-2 h-2 rounded-full bg-[#D65DB1]"></li>
+                          <li
+                            className={`w-2 h-2 rounded-full ${
+                              false ? "bg-[#D65DB1]" : "bg-[#333333]"
+                            }`}
+                          ></li>
                           <li className="mx-2">Days</li>
-                          <li className="w-2 h-2 rounded-full bg-[#F29C2B]"></li>
+                          <li
+                            className={`w-2 h-2 rounded-full ${
+                              false ? "bg-[#F29C2B]" : "bg-[#333333]"
+                            }`}
+                          ></li>
                           <li className="mx-2">Hours</li>
-                          <li className="w-2 h-2 rounded-full bg-[#FFC75F]"></li>
+                          <li
+                            className={`w-2 h-2 rounded-full ${
+                              false ? "bg-[#FFC75F]" : "bg-[#333333]"
+                            }`}
+                          ></li>
                           <li className="mx-2">Days</li>
-                          <li className="w-2 h-2 rounded-full bg-[#FF0000]"></li>
+                          <li
+                            className={`w-2 h-2 rounded-full ${
+                              false ? "bg-[#FF0000]" : "bg-[#333333]"
+                            }`}
+                          ></li>
                           <li className="mx-2">Hours</li>
                         </ul>
                         <p className="font-semibold my-3 text-3xl">

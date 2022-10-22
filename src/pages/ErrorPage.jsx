@@ -17,9 +17,11 @@ const ErrorPage = () => {
           Ooops!... <br />
           Page Not Found
         </p>
-        <PrimaryButton handle={() => navigate("/login", { replace: true })}>
-          Go to Homepage
-        </PrimaryButton>
+        <div className="sm:w-[400px] h-14">
+          <PrimaryButton handle={() => navigate("/login", { replace: true })}>
+            Go to Homepage
+          </PrimaryButton>
+        </div>
       </div>
       <div className="h-full items-center hidden lg:flex lg:flex-col lg:justify-center relative">
         <img src={Error404IconDesktopBlob} className="absolute z-0" />
