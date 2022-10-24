@@ -8,6 +8,7 @@ import TextField from "../forms/text/TextField";
 import StatusBar from "../status/StatusBar";
 import SelectField from "../forms/text/SelectField";
 import Preloader from "../Preloader";
+import PrimaryButton from "../buttons/PrimaryButton";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Profile = () => {
   );
 
   const updateProfile = async () => {
-    setLoading(true);
+    // setLoading(true);
     const accessToken = localStorage.getItem("authToken")
       ? localStorage.getItem("authToken")
       : sessionStorage.getItem("authToken");
@@ -80,7 +81,7 @@ const Profile = () => {
   };
 
   const states = async () => {
-    setLoading(true);
+    // setLoading(true);
     const accessToken = localStorage.getItem("authToken")
       ? localStorage.getItem("authToken")
       : sessionStorage.getItem("authToken");
@@ -94,7 +95,7 @@ const Profile = () => {
           },
         }
       );
-     
+
       const data = await response.json();
       if (data.status === "success") {
         setProvinces(data.data.provinces);
@@ -111,7 +112,7 @@ const Profile = () => {
   };
 
   const profile = async () => {
-    setLoading(true);
+    // setLoading(true);
     const accessToken = localStorage.getItem("authToken")
       ? localStorage.getItem("authToken")
       : sessionStorage.getItem("authToken");
@@ -121,7 +122,7 @@ const Profile = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + accessToken,
+            Authorization: "Bearer" + accessToken,
           },
         }
       );
@@ -129,10 +130,10 @@ const Profile = () => {
       const data = await response.json();
       if (data.status === "success") {
         setUser(data.data.user_profile);
-        setLoading(false)
+        setLoading(false);
       } else {
         toast.error("User Profile cannot be fetched!");
-        setLoading(false)
+        setLoading(false);
       }
       console.log("data", data);
     } catch (error) {
@@ -148,312 +149,313 @@ const Profile = () => {
 
   const genders = [
     {
-      name: 'Male',
-      value: 'male'
+      name: "Male",
+      value: "male",
     },
     {
-      name: 'Female',
-      value: 'female'
-    }
-  ]
+      name: "Female",
+      value: "female",
+    },
+  ];
 
-  const genderList = genders.length > 0 && genders.map((item, i) => {
-    return (
-      <option value={item.value}>{item.name}</option>
-    )
-  })
+  const genderList =
+    genders.length > 0 &&
+    genders.map((item, i) => {
+      return (
+        <option key={i} value={item.value}>
+          {item.name}
+        </option>
+      );
+    });
 
-  const statesList = provinces.length > 0 && provinces.map((item, i) => {
-    return (
-      <option value={item.province_code}>{item.province_name}</option>
-    )
-  })
+  const statesList =
+    provinces.length > 0 &&
+    provinces.map((item, i) => {
+      return <option value={item.province_code}>{item.province_name}</option>;
+    });
 
   return (
     <>
-    {loading && <Preloader />}
-      {!loading && <div className="w-full my-5">
-        <div className="w-full flex flex-col lg:flex-row justify-start items-center">
-          <div className="lg:w-1/4 w-full lg:block lg:flex-col lg:justify-start lg:items-center flex flex-col justify-center items-center">
-            <img
-              className="aboslute rounded-full"
-              src={ProfilePic}
-              width="171px"
-              height="171px"
-              alt="Profile Pics"
-            />
-            <img
-              className="relative z-10 lg:bottom-16 lg:left-24 bottom-12 left-14 cursor-pointer"
-              src={CamIcon}
-              width="46px"
-              height="46px"
-              alt="Camera icon"
-            />
-          </div>
-          {!edit ? (
-            <div className="w-full flex flex-col justify-start items-center">
-              <div className="flex lg:flex-row flex-col-reverse lg:justify-between lg:items-center justify-center items-center text-lg w-full mb-5">
-                <div className="lg:w-1/2 w-full">
-                  <div className="text-left flex flex-row justify-start items-center lg:my-0 my-5">
-                    <p className="font-semibold mr-2">Verification Status:</p>
-                    {user.email_verified_at != "" &&
-                    user.phone_verified_at != "" ? (
-                      <StatusBar positive={true} text="Verified" />
-                    ) : (
-                      <StatusBar positive={false} text="Not Verified" />
-                    )}
+      {loading && <Preloader />}
+      {!loading && (
+        <div className="w-full my-5">
+          <div className="w-full flex flex-col lg:flex-row justify-start items-center">
+            <div className="lg:w-1/4 w-full lg:block lg:flex-col lg:justify-start lg:items-center flex flex-col justify-center items-center">
+              <img
+                className="rounded-full"
+                src={ProfilePic}
+                width="171px"
+                height="171px"
+                alt="Profile-Pics"
+              />
+              <img
+                className="relative z-10 lg:bottom-16 lg:left-24 bottom-12 left-14 cursor-pointer object-contain"
+                src={CamIcon}
+                width="46px"
+                height="46px"
+                alt="Camera-icon"
+              />
+            </div>
+            {!edit ? (
+              <div className="w-full flex flex-col justify-start items-center">
+                {/* Section that displays FirstName, LastName ,Gender and Edit button */}
+                <div className="flex lg:flex-row flex-col lg:justify-between lg:-mt-4 lg:items-start justify-start items-start lg:text-center text-left text-lg w-full">
+                  <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
+                    <p className="font-medium text-[#4D4D4D]">First Name</p>
+                    <p className="text-black font-medium">
+                      {user.first_name || "Bello"}
+                    </p>
+                  </div>
+                  <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
+                    <p className="font-medium text-[#4D4D4D]">Last Name</p>
+                    <p className="text-black font-medium">
+                      {user.last_name || "Abdulkudus"}
+                    </p>
+                  </div>
+                  <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
+                    <p className="font-medium text-[#4D4D4D] ">Gender</p>
+                    <p className="text-black font-medium">
+                      {user?.extended_details?.personal_information?.gender ||
+                        "Male"}
+                    </p>
+                  </div>
+                  <div className="lg:w-1/4 w-full flex items-center lg:text-left ">
+                    <div className="w-full h-14 lg:w-[166px]">
+                      <PrimaryButton handle={() => setEdit(!edit)}>
+                        <span className="text-white text-center">
+                          Edit Profile
+                        </span>
+                      </PrimaryButton>
+                    </div>
                   </div>
                 </div>
-                {/* <div className="lg:w-1/3 w-full">
-                <div
-                  onClick={() => navigate("/account/verification")}
-                  className="rounded-xl border border-green-500 bg-green-50 hover:bg-green-100 text-green-500 px-2 cursor-pointer py-1 text-center"
-                >
-                  <span>Verify account</span>
+              </div>
+            ) : (
+              // Section that conditionally renders and dipslays text-field for First name and Last name
+              <div className="w-full">
+                <div className="text-left flex lg:flex-row flex-col gap-y-8 justify-start items-center w-full">
+                  <div className="lg:mr-10 lg:w-80 w-full flex flex-col gap-y-4">
+                    <span className="text-[#4D4D4D] font-medium">
+                      FirstName
+                    </span>
+                    <TextField
+                      changeText={(e) => setFirstName(e.target.value)}
+                      value={user.first_name || "Bello"}
+                      type="text"
+                    />
+                  </div>
+                  <div className="lg:w-80 w-full flex flex-col gap-y-4">
+                    <span className="text-[#4D4D4D] font-medium">LastName</span>
+                    <TextField
+                      changeText={(e) => setLastName(e.target.value)}
+                      value={user.last_name || " Abdulkudus"}
+                      type="text"
+                    />
+                  </div>
                 </div>
-                </div> */}
-
-                <div className="lg:w-1/2 w-full flex flex-row justify-start items-start">
-                  <div className="lg:w-1/2 whitespace-nowrap w-full">
-                    <PrimaryButton2 handle={() => setEdit(!edit)}>
+              </div>
+            )}
+          </div>
+          {/* Section that conditonally render the Personal details edit field if edit is true else render the data page */}
+          {edit && (
+            <>
+              <div
+                className={`my-8 mb-5 lg:mt-5 block ${
+                  !edit ? "lg:hidden" : "lg:block"
+                }`}
+              >
+                <p className="font-semibold lg:text-2xl text-left text-black">
+                  Personal Details
+                </p>
+              </div>
+              <div>
+                <div className="text-left flex flex-col lg:flex-row justify-start items-center w-full gap-x-11 gap-y-7 ">
+                  <div className="lg:w-80 w-full flex flex-col gap-y-4">
+                    <span className="text-[#4D4D4D] font-medium">
+                      Date of Birth
+                    </span>
+                    <TextField
+                      changeText={(e) => setDob(e.target.value)}
+                      value={
+                        user.extended_details &&
+                        user.extended_details.personal_information.date_of_birth
+                      }
+                      type="date"
+                    />
+                  </div>
+                  <div className="lg:w-80 w-full flex flex-col gap-y-4">
+                    <span className="text-[#4D4D4D] font-medium">Gender</span>
+                    <SelectField
+                      changeText={(e) => setGender(e.target.value)}
+                      value={
+                        user.extended_details &&
+                        user.extended_details.personal_information.gender
+                      }
+                      type="text"
+                      optionList={genderList}
+                    />
+                  </div>
+                  <div className="lg:w-80 w-full flex flex-col gap-y-4">
+                    <span className="text-[#4D4D4D] font-medium">
+                      Address Line 1
+                    </span>
+                    <TextField
+                      changeText={(e) => setStreet(e.target.value)}
+                      value={
+                        user?.extended_details?.address_information
+                          ?.city_name || "20, Otunda Street Rumuagholu"
+                      }
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div className="text-left flex lg:flex-row flex-col justify-start items-center w-full my-10 gap-x-11 gap-y-7">
+                  <div className="lg:w-80 w-full flex flex-col gap-y-4">
+                    <span className="text-[#4D4D4D] font-medium">
+                      Address Line 2
+                    </span>
+                    <TextField
+                      changeText={(e) => setStreet(e.target.value)}
+                      value={
+                        user?.extended_details?.address_information?.street ||
+                        " 20, Otunda Street Rumuagholu"
+                      }
+                      type="text"
+                    />
+                  </div>
+                  <div className="lg:w-80 w-full flex flex-col gap-y-4">
+                    <span className="text-[#4D4D4D] font-medium">City</span>
+                    <TextField
+                      changeText={(e) => setCity(e.target.value)}
+                      value={
+                        user?.extended_details?.address_information
+                          ?.city_name || "Lagos"
+                      }
+                      type="text"
+                    />
+                  </div>
+                  <div className="lg:w-80 w-full flex flex-col gap-y-4">
+                    <span className="text-[#4D4D4D] font-medium">State</span>
+                    <SelectField
+                      changeText={(e) => setProvince(e.target.value)}
+                      value={
+                        user.extended_details &&
+                        user.extended_details.address_information.province_name
+                      }
+                      type="text"
+                      optionList={statesList}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-row lg:justify-end lg:items-end justify-center items-center">
+                  <div className="lg:w-48 h-14 w-full lg:mr-20">
+                    <PrimaryButton handle={updateProfile}>
                       <span className="text-white text-center">
-                        Edit Profile
+                        Save Changes
                       </span>
-                    </PrimaryButton2>
+                    </PrimaryButton>
                   </div>
                 </div>
               </div>
-              <div className="flex lg:flex-row flex-col lg:justify-between lg:items-start justify-start items-start lg:text-center text-left text-lg w-full">
-                <div className="lg:w-1/3 w-full lg:text-left">
-                  <p className="font-semibold">First Name</p>
-                  <p>{user.first_name}</p>
-                </div>
-                <div className="lg:w-1/3 w-full lg:text-left">
-                  <p className="font-semibold">Last Name</p>
-                  <p>{user.last_name}</p>
-                </div>
-                <div className="lg:w-1/3 w-full lg:text-left">
-                  <p className="font-semibold">Gender</p>
-                  <p>
-                    {user.extended_details &&
-                      user.extended_details.personal_information.gender}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="w-full">
-              <div className="text-left flex lg:flex-row flex-col justify-start items-center w-full">
-                <div className="lg:mr-10 lg:w-1/2 w-full">
-                  <span>FirstName</span>
-                  <TextField
-                    changeText={(e) => setFirstName(e.target.value)}
-                    value={user.first_name}
-                    type="text"
-                  />
-                </div>
-                <div className="lg:w-1/2 w-full">
-                  <span>LastName</span>
-                  <TextField
-                    changeText={(e) => setLastName(e.target.value)}
-                    value={user.last_name}
-                    type="text"
-                  />
-                </div>
-              </div>
-            </div>
+            </>
           )}
-        </div>
-        {edit && (
-          <div>
-            <div className="text-left flex lg:flex-row flex-col justify-start items-center w-full">
-              <div className="lg:mr-5 lg:w-1/3 w-full">
-                <span>Date of Birth</span>
-                <TextField
-                  changeText={(e) => setDob(e.target.value)}
-                  value={
-                    user.extended_details &&
-                    user.extended_details.personal_information.date_of_birth
-                  }
-                  type="date"
-                />
-              </div>
-              <div className="lg:mr-5 lg:w-1/3 w-full">
-                <span>Gender</span>
-                <SelectField
-                  changeText={(e) => setGender(e.target.value)}
-                  value={
-                    user.extended_details &&
-                    user.extended_details.personal_information.gender
-                  }
-                  type="text"
-                  optionList={genderList}
-                />
-              </div>
-              <div className="lg:w-1/3 w-full">
-                <span>Address Line 1</span>
-                <TextField
-                  changeText={(e) => setStreet(e.target.value)}
-                  value={
-                    user.extended_details &&
-                    user.extended_details.address_information.street
-                  }
-                  type="text"
-                />
-              </div>
-            </div>
-            <div className="text-left flex lg:flex-row flex-col justify-start items-center w-full my-10">
-              <div className="lg:mr-5 lg:w-1/3 w-full">
-                <span>Address Line 2</span>
-                <TextField
-                  changeText={(e) => setStreet(e.target.value)}
-                  value={
-                    user.extended_details &&
-                    user.extended_details.address_information.street
-                  }
-                  type="text"
-                />
-              </div>
-              <div className="lg:mr-5 lg:w-1/3 w-full">
-                <span>City</span>
-                <TextField
-                  changeText={(e) => setCity(e.target.value)}
-                  value={
-                    user.extended_details &&
-                    user.extended_details.address_information.city_name
-                  }
-                  type="text"
-                />
-              </div>
-              <div className="lg:w-1/3 w-full">
-                <span>State</span>
-                <SelectField
-                  changeText={(e) => setProvince(e.target.value)}
-                  value={
-                    user.extended_details &&
-                    user.extended_details.address_information.province_name
-                  }
-                  type="text"
-                  optionList={statesList}
-                />
-              </div>
-            </div>
-            <div className="flex flex-row lg:justify-end lg:items-end justify-center items-center">
-              <div className="lg:w-40 w-full">
-                <PrimaryButton2 handle={updateProfile}>
-                  <span className="text-white text-center">Save Changes</span>
-                </PrimaryButton2>
-              </div>
-            </div>
-          </div>
-        )}
-        {!edit ? (
-          <div>
-            <div className="w-full flex flex-col justify-start items-start my-10">
-              <div className="my-5">
-                <p className="font-bold">Personal Details</p>
-              </div>
-              <div className="w-full flex lg:flex-row flex-col justify-between items-start">
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Account Type</p>
-                  <p className="font-semibold mb-5">{user.account_type}</p>
-                  <p>Date of Birth</p>
-                  <p className="font-semibold">
-                    {user.extended_details &&
-                      user.extended_details.personal_information.date_of_birth}
-                  </p>
-                </div>
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Email Address</p>
-                  <p className="font-semibold mb-5">{user.email}</p>
-                  <p>State</p>
-                  <p className="font-semibold">
-                    {user.extended_details &&
-                      user.extended_details.address_information.province_name}
-                  </p>
-                </div>
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Phone Number</p>
-                  <p className="font-semibold mb-5">{user.phone}</p>
-                  <p>City</p>
-                  <p className="font-semibold">
-                    {user.extended_details &&
-                      user.extended_details.address_information.city_name}
-                  </p>
-                </div>
-              </div>
-            </div>
+          {/* Section that handles Personal details segment */}
+          {!edit ? (
+            <div>
+              <div className="w-full flex flex-col justify-start items-start my-10">
+                {/*  Section that shows only First name and Lastname on small screens */}
+                <div className="lg:hidden flex flex-col text-left gap-y-4 my-4">
+                  <div className="flex flex-col gap-y-4">
+                    <p className="text-base font-medium text-[#4D4D4D]">
+                      First Name
+                    </p>
+                    <p className="text-black font-medium">
+                      {user.first_name || "Bello"}
+                    </p>
+                  </div>
 
-            {/*   <div className="w-full flex flex-col justify-start items-start my-10">
-              <div className="my-5">
-                <p className="font-bold">Employment and Bank Details</p>
-              </div>
-              <div className="w-full flex lg:flex-row flex-col justify-between items-start">
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Employer or Business Name</p>
-                  <p className="font-semibold mb-5">Consumer</p>
-                  <p>Business Registration Number</p>
-                  <p className="font-semibold">12/12/1987</p>
+                  <div className="flex flex-col gap-y-4">
+                    <p className="text-base font-medium text-[#4D4D4D]">
+                      Last Name
+                    </p>
+                    <p className="text-black font-medium">
+                      {user.first_name || "Abdulkudus"}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Valid Government Issued ID</p>
-                  <p className="font-semibold mb-5">samo@gmail.com</p>
-                  <p>Type of Employment</p>
-                  <p className="font-semibold">Lagos</p>
+                {/* Section that handles the personal details data */}
+                <div className="lg:-mt-6 lg:mb-8 my-6">
+                  <p className="font-semibold text-base lg:text-2xl">
+                    Personal Details
+                  </p>
                 </div>
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Employment Confirmation Letter</p>
-                  <p className="font-semibold mb-5">07037127360</p>
-                  <p>BVN</p>
-                  <p className="font-semibold">Ikeja</p>
+                <div className=" flex flex-col lg:flex lg:flex-row flex-wrap w-full gap-y-8 text-[18px]">
+                  <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
+                    <p className="text-[#4D4D4D] font-medium">Account Type</p>
+                    <p className="font-medium text-black">
+                      {user.account_type || "Consumer"}
+                    </p>
+                  </div>
+
+                  <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
+                    <p className="text-[#4D4D4D] font-medium">Email Address</p>
+                    <p className="font-medium text-black">
+                      {user.email || "Mymail@yahoo.com"}
+                    </p>
+                  </div>
+
+                  <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
+                    <p className="text-[#4D4D4D] font-medium">Phone Number</p>
+                    <p className="font-medium text-black">
+                      {user.phone || "+234 816587321"}
+                    </p>
+                  </div>
+
+                  <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
+                    <p className="text-[#4D4D4D] font-medium">Date of birth</p>
+                    <p className="font-medium text-black">
+                      {" "}
+                      {user?.extended_details?.personal_information
+                        ?.date_of_birth || "10/12/1996"}
+                    </p>
+                  </div>
+
+                  <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
+                    <p className="text-[#4D4D4D] font-medium">State</p>
+                    <p className="font-medium text-black">
+                      {" "}
+                      {user?.extended_details?.address_information
+                        ?.province_name || "Lagos"}
+                    </p>
+                  </div>
+
+                  <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
+                    <p className="text-[#4D4D4D] font-medium">City</p>
+                    <p className="font-medium text-black">
+                      {user?.extended_details?.address_information?.city_name ||
+                        "Ikeja"}
+                    </p>
+                  </div>
+
+                  <div className="lg:w-1/3  text-left flex flex-col gap-y-4">
+                    <p className="text-[#4D4D4D] font-medium">Address Line 1</p>
+                    <p className="font-medium text-black">
+                      {user.account_type || " 20, Otunda Street Rumuagholu"}
+                    </p>
+                  </div>
+
+                  <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
+                    <p className="text-[#4D4D4D] font-medium">Address Line 2</p>
+                    <p className="font-medium text-black">
+                      {user.account_type || "20, Otunda Street Rumuagholu "}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="w-full flex flex-col justify-start items-start my-10">
-              <div className="my-5">
-                <p className="font-bold">Work Details</p>
-              </div>
-              <div className="w-full flex lg:flex-row flex-col justify-between items-start">
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Work Industry</p>
-                  <p className="font-semibold mb-5">Consumer</p>
-                  <p>Work Address</p>
-                  <p className="font-semibold">12/12/1987</p>
-                </div>
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Position at Work</p>
-                  <p className="font-semibold mb-5">Manager</p>
-                </div>
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Employment Length</p>
-                  <p className="font-semibold mb-5">20</p>
-                </div>
-              </div>
-            </div>
-            <div className="w-full flex flex-col justify-start items-start my-10">
-              <div className="my-5">
-                <p className="font-bold">Next of Kin</p>
-              </div>
-              <div className="w-full flex lg:flex-row flex-col justify-between items-start">
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Next of Kin Name</p>
-                  <p className="font-semibold mb-5">Jaye Ejire</p>
-                  <p>Next of Kin Email</p>
-                  <p className="font-semibold">ejireto@gmail.com</p>
-                </div>
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Next of Kin Phone Number</p>
-                  <p className="font-semibold mb-5">07037127360</p>
-                </div>
-                <div className="text-left lg:w-1/3 w-full">
-                  <p>Relationship</p>
-                  <p className="font-semibold">Spouse</p>
-                </div>
-              </div>
-            </div> */}
-          </div>
-        ) : null}
-      </div>}
+          ) : null}
+        </div>
+      )}
     </>
   );
 };

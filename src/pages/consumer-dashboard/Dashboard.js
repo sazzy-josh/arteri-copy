@@ -69,7 +69,7 @@ const Dashboard = () => {
                     {/* 15,000 */} 0
                   </p>
                   <p className="text-lg font-medium text-[#808080]">
-                    Reamaing to be repaid
+                    Remaining to be repaid
                   </p>
                 </SmallCard>
               </div>
@@ -212,7 +212,7 @@ const Dashboard = () => {
                       </p>
                     </SmallCard>
                     <p className="text-base mt-4 font-medium text-[#808080]">
-                      Reamaing to be repaid
+                      Remaining to be repaid
                     </p>
                   </div>
                 </div>

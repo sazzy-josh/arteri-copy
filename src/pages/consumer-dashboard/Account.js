@@ -21,8 +21,8 @@ const Account = () => {
       <div className="w-full flex flex-col justify-start items-start">
         <div className="">
           {/* <LargeCard /> */}
-          <div className="my-5 lg:px-0 px-5">
-            <p className="text-2xl font-bold">My Account</p>
+          <div className="my-5 mb-14 lg:px-0 px-5">
+            <p className="dashboard-title">My Account</p>
           </div>
         </div>
 

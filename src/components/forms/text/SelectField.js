@@ -1,9 +1,17 @@
 import React from "react";
 
-const SelectField = ({ type, changeText, value, data, name, id, optionList }) => {
+const SelectField = ({
+  type,
+  changeText,
+  value,
+  data,
+  name,
+  id,
+  optionList,
+}) => {
   return (
     <>
-      <div className="flex flex-1 bg-transparent flex-row justify-start border border-shade rounded-md items-start py-2 h-14 w-full">
+      <div className="flex flex-1 bg-transparent flex-row justify-start border-2 border-[#808080] rounded-md items-start px-4 py-2 h-14 w-full">
         <select
           defaultValue={value}
           onChange={changeText}
@@ -12,7 +20,7 @@ const SelectField = ({ type, changeText, value, data, name, id, optionList }) =>
           id={id}
         >
           <option>Select option</option>
-         {optionList}
+          {optionList}
         </select>
       </div>
     </>

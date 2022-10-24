@@ -27,7 +27,7 @@ const ConsumerDashboardWrapper = ({ selectedSidebarLink, children }) => {
         selectedSidebarLink={selectedSidebarLink}
       />
 
-      <div className="w-full  md:ml-60 md:px-5 lg:px-10  duration-500">
+      <div className="w-full  md:ml-[245px] md:px-5 lg:px-10  duration-500">
         <Header setIsSidebarOpen={setIsSidebarOpen} />
         {/* dashboard content goes here */}
         {children}
