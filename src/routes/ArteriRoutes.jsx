@@ -146,7 +146,11 @@ const ArteriRoutes = () => {
         {/* Routes available to users that are logged in but are providers */}
         <Route element={<AuthenticatedProviderRoutes />}>
           <Route path="/provider-dashboard" element={<ProviderDashboard />} />
-          <Route path="provider-account" element={<ProviderAccount />} />
+          <Route path="provider-account" element={<ProviderAccount />}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="password" element={<Password />} />
+            <Route path="security" element={<Security />} />
+          </Route>
           <Route path="provider-help" element={<ProviderHelp />} />
           <Route
             path="provider-notifications"

@@ -387,40 +387,9 @@ const ProviderSideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
         <ArteriLogo />
       </div>
       <div className=" pt-1">
-        {/* <div>
-          <p onClick={() => setSelectedDropdown("dashboard")}>dashboard</p>
-          <p onClick={() => setSelectedDropdown("tools")}>tools</p>
-          <p onClick={() => setSelectedDropdown("more")}>more</p>
-          <div
-            className={`transition-all duration-500 overflow-hidden bg-green-200 ${
-              selectedDropdown === "dashboard" ? "max-h-[200px]" : "max-h-0"
-            }`}
-          >
-            dashboard ipsum dolor, sit amet consectetur adipisicing elit.
-            Blanditiis dolore id nisi illo totam labore voluptate cupiditate
-            voluptates ratione quo!
-          </div>
-          <div
-            className={`transition-all duration-500 overflow-hidden bg-blue-300 ${
-              selectedDropdown === "tools" ? "max-h-[200px]" : "max-h-0"
-            }`}
-          >
-            tools ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis
-            dolore id nisi illo totam labore voluptate cupiditate voluptates
-            ratione quo!
-          </div>
-          <div
-            className={`transition-all duration-500 overflow-hidden bg-red-300 ${
-              selectedDropdown === "more" ? "max-h-[200px]" : "max-h-0"
-            }`}
-          >
-            more ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis
-            dolore id nisi illo totam labore voluptate cupiditate voluptates
-            ratione quo!
-          </div>
-        </div> */}
+        <p className="bg-gray-700 text-white ">Joshua: provider sidebar </p>
         <div
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate("/provider-dashboard")}
           className={`sidebar-links ${
             selectedSidebarLink === "dashboard"
               ? " bg-white text-primary"
@@ -467,7 +436,7 @@ const ProviderSideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
           <span>Dashboard</span>
         </div>
         <div
-          onClick={() => navigate("/application")}
+          onClick={() => navigate("/provider-loan")}
           className={`sidebar-links ${
             selectedSidebarLink === "application"
               ? " bg-white text-primary"
@@ -521,7 +490,7 @@ const ProviderSideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
           <span>Apply for loan</span>
         </div>
         <div
-          onClick={() => navigate("/my-account/profile")}
+          onClick={() => navigate("/provider-account/profile")}
           className={`sidebar-links ${
             selectedSidebarLink === "account"
               ? " bg-white text-primary"
@@ -555,7 +524,7 @@ const ProviderSideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
         </div>
 
         <div
-          onClick={() => navigate("/history/loans")}
+          onClick={() => navigate("/provider-history/repayment")}
           className={`sidebar-links ${
             selectedSidebarLink === "history"
               ? " bg-white text-primary"
@@ -608,7 +577,7 @@ const ProviderSideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
           <span className="">History</span>
         </div>
         <div
-          onClick={() => navigate("/consumer-claims/received")}
+          onClick={() => navigate("/provider-claims/received")}
           className={`sidebar-links ${
             selectedSidebarLink === "claim"
               ? " bg-white text-primary"
@@ -647,7 +616,7 @@ const ProviderSideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
           <span className="">Claims</span>
         </div>
         <div
-          onClick={() => navigate("/notifications")}
+          onClick={() => navigate("/provider-notifications")}
           className={`sidebar-links ${
             selectedSidebarLink === "notification"
               ? "text-primary bg-white"
@@ -673,7 +642,7 @@ const ProviderSideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
           <span className="">Notifications</span>
         </div>
         <div
-          onClick={() => navigate("/help")}
+          onClick={() => navigate("/provider-help")}
           className={`sidebar-links ${
             selectedSidebarLink === "help"
               ? "text-primary bg-white"
