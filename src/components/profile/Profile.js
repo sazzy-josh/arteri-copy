@@ -10,10 +10,34 @@ import SelectField from "../forms/text/SelectField";
 import Preloader from "../Preloader";
 import PrimaryButton from "../buttons/PrimaryButton";
 
+import { useQuery } from "@tanstack/react-query";
+import Axios from "axios";
+
 const Profile = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [edit, setEdit] = useState(false);
+
+  const fetchUserProfile = () => {
+    const authToken =
+      localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+    return Axios.get(`${process.env.REACT_APP_BASE_URI}/user/profile/get`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+  };
+
+  // Queries
+  const {
+    data: userProfile,
+    isLoading,
+    isError,
+  } = useQuery(["user-profile"], fetchUserProfile);
+  console.log("profile is: ", userProfile);
+
+  // --------------------------
+  // --------------------------
+  // --------------------------
+
   const [user, setUser] = useState({});
   const [provinces, setProvinces] = useState([]);
   const [firstName, setFirstName] = useState(user.first_name);
@@ -35,6 +59,12 @@ const Profile = () => {
     user.extended_details &&
       user.extended_details.personal_information.date_of_birth
   );
+  const genderList = "tet";
+  const statesList = "tet";
+
+  // --------------------------
+  // --------------------------
+  // --------------------------
 
   const updateProfile = async () => {
     // setLoading(true);
@@ -80,99 +110,99 @@ const Profile = () => {
     }
   };
 
-  const states = async () => {
-    // setLoading(true);
-    const accessToken = localStorage.getItem("authToken")
-      ? localStorage.getItem("authToken")
-      : sessionStorage.getItem("authToken");
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BASE_URI}/fetch/provinces?country=NG`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + accessToken,
-          },
-        }
-      );
+  // const states = async () => {
+  //   // setLoading(true);
+  //   const accessToken = localStorage.getItem("authToken")
+  //     ? localStorage.getItem("authToken")
+  //     : sessionStorage.getItem("authToken");
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.REACT_APP_BASE_URI}/fetch/provinces?country=NG`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Bearer " + accessToken,
+  //         },
+  //       }
+  //     );
 
-      const data = await response.json();
-      if (data.status === "success") {
-        setProvinces(data.data.provinces);
-        setLoading(false);
-      } else {
-        toast.error("States cannot be fetched!");
-        setLoading(false);
-      }
-      console.log("states", data);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
+  //     const data = await response.json();
+  //     if (data.status === "success") {
+  //       setProvinces(data.data.provinces);
+  //       setLoading(false);
+  //     } else {
+  //       toast.error("States cannot be fetched!");
+  //       setLoading(false);
+  //     }
+  //     console.log("states", data);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //   }
+  // };
 
-  const profile = async () => {
-    // setLoading(true);
-    const accessToken = localStorage.getItem("authToken")
-      ? localStorage.getItem("authToken")
-      : sessionStorage.getItem("authToken");
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BASE_URI}/user/profile/get`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer" + accessToken,
-          },
-        }
-      );
-      console.log("Profile", response);
-      const data = await response.json();
-      if (data.status === "success") {
-        setUser(data.data.user_profile);
-        setLoading(false);
-      } else {
-        toast.error("User Profile cannot be fetched!");
-        setLoading(false);
-      }
-      console.log("data", data);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
+  // const profile = async () => {
+  //   // setLoading(true);
+  //   const accessToken = localStorage.getItem("authToken")
+  //     ? localStorage.getItem("authToken")
+  //     : sessionStorage.getItem("authToken");
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.REACT_APP_BASE_URI}/user/profile/get`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Bearer" + accessToken,
+  //         },
+  //       }
+  //     );
+  //     console.log("Profile", response);
+  //     const data = await response.json();
+  //     if (data.status === "success") {
+  //       setUser(data.data.user_profile);
+  //       setLoading(false);
+  //     } else {
+  //       toast.error("User Profile cannot be fetched!");
+  //       setLoading(false);
+  //     }
+  //     console.log("data", data);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    profile();
-    states();
-  }, []);
+  // useEffect(() => {
+  //   profile();
+  //   states();
+  // }, []);
 
-  const genders = [
-    {
-      name: "Male",
-      value: "male",
-    },
-    {
-      name: "Female",
-      value: "female",
-    },
-  ];
+  // const genders = [
+  //   {
+  //     name: "Male",
+  //     value: "male",
+  //   },
+  //   {
+  //     name: "Female",
+  //     value: "female",
+  //   },
+  // ];
 
-  const genderList =
-    genders.length > 0 &&
-    genders.map((item, i) => {
-      return (
-        <option key={i} value={item.value}>
-          {item.name}
-        </option>
-      );
-    });
+  // const genderList =
+  //   genders.length > 0 &&
+  //   genders.map((item, i) => {
+  //     return (
+  //       <option key={i} value={item.value}>
+  //         {item.name}
+  //       </option>
+  //     );
+  //   });
 
-  const statesList =
-    provinces.length > 0 &&
-    provinces.map((item, i) => {
-      return <option value={item.province_code}>{item.province_name}</option>;
-    });
+  // const statesList =
+  //   provinces.length > 0 &&
+  //   provinces.map((item, i) => {
+  //     return <option value={item.province_code}>{item.province_name}</option>;
+  //   });
 
   return (
     <>
@@ -202,21 +232,23 @@ const Profile = () => {
                 <div className="flex lg:flex-row flex-col lg:justify-between lg:-mt-4 lg:items-start justify-start items-start lg:text-center text-left text-lg w-full">
                   <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                     <p className="font-medium text-[#4D4D4D]">First Name</p>
-                    <p className="text-black font-medium">
-                      {user.first_name || "Bello"}
+                    <p className="text-black font-medium capitalize">
+                      {userProfile?.data?.data?.user_profile?.extended_details
+                        ?.personal_information?.first_name ?? "----"}
                     </p>
                   </div>
                   <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                     <p className="font-medium text-[#4D4D4D]">Last Name</p>
-                    <p className="text-black font-medium">
-                      {user.last_name || "Abdulkudus"}
+                    <p className="text-black font-medium capitalize">
+                      {userProfile?.data?.data?.user_profile?.extended_details
+                        ?.personal_information?.last_name ?? "----"}
                     </p>
                   </div>
                   <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                     <p className="font-medium text-[#4D4D4D] ">Gender</p>
-                    <p className="text-black font-medium">
-                      {user?.extended_details?.personal_information?.gender ||
-                        "Male"}
+                    <p className="text-black font-medium capitalize">
+                      {userProfile?.data?.data?.user_profile?.extended_details
+                        ?.personal_information?.gender ?? "----"}
                     </p>
                   </div>
                   <div className="lg:w-1/4 w-full flex items-center lg:text-left ">
@@ -369,8 +401,9 @@ const Profile = () => {
                     <p className="text-base font-medium text-[#4D4D4D]">
                       First Name
                     </p>
-                    <p className="text-black font-medium">
-                      {user.first_name || "Bello"}
+                    <p className="text-black font-medium capitalize">
+                      {userProfile?.data?.data?.user_profile?.extended_details
+                        ?.personal_information?.first_name ?? "----"}
                     </p>
                   </div>
 
@@ -378,8 +411,9 @@ const Profile = () => {
                     <p className="text-base font-medium text-[#4D4D4D]">
                       Last Name
                     </p>
-                    <p className="text-black font-medium">
-                      {user.first_name || "Abdulkudus"}
+                    <p className="text-black font-medium capitalize">
+                      {userProfile?.data?.data?.user_profile?.extended_details
+                        ?.personal_information?.last_name ?? "----"}
                     </p>
                   </div>
                 </div>
@@ -392,48 +426,47 @@ const Profile = () => {
                 <div className=" flex flex-col lg:flex lg:flex-row flex-wrap w-full gap-y-8 text-[18px]">
                   <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">Account Type</p>
-                    <p className="font-medium text-black">
-                      {user.account_type || "Consumer"}
+                    <p className="font-medium text-black capitalize">
+                      {userProfile?.data?.data?.user_profile?.account_type ??
+                        "----"}
                     </p>
                   </div>
 
                   <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">Email Address</p>
-                    <p className="font-medium text-black">
-                      {user.email || "Mymail@yahoo.com"}
+                    <p className="font-medium text-black ">
+                      {userProfile?.data?.data?.user_profile?.email ?? "----"}
                     </p>
                   </div>
 
                   <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">Phone Number</p>
-                    <p className="font-medium text-black">
-                      {user.phone || "+234 816587321"}
+                    <p className="font-medium text-black capitalize">
+                      {userProfile?.data?.data?.user_profile?.phone ?? "----"}
                     </p>
                   </div>
 
                   <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">Date of birth</p>
-                    <p className="font-medium text-black">
-                      {" "}
-                      {user?.extended_details?.personal_information
-                        ?.date_of_birth || "10/12/1996"}
+                    <p className="font-medium text-black capitalize">
+                      {userProfile?.data?.data?.user_profile?.extended_details
+                        ?.personal_information?.date_of_birth ?? "----"}
                     </p>
                   </div>
 
                   <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">State</p>
-                    <p className="font-medium text-black">
-                      {" "}
-                      {user?.extended_details?.address_information
-                        ?.province_name || "Lagos"}
+                    <p className="font-medium text-black capitalize">
+                      {userProfile?.data?.data?.user_profile?.extended_details
+                        ?.address_information?.city_name ?? "----"}
                     </p>
                   </div>
 
                   <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">City</p>
-                    <p className="font-medium text-black">
-                      {user?.extended_details?.address_information?.city_name ||
-                        "Ikeja"}
+                    <p className="font-medium text-black capitalize">
+                      {userProfile?.data?.data?.user_profile?.extended_details
+                        ?.address_information?.city_name ?? "----"}
                     </p>
                   </div>
 

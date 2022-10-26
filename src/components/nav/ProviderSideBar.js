@@ -14,6 +14,7 @@ const ProviderSideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
   // contexts
 
   const { setIsLogOutModalOpen } = useContext(ModalContext);
+  const [selectedDropdown, setSelectedDropdown] = useState("dashboard");
 
   const navigate = useNavigate();
 
@@ -386,6 +387,38 @@ const ProviderSideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
         <ArteriLogo />
       </div>
       <div className=" pt-1">
+        {/* <div>
+          <p onClick={() => setSelectedDropdown("dashboard")}>dashboard</p>
+          <p onClick={() => setSelectedDropdown("tools")}>tools</p>
+          <p onClick={() => setSelectedDropdown("more")}>more</p>
+          <div
+            className={`transition-all duration-500 overflow-hidden bg-green-200 ${
+              selectedDropdown === "dashboard" ? "max-h-[200px]" : "max-h-0"
+            }`}
+          >
+            dashboard ipsum dolor, sit amet consectetur adipisicing elit.
+            Blanditiis dolore id nisi illo totam labore voluptate cupiditate
+            voluptates ratione quo!
+          </div>
+          <div
+            className={`transition-all duration-500 overflow-hidden bg-blue-300 ${
+              selectedDropdown === "tools" ? "max-h-[200px]" : "max-h-0"
+            }`}
+          >
+            tools ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis
+            dolore id nisi illo totam labore voluptate cupiditate voluptates
+            ratione quo!
+          </div>
+          <div
+            className={`transition-all duration-500 overflow-hidden bg-red-300 ${
+              selectedDropdown === "more" ? "max-h-[200px]" : "max-h-0"
+            }`}
+          >
+            more ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis
+            dolore id nisi illo totam labore voluptate cupiditate voluptates
+            ratione quo!
+          </div>
+        </div> */}
         <div
           onClick={() => navigate("/dashboard")}
           className={`sidebar-links ${
