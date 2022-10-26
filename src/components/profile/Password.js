@@ -1,11 +1,79 @@
-import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import React, { useContext, useState } from "react";
 import PrimaryButton from "../buttons/PrimaryButton";
 import TextField from "../forms/text/TextField";
+import Axios from "axios";
+import { ModalContext } from "../../contexts/ModalContext";
 
 const Password = ({ handleAccept }) => {
-  const [oldPassword, setOldPassword] = useState(true);
-  const [newPassword, setNewPassword] = useState(true);
-  const [confirmPassword, setConfirmPassword] = useState(true);
+  // preloader contexts
+  const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
+    useContext(ModalContext);
+
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [values, setValues] = useState({
+    current_password: "",
+    new_password: "",
+    new_password_confirmation: "",
+  });
+
+  // control input fields on change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+    // setRecoverInpuField({ ...recoverInputField, [name]: value });
+    // validateInputChange(e, recoverInputField);
+  };
+
+  const changePassword = () => {
+    let formData = new FormData();
+    formData.append("current_password", values.current_password);
+    formData.append("new_password", values.new_password);
+    formData.append(
+      "new_password_confirmation",
+      values.new_password_confirmation
+    );
+
+    const authToken =
+      localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+    return Axios.post(
+      `${process.env.REACT_APP_BASE_URI}/account/password/change`,
+      formData,
+      { headers: { Authorization: `Bearer ${authToken}` } }
+    );
+  };
+
+  // Queries
+  const { mutate, data, isLoading, isError } = useMutation(changePassword, {
+    staleTime: Infinity,
+
+    onSuccess: (data) => {
+      // alert("succesfull");
+      console.log("success func", data);
+      setIsContentLoading(false);
+      setAlertProps((prev) => ({
+        ...prev,
+        type: "success",
+        title: "Congratulation!",
+        subtitle: data?.data?.data?.flash_message,
+      }));
+      setIsAlertOpen(true);
+    },
+    onError: (error) => {
+      console.log("error func", error);
+      setIsContentLoading(false);
+      setAlertProps((prev) => ({
+        ...prev,
+        type: "fail",
+        title: "Ooops! Sorry",
+        subtitle: error?.response?.data?.data?.flash_message,
+      }));
+      setIsAlertOpen(true);
+    },
+    onMutate: () => setIsContentLoading(true),
+  });
 
   return (
     <div className="w-full my-5">
@@ -13,16 +81,21 @@ const Password = ({ handleAccept }) => {
         <label className="lg:w-[412px] w-full lg:mr-5 lg:my-0 my-2">
           <p className="text-left font-semibold mb-4">Old Password</p>
           <div className="relative ">
-            {oldPassword ? (
+            {/* {oldPassword ? (
               <TextField type="password" />
             ) : (
               <TextField type="text" />
-            )}
+            )} */}
+            <TextField
+              type={showOldPassword ? "text" : "password"}
+              changeText={handleInputChange}
+              name={"current_password"}
+            />
             <span
               className="absolute top-7 -right-2 cursor-pointer "
-              onClick={() => setOldPassword(!oldPassword)}
+              onClick={() => setShowOldPassword(!showOldPassword)}
             >
-              {oldPassword ? (
+              {!showOldPassword ? (
                 <svg
                   className="show-hide-password"
                   viewBox="0 0 24 24"
@@ -103,16 +176,17 @@ const Password = ({ handleAccept }) => {
         <label className="lg:w-[412px] w-full lg:mr-5 lg:my-0 my-2">
           <p className="text-left font-semibold mb-4">New Password</p>
           <div className="relative ">
-            {newPassword ? (
-              <TextField type="password" />
-            ) : (
-              <TextField type="text" />
-            )}
+            <TextField
+              type={showNewPassword ? "text" : "password"}
+              name={"new_password"}
+              changeText={handleInputChange}
+            />
+
             <span
               className="absolute top-7 -right-2 cursor-pointer"
-              onClick={() => setNewPassword(!newPassword)}
+              onClick={() => setShowNewPassword(!showNewPassword)}
             >
-              {newPassword ? (
+              {!showNewPassword ? (
                 <svg
                   className="show-hide-password"
                   viewBox="0 0 24 24"
@@ -193,16 +267,17 @@ const Password = ({ handleAccept }) => {
         <label className="lg:w-[412px] w-full lg:mr-5 lg:my-0 my-2">
           <p className="text-left font-semibold mb-4">Confirm Password</p>
           <div className="relative ">
-            {confirmPassword ? (
-              <TextField type="password" />
-            ) : (
-              <TextField type="text" />
-            )}
+            <TextField
+              type={showConfirmPassword ? "text" : "password"}
+              name={"new_password_confirmation"}
+              changeText={handleInputChange}
+            />
+
             <span
               className="absolute top-7 -right-2 cursor-pointer px-2"
-              onClick={() => setConfirmPassword(!confirmPassword)}
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
-              {confirmPassword ? (
+              {!showConfirmPassword ? (
                 <svg
                   className="show-hide-password"
                   viewBox="0 0 24 24"
@@ -285,7 +360,12 @@ const Password = ({ handleAccept }) => {
         <div className="flex lg:flex-row md:flex-row flex-col justify-start items-center lg:w-1/3 w-full">
           <div className="lg:w-[229px] w-full lg:mr-5 md:mr-1">
             <div className="w-full h-14">
-              <PrimaryButton handle={handleAccept}>
+              <PrimaryButton
+                handle={() => {
+                  console.log("changing password");
+                  mutate();
+                }}
+              >
                 Change Password
               </PrimaryButton>
             </div>

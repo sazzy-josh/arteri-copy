@@ -1,10 +1,11 @@
 import React from "react";
 
-const TextField = ({ type, changeText, value }) => {
+const TextField = ({ type, changeText, value, name }) => {
   return (
     <>
       <div className="flex flex-1 bg-transparent flex-row justify-start border-2 border-[#808080] rounded-lg items-start px-4 py-2 h-14 w-full">
         <input
+          name={name}
           type={type}
           defaultValue={value}
           onChange={changeText}

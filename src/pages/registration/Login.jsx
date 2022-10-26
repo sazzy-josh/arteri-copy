@@ -16,19 +16,14 @@ const Login = () => {
   // preloader contexts
   const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
     useContext(ModalContext);
+
   let navigate = useNavigate();
 
   // states
   // const [authToken, setAuthToken] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  // const [alertProps, setAlertProps] = useState({
-  //   type: "",
-  //   title: "",
-  //   subtitle: "",
-  //   buttonText: "",
-  // });
-  // const [isModalOpen, setIsAlertOpen] = useState(false);
+
   const [isLoginValid, setIsLoginValid] = useState({
     identifier: "",
     password: "",
@@ -422,16 +417,6 @@ const Login = () => {
           </section>
         </div>
       </div>
-      {/* {isContentLoading && <Preloader />} */}
-      {/* <Alert
-        type={alertProps.type}
-        title={alertProps.title}
-        subtitle={alertProps.subtitle}
-        buttonText={alertProps.buttonText}
-        buttonHandle={() => navigate("/dashboard", { replace: true })}
-        modalTrigger={isModalOpen}
-        setModalTrigger={setIsAlertOpen}
-      /> */}
     </>
   );
 };

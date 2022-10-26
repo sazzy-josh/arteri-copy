@@ -31,7 +31,15 @@ const Profile = () => {
     data: userProfile,
     isLoading,
     isError,
-  } = useQuery(["user-profile"], fetchUserProfile);
+  } = useQuery(["user-profile"], fetchUserProfile, {
+    staleTime: Infinity,
+    onSuccess: () => {
+      // alert("succesfull");
+    },
+    onError: () => {
+      alert("something went wrong");
+    },
+  });
   console.log("profile is: ", userProfile);
 
   // --------------------------
@@ -234,21 +242,21 @@ const Profile = () => {
                     <p className="font-medium text-[#4D4D4D]">First Name</p>
                     <p className="text-black font-medium capitalize">
                       {userProfile?.data?.data?.user_profile?.extended_details
-                        ?.personal_information?.first_name ?? "----"}
+                        ?.personal_information?.first_name || "----"}
                     </p>
                   </div>
                   <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                     <p className="font-medium text-[#4D4D4D]">Last Name</p>
                     <p className="text-black font-medium capitalize">
                       {userProfile?.data?.data?.user_profile?.extended_details
-                        ?.personal_information?.last_name ?? "----"}
+                        ?.personal_information?.last_name || "----"}
                     </p>
                   </div>
                   <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                     <p className="font-medium text-[#4D4D4D] ">Gender</p>
                     <p className="text-black font-medium capitalize">
                       {userProfile?.data?.data?.user_profile?.extended_details
-                        ?.personal_information?.gender ?? "----"}
+                        ?.personal_information?.gender || "----"}
                     </p>
                   </div>
                   <div className="lg:w-1/4 w-full flex items-center lg:text-left ">
@@ -403,7 +411,7 @@ const Profile = () => {
                     </p>
                     <p className="text-black font-medium capitalize">
                       {userProfile?.data?.data?.user_profile?.extended_details
-                        ?.personal_information?.first_name ?? "----"}
+                        ?.personal_information?.first_name || "----"}
                     </p>
                   </div>
 
@@ -413,7 +421,7 @@ const Profile = () => {
                     </p>
                     <p className="text-black font-medium capitalize">
                       {userProfile?.data?.data?.user_profile?.extended_details
-                        ?.personal_information?.last_name ?? "----"}
+                        ?.personal_information?.last_name || "----"}
                     </p>
                   </div>
                 </div>
@@ -427,7 +435,7 @@ const Profile = () => {
                   <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">Account Type</p>
                     <p className="font-medium text-black capitalize">
-                      {userProfile?.data?.data?.user_profile?.account_type ??
+                      {userProfile?.data?.data?.user_profile?.account_type ||
                         "----"}
                     </p>
                   </div>
@@ -435,14 +443,14 @@ const Profile = () => {
                   <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">Email Address</p>
                     <p className="font-medium text-black ">
-                      {userProfile?.data?.data?.user_profile?.email ?? "----"}
+                      {userProfile?.data?.data?.user_profile?.email || "----"}
                     </p>
                   </div>
 
                   <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">Phone Number</p>
                     <p className="font-medium text-black capitalize">
-                      {userProfile?.data?.data?.user_profile?.phone ?? "----"}
+                      {userProfile?.data?.data?.user_profile?.phone || "----"}
                     </p>
                   </div>
 
@@ -450,7 +458,7 @@ const Profile = () => {
                     <p className="text-[#4D4D4D] font-medium">Date of birth</p>
                     <p className="font-medium text-black capitalize">
                       {userProfile?.data?.data?.user_profile?.extended_details
-                        ?.personal_information?.date_of_birth ?? "----"}
+                        ?.personal_information?.date_of_birth || "----"}
                     </p>
                   </div>
 
@@ -458,7 +466,7 @@ const Profile = () => {
                     <p className="text-[#4D4D4D] font-medium">State</p>
                     <p className="font-medium text-black capitalize">
                       {userProfile?.data?.data?.user_profile?.extended_details
-                        ?.address_information?.city_name ?? "----"}
+                        ?.address_information?.city_name || "----"}
                     </p>
                   </div>
 
@@ -466,21 +474,23 @@ const Profile = () => {
                     <p className="text-[#4D4D4D] font-medium">City</p>
                     <p className="font-medium text-black capitalize">
                       {userProfile?.data?.data?.user_profile?.extended_details
-                        ?.address_information?.city_name ?? "----"}
+                        ?.address_information?.city_name || "----"}
                     </p>
                   </div>
 
                   <div className="lg:w-1/3  text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">Address Line 1</p>
-                    <p className="font-medium text-black">
-                      {user.account_type || " 20, Otunda Street Rumuagholu"}
+                    <p className="text-black font-medium ">
+                      {userProfile?.data?.data?.user_profile?.extended_details
+                        ?.address_information?.line_one || "----"}
                     </p>
                   </div>
 
                   <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                     <p className="text-[#4D4D4D] font-medium">Address Line 2</p>
-                    <p className="font-medium text-black">
-                      {user.account_type || "20, Otunda Street Rumuagholu "}
+                    <p className="text-black font-medium ">
+                      {userProfile?.data?.data?.user_profile?.extended_details
+                        ?.address_information?.line_two || "----"}
                     </p>
                   </div>
                 </div>
