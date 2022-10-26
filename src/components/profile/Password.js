@@ -51,7 +51,6 @@ const Password = ({ handleAccept }) => {
 
     onSuccess: (data) => {
       // alert("succesfull");
-      console.log("success func", data);
       setIsContentLoading(false);
       setAlertProps((prev) => ({
         ...prev,
@@ -62,7 +61,6 @@ const Password = ({ handleAccept }) => {
       setIsAlertOpen(true);
     },
     onError: (error) => {
-      console.log("error func", error);
       setIsContentLoading(false);
       setAlertProps((prev) => ({
         ...prev,
@@ -362,7 +360,6 @@ const Password = ({ handleAccept }) => {
             <div className="w-full h-14">
               <PrimaryButton
                 handle={() => {
-                  console.log("changing password");
                   mutate();
                 }}
               >
