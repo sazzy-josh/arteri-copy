@@ -387,7 +387,7 @@ const ProviderSideMenu = ({ isSidebarOpen, selectedSidebarLink }) => {
         <ArteriLogo />
       </div>
       <div className=" pt-1">
-        <p className="bg-gray-700 text-white ">Joshua: provider sidebar </p>
+        <p className="bg-gray-700 text-white ">John Doe: provider sidebar </p>
         <div
           onClick={() => navigate("/provider-dashboard")}
           className={`sidebar-links ${

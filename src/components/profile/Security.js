@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import OnToggle from "../forms/toggle/OnToggle";
+import CheckboxField from "../inputs/Checkbox";
 
 const Security = () => {
-  const [isOn, setIsOn] = useState(false);
   const [loginOn, setLoginOn] = useState(true);
   const [allowOn, setAllowOn] = useState(false);
 
@@ -10,23 +10,32 @@ const Security = () => {
     <div>
       <div>
         <div className="my-5">
-          <p className="font-bold text-left">Security Settings</p>
+          <p className="font-semibold text-[#333333] text-2xl text-left">
+            Account Security
+          </p>
         </div>
-        <div className="flex flex-row justify-start items-start my-10">
-          <p className="mr-5 font-semibold">Two factor authentication</p>
-          <OnToggle click={() => setIsOn(!isOn)} on={isOn} />
+
+        {/*This container houses the 2FA and Login button */}
+        <div className="flex flex-col gap-y-8 lg:flex-row lg:gap-x-28 w-full my-10">
+          <div className="flex flex-row w-full lg:w-auto justify-between  lg:gap-x-4 items-center">
+            <p className="font-medium">Two Factor Authentication</p>
+            <CheckboxField />
+          </div>
+
+          <div className="flex flex-row w-full lg:w-auto  lg:gap-x-4 justify-between items-center">
+            <p className="font-medium">Login Notification</p>
+            <CheckboxField />
+          </div>
         </div>
-        <div className="flex flex-col justify-start items-start my-10">
-          <p className="font-bold">Notifications</p>
-          <div className="flex lg:flex-row flex-col justify-start items-start w-full my-10">
-            <div className="flex flex-row justify-start items-start mr-10">
-              <p className="mr-5 font-semibold">Allow Notification</p>
-              <OnToggle click={() => setAllowOn(!allowOn)} on={allowOn} />
-            </div>
-            <div className="flex flex-row justify-start items-start">
-              <p className="mr-5 font-semibold">Login Notification</p>
-              <OnToggle click={() => setLoginOn(!loginOn)} on={loginOn} />
-            </div>
+
+        <p className="lg:mt-20 mt-14 font-semibold text-2xl text-[#333333] text-left ">
+          Notifications
+        </p>
+
+        <div className="flex flex-col gap-y-8 lg:flex-row lg:gap-x-32 mt-10">
+          <div className="flex flex-row w-full lg:w-auto justify-between lg:gap-x-4 items-center">
+            <p className="font-medium">Allow Notification</p>
+            <CheckboxField />
           </div>
         </div>
       </div>

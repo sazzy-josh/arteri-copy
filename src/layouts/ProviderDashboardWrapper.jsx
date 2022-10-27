@@ -31,7 +31,7 @@ const ProviderDashboardWrapper = ({ selectedSidebarLink, children }) => {
 
       <div className="w-full  md:ml-[245px] md:px-5 lg:px-10  duration-500">
         <Header setIsSidebarOpen={setIsSidebarOpen} />
-        Joshua: dashboard wrapper
+        John doe : dashboard wrapper
         {/* dashboard content goes here */}
         {children}
       </div>
