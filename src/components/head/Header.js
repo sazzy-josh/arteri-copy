@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as Icon from "react-icons/bs";
 import { RiSettings2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,43 @@ import { ReactComponent as Notification } from "../../assets/icons/notification-
 import { ReactComponent as Setting } from "../../assets/icons/setting.svg";
 import { ReactComponent as SMS } from "../../assets/icons/sms.svg";
 import { ReactComponent as Menu } from "../../assets/icons/mobile-hamburger.svg";
+import { ModalContext } from "../../contexts/ModalContext";
+import { useQuery } from "@tanstack/react-query";
+import { Axios } from "axios";
+import MaleAvatar from "../../assets/images/Arteri_Avatar_Male.jpg";
 
 const Header = ({ setIsSidebarOpen }) => {
   const navigate = useNavigate();
+  // preloader contexts
+  const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
+    useContext(ModalContext);
+
+  const fetchUserProfile = () => {
+    const authToken =
+      localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+    return Axios.get(`${process.env.REACT_APP_BASE_URI}/user/profile/get`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+  };
+
+  const {
+    data: userProfile,
+    isLoading,
+    isError,
+  } = useQuery(["user-profile-header"], fetchUserProfile, {
+    onError: (error) => {
+      setAlertProps((prev) => ({
+        ...prev,
+        type: "fail",
+        title: "Ooops! Sorry",
+        subtitle: error?.response?.data?.data?.flash_message,
+      }));
+      setIsAlertOpen(true);
+    },
+    refetchOnWindowFocus: false,
+    // refetchOnMount: false,
+    // staleTime: Infinity,
+  });
 
   return (
     <div className="mt-5 mb-8 w-full px-4">
@@ -51,7 +85,7 @@ const Header = ({ setIsSidebarOpen }) => {
                   : "/my-account"
               )
             }
-            src="https://res.cloudinary.com/vtu-tech-solutions/image/upload/v1658069397/isedowo/Ellipse_40_ptkvzp.svg"
+            src={MaleAvatar}
             alt="Avatar"
             className="w-full h-full "
           />

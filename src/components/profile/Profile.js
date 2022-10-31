@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ProfilePic from "../../assets/images/profile.png";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,12 +8,20 @@ import SelectField from "../forms/text/SelectField";
 import Preloader from "../Preloader";
 import PrimaryButton from "../buttons/PrimaryButton";
 import image from "../../assets/images/image-1.jpg";
+import { ModalContext } from "../../contexts/ModalContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Axios from "axios";
 import axios from "axios";
 
+import FemaleAvatar from "../../assets/images/Arteri_Avatar_Female.jpg";
+import MaleAvatar from "../../assets/images/Arteri_Avatar_Male.jpg";
+
 const Profile = () => {
+  // preloader contexts
+  const { setIsContentLoading, setIsAlertOpen, alertProps, setAlertProps } =
+    useContext(ModalContext);
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -52,58 +60,64 @@ const Profile = () => {
     isLoading,
     isError,
   } = useQuery(["user-profile"], fetchUserProfile, {
-    onSuccess: (userProfile) => {
+    onSuccess: (response) => {
       setProfile({
         first_name:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.personal_information?.first_name,
         last_name:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.personal_information?.last_name,
-        email: userProfile?.data?.data?.user_profile?.email,
-        phone: userProfile?.data?.data?.user_profile?.phone,
-        account_type: userProfile?.data?.data?.user_profile?.account_type,
+        email: response?.data?.data?.user_profile?.email,
+        phone: response?.data?.data?.user_profile?.phone,
+        account_type: response?.data?.data?.user_profile?.account_type,
         date_of_birth:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.personal_information?.date_of_birth,
         gender:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.personal_information?.gender,
         photo_file:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.personal_information?.photo_file,
         province_name:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.address_information?.province_name,
         city_name:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.address_information?.city_name,
         line_one:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.address_information?.line_one,
         line_two:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.address_information?.line_two,
         province_code:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.address_information?.province_code,
         country_name:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.address_information?.country_name,
         country_code:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.address_information?.country_code,
         city_code:
-          userProfile?.data?.data?.user_profile?.extended_details
+          response?.data?.data?.user_profile?.extended_details
             ?.address_information?.city_code,
       });
     },
-    onError: (e) => {
-      // alert(e.message)
+    onError: (error) => {
+      setAlertProps((prev) => ({
+        ...prev,
+        type: "fail",
+        title: "Ooops! Sorry",
+        subtitle: error?.response?.data?.data?.flash_message,
+      }));
+      setIsAlertOpen(true);
     },
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    staleTime: Infinity,
+    // refetchOnMount: false,
+    // staleTime: Infinity,
   });
 
   //handles fetching of state data
@@ -130,8 +144,8 @@ const Profile = () => {
       setProvinces([...result]);
     },
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    staleTime: Infinity,
+    // refetchOnMount: false,
+    // staleTime: Infinity,
   });
 
   //handles input change
@@ -153,8 +167,6 @@ const Profile = () => {
 
   // handles updating of profile
   const handleUpdateProfile = (profile) => {
-    console.log(profile);
-
     let formData = new FormData();
     formData.append("first_name", profile?.first_name);
     formData.append("last_name", profile?.last_name);
@@ -170,11 +182,8 @@ const Profile = () => {
     formData.append("country_name", profile?.country_name);
     formData.append("photo_file", profile?.photo_file);
 
-    console.log(formData);
-
     let authToken =
       localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
-    console.log("authToken :", authToken);
 
     return axios.post(
       `${process.env.REACT_APP_BASE_URI}/user/profile/update`,
@@ -190,156 +199,35 @@ const Profile = () => {
   // mutation
 
   const editUserProfile = useMutation(handleUpdateProfile, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries("user-profile");
+      setIsContentLoading(false);
+      setAlertProps((prev) => ({
+        ...prev,
+        type: "success",
+        title: "Congratulation!",
+        subtitle: data?.data?.data?.flash_message,
+      }));
+      setIsAlertOpen(true);
       setEdit(!edit);
-      setLoading(false);
-      alert("successful update");
     },
-    onError: (err) => {
-      console.log(err);
+    onError: (error) => {
+      setIsContentLoading(false);
+      setAlertProps((prev) => ({
+        ...prev,
+        type: "fail",
+        title: "Ooops! Sorry",
+        subtitle: error?.response?.data?.data?.flash_message,
+      }));
+      setIsAlertOpen(true);
     },
+    onMutate: () => setIsContentLoading(true),
   });
 
   const handleEdit = (e) => {
     e.preventDefault();
     editUserProfile.mutate(profile);
-    console.log("clicked");
   };
-
-  // --------------------------
-
-  const [user, setUser] = useState({});
-
-  const [firstName, setFirstName] = useState(user.first_name);
-  const [lastName, setLastName] = useState(user.last_name);
-  const [street, setStreet] = useState(
-    user.extended_details && user.extended_details.address_information.street
-  );
-  const [city, setCity] = useState(
-    user.extended_details && user.extended_details.address_information.city_name
-  );
-  const [province, setProvince] = useState(
-    user.extended_details &&
-      user.extended_details.address_information.province_name
-  );
-  const [gender, setGender] = useState(
-    user.extended_details && user.extended_details.personal_information.gender
-  );
-  const [dob, setDob] = useState(
-    user.extended_details &&
-      user.extended_details.personal_information.date_of_birth
-  );
-
-  // --------------------------
-  // --------------------------
-  // --------------------------
-
-  const updateProfile = async () => {
-    // setLoading(true);
-    const accessToken = localStorage.getItem("authToken")
-      ? localStorage.getItem("authToken")
-      : sessionStorage.getItem("authToken");
-    try {
-      var myHeaders = new Headers();
-      myHeaders.append("Accept", "application/json");
-      myHeaders.append("Authorization", "Bearer" + accessToken);
-
-      const extendedDetails = `{"address_information":{"street":${street},"line_one":"qqq","line_two":"","city_code":"","city_name":${city},"postal_code":"","country_code":"NG","country_name":"Nigeria","province_code":"hh","province_name":${province}},"personal_information":{"gender":${gender},"photo_file":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAABx0lEQVRYhe2Wzy6DQRTFf6EspLFpNFZiq+JP4k8QL6QPwBIJO9SfJW/AQmLpLUh5ABYsEdpGpRZzJiaj39cZPrHpSWZz77n3nPl6Z6bQRRfxKAGHQBV41aoqNvaXwn3AHvABtBLWB7AD5LIWzwEXEqkBFWAWGNCaA/aBujjnQG+WBrbU+A6YSOFNAvfibmYlPorZWa2DuMWUuHVgJAsDG5gd7UfUHKpm/TfCPcAa0FCz+TYcO3w+5hVvAKvqFS1+piZN4Ij2k51kIKeapvKnsSa2VfgAzKTwkgxYzAKP4myFio9jnNfVwMUKUIwwAOaINtSzFGLADtCxFy8rfu2YCDEAcCLeQYiBG5GXvHhR4q4J30AR85V8LItXDTHwJnKhTc434Rpwc2WvrqD4a4iBZ5HzCfkh4MoRb3mxW2DYqxlU7inEQJXkc2/h7tb9Gu58uFhw8h1RIWxg3BlIEwdzJ7SA3RAD7jGc6sANEZ8m8hjC11G862DCGkgTt69jzFtCH3CpwroMLfB9MNvdA3lgEfPZ7TtyqZ5R6Jewvc/Tlm/IrnfMzqPFXYxj/opdAy8BBl7E3SXiN/8pQq/iRES/01nj3w100cUnxYCu18tflJUAAAAASUVORK5CYII=","date_of_birth":${dob}},"miscellaneous_information":{"mono_account_id":""}}`;
-
-      var formdata = new FormData();
-      formdata.append("first_name", firstName);
-      formdata.append("last_name", lastName);
-      formdata.append("extended_details", JSON.stringify(extendedDetails));
-
-      var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: formdata,
-        redirect: "follow",
-      };
-
-      const response = await fetch(
-        `${process.env.REACT_APP_BASE_URI}/user/profile/update`,
-        requestOptions
-      );
-      const data = await response.json();
-      console.log("Update", data);
-      if (data.status === "success") {
-        toast.success(data.message);
-        setEdit(!edit);
-        setLoading(false);
-      } else {
-        toast.error(data.flash_message);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
-  // const states = async () => {
-  //   // setLoading(true);
-  //   const accessToken = localStorage.getItem("authToken")
-  //     ? localStorage.getItem("authToken")
-  //     : sessionStorage.getItem("authToken");
-  //   try {
-  //     const response = await fetch(
-  //       `${process.env.REACT_APP_BASE_URI}/fetch/provinces?country=NG`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: "Bearer " + accessToken,
-  //         },
-  //       }
-  //     );
-
-  //     const data = await response.json();
-  //     if (data.status === "success") {
-  //       setProvinces(data.data.provinces);
-  //       setLoading(false);
-  //     } else {
-  //       toast.error("States cannot be fetched!");
-  //       setLoading(false);
-  //     }
-  //     console.log("states", data);
-  //   } catch (error) {
-  //     console.log(error);
-  //     setLoading(false);
-  //   }
-  // };
-
-  // const profile = async () => {
-  //   // setLoading(true);
-  //   const accessToken = localStorage.getItem("authToken")
-  //     ? localStorage.getItem("authToken")
-  //     : sessionStorage.getItem("authToken");
-  //   try {
-  //     const response = await fetch(
-  //       `${process.env.REACT_APP_BASE_URI}/user/profile/get`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: "Bearer" + accessToken,
-  //         },
-  //       }
-  //     );
-  //     console.log("Profile", response);
-  //     const data = await response.json();
-  //     if (data.status === "success") {
-  //       setUser(data.data.user_profile);
-  //       setLoading(false);
-  //     } else {
-  //       toast.error("User Profile cannot be fetched!");
-  //       setLoading(false);
-  //     }
-  //     console.log("data", data);
-  //   } catch (error) {
-  //     console.log(error);
-  //     setLoading(false);
-  //   }
-  // };
 
   return (
     <>
@@ -351,7 +239,7 @@ const Profile = () => {
             <div className="rounded-full w-[171px] h-[171px]">
               <img
                 className="object-cover rounded-full w-full h-full drop-shadow-sm"
-                src={image}
+                src={MaleAvatar}
                 alt="Profile-Pics"
               />
             </div>
@@ -403,19 +291,22 @@ const Profile = () => {
                 <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                   <p className="font-medium text-[#4D4D4D]">First Name</p>
                   <p className="text-black font-medium capitalize">
-                    {profile?.first_name || "----"}
+                    {userProfile?.data?.data?.user_profile?.extended_details
+                      ?.personal_information?.first_name || "----"}
                   </p>
                 </div>
                 <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                   <p className="font-medium text-[#4D4D4D]">Last Name</p>
                   <p className="text-black font-medium capitalize">
-                    {profile?.last_name || "----"}
+                    {userProfile?.data?.data?.user_profile?.extended_details
+                      ?.personal_information?.last_name || "----"}
                   </p>
                 </div>
                 <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                   <p className="font-medium text-[#4D4D4D] ">Gender</p>
                   <p className="text-black font-medium capitalize">
-                    {profile?.gender || "----"}
+                    {userProfile?.data?.data?.user_profile?.extended_details
+                      ?.personal_information?.gender || "----"}
                   </p>
                 </div>
                 <div className="lg:w-1/4 w-full flex items-center lg:text-left ">
@@ -573,7 +464,8 @@ const Profile = () => {
                     First Name
                   </p>
                   <p className="text-black font-medium capitalize">
-                    {profile?.first_name || "----"}
+                    {userProfile?.data?.data?.user_profile?.extended_details
+                      ?.personal_information?.first_name || "----"}
                   </p>
                 </div>
 
@@ -582,7 +474,8 @@ const Profile = () => {
                     Last Name
                   </p>
                   <p className="text-black font-medium capitalize">
-                    {profile?.last_name || "----"}
+                    {userProfile?.data?.data?.user_profile?.extended_details
+                      ?.personal_information?.last_name || "----"}
                   </p>
                 </div>
               </div>
@@ -596,56 +489,62 @@ const Profile = () => {
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Account Type</p>
                   <p className="font-medium text-black capitalize">
-                    {profile?.account_type || "----"}
+                    {userProfile?.data?.data?.user_profile?.account_type ||
+                      "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Email Address</p>
                   <p className="font-medium text-black ">
-                    {profile?.email || "----"}
+                    {userProfile?.data?.data?.user_profile?.email || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Phone Number</p>
                   <p className="font-medium text-black capitalize">
-                    {profile?.phone || "----"}
+                    {userProfile?.data?.data?.user_profile?.phone || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Date of birth</p>
                   <p className="font-medium text-black capitalize">
-                    {profile?.date_of_birth || "----"}
+                    {userProfile?.data?.data?.user_profile?.extended_details
+                      ?.personal_information?.date_of_birth || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">State</p>
                   <p className="font-medium text-black capitalize">
-                    {profile?.province_name || "----"}
+                    {userProfile?.data?.data?.user_profile?.extended_details
+                      ?.address_information?.province_name || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">City</p>
                   <p className="font-medium text-black capitalize">
-                    {profile?.city_name || "----"}
+                    {userProfile?.data?.data?.user_profile?.extended_details
+                      ?.address_information?.city_name || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3  text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Address Line 1</p>
                   <p className="text-black font-medium ">
-                    {profile?.line_one || "----"}
+                    {userProfile?.data?.data?.user_profile?.extended_details
+                      ?.address_information?.line_one || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Address Line 2</p>
                   <p className="text-black font-medium ">
-                    {profile?.line_two || "----"}
+                    {userProfile?.data?.data?.user_profile?.extended_details
+                      ?.address_information?.line_two || "----"}
                   </p>
                 </div>
               </div>
