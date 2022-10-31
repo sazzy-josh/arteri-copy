@@ -13,7 +13,7 @@ import ProviderDashboardWrapper from "../../layouts/ProviderDashboardWrapper";
 const ProviderDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <ProviderDashboardWrapper>
+    <ProviderDashboardWrapper selectedSidebarLink={"overview"}>
       <div className="w-full px-5 lg:px-0 md:px-0 flex flex-col justify-start items-start">
         <div>
           <p className="font-bold text-left text-2xl text-black mt-2 mb-5">

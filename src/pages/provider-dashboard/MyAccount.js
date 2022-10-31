@@ -19,7 +19,7 @@ const ProviderAccount = () => {
   const [showPassword, setPassword] = useState(false);
   const [showSecurity, setSecurity] = useState(false);
   return (
-    <ProviderDashboardWrapper>
+    <ProviderDashboardWrapper selectedSidebarLink={"account"}>
       <div className="w-full flex flex-col justify-start items-start">
         <div className="">
           {/* <LargeCard /> */}

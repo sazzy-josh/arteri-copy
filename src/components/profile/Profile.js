@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CamIcon from "../../assets/icons/camera.svg";
 import ProfilePic from "../../assets/images/profile.png";
-import PrimaryButton2 from "../forms/buttons/PrimaryButton";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import TextField from "../forms/text/TextField";
@@ -9,14 +7,36 @@ import StatusBar from "../status/StatusBar";
 import SelectField from "../forms/text/SelectField";
 import Preloader from "../Preloader";
 import PrimaryButton from "../buttons/PrimaryButton";
+import image from "../../assets/images/image-1.jpg";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Axios from "axios";
+import axios from "axios";
 
 const Profile = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [provinces, setProvinces] = useState([]);
+  const [profile, setProfile] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    account_type: "",
+    date_of_birth: "",
+    gender: "",
+    photo_file: "",
+    province_name: "",
+    city_name: "",
+    line_one: "",
+    line_two: "",
+    country_name: "",
+    province_code: "",
+    country_code: "",
+    city_code: "",
+  });
 
   const fetchUserProfile = () => {
     const authToken =
@@ -32,22 +52,165 @@ const Profile = () => {
     isLoading,
     isError,
   } = useQuery(["user-profile"], fetchUserProfile, {
-    staleTime: Infinity,
-    onSuccess: () => {
-      // alert("succesfull");
+    onSuccess: (userProfile) => {
+      setProfile({
+        first_name:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.personal_information?.first_name,
+        last_name:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.personal_information?.last_name,
+        email: userProfile?.data?.data?.user_profile?.email,
+        phone: userProfile?.data?.data?.user_profile?.phone,
+        account_type: userProfile?.data?.data?.user_profile?.account_type,
+        date_of_birth:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.personal_information?.date_of_birth,
+        gender:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.personal_information?.gender,
+        photo_file:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.personal_information?.photo_file,
+        province_name:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.address_information?.province_name,
+        city_name:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.address_information?.city_name,
+        line_one:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.address_information?.line_one,
+        line_two:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.address_information?.line_two,
+        province_code:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.address_information?.province_code,
+        country_name:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.address_information?.country_name,
+        country_code:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.address_information?.country_code,
+        city_code:
+          userProfile?.data?.data?.user_profile?.extended_details
+            ?.address_information?.city_code,
+      });
     },
-    onError: () => {
-      alert("something went wrong");
+    onError: (e) => {
+      // alert(e.message)
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    staleTime: Infinity,
+  });
+
+  //handles fetching of state data
+  const handleFetchState = () => {
+    const authToken =
+      localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+    return axios.get(
+      `${process.env.REACT_APP_BASE_URI}/fetch/provinces?country=NG`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+  };
+
+  const genderList = ["Male", "Female"];
+
+  //Query for  state data
+  const { data } = useQuery(["fetch-states"], handleFetchState, {
+    onSuccess: (data) => {
+      let result = data?.data?.data?.provinces;
+      setProvinces([...result]);
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    staleTime: Infinity,
+  });
+
+  //handles input change
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setProfile({ ...profile, [name]: value });
+  };
+
+  //handles file input change
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    const { name } = e.target;
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      setProfile({ ...profile, [name]: fileReader.result });
+    };
+  };
+
+  // handles updating of profile
+  const handleUpdateProfile = (profile) => {
+    console.log(profile);
+
+    let formData = new FormData();
+    formData.append("first_name", profile?.first_name);
+    formData.append("last_name", profile?.last_name);
+    formData.append("gender", profile?.gender);
+    formData.append("date_of_birth", profile?.date_of_birth);
+    formData.append("city_code", profile?.city_code);
+    formData.append("city_name", profile?.city_name);
+    formData.append("line_one", profile?.line_one);
+    formData.append("line_two", profile?.line_two);
+    formData.append("province_name", profile?.province_name);
+    formData.append("province_code", profile?.province_code);
+    formData.append("country_code", profile?.country_code);
+    formData.append("country_name", profile?.country_name);
+    formData.append("photo_file", profile?.photo_file);
+
+    console.log(formData);
+
+    let authToken =
+      localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+    console.log("authToken :", authToken);
+
+    return axios.post(
+      `${process.env.REACT_APP_BASE_URI}/user/profile/update`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+  };
+
+  // mutation
+
+  const editUserProfile = useMutation(handleUpdateProfile, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("user-profile");
+      setEdit(!edit);
+      setLoading(false);
+      alert("successful update");
+    },
+    onError: (err) => {
+      console.log(err);
     },
   });
-  console.log("profile is: ", userProfile);
 
-  // --------------------------
-  // --------------------------
+  const handleEdit = (e) => {
+    e.preventDefault();
+    editUserProfile.mutate(profile);
+    console.log("clicked");
+  };
+
   // --------------------------
 
   const [user, setUser] = useState({});
-  const [provinces, setProvinces] = useState([]);
+
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
   const [street, setStreet] = useState(
@@ -67,8 +230,6 @@ const Profile = () => {
     user.extended_details &&
       user.extended_details.personal_information.date_of_birth
   );
-  const genderList = "tet";
-  const statesList = "tet";
 
   // --------------------------
   // --------------------------
@@ -82,7 +243,7 @@ const Profile = () => {
     try {
       var myHeaders = new Headers();
       myHeaders.append("Accept", "application/json");
-      myHeaders.append("Authorization", "Bearer " + accessToken);
+      myHeaders.append("Authorization", "Bearer" + accessToken);
 
       const extendedDetails = `{"address_information":{"street":${street},"line_one":"qqq","line_two":"","city_code":"","city_name":${city},"postal_code":"","country_code":"NG","country_name":"Nigeria","province_code":"hh","province_name":${province}},"personal_information":{"gender":${gender},"photo_file":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAABx0lEQVRYhe2Wzy6DQRTFf6EspLFpNFZiq+JP4k8QL6QPwBIJO9SfJW/AQmLpLUh5ABYsEdpGpRZzJiaj39cZPrHpSWZz77n3nPl6Z6bQRRfxKAGHQBV41aoqNvaXwn3AHvABtBLWB7AD5LIWzwEXEqkBFWAWGNCaA/aBujjnQG+WBrbU+A6YSOFNAvfibmYlPorZWa2DuMWUuHVgJAsDG5gd7UfUHKpm/TfCPcAa0FCz+TYcO3w+5hVvAKvqFS1+piZN4Ij2k51kIKeapvKnsSa2VfgAzKTwkgxYzAKP4myFio9jnNfVwMUKUIwwAOaINtSzFGLADtCxFy8rfu2YCDEAcCLeQYiBG5GXvHhR4q4J30AR85V8LItXDTHwJnKhTc434Rpwc2WvrqD4a4iBZ5HzCfkh4MoRb3mxW2DYqxlU7inEQJXkc2/h7tb9Gu58uFhw8h1RIWxg3BlIEwdzJ7SA3RAD7jGc6sANEZ8m8hjC11G862DCGkgTt69jzFtCH3CpwroMLfB9MNvdA3lgEfPZ7TtyqZ5R6Jewvc/Tlm/IrnfMzqPFXYxj/opdAy8BBl7E3SXiN/8pQq/iRES/01nj3w100cUnxYCu18tflJUAAAAASUVORK5CYII=","date_of_birth":${dob}},"miscellaneous_information":{"mono_account_id":""}}`;
 
@@ -180,53 +341,29 @@ const Profile = () => {
   //   }
   // };
 
-  // useEffect(() => {
-  //   profile();
-  //   states();
-  // }, []);
-
-  // const genders = [
-  //   {
-  //     name: "Male",
-  //     value: "male",
-  //   },
-  //   {
-  //     name: "Female",
-  //     value: "female",
-  //   },
-  // ];
-
-  // const genderList =
-  //   genders.length > 0 &&
-  //   genders.map((item, i) => {
-  //     return (
-  //       <option key={i} value={item.value}>
-  //         {item.name}
-  //       </option>
-  //     );
-  //   });
-
-  // const statesList =
-  //   provinces.length > 0 &&
-  //   provinces.map((item, i) => {
-  //     return <option value={item.province_code}>{item.province_name}</option>;
-  //   });
-
   return (
     <>
       <div className="w-full my-5">
         <div className="w-full flex flex-col lg:flex-row justify-start items-center">
-          <div className="lg:w-1/4 w-full lg:block lg:flex-col lg:justify-start lg:items-center flex flex-col justify-center items-center">
-            <img
-              className="rounded-full"
-              src={ProfilePic}
-              width="171px"
-              height="171px"
-              alt="Profile-Pics"
-            />
+          {/* User Image goes here */}
+          <div className="lg:w-1/4 w-full lg:block lg:flex-col lg:justify-start lg:items-center flex flex-col justify-center items-center ">
+            {/* Image Container */}
+            <div className="rounded-full w-[171px] h-[171px]">
+              <img
+                className="object-cover rounded-full w-full h-full drop-shadow-sm"
+                src={image}
+                alt="Profile-Pics"
+              />
+            </div>
             <label>
-              <input type="file" className="hidden" accept="image/*" />
-              <div className="relative lg:bottom-16 lg:left-24 bottom-12 left-14 flex items-center justify-center cursor-pointer object-contain w-12 h-12 bg-white rounded-full  hover:bg-[#E6F2D9] transition">
+              <input
+                type="file"
+                className="hidden"
+                accept="image/*"
+                name="photo"
+                onChange={handleFileInputChange}
+              />
+              <div className="relative lg:bottom-16 lg:left-24 bottom-12 left-14 flex items-center justify-center shadow-sm cursor-pointer object-contain w-12 h-12 bg-white rounded-full  hover:bg-[#E6F2D9] transition">
                 <svg
                   width="24"
                   height="24"
@@ -266,22 +403,19 @@ const Profile = () => {
                 <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                   <p className="font-medium text-[#4D4D4D]">First Name</p>
                   <p className="text-black font-medium capitalize">
-                    {userProfile?.data?.data?.user_profile?.extended_details
-                      ?.personal_information?.first_name || "----"}
+                    {profile?.first_name || "----"}
                   </p>
                 </div>
                 <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                   <p className="font-medium text-[#4D4D4D]">Last Name</p>
                   <p className="text-black font-medium capitalize">
-                    {userProfile?.data?.data?.user_profile?.extended_details
-                      ?.personal_information?.last_name || "----"}
+                    {profile?.last_name || "----"}
                   </p>
                 </div>
                 <div className="hidden lg:w-1/4 w-full lg:text-left lg:flex lg:flex-col gap-y-4">
                   <p className="font-medium text-[#4D4D4D] ">Gender</p>
                   <p className="text-black font-medium capitalize">
-                    {userProfile?.data?.data?.user_profile?.extended_details
-                      ?.personal_information?.gender || "----"}
+                    {profile?.gender || "----"}
                   </p>
                 </div>
                 <div className="lg:w-1/4 w-full flex items-center lg:text-left ">
@@ -302,17 +436,19 @@ const Profile = () => {
                 <div className="lg:mr-10 lg:w-80 w-full flex flex-col gap-y-4">
                   <span className="text-[#4D4D4D] font-medium">FirstName</span>
                   <TextField
-                    changeText={(e) => setFirstName(e.target.value)}
-                    value={user.first_name || "Bello"}
+                    changeText={handleInput}
+                    value={profile?.first_name || "----"}
                     type="text"
+                    name="first_name"
                   />
                 </div>
                 <div className="lg:w-80 w-full flex flex-col gap-y-4">
                   <span className="text-[#4D4D4D] font-medium">LastName</span>
                   <TextField
-                    changeText={(e) => setLastName(e.target.value)}
-                    value={user.last_name || " Abdulkudus"}
+                    changeText={handleInput}
+                    value={profile?.last_name || " -----"}
                     type="text"
+                    name="last_name"
                   />
                 </div>
               </div>
@@ -338,37 +474,40 @@ const Profile = () => {
                     Date of Birth
                   </span>
                   <TextField
-                    changeText={(e) => setDob(e.target.value)}
-                    value={
-                      user.extended_details &&
-                      user.extended_details.personal_information.date_of_birth
-                    }
+                    changeText={handleInput}
+                    value={profile?.date_of_birth || " -----"}
                     type="date"
+                    name="date_of_birth"
                   />
                 </div>
                 <div className="lg:w-80 w-full flex flex-col gap-y-4">
                   <span className="text-[#4D4D4D] font-medium">Gender</span>
-                  <SelectField
-                    changeText={(e) => setGender(e.target.value)}
-                    value={
-                      user.extended_details &&
-                      user.extended_details.personal_information.gender
-                    }
-                    type="text"
-                    optionList={genderList}
-                  />
+                  <div className="flex flex-1 bg-transparent flex-row justify-start border-2 border-[#808080] rounded-md items-start px-4 py-2 h-14 w-full">
+                    <select
+                      onChange={handleInput}
+                      name="gender"
+                      className="w-full h-full bg-transparent focus:outline-none focus:border-0 border-0"
+                      defaultValue={profile?.gender || " -----"}
+                    >
+                      {genderList.map((gender, index) => {
+                        return (
+                          <option key={index} value={gender}>
+                            {gender}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
                 </div>
                 <div className="lg:w-80 w-full flex flex-col gap-y-4">
                   <span className="text-[#4D4D4D] font-medium">
                     Address Line 1
                   </span>
                   <TextField
-                    changeText={(e) => setStreet(e.target.value)}
-                    value={
-                      user?.extended_details?.address_information?.city_name ||
-                      "20, Otunda Street Rumuagholu"
-                    }
+                    changeText={handleInput}
+                    value={profile?.line_one || " -----"}
                     type="text"
+                    name="line_one"
                   />
                 </div>
               </div>
@@ -378,41 +517,44 @@ const Profile = () => {
                     Address Line 2
                   </span>
                   <TextField
-                    changeText={(e) => setStreet(e.target.value)}
-                    value={
-                      user?.extended_details?.address_information?.street ||
-                      " 20, Otunda Street Rumuagholu"
-                    }
+                    changeText={handleInput}
+                    value={profile?.line_two || " -----"}
                     type="text"
+                    name="line_two"
                   />
                 </div>
                 <div className="lg:w-80 w-full flex flex-col gap-y-4">
                   <span className="text-[#4D4D4D] font-medium">City</span>
                   <TextField
-                    changeText={(e) => setCity(e.target.value)}
-                    value={
-                      user?.extended_details?.address_information?.city_name ||
-                      "Lagos"
-                    }
+                    changeText={handleInput}
+                    value={profile?.city_name || " -----"}
                     type="text"
+                    name="city_name"
                   />
                 </div>
                 <div className="lg:w-80 w-full flex flex-col gap-y-4">
                   <span className="text-[#4D4D4D] font-medium">State</span>
-                  <SelectField
-                    changeText={(e) => setProvince(e.target.value)}
-                    value={
-                      user.extended_details &&
-                      user.extended_details.address_information.province_name
-                    }
-                    type="text"
-                    optionList={statesList}
-                  />
+                  <div className="flex flex-1 bg-transparent flex-row justify-start border-2 border-[#808080] rounded-md items-start px-4 py-2 h-14 w-full">
+                    <select
+                      onChange={handleInput}
+                      name="province_name"
+                      className="w-full h-full bg-transparent focus:outline-none focus:border-0 border-0"
+                      defaultValue={profile?.province_name || " -----"}
+                    >
+                      {provinces?.map((state, index) => {
+                        return (
+                          <option key={index} value={state.name}>
+                            {state.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-row lg:justify-end lg:items-end justify-center items-center">
                 <div className="lg:w-48 h-14 w-full lg:mr-20">
-                  <PrimaryButton handle={updateProfile}>
+                  <PrimaryButton handle={handleEdit}>
                     <span className="text-white text-center">Save Changes</span>
                   </PrimaryButton>
                 </div>
@@ -431,18 +573,16 @@ const Profile = () => {
                     First Name
                   </p>
                   <p className="text-black font-medium capitalize">
-                    {userProfile?.data?.data?.user_profile?.extended_details
-                      ?.personal_information?.first_name || "----"}
+                    {profile?.first_name || "----"}
                   </p>
                 </div>
 
                 <div className="flex flex-col gap-y-4">
                   <p className="text-base font-medium text-[#4D4D4D]">
-                    Last Namett
+                    Last Name
                   </p>
                   <p className="text-black font-medium capitalize">
-                    {userProfile?.data?.data?.user_profile?.extended_details
-                      ?.personal_information?.last_name || "----"}
+                    {profile?.last_name || "----"}
                   </p>
                 </div>
               </div>
@@ -456,62 +596,56 @@ const Profile = () => {
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Account Type</p>
                   <p className="font-medium text-black capitalize">
-                    {userProfile?.data?.data?.user_profile?.account_type ||
-                      "----"}
+                    {profile?.account_type || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Email Address</p>
                   <p className="font-medium text-black ">
-                    {userProfile?.data?.data?.user_profile?.email || "----"}
+                    {profile?.email || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Phone Number</p>
                   <p className="font-medium text-black capitalize">
-                    {userProfile?.data?.data?.user_profile?.phone || "----"}
+                    {profile?.phone || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Date of birth</p>
                   <p className="font-medium text-black capitalize">
-                    {userProfile?.data?.data?.user_profile?.extended_details
-                      ?.personal_information?.date_of_birth || "----"}
+                    {profile?.date_of_birth || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">State</p>
                   <p className="font-medium text-black capitalize">
-                    {userProfile?.data?.data?.user_profile?.extended_details
-                      ?.address_information?.city_name || "----"}
+                    {profile?.province_name || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">City</p>
                   <p className="font-medium text-black capitalize">
-                    {userProfile?.data?.data?.user_profile?.extended_details
-                      ?.address_information?.city_name || "----"}
+                    {profile?.city_name || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3  text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Address Line 1</p>
                   <p className="text-black font-medium ">
-                    {userProfile?.data?.data?.user_profile?.extended_details
-                      ?.address_information?.line_one || "----"}
+                    {profile?.line_one || "----"}
                   </p>
                 </div>
 
                 <div className="lg:w-1/3 text-left flex flex-col gap-y-4">
                   <p className="text-[#4D4D4D] font-medium">Address Line 2</p>
                   <p className="text-black font-medium ">
-                    {userProfile?.data?.data?.user_profile?.extended_details
-                      ?.address_information?.line_two || "----"}
+                    {profile?.line_two || "----"}
                   </p>
                 </div>
               </div>

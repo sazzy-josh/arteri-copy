@@ -12,7 +12,7 @@ import ProviderDashboardWrapper from "../../layouts/ProviderDashboardWrapper";
 const ProviderNotifications = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <ProviderDashboardWrapper>
+    <ProviderDashboardWrapper selectedSidebarLink={"notification"}>
       <div className="w-full flex flex-row justify-start items-start">
         <div className="w-full">
           <Notification />

@@ -18,7 +18,7 @@ const Claims = () => {
   const [isOpen, setIsOpen] = useState(false);
   // const [activeTab, setActiveTab] = useState("tab2");
   return (
-    <ProviderDashboardWrapper>
+    <ProviderDashboardWrapper selectedSidebarLink={"claim"}>
       <section className="my-5 px-5 flex justify-between items-center">
         <p className="text-3xl font-bold text-left ">Claims History</p>
 

@@ -18,7 +18,7 @@ const ProviderSettings = () => {
   const [showTools, setTools] = useState(true);
   const [showKeys, setKeys] = useState(false);
   return (
-    <ProviderDashboardWrapper>
+    <ProviderDashboardWrapper selectedSidebarLink={"settings"}>
       <div className="w-full flex flex-col justify-start items-start">
         <div className="">
           {/* <LargeCard /> */}

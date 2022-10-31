@@ -23,7 +23,10 @@ const ProviderDashboardWrapper = ({ selectedSidebarLink, children }) => {
           </div>
         </>
       )}
-      <ProviderSideMenu />
+      <ProviderSideMenu
+        isSidebarOpen={isSidebarOpen}
+        selectedSidebarLink={selectedSidebarLink}
+      />
       {/* <SideMenu
         isSidebarOpen={isSidebarOpen}
         selectedSidebarLink={selectedSidebarLink}
@@ -31,7 +34,6 @@ const ProviderDashboardWrapper = ({ selectedSidebarLink, children }) => {
 
       <div className="w-full  md:ml-[245px] md:px-5 lg:px-10  duration-500">
         <Header setIsSidebarOpen={setIsSidebarOpen} />
-        John doe : dashboard wrapper
         {/* dashboard content goes here */}
         {children}
       </div>
@@ -42,10 +44,14 @@ ProviderDashboardWrapper.propTypes = {
   selectedSidebarLink: PropTypes.oneOf([
     "dashboard",
     "application",
-    "account",
-    "history",
+    "repay",
     "claim",
+    "account",
+    "tools",
+    "activities",
+    "history",
     "notification",
+    "settings",
     "help",
   ]),
 };
