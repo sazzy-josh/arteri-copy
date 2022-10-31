@@ -103,7 +103,7 @@ const Header = ({ setIsSidebarOpen }) => {
                   : "/my-account"
               )
             }
-            src="https://res.cloudinary.com/vtu-tech-solutions/image/upload/v1658069397/isedowo/Ellipse_40_ptkvzp.svg"
+            src={MaleAvatar}
             alt="Avatar"
             className="w-full h-full"
           />
