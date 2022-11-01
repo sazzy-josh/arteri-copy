@@ -8,8 +8,9 @@ import { ReactComponent as SMS } from "../../assets/icons/sms.svg";
 import { ReactComponent as Menu } from "../../assets/icons/mobile-hamburger.svg";
 import { ModalContext } from "../../contexts/ModalContext";
 import { useQuery } from "@tanstack/react-query";
-import { Axios } from "axios";
+import axios from "axios";
 import MaleAvatar from "../../assets/images/Arteri_Avatar_Male.jpg";
+import FemaleAvatar from "../../assets/images/Arteri_Avatar_Female.jpg";
 
 const Header = ({ setIsSidebarOpen }) => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Header = ({ setIsSidebarOpen }) => {
   const fetchUserProfile = () => {
     const authToken =
       localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
-    return Axios.get(`${process.env.REACT_APP_BASE_URI}/user/profile/get`, {
+    return axios.get(`${process.env.REACT_APP_BASE_URI}/user/profile/get`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
   };
@@ -31,17 +32,17 @@ const Header = ({ setIsSidebarOpen }) => {
     isError,
   } = useQuery(["user-profile-header"], fetchUserProfile, {
     onError: (error) => {
-      setAlertProps((prev) => ({
-        ...prev,
-        type: "fail",
-        title: "Ooops! Sorry",
-        subtitle: error?.response?.data?.data?.flash_message,
-      }));
-      setIsAlertOpen(true);
+      // setAlertProps((prev) => ({
+      //   ...prev,
+      //   type: "fail",
+      //   title: "Ooops! Sorry (header)",
+      //   subtitle: error?.response?.data?.data?.flash_message,
+      // }));
+      // setIsAlertOpen(true);
     },
-    refetchOnWindowFocus: false,
+    // refetchOnWindowFocus: false,
     // refetchOnMount: false,
-    // staleTime: Infinity,
+    staleTime: Infinity,
   });
 
   return (
@@ -85,9 +86,16 @@ const Header = ({ setIsSidebarOpen }) => {
                   : "/my-account"
               )
             }
-            src={MaleAvatar}
+            src={
+              userProfile?.data?.data?.user_profile?.extended_details
+                ?.personal_information?.photo_file ||
+              (userProfile?.data?.data?.user_profile?.extended_details?.personal_information?.gender?.toLowerCase() ===
+              "male"
+                ? MaleAvatar
+                : FemaleAvatar)
+            }
             alt="Avatar"
-            className="w-full h-full "
+            className="w-full h-full rounded-full"
           />
         </div>
       </div>
@@ -103,9 +111,16 @@ const Header = ({ setIsSidebarOpen }) => {
                   : "/my-account"
               )
             }
-            src={MaleAvatar}
+            src={
+              userProfile?.data?.data?.user_profile?.extended_details
+                ?.personal_information?.photo_file ||
+              (userProfile?.data?.data?.user_profile?.extended_details?.personal_information?.gender?.toLowerCase() ===
+              "male"
+                ? MaleAvatar
+                : FemaleAvatar)
+            }
             alt="Avatar"
-            className="w-full h-full"
+            className="w-full h-full rounded-full"
           />
         </div>
         <div className="flex items-center gap-8">

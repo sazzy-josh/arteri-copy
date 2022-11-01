@@ -11,7 +11,7 @@ import image from "../../assets/images/image-1.jpg";
 import { ModalContext } from "../../contexts/ModalContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Axios from "axios";
+// import Axios from "axios";
 import axios from "axios";
 
 import FemaleAvatar from "../../assets/images/Arteri_Avatar_Female.jpg";
@@ -49,7 +49,7 @@ const Profile = () => {
   const fetchUserProfile = () => {
     const authToken =
       localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
-    return Axios.get(`${process.env.REACT_APP_BASE_URI}/user/profile/get`, {
+    return axios.get(`${process.env.REACT_APP_BASE_URI}/user/profile/get`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
   };
@@ -145,7 +145,7 @@ const Profile = () => {
     },
     refetchOnWindowFocus: false,
     // refetchOnMount: false,
-    // staleTime: Infinity,
+    staleTime: Infinity,
   });
 
   //handles input change
@@ -156,13 +156,19 @@ const Profile = () => {
 
   //handles file input change
   const handleFileInputChange = (e) => {
+    console.log("camera icon clicked");
     const file = e.target.files[0];
     const { name } = e.target;
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onload = () => {
-      setProfile({ ...profile, [name]: fileReader.result });
-    };
+    if (file) {
+      setProfile((prev) => ({
+        ...prev,
+        photo_file: file,
+      }));
+      console.log("set profile", profile);
+      console.log("file name", file.name);
+      // setTimeout(handleEdit, 1500);
+      handleEdit();
+    }
   };
 
   // handles updating of profile
@@ -225,7 +231,8 @@ const Profile = () => {
   });
 
   const handleEdit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    console.log("editing request", profile);
     editUserProfile.mutate(profile);
   };
 
@@ -239,8 +246,15 @@ const Profile = () => {
             <div className="rounded-full w-[171px] h-[171px]">
               <img
                 className="object-cover rounded-full w-full h-full drop-shadow-sm"
-                src={MaleAvatar}
-                alt="Profile-Pics"
+                src={
+                  userProfile?.data?.data?.user_profile?.extended_details
+                    ?.personal_information?.photo_file ||
+                  (userProfile?.data?.data?.user_profile?.extended_details?.personal_information?.gender?.toLowerCase() ===
+                  "male"
+                    ? MaleAvatar
+                    : FemaleAvatar)
+                }
+                alt="arteri-profile-photo"
               />
             </div>
             <label>
@@ -248,7 +262,7 @@ const Profile = () => {
                 type="file"
                 className="hidden"
                 accept="image/*"
-                name="photo"
+                name="photo_file"
                 onChange={handleFileInputChange}
               />
               <div className="relative lg:bottom-16 lg:left-24 bottom-12 left-14 flex items-center justify-center shadow-sm cursor-pointer object-contain w-12 h-12 bg-white rounded-full  hover:bg-[#E6F2D9] transition">
@@ -328,7 +342,7 @@ const Profile = () => {
                   <span className="text-[#4D4D4D] font-medium">FirstName</span>
                   <TextField
                     changeText={handleInput}
-                    value={profile?.first_name || "----"}
+                    value={profile?.first_name}
                     type="text"
                     name="first_name"
                   />
@@ -337,7 +351,7 @@ const Profile = () => {
                   <span className="text-[#4D4D4D] font-medium">LastName</span>
                   <TextField
                     changeText={handleInput}
-                    value={profile?.last_name || " -----"}
+                    value={profile?.last_name}
                     type="text"
                     name="last_name"
                   />
@@ -366,7 +380,7 @@ const Profile = () => {
                   </span>
                   <TextField
                     changeText={handleInput}
-                    value={profile?.date_of_birth || " -----"}
+                    value={profile?.date_of_birth}
                     type="date"
                     name="date_of_birth"
                   />
@@ -378,7 +392,7 @@ const Profile = () => {
                       onChange={handleInput}
                       name="gender"
                       className="w-full h-full bg-transparent focus:outline-none focus:border-0 border-0"
-                      defaultValue={profile?.gender || " -----"}
+                      defaultValue={profile?.gender}
                     >
                       {genderList.map((gender, index) => {
                         return (
@@ -396,7 +410,7 @@ const Profile = () => {
                   </span>
                   <TextField
                     changeText={handleInput}
-                    value={profile?.line_one || " -----"}
+                    value={profile?.line_one}
                     type="text"
                     name="line_one"
                   />
@@ -409,7 +423,7 @@ const Profile = () => {
                   </span>
                   <TextField
                     changeText={handleInput}
-                    value={profile?.line_two || " -----"}
+                    value={profile?.line_two}
                     type="text"
                     name="line_two"
                   />
@@ -418,7 +432,7 @@ const Profile = () => {
                   <span className="text-[#4D4D4D] font-medium">City</span>
                   <TextField
                     changeText={handleInput}
-                    value={profile?.city_name || " -----"}
+                    value={profile?.city_name}
                     type="text"
                     name="city_name"
                   />
@@ -430,7 +444,7 @@ const Profile = () => {
                       onChange={handleInput}
                       name="province_name"
                       className="w-full h-full bg-transparent focus:outline-none focus:border-0 border-0"
-                      defaultValue={profile?.province_name || " -----"}
+                      defaultValue={profile?.province_name}
                     >
                       {provinces?.map((state, index) => {
                         return (
