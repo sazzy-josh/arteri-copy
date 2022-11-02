@@ -229,7 +229,7 @@ const Profile = () => {
         subtitle: data?.data?.data?.flash_message,
       }));
       setIsAlertOpen(true);
-      setEdit(!edit);
+      setEdit(false);
     },
     onError: (error) => {
       setIsContentLoading(false);
