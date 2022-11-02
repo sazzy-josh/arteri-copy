@@ -30,7 +30,7 @@ const Header = ({ setIsSidebarOpen }) => {
     data: userProfile,
     isLoading,
     isError,
-  } = useQuery(["user-profile-header"], fetchUserProfile, {
+  } = useQuery(["dashboard-header"], fetchUserProfile, {
     onError: (error) => {
       // setAlertProps((prev) => ({
       //   ...prev,

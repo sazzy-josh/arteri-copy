@@ -45,6 +45,20 @@ const Profile = () => {
     country_code: "",
     city_code: "",
   });
+  const [updatePicture, setUpdatePicture] = useState(false);
+
+  useEffect(() => {
+    if (updatePicture) {
+      console.log("run useEffect");
+      handleEdit();
+    }
+  }, [updatePicture]);
+
+  const handleEdit = (e) => {
+    // e.preventDefault();
+    console.log("editing request", profile);
+    editUserProfile.mutate(profile);
+  };
 
   const fetchUserProfile = () => {
     const authToken =
@@ -156,18 +170,18 @@ const Profile = () => {
 
   //handles file input change
   const handleFileInputChange = (e) => {
-    console.log("camera icon clicked");
     const file = e.target.files[0];
     const { name } = e.target;
+    console.log("camera icon clicked", file);
     if (file) {
-      setProfile((prev) => ({
-        ...prev,
+      setProfile({
+        ...profile,
         photo_file: file,
-      }));
+        check: true,
+      });
+      setUpdatePicture(true);
       console.log("set profile", profile);
       console.log("file name", file.name);
-      // setTimeout(handleEdit, 1500);
-      handleEdit();
     }
   };
 
@@ -230,18 +244,16 @@ const Profile = () => {
     onMutate: () => setIsContentLoading(true),
   });
 
-  const handleEdit = (e) => {
-    // e.preventDefault();
-    console.log("editing request", profile);
-    editUserProfile.mutate(profile);
-  };
-
   return (
     <>
       <div className="w-full my-5">
         <div className="w-full flex flex-col lg:flex-row justify-start items-center">
           {/* User Image goes here */}
           <div className="lg:w-1/4 w-full lg:block lg:flex-col lg:justify-start lg:items-center flex flex-col justify-center items-center ">
+            {/* <p className="font-semibold text-center bg-red-300 text-white w-full">
+              {JSON.stringify(updatePicture)}
+            </p> */}
+
             {/* Image Container */}
             <div className="rounded-full w-[171px] h-[171px]">
               <img
