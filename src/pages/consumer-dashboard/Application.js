@@ -501,8 +501,8 @@ const Application = () => {
       };
       linkToDb();
     },
-    onLoad: () => console.log("widget loaded successfully"),
-    onClose: () => console.log("widget has been closed"),
+    onLoad: () => {},
+    onClose: () => {},
   });
 
   connect.setup();
@@ -519,7 +519,7 @@ const Application = () => {
         <div className="w-full flex flex-col justify-start items-start">
           <div className="w-full lg:px-0 md:px-0 px-5">
             <div className="w-full flex flex-row justify-between items-center my-5">
-              <p className="mr-auto text-2xl font-bold">
+              <p className="dashboard-title">
                 Financing Application
               </p>
               <p className="ml-auto text-2xl font-bold text-gray-600">

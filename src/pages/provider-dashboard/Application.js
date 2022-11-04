@@ -30,7 +30,7 @@ const ProviderApplication = () => {
       <div className="w-full flex flex-col justify-start items-start">
         <div className="w-full lg:px-0 md:px-0 px-5">
           <div className="w-full flex flex-row justify-between items-center my-5">
-            <p className="mr-auto text-2xl font-bold">Financing Application</p>
+            <p className="dashboard-title">Financing Application</p>
             <p className="ml-auto text-2xl font-bold text-gray-600">
               <span>1</span>/<span className="text-sky-600">7</span>
             </p>
@@ -65,7 +65,6 @@ const ProviderApplication = () => {
                   setShowDetails(true);
                   setShowCosts(false);
                   setShowWork(false);
-
                   setShowReview(false);
                 }}
               />
