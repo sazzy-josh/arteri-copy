@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
-
 import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
 
 import SearchSort from "../../components/history/SearchSort";
@@ -18,68 +18,92 @@ const Loans = () => {
     sessionStorage.getItem("authToken") || localStorage.getItem("authToken");
 
   let navigate = useNavigate();
-  // implement useCallback for asynchronous function
-  const [historyData, setHistoryData] = useState({});
 
-  const [currentURL, setCurrentURL] = useState(
-    `${process.env.REACT_APP_BASE_URI}/loan/history/get?page=1`
-  );
-  const [isTableLoading, setIsTableLoading] = useState(true);
+ const [ page , setPage ] = useState(17)
+
+ const fetchHistory = (page) => {
+  return axios.get(`${process.env.REACT_APP_BASE_URI}/loan/history/get?page=${page}` ,  
+  { headers: 
+     { Authorization: `Bearer ${loggedInToken}` }
+   }
+   )
+ }
+
+  const { data: historyData , isLoading , isSuccess } = useQuery(['fetch-historyData' , page] ,() => fetchHistory(page) , {
+    onSuccess: (data) => {
+      console.log(data)
+    }
+  })
+
+
+
+
+  // implement useCallback for asynchronous function
+  // const [historyData, setHistoryData] = useState({});
+  // const [isTableLoading, setIsTableLoading] = useState(true);
+
+  // const [currentURL, setCurrentURL] = useState(
+  //   `${process.env.REACT_APP_BASE_URI}/loan/history/get?page=1`
+  // );
   // show preloader
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsTableLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsTableLoading(false);
+  //   }, 2000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   // useEffect(() => {
   //   console.log("useEffect");
   //   fetchHistory(currentURL);
   //   console.log("Data is:", historyData, historyData.length);
   // }, [currentURL]);
-  const Data = [
-    {
-      id: 1,
-      application_id: "#74563890",
-      collection_date: "22 Jun, 2022 - 10:39PM",
-      due_date: "22 Jun, 2022 - 10:39PM",
-      amount: "35000",
-      status: "pending",
-    },
-    {
-      id: 2,
-      application_id: "#74563890",
-      collection_date: "22 Jun, 2022 - 10:39PM",
-      due_date: "22 Jun, 2022 - 10:39PM",
-      amount: "35000",
-      status: "accepted",
-    },
-    {
-      id: 3,
-      application_id: "#74563890",
-      collection_date: "22 Jun, 2022 - 10:39PM",
-      due_date: "22 Jun, 2022 - 10:39PM",
-      amount: "35000",
-      status: "declined",
-    },
-  ];
-  const fetchHistory = useCallback(async (url) => {
-    setHistoryData({});
-    setIsTableLoading(true);
-    try {
-      const response = await Axios.get(url, {
-        headers: { Authorization: `Bearer ${loggedInToken}` },
-      });
-      // setHistoryData(response.data?.data);
-      setHistoryData({});
-      setIsTableLoading(false);
-    } catch (err) {
-      // catch errors
-      setIsTableLoading(false);
-      setHistoryData([]);
-    }
-  }, []);
+
+  // const Data = [
+  //   {
+  //     id: 1,
+  //     application_id: "#74563890",
+  //     collection_date: "22 Jun, 2022 - 10:39PM",
+  //     due_date: "22 Jun, 2022 - 10:39PM",
+  //     amount: "35000",
+  //     status: "pending",
+  //   },
+  //   {
+  //     id: 2,
+  //     application_id: "#74563890",
+  //     collection_date: "22 Jun, 2022 - 10:39PM",
+  //     due_date: "22 Jun, 2022 - 10:39PM",
+  //     amount: "35000",
+  //     status: "accepted",
+  //   },
+  //   {
+  //     id: 3,
+  //     application_id: "#74563890",
+  //     collection_date: "22 Jun, 2022 - 10:39PM",
+  //     due_date: "22 Jun, 2022 - 10:39PM",
+  //     amount: "35000",
+  //     status: "declined",
+  //   },
+  // ];
+
+  
+  // const fetchHistory = useCallback(async (url) => {
+  //   setHistoryData({});
+  //   setIsTableLoading(true);
+  //   try {
+  //     const response = await Axios.get(url, {
+  //       headers: { Authorization: `Bearer ${loggedInToken}` },
+  //     });
+  //     setHistoryData(response.data?.data);
+  //     // setHistoryData({});
+  //     setIsTableLoading(false);
+  //   } catch (err) {
+  //     // catch errors
+  //     setIsTableLoading(false);
+  //     setHistoryData([]);
+  //   }
+  // }, [])
+  
   return (
     <>
       <Tabs
@@ -118,17 +142,17 @@ const Loans = () => {
             <tr className="bg-red-300 h-5"></tr>
           </thead>
           <tbody>
-            {isTableLoading &&
-              [1, 2, 3, 4, 5].map((item, index) => (
+            { isLoading ?
+              [1, 2, 3, 4, 5].map((_, index) => (
                 <tr
-                  onClick={() =>
-                    navigate(
-                      `/history/details/${item.application_id.slice(
-                        1,
-                        item.application_id.length
-                      )}`
-                    )
-                  }
+                  // onClick={() =>
+                  //   navigate(
+                  //     `/history/details/${item.application_id.slice(
+                  //       1,
+                  //       item.application_id.length
+                  //     )}`
+                  //   )
+                  // }
                   key={index}
                   className="odd:bg-[#F6FAFD] cursor-pointer"
                 >
@@ -152,63 +176,61 @@ const Loans = () => {
                     </p>
                   </td>
                 </tr>
-              ))}
+              )) :  isSuccess &&  historyData?.data?.data?.loan_applications?.data.length > 1 && historyData?.data?.data?.loan_applications?.data.map((item, index) => (
+                <tr
+                  // onClick={() =>
+                  //   navigate(`/history/details/${item.application_id}`)
+                  // }
+                  key={index}
+                  className="odd:bg-[#F6FAFD] cursor-pointer "
+                >
+                  <td className="p-[18px] whitespace-nowrap font-medium ">
+                    {item.application_id}
+                  </td>
+                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                    {item?.extended_details?.loan_information
+                      ?.request_date === ""
+                      ? "- - -"
+                      : item?.extended_details?.loan_information
+                          ?.request_date}
+                  </td>
+                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                    {item?.extended_details?.loan_information
+                      ?.approval_date === ""
+                      ? "- - -"
+                      : item?.extended_details?.loan_information
+                          ?.approval_date}
+                  </td>
+                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                    {item?.extended_details?.loan_information
+                      ?.amount_requested ?? "- - -"}
+                  </td>
+                  <td className="p-[18px] whitespace-nowrap font-medium  ">
+                    <p
+                      className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
+                        item.application_status === "approved" &&
+                        "text-[#00A03E] bg-[#E5FFEF]"
+                      } ${
+                        item.application_status === "pending" &&
+                        "text-[#F29C2B] bg-[#FDEDD9]"
+                      } ${
+                        item.application_status === "declined" &&
+                        "text-[#DE4307] bg-[#FEEDE6]"
+                      }`}
+                    >
+                      {item.application_status === "approved"
+                        ? "accepted"
+                        : item.application_status}
+                    </p>
+                  </td>
+                </tr>
+              ))         
+            }
 
-            {/* {historyData?.loan_applications?.data.length
-              ? historyData?.loan_applications?.data.map((item, index) => (
-                  <tr
-                    // onClick={() =>
-                    //   navigate(`/history/details/${item.application_id}`)
-                    // }
-                    key={index}
-                    className="odd:bg-[#F6FAFD] cursor-pointer "
-                  >
-                    <td className="p-[18px] whitespace-nowrap font-medium ">
-                      {item.application_id}
-                    </td>
-                    <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                      {item?.extended_details?.loan_information
-                        ?.request_date === ""
-                        ? "- - -"
-                        : item?.extended_details?.loan_information
-                            ?.request_date}
-                    </td>
-                    <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                      {item?.extended_details?.loan_information
-                        ?.approval_date === ""
-                        ? "- - -"
-                        : item?.extended_details?.loan_information
-                            ?.approval_date}
-                    </td>
-                    <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                      {item?.extended_details?.loan_information
-                        ?.amount_requested ?? "- - -"}
-                    </td>
-                    <td className="p-[18px] whitespace-nowrap font-medium  ">
-                      <p
-                        className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
-                          item.application_status === "approved" &&
-                          "text-[#00A03E] bg-[#E5FFEF]"
-                        } ${
-                          item.application_status === "pending" &&
-                          "text-[#F29C2B] bg-[#FDEDD9]"
-                        } ${
-                          item.application_status === "declined" &&
-                          "text-[#DE4307] bg-[#FEEDE6]"
-                        }`}
-                      >
-                        {item.application_status === "approved"
-                          ? "accepted"
-                          : item.application_status}
-                      </p>
-                    </td>
-                  </tr>
-                ))
-              : null} */}
           </tbody>
         </table>
-        {/* {historyData?.loan_applications?.data.length === 0 && */}
-        {!isTableLoading ? (
+
+        { !isLoading && isSuccess && historyData?.data?.data?.loan_applications?.data.length === 0 && (
           <div className="w-full">
             <div className="bg-[#F6FAFD] w-32 h-32 mt-5 mb-2 mx-auto rounded-full flex justify-center items-center">
               <svg
@@ -272,13 +294,13 @@ const Loans = () => {
               </button>
             </div>
           </div>
-        ) : null}
+        ) }
       </section>
       {historyData?.loan_applications?.data.length && (
         <div className=" flex flex-col justify-center items-center my-7">
           <Pagination
-            data={Data}
-            setCurrentURL={setCurrentURL}
+            // data={Data}
+            // setCurrentURL={setCurrentURL}
             links={historyData?.loan_applications?.links}
             prevPageUrl={historyData?.loan_applications?.prev_page_url}
             nextPageUrl={historyData?.loan_applications?.next_page_url}
