@@ -1,21 +1,46 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import PrimaryButton from "../../components/buttons/PrimaryButton";
-
-// import components
-import Container from "../../components/container/Container";
-import Header from "../../components/head/Header";
-import MobileHeader from "../../components/head/MobileHeader";
-// import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
-import SideMenu from "../../components/nav/SideBar";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import ConsumerDashboardWrapper from "../../layouts/ConsumerDashboardWrapper";
+
+// import PrimaryButton from "../../components/buttons/PrimaryButton";
+// import components
+// import Container from "../../components/container/Container";
+// import Header from "../../components/head/Header";
+// import MobileHeader from "../../components/head/MobileHeader";
+// import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
+// import SideMenu from "../../components/nav/SideBar";
 
 // import styles
 import "../../styles/history.css";
 
 const HistoryDetails = () => {
   const { id } = useParams();
-  const [isOpen, setIsOpen] = useState(false);
+
+  //Function that fetch Loan details
+   const fetchLoanDetails = (id) => {
+     const authToken = localStorage.getItem("authToken") || sessionStorage.getItem("authToken")
+  
+     return axios.get(`${process.env.REACT_APP_BASE_URI}/loan/get?application_id=${id}` , {
+      headers: {
+        Authorization : `Bearer ${authToken}`
+      }
+     })
+
+   }
+
+const { data : loanDetails } = useQuery(['fetch-loanDetails' , id ] , () => fetchLoanDetails(id), 
+ {
+  onSuccess : (data) => {
+    // console.log(data)
+  }, 
+  refetchOnMount : false
+ }
+)
+ const loanData = loanDetails?.data?.data?.loan_application
+ console.log(loanData)
+
   return (
     <ConsumerDashboardWrapper selectedSidebarLink={"history"}>
       <section className="my-5 px-5">
@@ -68,8 +93,19 @@ const HistoryDetails = () => {
           </div>
           <p className=" flex gap-4 items-center">
             <span className="font-medium text-lg">Status:</span>
-            <span className="capitalize bg-[#FDEDD9] text-[#F29C2B] text-base text-center w-24 h-6 leading-6 inline-block rounded-lg font-medium">
-              pending
+            <span className={`capitalize text-base text-center w-24 h-6 leading-6 inline-block rounded-lg font-medium 
+              ${
+                loanData?.application_status === "approved" &&
+                "text-[#00A03E] bg-[#E5FFEF]"
+              } ${
+                loanData?.application_status === "pending" &&
+                "text-[#F29C2B] bg-[#FDEDD9]"
+              } ${
+                loanData?.application_status === "declined" &&
+                "text-[#DE4307] bg-[#FEEDE6]"
+              }
+            `}>
+              {loanData?.application_status}
             </span>
           </p>
         </div>
@@ -82,13 +118,13 @@ const HistoryDetails = () => {
             <p className="font-semibold mb-3">Collection Date & Time</p>
             <p>22 Jun, 2022 - 10:39PM</p>
           </div>
-          <div className="text-start">
+          {/* <div className="text-start">
             <p className="font-semibold mb-3">Due Date & Time</p>
             <p>22 Jun, 2022 - 10:39PM</p>
-          </div>
+          </div> */}
           <div className="text-start">
             <p className="font-semibold mb-3">Amount</p>
-            <p>35,000</p>
+            <p>{loanData?.amount_requested}</p>
           </div>
         </div>
 
@@ -124,9 +160,9 @@ const HistoryDetails = () => {
               <p>22 Days</p>
             </div>
           </div>
-          {/* <div className="w-10">
-                      <PrimaryButton>Repay Loan</PrimaryButton>
-                    </div> */}
+             {/* <div className="w-10">
+                <PrimaryButton>Repay Loan</PrimaryButton>
+             </div> */}
           <div className="w-full md:text-right">
             <button className=" text-white bg-secondary font-medium w-full h-14 rounded-lg  cursor-pointer md:w-44 hover:bg-[#577E2A] transition duration-200 ">
               Repay Loan

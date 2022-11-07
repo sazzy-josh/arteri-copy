@@ -21,7 +21,6 @@ const Loans = () => {
   let navigate = useNavigate();
 
  const [ page , setPage ] = useState(1)
- console.log(page)
 
  const fetchHistory = (page) => {
   return axios.get(`${process.env.REACT_APP_BASE_URI}/loan/history/get?page=${page}` ,  
@@ -31,7 +30,7 @@ const Loans = () => {
    )
  }
 
-  const { data: historyData , isLoading , isSuccess , isFetching } = useQuery(['fetch-historyData' , page] ,() => fetchHistory(page) , {
+  const { data: historyData , isLoading , isSuccess , isFetching  } = useQuery(['fetch-historyData' , page] ,() => fetchHistory(page) , {
     onSuccess: (data) => {
       console.log(data)
     },
