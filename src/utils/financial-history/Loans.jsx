@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
-import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
+// import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
 
 import SearchSort from "../../components/history/SearchSort";
-import Pagination from "../../components/Pagination";
+// import Pagination from "../../components/Pagination";
 
 // skeleton for table data loading
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Skeleton  from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Tabs from "../../components/nav/Tabs";
+import SecondaryButton from "../../components/buttons/SecondaryButton";
 
 const Loans = () => {
   const loggedInToken =
@@ -19,7 +20,8 @@ const Loans = () => {
 
   let navigate = useNavigate();
 
- const [ page , setPage ] = useState(17)
+ const [ page , setPage ] = useState(1)
+ console.log(page)
 
  const fetchHistory = (page) => {
   return axios.get(`${process.env.REACT_APP_BASE_URI}/loan/history/get?page=${page}` ,  
@@ -29,29 +31,29 @@ const Loans = () => {
    )
  }
 
-  const { data: historyData , isLoading , isSuccess } = useQuery(['fetch-historyData' , page] ,() => fetchHistory(page) , {
+  const { data: historyData , isLoading , isSuccess , isFetching } = useQuery(['fetch-historyData' , page] ,() => fetchHistory(page) , {
     onSuccess: (data) => {
       console.log(data)
-    }
+    },
+    staleTime: Infinity,
+    keepPreviousData : true, 
+    refetchOnWindowFocus : false
   })
 
+  //Just incase
+  //function that converts UTC to local time and date
+   const convertUTFtoISO = (dateValue) => {
+    const date = new Date(dateValue);
+    const isoDate = date.toISOString();
+  
+    // console.log(`${isoDate.substring(0, 10)} - ${isoDate.substring(11, 19)}`)
+  
+    return { 
+      date: isoDate.substring( 0, 10 ),
+      Time : isoDate.substring(11, 19)
+    }
+  }
 
-
-
-  // implement useCallback for asynchronous function
-  // const [historyData, setHistoryData] = useState({});
-  // const [isTableLoading, setIsTableLoading] = useState(true);
-
-  // const [currentURL, setCurrentURL] = useState(
-  //   `${process.env.REACT_APP_BASE_URI}/loan/history/get?page=1`
-  // );
-  // show preloader
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsTableLoading(false);
-  //   }, 2000);
-  //   return () => clearTimeout(timer);
-  // }, []);
 
   // useEffect(() => {
   //   console.log("useEffect");
@@ -59,50 +61,6 @@ const Loans = () => {
   //   console.log("Data is:", historyData, historyData.length);
   // }, [currentURL]);
 
-  // const Data = [
-  //   {
-  //     id: 1,
-  //     application_id: "#74563890",
-  //     collection_date: "22 Jun, 2022 - 10:39PM",
-  //     due_date: "22 Jun, 2022 - 10:39PM",
-  //     amount: "35000",
-  //     status: "pending",
-  //   },
-  //   {
-  //     id: 2,
-  //     application_id: "#74563890",
-  //     collection_date: "22 Jun, 2022 - 10:39PM",
-  //     due_date: "22 Jun, 2022 - 10:39PM",
-  //     amount: "35000",
-  //     status: "accepted",
-  //   },
-  //   {
-  //     id: 3,
-  //     application_id: "#74563890",
-  //     collection_date: "22 Jun, 2022 - 10:39PM",
-  //     due_date: "22 Jun, 2022 - 10:39PM",
-  //     amount: "35000",
-  //     status: "declined",
-  //   },
-  // ];
-
-  
-  // const fetchHistory = useCallback(async (url) => {
-  //   setHistoryData({});
-  //   setIsTableLoading(true);
-  //   try {
-  //     const response = await Axios.get(url, {
-  //       headers: { Authorization: `Bearer ${loggedInToken}` },
-  //     });
-  //     setHistoryData(response.data?.data);
-  //     // setHistoryData({});
-  //     setIsTableLoading(false);
-  //   } catch (err) {
-  //     // catch errors
-  //     setIsTableLoading(false);
-  //     setHistoryData([]);
-  //   }
-  // }, [])
   
   return (
     <>
@@ -142,7 +100,7 @@ const Loans = () => {
             <tr className="bg-red-300 h-5"></tr>
           </thead>
           <tbody>
-            { isLoading ?
+            { isLoading || isFetching ?
               [1, 2, 3, 4, 5].map((_, index) => (
                 <tr
                   // onClick={() =>
@@ -176,19 +134,28 @@ const Loans = () => {
                     </p>
                   </td>
                 </tr>
-              )) :  isSuccess &&  historyData?.data?.data?.loan_applications?.data.length > 1 && historyData?.data?.data?.loan_applications?.data.map((item, index) => (
+              )) :  isSuccess && 
+                    historyData?.data?.data?.loan_applications?.data.length > 1 && 
+                    historyData?.data?.data?.loan_applications?.data.map((item, index) => (
                 <tr
-                  // onClick={() =>
-                  //   navigate(`/history/details/${item.application_id}`)
-                  // }
+                  onClick={() =>
+                    navigate(`/history/details/${item.application_id}`)
+                  }
                   key={index}
                   className="odd:bg-[#F6FAFD] cursor-pointer "
-                >
-                  <td className="p-[18px] whitespace-nowrap font-medium ">
+                > 
+                  <td className="p-[18px] whitespace-nowrap font-medium hover:underline">
                     {item.application_id}
                   </td>
                   <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                    {item?.extended_details?.loan_information
+                   {item?.extended_details?.loan_information
+                      ?.approval_date === ""
+                      ? "- - -"
+                      : item?.extended_details?.loan_information
+                      ?.approval_date}
+                  </td>
+                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
+                   {item?.extended_details?.loan_information
                       ?.request_date === ""
                       ? "- - -"
                       : item?.extended_details?.loan_information
@@ -196,18 +163,11 @@ const Loans = () => {
                   </td>
                   <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
                     {item?.extended_details?.loan_information
-                      ?.approval_date === ""
-                      ? "- - -"
-                      : item?.extended_details?.loan_information
-                          ?.approval_date}
-                  </td>
-                  <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
-                    {item?.extended_details?.loan_information
                       ?.amount_requested ?? "- - -"}
                   </td>
                   <td className="p-[18px] whitespace-nowrap font-medium  ">
                     <p
-                      className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium ${
+                      className={`p-1 w-24 capitalize whitespace-nowrap mx-auto font-medium rounded-[8px] drop-shadow-sm ${
                         item.application_status === "approved" &&
                         "text-[#00A03E] bg-[#E5FFEF]"
                       } ${
@@ -223,14 +183,14 @@ const Loans = () => {
                         : item.application_status}
                     </p>
                   </td>
-                </tr>
+             </tr>
               ))         
             }
 
           </tbody>
         </table>
 
-        { !isLoading && isSuccess && historyData?.data?.data?.loan_applications?.data.length === 0 && (
+        { !isFetching && !isLoading && isSuccess && historyData?.data?.data?.loan_applications?.data.length === 0 && (
           <div className="w-full">
             <div className="bg-[#F6FAFD] w-32 h-32 mt-5 mb-2 mx-auto rounded-full flex justify-center items-center">
               <svg
@@ -296,17 +256,58 @@ const Loans = () => {
           </div>
         ) }
       </section>
-      {historyData?.loan_applications?.data.length && (
-        <div className=" flex flex-col justify-center items-center my-7">
-          <Pagination
-            // data={Data}
-            // setCurrentURL={setCurrentURL}
-            links={historyData?.loan_applications?.links}
-            prevPageUrl={historyData?.loan_applications?.prev_page_url}
-            nextPageUrl={historyData?.loan_applications?.next_page_url}
-          />
+     
+     <div className="flex flex-col lg:flex-row mb-5">
+
+      <div className='flex gap-x-2 px-5 items-center mb-14 lg:mb-0'>
+        <span className='border-r border-r-black pr-2'>
+       {historyData?.data?.data?.loan_applications?.total} {historyData?.data?.data?.loan_applications?.total === 1 ? "Result" : "Results" }
+        </span>
+
+        <div className='flex flex-row'>
+          <p> Jump To: &nbsp;&nbsp; </p>  
+          <select 
+            className="bg-transparent border focus:outline-none  border-[#808080]  px-1 rounded-md"
+            defaultValue={page}
+            onChange={(e) => setPage(e.target.value)}> 
+              { historyData?.data?.data?.loan_applications?.links
+              .slice( 1 , historyData?.data?.data?.loan_applications?.links?.length - 1 )
+              .map((item) => 
+                {
+                return (
+                <option key={item.label} value={item.label}>{item.label}</option>
+                )
+              }
+            )}
+          </select> 
         </div>
-      )}
+
+     </div>
+
+     <div className="flex flex-col gap-x-10 lg:flex-row lg:ml-auto px-5 gap-y-5 -mt-[12px]">
+        <div className="w-full lg:w-28 h-14">
+          <SecondaryButton
+            handle = {() => setPage(page - 1)}
+            isButtonDisabled = {historyData?.data?.data?.loan_applications?.prev_page_url
+              === null}
+          >
+             Back
+          </SecondaryButton>
+        </div>
+
+        <div className="w-full  lg:w-28 h-14">
+          <PrimaryButton
+           handle={() => setPage(Number(page) + 1)}
+           isButtonDisabled = {historyData?.data?.data?.loan_applications?.next_page_url
+            === null}
+          >
+            Next
+          </PrimaryButton>
+        </div>
+     </div>
+
+
+    </div>
     </>
   );
 };
