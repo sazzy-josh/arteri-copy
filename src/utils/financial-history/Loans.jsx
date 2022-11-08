@@ -162,7 +162,7 @@ const Loans = () => {
                   </td>
                   <td className="p-[18px] whitespace-nowrap font-medium hidden lg:table-cell">
                     {item?.extended_details?.loan_information
-                      ?.amount_requested ?? "- - -"}
+                      ?.amount_requested.toLocaleString() ?? "- - -"}
                   </td>
                   <td className="p-[18px] whitespace-nowrap font-medium  ">
                     <p

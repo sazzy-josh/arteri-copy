@@ -39,7 +39,7 @@ const { data : loanDetails } = useQuery(['fetch-loanDetails' , id ] , () => fetc
  }
 )
  const loanData = loanDetails?.data?.data?.loan_application
- console.log(loanData)
+ console.log("loanData:" , loanData)
 
   return (
     <ConsumerDashboardWrapper selectedSidebarLink={"history"}>
@@ -53,7 +53,7 @@ const { data : loanDetails } = useQuery(['fetch-loanDetails' , id ] , () => fetc
               <h3 className="font-medium text-lg text-left mb-2">
                 Application ID:
               </h3>
-              <p className="font-bold text-2xl text-left">#{id}</p>
+              <p className="font-bold text-2xl text-left">{id}</p>
             </div>
             <div className="w-10 h-10 flex justify-center items-center rounded-full bg-[#EAF2FB] lg:hidden">
               <svg
@@ -116,7 +116,7 @@ const { data : loanDetails } = useQuery(['fetch-loanDetails' , id ] , () => fetc
           </div>
           <div className="text-start">
             <p className="font-semibold mb-3">Collection Date & Time</p>
-            <p>22 Jun, 2022 - 10:39PM</p>
+            <p>{loanData?.extended_details?.loan_information?.approval_date}</p>
           </div>
           {/* <div className="text-start">
             <p className="font-semibold mb-3">Due Date & Time</p>
@@ -124,7 +124,7 @@ const { data : loanDetails } = useQuery(['fetch-loanDetails' , id ] , () => fetc
           </div> */}
           <div className="text-start">
             <p className="font-semibold mb-3">Amount</p>
-            <p>{loanData?.amount_requested}</p>
+            <p>{loanData?.extended_details?.loan_information?.amount_available.toLocaleString()}</p>
           </div>
         </div>
 
@@ -132,10 +132,7 @@ const { data : loanDetails } = useQuery(['fetch-loanDetails' , id ] , () => fetc
         <div className="text-start mb-10 md:w-10/12">
           <p className="font-semibold mb-3">Comment</p>
           <p>
-            Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt
-            qui esse pariatur duis deserunt mollit dolore cillum minim tempor
-            enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut
-            voluptate aute id deserunt nisi.
+            {loanData?.extended_details?.loan_information?.use_case || "---------"}
           </p>
         </div>
 
@@ -157,7 +154,7 @@ const { data : loanDetails } = useQuery(['fetch-loanDetails' , id ] , () => fetc
 
             <div className="text-start">
               <p className="font-semibold mb-3">Days Left</p>
-              <p>22 Days</p>
+              <p className="capitalize">{loanData?.extended_details?.loan_information?.tenure}</p>
             </div>
           </div>
              {/* <div className="w-10">
