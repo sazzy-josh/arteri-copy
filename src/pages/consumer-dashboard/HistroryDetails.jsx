@@ -1,21 +1,46 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import PrimaryButton from "../../components/buttons/PrimaryButton";
-
-// import components
-import Container from "../../components/container/Container";
-import Header from "../../components/head/Header";
-import MobileHeader from "../../components/head/MobileHeader";
-// import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
-import SideMenu from "../../components/nav/SideBar";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import ConsumerDashboardWrapper from "../../layouts/ConsumerDashboardWrapper";
+
+// import PrimaryButton from "../../components/buttons/PrimaryButton";
+// import components
+// import Container from "../../components/container/Container";
+// import Header from "../../components/head/Header";
+// import MobileHeader from "../../components/head/MobileHeader";
+// import HistoryPageNavigation from "../../components/history/HistoryPageNavigation";
+// import SideMenu from "../../components/nav/SideBar";
 
 // import styles
 import "../../styles/history.css";
 
 const HistoryDetails = () => {
   const { id } = useParams();
-  const [isOpen, setIsOpen] = useState(false);
+
+  //Function that fetch Loan details
+   const fetchLoanDetails = (id) => {
+     const authToken = localStorage.getItem("authToken") || sessionStorage.getItem("authToken")
+  
+     return axios.get(`${process.env.REACT_APP_BASE_URI}/loan/get?application_id=${id}` , {
+      headers: {
+        Authorization : `Bearer ${authToken}`
+      }
+     })
+
+   }
+
+const { data : loanDetails } = useQuery(['fetch-loanDetails' , id ] , () => fetchLoanDetails(id), 
+ {
+  onSuccess : (data) => {
+    // console.log(data)
+  }, 
+  refetchOnMount : false
+ }
+)
+ const loanData = loanDetails?.data?.data?.loan_application
+ console.log("loanData:" , loanData)
+
   return (
     <ConsumerDashboardWrapper selectedSidebarLink={"history"}>
       <section className="my-5 px-5">
@@ -28,12 +53,10 @@ const HistoryDetails = () => {
               <h3 className="font-medium text-lg text-left mb-2">
                 Application ID:
               </h3>
-              <p className="font-bold text-2xl text-left">#{id}</p>
+              <p className="font-bold text-2xl text-left">{id}</p>
             </div>
-            <div className="w-10 h-10 flex justify-center items-center rounded-full bg-[#EAF2FB] lg:hidden">
+            <div className={`w-10 h-10  justify-center items-center rounded-full bg-[#EAF2FB] ${loanData?.application_status === 'pending' ? "flex" : "hidden"}`}>
               <svg
-                // width="24"
-                // height="24"
                 className="w-6 h-6"
                 viewBox="0 0 24 24"
                 fill="none"
@@ -68,8 +91,19 @@ const HistoryDetails = () => {
           </div>
           <p className=" flex gap-4 items-center">
             <span className="font-medium text-lg">Status:</span>
-            <span className="capitalize bg-[#FDEDD9] text-[#F29C2B] text-base text-center w-24 h-6 leading-6 inline-block rounded-lg font-medium">
-              pending
+            <span className={`capitalize text-base text-center w-24 h-6 leading-6 inline-block rounded-lg font-medium 
+              ${
+                loanData?.application_status === "approved" &&
+                "text-[#00A03E] bg-[#E5FFEF]"
+              } ${
+                loanData?.application_status === "pending" &&
+                "text-[#F29C2B] bg-[#FDEDD9]"
+              } ${
+                loanData?.application_status === "declined" &&
+                "text-[#DE4307] bg-[#FEEDE6]"
+              }
+            `}>
+              {loanData?.application_status}
             </span>
           </p>
         </div>
@@ -80,15 +114,15 @@ const HistoryDetails = () => {
           </div>
           <div className="text-start">
             <p className="font-semibold mb-3">Collection Date & Time</p>
-            <p>22 Jun, 2022 - 10:39PM</p>
+            <p>{loanData?.extended_details?.loan_information?.approval_date}</p>
           </div>
-          <div className="text-start">
+          {/* <div className="text-start">
             <p className="font-semibold mb-3">Due Date & Time</p>
             <p>22 Jun, 2022 - 10:39PM</p>
-          </div>
+          </div> */}
           <div className="text-start">
             <p className="font-semibold mb-3">Amount</p>
-            <p>35,000</p>
+            <p>{loanData?.extended_details?.loan_information?.amount_available.toLocaleString()}</p>
           </div>
         </div>
 
@@ -96,10 +130,7 @@ const HistoryDetails = () => {
         <div className="text-start mb-10 md:w-10/12">
           <p className="font-semibold mb-3">Comment</p>
           <p>
-            Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt
-            qui esse pariatur duis deserunt mollit dolore cillum minim tempor
-            enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut
-            voluptate aute id deserunt nisi.
+            {loanData?.extended_details?.loan_information?.use_case || "---------"}
           </p>
         </div>
 
@@ -121,12 +152,12 @@ const HistoryDetails = () => {
 
             <div className="text-start">
               <p className="font-semibold mb-3">Days Left</p>
-              <p>22 Days</p>
+              <p className="capitalize">{loanData?.extended_details?.loan_information?.tenure}</p>
             </div>
           </div>
-          {/* <div className="w-10">
-                      <PrimaryButton>Repay Loan</PrimaryButton>
-                    </div> */}
+             {/* <div className="w-10">
+                <PrimaryButton>Repay Loan</PrimaryButton>
+             </div> */}
           <div className="w-full md:text-right">
             <button className=" text-white bg-secondary font-medium w-full h-14 rounded-lg  cursor-pointer md:w-44 hover:bg-[#577E2A] transition duration-200 ">
               Repay Loan
