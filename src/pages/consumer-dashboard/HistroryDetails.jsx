@@ -55,10 +55,8 @@ const { data : loanDetails } = useQuery(['fetch-loanDetails' , id ] , () => fetc
               </h3>
               <p className="font-bold text-2xl text-left">{id}</p>
             </div>
-            <div className="w-10 h-10 flex justify-center items-center rounded-full bg-[#EAF2FB] lg:hidden">
+            <div className={`w-10 h-10  justify-center items-center rounded-full bg-[#EAF2FB] ${loanData?.application_status === 'pending' ? "flex" : "hidden"}`}>
               <svg
-                // width="24"
-                // height="24"
                 className="w-6 h-6"
                 viewBox="0 0 24 24"
                 fill="none"
